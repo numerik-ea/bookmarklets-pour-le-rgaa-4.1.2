@@ -75,8 +75,8 @@
         message = message.replace("liens", "lien");
     }
 
-    alert(numberOfLinksWithoutAccessibleName + message + ".\nVoir la console pour plus de détails.");
-    console.log(numberOfLinksWithoutAccessibleName + message + " :");
+    alert(message + ".\nVoir la console pour plus de détails.");
+    console.log(message + " :");
     linksWithoutAccessibleName.forEach(link => {
         console.log(link);
     });
