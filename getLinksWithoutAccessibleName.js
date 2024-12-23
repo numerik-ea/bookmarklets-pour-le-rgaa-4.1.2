@@ -62,11 +62,21 @@
     }
 
     const linksWithoutAccessibleName = getLinksWithoutAccessibleName(document);
-    alert(
-        linksWithoutAccessibleName.length +
-        " liens n'ont pas de nom accessible.\nVoir la console pour plus de détails."
-    );
-    console.log(linksWithoutAccessibleName.length + " liens sans nom accessible :");
+    const numberOfLinksWithoutAccessibleName = linksWithoutAccessibleName.length;
+
+    if (numberOfLinksWithoutAccessibleName === 0) {
+        alert("Tous les liens ont un nom accessible.");
+        return;
+    }
+
+    let message = numberOfLinksWithoutAccessibleName + " liens sans nom accessible";
+
+    if (numberOfLinksWithoutAccessibleName === 1) {
+        message = message.replace("liens", "lien");
+    }
+
+    alert(numberOfLinksWithoutAccessibleName + message + ".\nVoir la console pour plus de détails.");
+    console.log(numberOfLinksWithoutAccessibleName + message + " :");
     linksWithoutAccessibleName.forEach(link => {
         console.log(link);
     });
