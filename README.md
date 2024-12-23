@@ -1,5 +1,7 @@
 # a11y-scripts
 
+TODO: fix script when a child of a link is with display:"none" or hidden
+
 English
 ### Get links without accessible name (bookmarklet)
 ```javascript
