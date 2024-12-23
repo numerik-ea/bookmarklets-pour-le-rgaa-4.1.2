@@ -1,7 +1,5 @@
 (function () {
-    // Function to get the accessible name of a link
     function getLinkAccessibleName(element) {
-        // Check aria-labelledby
         if (element.hasAttribute('aria-labelledby')) {
             const labelledById = element.getAttribute('aria-labelledby');
             const labelledByElement = document.getElementById(labelledById);
@@ -11,7 +9,6 @@
             }
         }
 
-        // Check aria-label
         if (element.hasAttribute('aria-label')) {
             return element.getAttribute('aria-label').trim();
         }
@@ -20,6 +17,12 @@
         let accessibleName = "";
 
         function getLinkAccessibleNameRecursive(node) {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+                if (getComputedStyle(node).display === "none") {
+                    return;
+                }
+            }
+
             if (node.nodeType === Node.TEXT_NODE) {
                 accessibleName += node.textContent.trim() + " ";
             } else if (node.nodeType === Node.ELEMENT_NODE && node.tagName === "IMG" && node.hasAttribute("alt")) {
@@ -31,14 +34,12 @@
 
         getLinkAccessibleNameRecursive(element);
 
-        // Remove trailing whitespace
         accessibleName = accessibleName.trim();
 
         if (accessibleName !== "") {
             return accessibleName;
         }
 
-        // Check title
         if (element.hasAttribute('title')) {
             return element.getAttribute('title').trim();
         }
