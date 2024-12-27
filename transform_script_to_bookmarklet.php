@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Script permettant de transformer un script javascript en bookmarklet
  * 
@@ -20,7 +21,8 @@ if (!is_readable($argv[1])) {
     exit;
 }
 
-function remove_javascript_comments($js_code) {
+function remove_javascript_comments($js_code)
+{
     $js_code = preg_replace('/\/\*.*?\*\//s', '', $js_code); // remove multi-line comments
     $js_code = preg_replace('/\/\/.*/', '', $js_code); // remove single-line comments
     return $js_code;
@@ -32,11 +34,6 @@ $js_code = preg_replace('/\s+/', ' ', $js_code);
 $js_code = trim($js_code);
 
 $bookmarklet = 'javascript:' . $js_code;
-file_put_contents($argv[1] . "-bookmarklet.js", $bookmarklet);
+file_put_contents(str_replace('.js', '', $argv[1]) . '-bookmarklet.js', $bookmarklet);
 
 echo "Le script a bien été transformé en bookmarklet.\n";
-
-
-
-
-
