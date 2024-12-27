@@ -1,20 +1,5 @@
 (function () {
     function getLinkAccessibleName(element) {
-        if (element.hasAttribute('aria-labelledby')) {
-            const labelledById = element.getAttribute('aria-labelledby');
-            const labelledByElement = document.getElementById(labelledById);
-
-            if (labelledByElement) {
-                return labelledByElement.textContent.trim();
-            }
-        }
-
-        if (element.hasAttribute('aria-label')) {
-            return element.getAttribute('aria-label').trim();
-        }
-
-        let accessibleName = "";
-
         function isElementNodeHidden(node) {
             if (
                 node.hasAttribute('aria-hidden') &&
@@ -34,6 +19,39 @@
 
             return false;
         }
+
+        function hasParentHidden(element) {
+            let parent = element.parentElement;
+
+            while (parent) {
+                if (isElementNodeHidden(parent)) {
+                    return true;
+                }
+
+                parent = parent.parentElement;
+            }
+
+            return false;
+        }
+
+        if (hasParentHidden(element)) {
+            return null;
+        }
+
+        if (element.hasAttribute('aria-labelledby')) {
+            const labelledById = element.getAttribute('aria-labelledby');
+            const labelledByElement = document.getElementById(labelledById);
+
+            if (labelledByElement) {
+                return labelledByElement.textContent.trim();
+            }
+        }
+
+        if (element.hasAttribute('aria-label')) {
+            return element.getAttribute('aria-label').trim();
+        }
+
+        let accessibleName = "";
 
         function getLinkAccessibleNameRecursive(node) {
             if (node.nodeType === Node.ELEMENT_NODE) {
