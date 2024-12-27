@@ -68,7 +68,7 @@
     }
 
     function getLinksWithoutAccessibleName(parentElement) {
-        const links = parentElement.querySelectorAll('a');
+        const links = parentElement.querySelectorAll('a[href]');
         const linksWithoutAccessibleName = [];
 
         links.forEach(link => {
@@ -98,6 +98,7 @@
 
     alert(message + ".\nVoir la console pour plus de détails.");
     console.log(message + " :");
+
     linksWithoutAccessibleName.forEach(link => {
         console.log(link);
     });
