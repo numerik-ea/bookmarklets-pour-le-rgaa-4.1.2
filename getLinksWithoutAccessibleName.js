@@ -13,7 +13,6 @@
             return element.getAttribute('aria-label').trim();
         }
 
-        // Concatenate <img alt> attributes and text nodes
         let accessibleName = "";
 
         function isElementNodeHidden(node) {
@@ -43,6 +42,7 @@
                 }
             }
 
+            // Concatenate <img alt> attributes and text nodes
             if (node.nodeType === Node.TEXT_NODE) {
                 accessibleName += node.textContent.trim() + " ";
             } else if (node.nodeType === Node.ELEMENT_NODE && node.tagName === "IMG" && node.hasAttribute("alt")) {
