@@ -30,8 +30,8 @@ $js_code = file_get_contents($argv[1]);
 $js_code = remove_javascript_comments($js_code);
 $js_code = preg_replace('/\s+/', ' ', $js_code);
 $js_code = trim($js_code);
-$bookmarklet = 'javascript:' . $js_code;
 
+$bookmarklet = 'javascript:' . $js_code;
 file_put_contents($argv[1] . "-bookmarklet.js", $bookmarklet);
 
 echo "Le script a bien été transformé en bookmarklet.\n";
