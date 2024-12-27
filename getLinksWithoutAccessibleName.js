@@ -16,21 +16,29 @@
         // Concatenate <img alt> attributes and text nodes
         let accessibleName = "";
 
+        function isElementNodeHidden(node) {
+            if (
+                node.hasAttribute('aria-hidden') &&
+                node.getAttribute('aria-hidden') === 'true'
+            ) {
+                return true;
+            }
+
+            const computedStyle = getComputedStyle(node);
+
+            if (
+                computedStyle.display === "none" ||
+                computedStyle.visibility === "hidden"
+            ) {
+                return true;
+            }
+
+            return false;
+        }
+
         function getLinkAccessibleNameRecursive(node) {
             if (node.nodeType === Node.ELEMENT_NODE) {
-                if (
-                    node.hasAttribute('aria-hidden') &&
-                    node.getAttribute('aria-hidden') === 'true'
-                ) {
-                    return;
-                }
-
-                const computedStyle = getComputedStyle(node);
-
-                if (
-                    computedStyle.display === "none" ||
-                    computedStyle.visibility === "hidden"
-                ) {
+                if (isElementNodeHidden(node)) {
                     return;
                 }
             }
