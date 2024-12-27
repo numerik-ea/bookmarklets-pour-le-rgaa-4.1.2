@@ -18,7 +18,19 @@
 
         function getLinkAccessibleNameRecursive(node) {
             if (node.nodeType === Node.ELEMENT_NODE) {
-                if (getComputedStyle(node).display === "none") {
+                if (
+                    node.hasAttribute('aria-hidden') &&
+                    node.getAttribute('aria-hidden') === 'true'
+                ) {
+                    return;
+                }
+
+                const computedStyle = getComputedStyle(node);
+
+                if (
+                    computedStyle.display === "none" ||
+                    computedStyle.visibility === "hidden"
+                ) {
                     return;
                 }
             }
