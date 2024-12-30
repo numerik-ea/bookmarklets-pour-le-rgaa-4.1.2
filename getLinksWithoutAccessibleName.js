@@ -1,39 +1,39 @@
 (function () {
+    function isElementNodeHidden(element) {
+        if (
+            element.hasAttribute('aria-hidden') &&
+            element.getAttribute('aria-hidden') === 'true'
+        ) {
+            return true;
+        }
+
+        const computedStyle = getComputedStyle(element);
+
+        if (
+            computedStyle.display === "none" ||
+            computedStyle.visibility === "hidden"
+        ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    function hasParentHidden(element) {
+        let parent = element.parentElement;
+
+        while (parent) {
+            if (isElementNodeHidden(parent)) {
+                return true;
+            }
+
+            parent = parent.parentElement;
+        }
+
+        return false;
+    }
+
     function getLinkAccessibleName(element) {
-        function isElementNodeHidden(node) {
-            if (
-                node.hasAttribute('aria-hidden') &&
-                node.getAttribute('aria-hidden') === 'true'
-            ) {
-                return true;
-            }
-
-            const computedStyle = getComputedStyle(node);
-
-            if (
-                computedStyle.display === "none" ||
-                computedStyle.visibility === "hidden"
-            ) {
-                return true;
-            }
-
-            return false;
-        }
-
-        function hasParentHidden(element) {
-            let parent = element.parentElement;
-
-            while (parent) {
-                if (isElementNodeHidden(parent)) {
-                    return true;
-                }
-
-                parent = parent.parentElement;
-            }
-
-            return false;
-        }
-
         if (hasParentHidden(element)) {
             return null;
         }
