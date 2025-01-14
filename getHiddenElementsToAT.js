@@ -42,9 +42,10 @@
             if (isExcludedNode(element)) {
                 return;
             }
-            
+
             if (isElementHiddenToAT(element)) {
                 hiddenElementsToAT.push(element);
+                element.style.outline = "2px solid red";
             }
         });
 
@@ -59,13 +60,16 @@
         return;
     }
 
-    let message = numberOfHiddenElementsToAT + " éléments cachés aux TA";
+    let message = numberOfHiddenElementsToAT + " éléments cachés aux TA.";
 
     if (numberOfHiddenElementsToAT === 1) {
         message = message.replace("éléments", "élément");
     }
 
-    alert(message + ".\nVoir la console pour plus de détails.");
+    alert(
+        message +
+        "\nLes éléments visibles mais cachés aux TA sont encadrés en rouge." +
+        "\nVoir la console pour plus de détails.");
     console.log(message + " :");
 
     hiddenElementsToAT.forEach(element => {
