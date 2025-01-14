@@ -24,11 +24,25 @@
         return false;
     }
 
+    function isExcludedNode(node) {
+        if (node.nodeType === Node.ELEMENT_NODE && (
+            node.tagName === "STYLE" || node.tagName === "SCRIPT"
+        )) {
+            return true;
+        }
+
+        return false;
+    }
+
     function getHiddenElementsToAT(parentElement) {
         const elements = parentElement.querySelectorAll('*');
         const hiddenElementsToAT = [];
 
         elements.forEach(element => {
+            if (isExcludedNode(element)) {
+                return;
+            }
+            
             if (isElementHiddenToAT(element)) {
                 hiddenElementsToAT.push(element);
             }
