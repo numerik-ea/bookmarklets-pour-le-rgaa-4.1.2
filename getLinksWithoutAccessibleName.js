@@ -1,5 +1,5 @@
 (function () {
-    function isElementNodeHidden(element) {
+    function isElementHidden(element) {
         if (
             element.hasAttribute('aria-hidden') &&
             element.getAttribute('aria-hidden') === 'true'
@@ -23,7 +23,7 @@
         let parent = element.parentElement;
 
         while (parent) {
-            if (isElementNodeHidden(parent)) {
+            if (isElementHidden(parent)) {
                 return true;
             }
 
@@ -55,7 +55,7 @@
 
         function getLinkAccessibleNameRecursive(node) {
             if (node.nodeType === Node.ELEMENT_NODE) {
-                if (isElementNodeHidden(node)) {
+                if (isElementHidden(node)) {
                     return;
                 }
             }
