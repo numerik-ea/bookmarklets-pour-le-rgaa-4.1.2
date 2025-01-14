@@ -18,9 +18,9 @@
         function getAnchorLabelRecursive(node) {
             // Concatenate <img alt> attributes and text nodes
             if (node.nodeType === Node.TEXT_NODE) {
-                accessibleName += node.textContent.trim() + " ";
+                label += node.textContent.trim() + " ";
             } else if (node.nodeType === Node.ELEMENT_NODE && node.tagName === "IMG" && node.hasAttribute("alt")) {
-                accessibleName += node.getAttribute("alt").trim() + " ";
+                label += node.getAttribute("alt").trim() + " ";
             } else if (node.hasChildNodes()) {
                 node.childNodes.forEach(childNode => getAnchorLabelRecursive(childNode));
             }
@@ -46,9 +46,9 @@
         const anchorsWithoutLabel = [];
 
         anchors.forEach(link => {
-            const accessibleName = getAnchorLabel(link);
+            const label = getAnchorLabel(link);
 
-            if (accessibleName === null) {
+            if (label === null) {
                 anchorsWithoutLabel.push(link);
             }
         });
@@ -60,11 +60,11 @@
     const numberOfAnchorsWithoutLabel = anchorsWithoutLabel.length;
 
     if (numberOfAnchorsWithoutLabel === 0) {
-        alert("Tous les liens ont un nom accessible.");
+        alert("Toutes les ancres ont un intitulé.");
         return;
     }
 
-    let message = numberOfAnchorsWithoutLabel + " liens sans nom accessible";
+    let message = numberOfAnchorsWithoutLabel + " ancres sans intitulé";
 
     if (numberOfAnchorsWithoutLabel === 1) {
         message = message.replace("liens", "lien");
