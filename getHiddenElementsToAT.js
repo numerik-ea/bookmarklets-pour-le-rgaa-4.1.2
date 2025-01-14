@@ -15,8 +15,7 @@
 
         if (
             computedStyle.display === "none" ||
-            computedStyle.visibility === "hidden" ||
-            computedStyle.fontSize === "0px"
+            computedStyle.visibility === "hidden"
         ) {
             return true;
         }
