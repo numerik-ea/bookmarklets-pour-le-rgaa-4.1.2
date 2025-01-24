@@ -59,14 +59,14 @@
         return;
     }
 
-    let message = numberOfHiddenElementsToAT + " éléments cachés aux TA.";
+    let message = numberOfHiddenElementsToAT + " éléments cachés aux TA";
 
     if (numberOfHiddenElementsToAT === 1) {
         message = message.replace("éléments", "élément");
     }
 
     alert(
-        message +
+        message + "." +
         "\nLes éléments visibles mais cachés aux TA sont encadrés en rouge." +
         "\nVoir la console pour plus de détails.");
     console.log(message + " :");
