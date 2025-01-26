@@ -30,7 +30,7 @@ function remove_javascript_comments($js_code)
 
 $js_code = file_get_contents($argv[1]);
 $js_code = remove_javascript_comments($js_code);
-$js_code = preg_replace('/\s+/', ' ', $js_code);
+$js_code = preg_replace('/\s+/', ' ', $js_code); // Replace multiple spaces by a single space
 $js_code = trim($js_code);
 
 $bookmarklet = 'javascript:' . $js_code;
