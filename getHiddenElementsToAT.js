@@ -1,12 +1,5 @@
 (function () {
-    function isElementHiddenToAT(element) {
-        if (
-            element.hasAttribute('aria-hidden') &&
-            element.getAttribute('aria-hidden') === 'true'
-        ) {
-            return true;
-        }
-
+    function isElementHidden(element) {
         if (element.hasAttribute('hidden')) {
             return true;
         }
@@ -16,6 +9,17 @@
         if (
             computedStyle.display === "none" ||
             computedStyle.visibility === "hidden"
+        ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    function isElementHiddenToAT(element) {
+        if (
+            element.hasAttribute('aria-hidden') &&
+            element.getAttribute('aria-hidden') === 'true'
         ) {
             return true;
         }
@@ -43,8 +47,13 @@
             }
 
             if (isElementHiddenToAT(element)) {
+                element.style.border = "1px solid yellow";
+                element.style.outline = "1px solid blue";
+                element.style.outlineOffset = "2px";
+
                 hiddenElementsToAT.push(element);
-                element.style.outline = "2px solid red";
+            } else if (isElementHidden(element)) {
+                hiddenElementsToAT.push(element);
             }
         });
 
