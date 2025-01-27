@@ -51,6 +51,8 @@
                 element.style.border = "1px solid yellow";
                 element.style.outline = "1px solid blue";
                 element.style.outlineOffset = "2px";
+                element.style.background = "red";
+                element.style.backgroundColor = "red";
 
                 elementsHiddenOnlyToAT.push(element);
             } else if (isElementHidden(element)) {
@@ -107,11 +109,10 @@
         messageNumberOfElementsHiddenOnlyToAT + "." +
         "\n" + messageNumberOfHiddenElements + "." +
         "\n" +
-        "\nLes éléments seulement cachés aux TA sont entourés de jaune et bleu." +
-        "\n(Utiliser Stylus pour les afficher en rouge si nécessaire)" +
+        "\nLes éléments seulement cachés aux TA vont :" +
+        "\n - être entourés de jaune et bleu" +
+        "\n - avoir un fond rouge" +
         "\n" +
-        "\nOuvrir la console pour voir la liste de tous les éléments cachés aux TA."
+        "\nOuvrir la console pour voir la liste de tous les éléments cachés aux TA. Appuyer sur OK."
     );
-
-    
 })();
