@@ -47,9 +47,8 @@
             }
 
             if (isElementHiddenToAT(element)) {
-                element.style.border = "1px solid yellow";
-                element.style.outline = "1px solid blue";
-                element.style.outlineOffset = "2px";
+                element.style.background = "red !important";
+                element.style.backgroundColor = "red !important";
 
                 hiddenElementsToAT.push(element);
             } else if (isElementHidden(element)) {
@@ -76,7 +75,8 @@
 
     alert(
         message + "." +
-        "\nLes éléments visibles mais cachés aux TA sont encadrés en rouge." +
+        "\nLes éléments seulement cachés aux TA ont une couleur d'arrière-plan rouge." +
+        "\nLes éléments cachés sont affichés dans la console." +
         "\nVoir la console pour plus de détails.");
     console.log(message + " :");
 
