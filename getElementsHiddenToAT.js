@@ -109,10 +109,11 @@
         messageNumberOfElementsHiddenOnlyToAT + "." +
         "\n" + messageNumberOfHiddenElements + "." +
         "\n" +
-        "\nLes éléments seulement cachés aux TA vont :" +
+        "\nLes éléments cachés avec aria-hidden=\"true\" vont :" +
         "\n - être entourés de jaune et bleu" +
         "\n - avoir un fond rouge" +
         "\n" +
-        "\nOuvrir la console pour voir la liste de tous les éléments cachés aux TA. Appuyer sur OK."
+        "\nOuvrir la console pour voir la liste de tous les éléments cachés aux TA." + 
+        "\nAppuyer sur OK."
     );
 })();
