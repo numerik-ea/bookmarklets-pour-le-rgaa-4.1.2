@@ -16,7 +16,7 @@
         return false;
     }
 
-    function isElementHiddenToAT(element) {
+    function isElementHiddenOnlyToAT(element) {
         if (
             element.hasAttribute('aria-hidden') &&
             element.getAttribute('aria-hidden') === 'true'
@@ -37,50 +37,81 @@
         return false;
     }
 
-    function getHiddenElementsToAT(parentElement) {
+    function getElementsHiddenToAT(parentElement) {
         const elements = parentElement.querySelectorAll('*');
-        const hiddenElementsToAT = [];
+        const elementsHiddenOnlyToAT = [];
+        const hiddenElements = [];
 
         elements.forEach(element => {
             if (isExcludedNode(element)) {
                 return;
             }
 
-            if (isElementHiddenToAT(element)) {
-                element.style.background = "red !important";
-                element.style.backgroundColor = "red !important";
+            if (isElementHiddenOnlyToAT(element)) {
+                element.style.border = "1px solid yellow";
+                element.style.outline = "1px solid blue";
+                element.style.outlineOffset = "2px";
 
-                hiddenElementsToAT.push(element);
+                elementsHiddenOnlyToAT.push(element);
             } else if (isElementHidden(element)) {
-                hiddenElementsToAT.push(element);
+                hiddenElements.push(element);
             }
         });
 
-        return hiddenElementsToAT;
+        return [
+            elementsHiddenOnlyToAT,
+            hiddenElements
+        ];
     }
 
-    const hiddenElementsToAT = getHiddenElementsToAT(document.body);
-    const numberOfHiddenElementsToAT = hiddenElementsToAT.length;
+    const [elementsHiddenOnlyToAT, hiddenElements] = getElementsHiddenToAT(document.body);
+    const numberOfElementsHiddenOnlyToAT = elementsHiddenOnlyToAT.length;
+    const numberOfHiddenElements = hiddenElements.length;
+    const numberOfElementsHiddenToAT = numberOfElementsHiddenOnlyToAT + numberOfHiddenElements;
 
-    if (numberOfHiddenElementsToAT === 0) {
+    if (numberOfElementsHiddenToAT === 0) {
         alert("Aucun élément caché aux TA.");
         return;
     }
 
-    let message = numberOfHiddenElementsToAT + " éléments cachés aux TA";
+    let messageNumberOfElementsHiddenOnlyToAT = numberOfElementsHiddenOnlyToAT + ' éléments cachés aux TA avec aria-hidden="true"';
+    let messageNumberOfHiddenElements = numberOfHiddenElements + ' éléments cachés pour tout le monde';
 
-    if (numberOfHiddenElementsToAT === 1) {
-        message = message.replace("éléments", "élément");
+    if (numberOfElementsHiddenOnlyToAT === 0) {
+        messageNumberOfElementsHiddenOnlyToAT = 'Aucun élément caché aux TA avec aria-hidden="true"';
     }
 
-    alert(
-        message + "." +
-        "\nLes éléments seulement cachés aux TA ont une couleur d'arrière-plan rouge." +
-        "\nLes éléments cachés sont affichés dans la console." +
-        "\nVoir la console pour plus de détails.");
-    console.log(message + " :");
+    if (numberOfHiddenElements === 0) {
+        messageNumberOfHiddenElements = 'Aucun élément caché pour tout le monde';
+    }
 
-    hiddenElementsToAT.forEach(element => {
+    if (numberOfElementsHiddenOnlyToAT === 1) {
+        messageNumberOfElementsHiddenOnlyToAT = messageNumberOfElementsHiddenOnlyToAT.replace("éléments", "élément");
+    }
+
+    if (numberOfHiddenElements === 1) {
+        messageNumberOfHiddenElements = messageNumberOfHiddenElements.replace("éléments", "élément");
+    }
+
+    console.log(messageNumberOfElementsHiddenOnlyToAT + " :");
+    elementsHiddenOnlyToAT.forEach(element => {
         console.log(element);
     });
+
+    console.log(messageNumberOfHiddenElements + " :");
+    hiddenElements.forEach(element => {
+        console.log(element);
+    });
+
+    alert(
+        messageNumberOfElementsHiddenOnlyToAT + "." +
+        "\n" + messageNumberOfHiddenElements + "." +
+        "\n" +
+        "\nLes éléments seulement cachés aux TA sont entourés de jaune et bleu." +
+        "\n(Utiliser Stylus pour les afficher en rouge si nécessaire)" +
+        "\n" +
+        "\nOuvrir la console pour voir la liste de tous les éléments cachés aux TA."
+    );
+
+    
 })();
