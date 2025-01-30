@@ -7,27 +7,38 @@
 </head>
 <body>
     <a href="#">Default</a>
+
+    <!-- Liens cachés aux TA -->
+    <a href="#" hidden>Hidden</a>
     <a href="#" style="visibility: hidden;">Visibility hidden</a>
     <a href="#" style="font-size: 0;">Font size 0</a>
     <a href="#" aria-hidden="true">Aria hidden</a>
     <a href="#" style="display: none;">Display none</a>
+
+    <!-- sr-only -->
     <a href="#">
         <img alt="" src="image.png"/>
         <span class="sr-only">Image</span>
     </a>
+
+    <!-- img alt vide -->
     <a href="#">
         <img alt="" src="image.png"/>
     </a>
+
+    <!-- a avec contenu aria-hidden -->
     <a href="#">
         <span aria-hidden="true">Span aria hidden</span>
     </a>
     <a href="#">
         <span style="display: none;">A span display none</span>
     </a>
+
     <a href="#">
         <img alt="" src="image.png"/>
         <span style="font-size: 0;">A span display none</span>
     </a>
+
     <a href="#" title="toto">
         <img alt="" src="image.png"/>
         <span style="display: none;">A span display none</span>
@@ -40,10 +51,15 @@
     <a href="#" aria-labelledby="toto">
         <img alt="" src="image.png"/>
     </a>
+
     <!-- role link -->
     <a role="link">Link</a>
     <div role="link">Div</div>
-    <a role="link"><span aria-hidden="true">A role link Span aria hidden</span></a>
-    <div role="link"><span aria-hidden="true">div role link Span aria hidden</span></div>
+    <a role="link">
+        <span aria-hidden="true">A role link Span aria hidden</span>
+    </a>
+    <div role="link">
+        <span aria-hidden="true">div role link Span aria hidden</span>
+    </div>
 </body>
 </html>
