@@ -1,4 +1,7 @@
 (function () {
+    const IS_HIDDEN = 1;
+    const HAS_NO_ACCESSIBLE_NAME = 2;
+
     function isElementHidden(element) {
         if (
             element.hasAttribute('aria-hidden') &&
@@ -7,11 +10,16 @@
             return true;
         }
 
+        if (element.hasAttribute('hidden')) {
+            return true;
+        }
+
         const computedStyle = getComputedStyle(element);
 
         if (
             computedStyle.display === "none" ||
-            computedStyle.visibility === "hidden"
+            computedStyle.visibility === "hidden" ||
+            computedStyle.fontSize === "0px"
         ) {
             return true;
         }
@@ -19,25 +27,7 @@
         return false;
     }
 
-    function hasParentHidden(element) {
-        let parent = element.parentElement;
-
-        while (parent) {
-            if (isElementHidden(parent)) {
-                return true;
-            }
-
-            parent = parent.parentElement;
-        }
-
-        return false;
-    }
-
     function getLinkAccessibleName(element) {
-        if (hasParentHidden(element)) {
-            return null;
-        }
-
         if (element.hasAttribute('aria-labelledby')) {
             const labelledById = element.getAttribute('aria-labelledby');
             const labelledByElement = document.getElementById(labelledById);
@@ -56,7 +46,7 @@
         function getLinkAccessibleNameRecursive(node) {
             if (node.nodeType === Node.ELEMENT_NODE) {
                 if (isElementHidden(node)) {
-                    return;
+                    return null;
                 }
             }
 
@@ -70,7 +60,9 @@
             }
         }
 
-        getLinkAccessibleNameRecursive(element);
+        if (null === getLinkAccessibleNameRecursive(element)) {
+            return IS_HIDDEN;
+        }
 
         accessibleName = accessibleName.trim();
 
@@ -82,7 +74,7 @@
             return element.getAttribute('title').trim();
         }
 
-        return null;
+        return HAS_NO_ACCESSIBLE_NAME;
     }
 
     function getLinksWithoutAccessibleName(parentElement) {
@@ -92,7 +84,7 @@
         links.forEach(link => {
             const accessibleName = getLinkAccessibleName(link);
 
-            if (accessibleName === null) {
+            if (accessibleName === HAS_NO_ACCESSIBLE_NAME) {
                 linksWithoutAccessibleName.push(link);
             }
         });
