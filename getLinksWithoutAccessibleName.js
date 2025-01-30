@@ -19,6 +19,7 @@
         if (
             computedStyle.display === "none" ||
             computedStyle.visibility === "hidden" ||
+            // Hide elements with font-size: 0 as they are not rendered on mobile
             computedStyle.fontSize === "0px"
         ) {
             return true;
