@@ -29,7 +29,10 @@
 
     function isExcludedNode(node) {
         if (node.nodeType === Node.ELEMENT_NODE && (
-            node.tagName === "STYLE" || node.tagName === "SCRIPT"
+            node.tagName === "STYLE" ||
+            node.tagName === "SCRIPT" ||
+            node.tagName === "NOSCRIPT" ||
+            node.tagName === "LINK"
         )) {
             return true;
         }
