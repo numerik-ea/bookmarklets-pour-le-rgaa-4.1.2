@@ -1,8 +1,6 @@
 # a11y-scripts
 
-Scripts for French RGAA
-
-Créer bookmarklet :  
+Create a bookmarklet :  
 ```bash
-php transform_script_to_bookmarklet.php <nom_script>.js
+php transform_script_to_bookmarklet.php <path_to_script_name>.js
 ```
