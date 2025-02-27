@@ -1,7 +1,4 @@
 (function () {
-    const IS_HIDDEN = 1;
-    const HAS_NO_ACCESSIBLE_NAME = 2;
-
     function isElementHidden(element) {
         if (
             element.hasAttribute('aria-hidden') &&
@@ -10,17 +7,11 @@
             return true;
         }
 
-        if (element.hasAttribute('hidden')) {
-            return true;
-        }
-
         const computedStyle = getComputedStyle(element);
 
         if (
             computedStyle.display === "none" ||
-            computedStyle.visibility === "hidden" ||
-            // Hide elements with font-size: 0 as they are not rendered on mobile
-            computedStyle.fontSize === "0px"
+            computedStyle.visibility === "hidden"
         ) {
             return true;
         }
@@ -28,7 +19,25 @@
         return false;
     }
 
+    function hasParentHidden(element) {
+        let parent = element.parentElement;
+
+        while (parent) {
+            if (isElementHidden(parent)) {
+                return true;
+            }
+
+            parent = parent.parentElement;
+        }
+
+        return false;
+    }
+
     function getLinkAccessibleName(element) {
+        if (hasParentHidden(element)) {
+            return null;
+        }
+
         if (element.hasAttribute('aria-labelledby')) {
             const labelledById = element.getAttribute('aria-labelledby');
             const labelledByElement = document.getElementById(labelledById);
@@ -47,7 +56,7 @@
         function getLinkAccessibleNameRecursive(node) {
             if (node.nodeType === Node.ELEMENT_NODE) {
                 if (isElementHidden(node)) {
-                    return null;
+                    return;
                 }
             }
 
@@ -61,9 +70,7 @@
             }
         }
 
-        if (null === getLinkAccessibleNameRecursive(element)) {
-            return IS_HIDDEN;
-        }
+        getLinkAccessibleNameRecursive(element);
 
         accessibleName = accessibleName.trim();
 
@@ -75,17 +82,17 @@
             return element.getAttribute('title').trim();
         }
 
-        return HAS_NO_ACCESSIBLE_NAME;
+        return null;
     }
 
     function getLinksWithoutAccessibleName(parentElement) {
-        const links = parentElement.querySelectorAll('a[href], [role="link"]');
+        const links = parentElement.querySelectorAll('*');
         const linksWithoutAccessibleName = [];
 
         links.forEach(link => {
             const accessibleName = getLinkAccessibleName(link);
 
-            if (accessibleName === HAS_NO_ACCESSIBLE_NAME) {
+            if (accessibleName === null) {
                 linksWithoutAccessibleName.push(link);
             }
         });
@@ -93,7 +100,7 @@
         return linksWithoutAccessibleName;
     }
 
-    const linksWithoutAccessibleName = getLinksWithoutAccessibleName(document);
+    const linksWithoutAccessibleName = getLinksWithoutAccessibleName(document.body);
     const numberOfLinksWithoutAccessibleName = linksWithoutAccessibleName.length;
 
     if (numberOfLinksWithoutAccessibleName === 0) {
