@@ -1,9 +1,16 @@
 (function () {
     function isLink(node) {
         if (
-            node.nodeType === Node.ELEMENT_NODE &&
-            node.tagName === "A" &&
-            node.hasAttribute("href")
+            node.nodeType === Node.ELEMENT_NODE && (
+                (
+                    node.tagName === "A" &&
+                    node.hasAttribute("href")
+                ) || (
+                    node.hasAttribute("role") &&
+                    node.getAttribute("role").toLowerCase() === "link"
+                )
+            )
+            
         ) {
             return true;
         }
