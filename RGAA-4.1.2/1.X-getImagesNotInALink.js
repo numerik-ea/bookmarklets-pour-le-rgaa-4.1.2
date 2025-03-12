@@ -34,8 +34,8 @@
 
     function getImagesNotInALink(parentElement) {
         const images = parentElement.querySelectorAll(
-            'img:not([role="presentation"]),' +
-            '[role="img"]:not([role="presentation"])'
+            'img:not([role="presentation"]):not([aria-hidden="true"]),' +
+            '[role="img"]:not([role="presentation"]):not([aria-hidden="true"])'
         );
         const imagesNotInALink = [];
 
