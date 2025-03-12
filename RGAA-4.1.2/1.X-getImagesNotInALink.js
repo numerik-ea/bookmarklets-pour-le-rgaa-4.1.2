@@ -33,7 +33,7 @@
     }
 
     function getImagesNotInALink(parentElement) {
-        const images = parentElement.querySelectorAll('img');
+        const images = parentElement.querySelectorAll('img:not([role="presentation"])');
         const imagesNotInALink = [];
 
         images.forEach(image => {
