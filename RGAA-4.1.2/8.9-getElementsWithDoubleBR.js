@@ -55,7 +55,7 @@
     recursiveFindAllChildrenWithDoubleBR(document.body, results);
 
     if (results.length > 0) {
-        const message = (
+        let message = (
             results.length + " éléments avec double <br>.\n" +
             "Plus de détails dans la console."
         );
@@ -65,7 +65,6 @@
         }
 
         alert(message);
-
         results.forEach(element => console.log(element));
     } else {
         alert("Pas d'éléments avec double <br>.");
