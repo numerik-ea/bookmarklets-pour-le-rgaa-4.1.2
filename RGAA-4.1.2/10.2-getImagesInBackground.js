@@ -13,5 +13,16 @@ function findElementsWithBackgroundImage() {
 
 // Example usage:
 const elementsWithBgImage = findElementsWithBackgroundImage();
-alert(`${elementsWithBgImage.length} éléments avec un background image`);
+const message = `${elementsWithBgImage.length} éléments avec un background image`;
+
+if (elementsWithBgImage.length === 0) {
+    alert("Aucun élément avec un background image.");
+    return;
+}
+
+if (elementsWithBgImage.length === 1) {
+    alert("1 élément avec un background image.");
+}
+
+alert(message);
 elementsWithBgImage.forEach(el => console.log(el));
