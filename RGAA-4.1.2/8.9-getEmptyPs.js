@@ -17,11 +17,12 @@
 
     if (countEmptyPs === 0) {
         alert("Pas de paragraphes vides");
+        return;
     }
 
     let message = countEmptyPs + " paragraphes vides";
 
-    if (countEmptyPs == 1) {
+    if (countEmptyPs === 1) {
         message = message.replace('vides', 'vide');
     }
 
