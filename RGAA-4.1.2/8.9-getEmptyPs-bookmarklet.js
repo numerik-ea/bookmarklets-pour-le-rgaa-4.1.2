@@ -1,0 +1,1 @@
+javascript:(function () { const paragraphs = document.querySelectorAll('p'); paragraphs.forEach(p => { const content = p.innerHTML.trim(); if (content === '&nbsp;' || content == '') { console.log(p); } }); })();
