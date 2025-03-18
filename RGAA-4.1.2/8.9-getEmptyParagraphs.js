@@ -1,33 +1,36 @@
-(function getEmptyPs() {
+(function getEmptyParagraphs() {
     // Select all <p> elements in the document
     const paragraphs = document.querySelectorAll('p');
-    const emptyPs = [];
+    const emptyParagraphs = [];
 
     // Iterate over the selected elements
     paragraphs.forEach(p => {
         // Check if the content is exactly &nbsp;
-        const content = p.innerHTML.trim();
+        let content = p.innerHTML;
 
-        if (content === '&nbsp;' || content == '') {
-            emptyPs.push(p);
+        content = content.replaceAll('&nbsp;', '');
+        content = content.trim();
+
+        if (content === '') {
+            emptyParagraphs.push(p);
         }
     });
 
-    const countEmptyPs = emptyPs.length;
+    const countEmptyParagraphs = emptyParagraphs.length;
 
-    if (countEmptyPs === 0) {
+    if (countEmptyParagraphs === 0) {
         alert("Pas de paragraphes vides");
         return;
     }
 
-    let message = countEmptyPs + " paragraphes vides";
+    let message = countEmptyParagraphs + " paragraphes vides";
 
-    if (countEmptyPs === 1) {
+    if (countEmptyParagraphs === 1) {
         message = message.replace('vides', 'vide');
     }
 
     alert(message);
-    emptyPs.forEach(p => console.log(p));
+    emptyParagraphs.forEach(p => console.log(p));
 })();
 
 
