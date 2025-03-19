@@ -104,6 +104,7 @@
         }
 
         accessibleName = accessibleName.trim();
+        // Remove all multiple spaces and replace with single space
         accessibleName = accessibleName.replace(/ +(?= )/g,'');
 
         if (accessibleName !== "") {
