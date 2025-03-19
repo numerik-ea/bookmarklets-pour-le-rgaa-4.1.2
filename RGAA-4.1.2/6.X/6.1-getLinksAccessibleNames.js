@@ -139,15 +139,15 @@
         return linksAccessibleNamesMap;
     }
 
-    const linksAccessibleNamesMap = getLinksAccessibleNames(document);
+    const linksAccessibleNamesMap = getLinksAccessibleNames(document.body);
     const numberOfLinksWithAccessibleNames = linksAccessibleNamesMap.length;
 
     if (numberOfLinksWithAccessibleNames === 0) {
-        alert("Pas de liens");
+        alert("Pas de liens avec un nom accessible dans la page.");
         return;
     }
 
-    let message = numberOfLinksWithAccessibleNames + " liens avec un nom accessible";
+    let message = numberOfLinksWithAccessibleNames + " liens avec un nom accessible dans la page";
 
     if (numberOfLinksWithAccessibleNames === 1) {
         message = message.replace("liens", "lien");
