@@ -65,7 +65,15 @@
         }
 
         alert(message);
-        results.forEach(element => console.log(element));
+        results.forEach(element => {
+            element.style.border = "1px solid yellow";
+            element.style.outline = "1px solid blue";
+            element.style.outlineOffset = "2px";
+            element.style.background = "red";
+            element.style.backgroundColor = "red";
+
+            console.log(element);
+        });
     } else {
         alert("Pas d'éléments avec double <br>.");
     }

@@ -30,7 +30,15 @@
     }
 
     alert(message);
-    emptyParagraphs.forEach(p => console.log(p));
+    emptyParagraphs.forEach(p => {
+        p.style.border = "1px solid yellow";
+        p.style.outline = "1px solid blue";
+        p.style.outlineOffset = "2px";
+        p.style.background = "red";
+        p.style.backgroundColor = "red";
+        
+        console.log(p)
+    });
 })();
 
 
