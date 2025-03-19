@@ -53,8 +53,7 @@
             // Concatenate <img alt> attributes and text nodes
             if (node.nodeType === Node.TEXT_NODE) {
                 accessibleName += node.textContent.trim() + " ";
-            } else if (
-                node.nodeType === Node.ELEMENT_NODE &&
+            } else if (node.nodeType === Node.ELEMENT_NODE &&
                 node.tagName === "IMG" && 
                 node.hasAttribute("alt")
             ) {
@@ -114,6 +113,12 @@
     console.log(message + " :");
 
     linksWithoutAccessibleName.forEach(link => {
+        link.style.border = "1px solid yellow";
+        link.style.outline = "1px solid blue";
+        link.style.outlineOffset = "2px";
+        link.style.background = "red";
+        link.style.backgroundColor = "red";
+
         console.log(link);
     });
 })();
