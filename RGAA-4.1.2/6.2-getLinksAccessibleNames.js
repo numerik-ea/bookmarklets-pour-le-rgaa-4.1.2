@@ -74,7 +74,7 @@
                 const ariaLabel = getAriaLabel(node);
 
                 if (ariaLabel !== null) {
-                    accessibleName += ariaLabel;
+                    accessibleName += ariaLabel + " ";
                     return;
                 }
 
@@ -117,45 +117,46 @@
         return HAS_NO_ACCESSIBLE_NAME;
     }
 
-    function getLinksWithoutAccessibleName(parentElement) {
+    function getLinksAccessibleNames(parentElement) {
         const links = parentElement.querySelectorAll('a[href], [role="link"]');
-        const linksWithoutAccessibleName = [];
+        const linksAccessibleNamesMap = [];
 
         links.forEach(link => {
             const accessibleName = getLinkAccessibleName(link);
 
-            if (accessibleName === HAS_NO_ACCESSIBLE_NAME) {
-                linksWithoutAccessibleName.push(link);
+            if (
+                accessibleName !== HAS_NO_ACCESSIBLE_NAME
+                && accessibleName !== IS_HIDDEN
+            ) {
+                linksAccessibleNamesMap.push({
+                    link,
+                    accessibleName
+                });
             }
         });
 
-        return linksWithoutAccessibleName;
+        return linksAccessibleNamesMap;
     }
 
-    const linksWithoutAccessibleName = getLinksWithoutAccessibleName(document);
-    const numberOfLinksWithoutAccessibleName = linksWithoutAccessibleName.length;
+    const linksAccessibleNamesMap = getLinksAccessibleNames(document);
+    const numberOfLinksWithAccessibleNames = linksAccessibleNamesMap.length;
 
-    if (numberOfLinksWithoutAccessibleName === 0) {
-        alert("Tous les liens ont un nom accessible.");
+    if (numberOfLinksWithAccessibleNames === 0) {
+        alert("Pas de liens");
         return;
     }
 
-    let message = numberOfLinksWithoutAccessibleName + " liens sans nom accessible";
+    let message = numberOfLinksWithAccessibleNames + " liens avec un nom accessible";
 
-    if (numberOfLinksWithoutAccessibleName === 1) {
+    if (numberOfLinksWithAccessibleNames === 1) {
         message = message.replace("liens", "lien");
     }
 
     alert(message + ".\nVoir la console pour plus de détails.");
     console.log(message + " :");
 
-    linksWithoutAccessibleName.forEach(link => {
-        link.style.border = "1px solid yellow";
-        link.style.outline = "1px solid blue";
-        link.style.outlineOffset = "2px";
-        link.style.background = "red";
-        link.style.backgroundColor = "red";
-
-        console.log(link);
+    linksAccessibleNamesMap.forEach(item => {
+        console.log(item.link);
+        console.log(item.accessibleName);
     });
 })();
