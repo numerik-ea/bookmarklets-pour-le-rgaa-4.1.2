@@ -33,10 +33,17 @@
     }
 
     function getImagesNotInALink(parentElement) {
-        const images = parentElement.querySelectorAll(
-            'img:not([role="presentation"]):not([aria-hidden="true"]),' +
-            '[role="img"]:not([role="presentation"]):not([aria-hidden="true"])'
-        );
+        const images = parentElement.querySelectorAll([
+            'img',
+            'area',
+            'input[type="image"]',
+            'svg',
+            'object[type="image"]',
+            'embed[type="image"]',
+            'canvas',
+            '[role="img"]',
+        ].join(','));
+            
         const imagesNotInALink = [];
 
         images.forEach(image => {
@@ -54,7 +61,7 @@
     const numberOfImagesNotInALink = imagesNotInALink.length;
 
     if (numberOfImagesNotInALink === 0) {
-        alert("Aucune image non contenue dans un lien");
+        alert("Aucune image non contenue dans un lien.");
         return;
     }
 
