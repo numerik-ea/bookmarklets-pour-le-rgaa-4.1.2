@@ -57,7 +57,7 @@
         return imagesNotInALink;
     }
 
-    const imagesNotInALink = getImagesNotInALink(document);
+    const imagesNotInALink = getImagesNotInALink(document.body);
     const numberOfImagesNotInALink = imagesNotInALink.length;
 
     if (numberOfImagesNotInALink === 0) {
