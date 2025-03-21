@@ -26,7 +26,7 @@
     let message = countEmptyParagraphs + " paragraphes vides";
 
     if (countEmptyParagraphs === 1) {
-        message = message.replace('vides', 'vide');
+        message = message.replace('paragraphes vides', 'paragraphe vide');
     }
 
     alert(message);
