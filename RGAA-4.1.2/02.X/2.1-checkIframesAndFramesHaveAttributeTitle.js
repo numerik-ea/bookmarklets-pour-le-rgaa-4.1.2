@@ -17,7 +17,7 @@
     }
 
     let message = (
-        'Test non validé : '
+        '2.1 NC : '
         + iframesAndFramesWithoutTitle.length
         + " cadres n'ont pas d'attribut title"
     );
