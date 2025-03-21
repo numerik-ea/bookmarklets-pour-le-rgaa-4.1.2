@@ -19,7 +19,7 @@
     const countEmptyParagraphs = emptyParagraphs.length;
 
     if (countEmptyParagraphs === 0) {
-        alert("Pas de paragraphes vides");
+        alert("Pas de paragraphes vides.");
         return;
     }
 
