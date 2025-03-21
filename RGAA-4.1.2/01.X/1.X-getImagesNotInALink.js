@@ -75,6 +75,30 @@
     console.log(message + " :");
 
     imagesNotInALink.forEach(image => {
+        // Create a label element
+        const label = document.createElement('div');
+        label.textContent = "image not in a link";
+        label.style.position = "absolute";
+        label.style.top = "0";
+        label.style.left = "0";
+        label.style.backgroundColor = "yellow";
+        label.style.color = "black";
+        label.style.padding = "2px 5px";
+        label.style.fontSize = "12px";
+        label.style.zIndex = "9999";
+        
+        // Position the parent container if not already positioned
+        if (image.parentElement.style.position !== 'relative'
+            && image.parentElement.style.position !== 'absolute'
+            && image.parentElement.style.position !== 'fixed'
+        ) {
+            image.style.position = 'relative';
+        }
+        
+        // Add the label
+        image.parentElement.style.position = 'relative';
+        image.parentElement.appendChild(label);
+        
         console.log(image);
     });
 })();
