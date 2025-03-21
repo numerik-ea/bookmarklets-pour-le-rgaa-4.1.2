@@ -69,10 +69,12 @@
         }
 
         alert(message);
-        results.forEach(element => {            
+        results.forEach(element => {
+            element.style.border = "2px solid red";
+            
             // Create a label element to show text
             const label = document.createElement('div');
-            label.textContent = "element with double <br>";
+            label.textContent = "élément avec double <br>";
             label.style.position = "absolute";
             label.style.top = "0";
             label.style.left = "0";

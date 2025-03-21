@@ -35,12 +35,30 @@
 
     alert(message);
     emptyParagraphs.forEach(p => {
-        p.style.border = "1px solid yellow";
-        p.style.outline = "1px solid blue";
-        p.style.outlineOffset = "2px";
-        p.style.background = "red";
-        p.style.backgroundColor = "red";
+        p.style.border = "2px solid red";
         
+        // Create a label element to show text
+        const label = document.createElement('div');
+        label.textContent = "paragraphe vide";
+        label.style.position = "absolute";
+        label.style.top = "0";
+        label.style.left = "0";
+        label.style.backgroundColor = "yellow";
+        label.style.color = "black";
+        label.style.padding = "2px 5px";
+        label.style.fontSize = "12px";
+        label.style.fontWeight = "bold";
+        label.style.zIndex = "10000";
+        label.style.pointerEvents = "none";
+        
+        // Make sure the element has position relative for absolute positioning to work
+        const computedStyle = window.getComputedStyle(p);
+        if (computedStyle.position === "static") {
+            p.style.position = "relative";
+        }
+        
+        p.appendChild(label);
+
         console.log(p)
     });
 })();
