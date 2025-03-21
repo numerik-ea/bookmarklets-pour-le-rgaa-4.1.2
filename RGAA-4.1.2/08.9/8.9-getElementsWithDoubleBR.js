@@ -69,13 +69,29 @@
         }
 
         alert(message);
-        results.forEach(element => {
-            element.style.border = "1px solid yellow";
-            element.style.outline = "1px solid blue";
-            element.style.outlineOffset = "2px";
-            element.style.background = "red";
-            element.style.backgroundColor = "red";
-
+        results.forEach(element => {            
+            // Create a label element to show text
+            const label = document.createElement('div');
+            label.textContent = "element with double <br>";
+            label.style.position = "absolute";
+            label.style.top = "0";
+            label.style.left = "0";
+            label.style.backgroundColor = "yellow";
+            label.style.color = "black";
+            label.style.padding = "2px 5px";
+            label.style.fontSize = "12px";
+            label.style.fontWeight = "bold";
+            label.style.zIndex = "10000";
+            label.style.pointerEvents = "none";
+            
+            // Make sure the element has position relative for absolute positioning to work
+            const computedStyle = window.getComputedStyle(element);
+            if (computedStyle.position === "static") {
+                element.style.position = "relative";
+            }
+            
+            element.appendChild(label);
+            
             console.log(element);
         });
     } else {
