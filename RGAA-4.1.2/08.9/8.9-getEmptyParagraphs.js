@@ -23,7 +23,11 @@
         return;
     }
 
-    let message = countEmptyParagraphs + " paragraphes vides";
+    let message = (
+        countEmptyParagraphs
+        + " paragraphes vides.\n"
+        + "Plus de détails dans la console."
+    )
 
     if (countEmptyParagraphs === 1) {
         message = message.replace('paragraphes vides', 'paragraphe vide');
