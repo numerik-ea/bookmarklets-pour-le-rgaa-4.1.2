@@ -75,6 +75,8 @@
     console.log(message + " :");
 
     imagesNotInALink.forEach(image => {
+        image.style.border = "2px solid red";
+
         // Create a label element
         const label = document.createElement('div');
         label.textContent = "image non contenue dans un lien";
