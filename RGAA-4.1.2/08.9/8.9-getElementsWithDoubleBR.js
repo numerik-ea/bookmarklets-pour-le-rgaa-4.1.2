@@ -7,7 +7,11 @@
                 continue;
             }
 
-            if (children[i + 1]?.nodeName === 'BR') {
+            if (!((i + 1) in children)) {
+                break;
+            }
+
+            if (children[i + 1].nodeName === 'BR') {
                 return true;
             }
     
