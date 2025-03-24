@@ -35,7 +35,6 @@
             <li>
                 <strong>{{ folder.title }}</strong>
                 <ul>
-                    {% assign folder_path = "RGAA-4.1.2/" | append: folder.name %}
                     {% for file in site.static_files %}
                         {% if file.path contains folder.name and file.extname == ".html" %}
                             <li>
