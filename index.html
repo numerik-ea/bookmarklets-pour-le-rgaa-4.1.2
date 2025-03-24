@@ -49,20 +49,18 @@
 
         {% if found %}
             <ul>
-                {% for folder in site.data.folders.folders %}
-                    <li>
-                        <strong>{{ folder.title }}</strong>
-                        <ul>
-                            {% for file in site.static_files %}
-                                {% if file.path contains folder.name and file.extname == ".html" %}
-                                    <li>
-                                        <a href="{{ file.path | absolute_url }}">{{ file.name }}</a>
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
-                    </li>
-                {% endfor %}
+                <li>
+                    <strong>{{ folder.title }}</strong>
+                    <ul>
+                        {% for file in site.static_files %}
+                            {% if file.path contains folder.name and file.extname == ".html" %}
+                                <li>
+                                    <a href="{{ file.path | absolute_url }}">{{ file.name }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </li>
             </ul>
         {% endif %}
     {% endfor %}
