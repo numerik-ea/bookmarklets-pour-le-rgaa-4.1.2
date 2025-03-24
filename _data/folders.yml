@@ -1,0 +1,17 @@
+folders:
+  - title: 1. Images
+    name: 01.X
+  - title: 2. Cadres
+    name: 02.X
+  - title: 6. Liens
+    name: 06.X
+  - title: 7.1 Chaque script est-il, si nécessaire, compatible avec les technologies d’assistance ?
+    name: 07.1
+  - title: 8.9 Dans chaque page web, les balises ne doivent pas être utilisées uniquement à des fins de présentation. Cette règle est-elle respectée ?
+    name: 08.9
+  - title: 9.2 Dans chaque page web, la structure du document est-elle cohérente (hors cas particuliers) ?
+    name: 09.2
+  - title: 10.2 Dans chaque page web, le contenu visible porteur d’information reste-t-il présent lorsque les feuilles de styles sont désactivées ?
+    name: 10.2
+  - title: 10.8 Pour chaque page web, les contenus cachés ont-ils vocation à être ignorés par les technologies d’assistance ?
+    name: 10.8
