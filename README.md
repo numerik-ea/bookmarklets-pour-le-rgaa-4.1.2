@@ -13,7 +13,7 @@ Pour ajouter un bookmarklet à votre navigateur :
 5. Cliquer sur "Ajouter une page" dans Google Chrome ou "Ajouter un marque-page" dans Firefox
 6. Choisir un nom pour le bookmarklet dans le champ Nom
 7. Coller le code du bookmarklet dans le champ URL
-8. Et voilà !
+8. Cliquer sur "Enregistrer" et voilà !
 9. NB : Pour utiliser le bookmarklet, il suffit de cliquer dessus
 
 ---
