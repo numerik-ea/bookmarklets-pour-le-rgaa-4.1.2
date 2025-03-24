@@ -25,8 +25,9 @@
                 {% for file in site.static_files %}
                     {% if file.path contains folder_path and file.extname == ".html"
                     %}
-                    <li><a href="{{ file.path | relative_url }}">{{ file.name }}</a>
-                    </li>
+                        <li>
+                            <a href="{{ file.path | relative_url }}">{{ file.name }}</a>
+                        </li>
                     {% endif %}
                 {% endfor %}
             </ul>
