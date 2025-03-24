@@ -1,6 +1,6 @@
 title: a11y-scripts
 description: Scripts pour évaluer les critères du RGAA
-baseurl: ""
+baseurl: "/a11y-scripts"
 theme: "minima"
 markdown: kramdown
 plugins:

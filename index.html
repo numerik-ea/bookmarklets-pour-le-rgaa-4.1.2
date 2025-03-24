@@ -21,12 +21,12 @@
         <li>
             <strong>{{ folder.title }}</strong>
             <ul>
-                {% assign folder_path = "a11y-scripts/RGAA-4.1.2/" | append: folder.name %}
+                {% assign folder_path = "RGAA-4.1.2/" | append: folder.name %}
                 {% for file in site.static_files %}
                     {% if file.path contains folder_path and file.extname == ".html"
                     %}
                         <li>
-                            <a href="{{ file.path | relative_url }}">{{ file.name }}</a>
+                            <a href="{{site.baseurl}}/{{ file.path | relative_url }}">{{ file.name }}</a>
                         </li>
                     {% endif %}
                 {% endfor %}
