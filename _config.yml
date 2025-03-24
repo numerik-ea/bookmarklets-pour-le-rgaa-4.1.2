@@ -1,0 +1,15 @@
+title: a11y-scripts
+description: Scripts pour évaluer les critères du RGAA
+baseurl: ""
+theme: "minima"
+markdown: kramdown
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+# Build settings
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - .gitignore
+  - .DS_Store
