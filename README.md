@@ -1,8 +1,23 @@
 # a11y-scripts
 
+Lien pour retrouver les bookmarklets et les pages de test des bookmarklets pour le RGAA 4.1.2 :  
+https://florentroques.github.io/a11y-scripts/
+
+---
+
+Pour ajouter un bookmarklet à votre navigateur :  
+1. Aller sur https://florentroques.github.io/a11y-scripts/
+2. Cliquer sur le lien d'un bookmarklet
+3. Copier le code du bookmarklet
+4. Faire un clic droit dans la barre des favoris/marque-pages
+5. Cliquer sur "Ajouter une page" dans Google Chrome ou "Ajouter un marque-page" dans Firefox
+6. Choisir un nom pour le bookmarklet dans le champ Nom
+7. Coller le code du bookmarklet dans le champ URL
+8. Et voilà !
+
+---
+
 Générer un bookmarklet à partir d'un script :  
 ```bash
 php transform_script_to_bookmarklet.php <path_to_script_name>.js
 ```
-Lien pour retrouver les bookmarklets et les pages de test des bookmarklets :  
-https://florentroques.github.io/a11y-scripts/
