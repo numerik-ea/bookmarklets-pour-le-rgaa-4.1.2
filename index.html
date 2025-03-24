@@ -37,7 +37,7 @@
                 <ul>
                     {% assign folder_path = "RGAA-4.1.2/" | append: folder.name %}
                     {% for file in site.static_files %}
-                        {% if file.path contains folder_path and file.extname == ".html" %}
+                        {% if file.path contains folder.name and file.extname == ".html" %}
                             <li>
                                 <a href="{{ file.path | absolute_url }}">{{ file.name }}</a>
                             </li>
