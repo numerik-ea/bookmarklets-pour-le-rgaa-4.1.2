@@ -6,8 +6,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ site.title }} - Pages de test</title>
-    <meta property="og:title" content="{{ site.title }} - Pages de test">
+    <title>{{ site.title }} - Bookmarklets et pages de test</title>
+    <meta property="og:title"
+        content="{{ site.title }} - Bookmarklets et pages de test">
     <meta property="og:description" content="{{ site.description }}">
     <meta property="og:type" content="website">
     <meta property="og:url"
@@ -15,23 +16,35 @@
 </head>
 
 <body>
-    <h1>Pages de test</h1>
+    <h1>Bookmarklets et pages de test des bookmarklets pour le RGAA 4.1.2</h1>
+    
+    <h2>Bookmarklets</h2>
+    <ul>
+        {% for file in site.static_files %}
+            {% if file.extname == ".js" and file.basename contains "-bookmarklet" %}
+                <li>
+                    <a href="{{ file.path | absolute_url }}">{{ file.name }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+
+    <h2>Pages de test</h2>
     <ul>
         {% for folder in site.data.folders.folders %}
-        <li>
-            <strong>{{ folder.title }}</strong>
-            <ul>
-                {% assign folder_path = "RGAA-4.1.2/" | append: folder.name %}
-                {% for file in site.static_files %}
-                    {% if file.path contains folder_path and file.extname == ".html"
-                    %}
-                    <li>
-                        <a href="{{ file.path | absolute_url }}">{{ file.name }}</a>
-                    </li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-        </li>
+            <li>
+                <strong>{{ folder.title }}</strong>
+                <ul>
+                    {% assign folder_path = "RGAA-4.1.2/" | append: folder.name %}
+                    {% for file in site.static_files %}
+                        {% if file.path contains folder_path and file.extname == ".html" %}
+                            <li>
+                                <a href="{{ file.path | absolute_url }}">{{ file.name }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </li>
         {% endfor %}
     </ul>
 </body>
