@@ -2,6 +2,7 @@
 ---
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,46 +10,29 @@
     <meta property="og:title" content="{{ site.title }} - Pages de test" />
     <meta property="og:description" content="{{ site.description }}" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://florentroques.github.io/a11-scripts/" />
+    <meta property="og:url"
+        content="https://florentroques.github.io/a11-scripts/" />
 </head>
-<body>
-    <h1>{{ site.title }}</h1>
-    
-    {% for folder in site.data.folders.folders %}    
-        {% assign found = false %}
-        {% assign images_dir = "/RGAA-4.1.2/" | append: folder.name | append: "/" %}
-        {% assign images = site.static_files | where: "image", true %}
 
-        {% for image in images %}
-          {% if image.path contains images_dir %}
-            {% assign found = true %}
-          {% endif %}
-        {% endfor %}
-        
-        {% if found %}
-            <h2>{{ folder.title }}</h2>
-            <div class="gallery">
-                {% assign images = site.static_files | where: "image", true %}
-                {% for image in images %}
-                    {% if image.path contains images_dir %}
-                        <img src="{{ image.path | relative_url }}" alt="" loading="lazy">
+<body>
+    <h1>Index of Tests</h1>
+    <ul>
+        {% for folder in site.data.folders.folders %}
+        <li>
+            <strong>{{ folder.title }}</strong>
+            <ul>
+                {% assign folder_path = "RGAA-4.1.2/" | append: folder.name %}
+                {% for file in site.static_files %}
+                    {% if file.path contains folder_path and file.extname == ".html"
+                    %}
+                    <li><a href="{{ file.path | relative_url }}">{{ file.name }}</a>
+                    </li>
                     {% endif %}
                 {% endfor %}
-            </div>
-        {% endif %}
-    {% endfor %}
-
-    <h2>Pages HTML par dossier</h2>
-    {% assign rgaa_pages = site.pages | where: "path", "RGAA-4.1.2" %}
-    {% for page in rgaa_pages %}
-        <h3>{{ page.title }}</h3>
-        <ul>
-            {% for subpage in site.pages %}
-                {% if subpage.path contains page.path and subpage.path != page.path %}
-                    <li><a href="{{ subpage.url | relative_url }}">{{ subpage.title }}</a></li>
-                {% endif %}
-            {% endfor %}
-        </ul>
-    {% endfor %}
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
 </body>
+
 </html>
