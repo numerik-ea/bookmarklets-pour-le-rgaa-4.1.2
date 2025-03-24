@@ -14,6 +14,7 @@ Pour ajouter un bookmarklet à votre navigateur :
 6. Choisir un nom pour le bookmarklet dans le champ Nom
 7. Coller le code du bookmarklet dans le champ URL
 8. Et voilà !
+9. NB : Pour utiliser le bookmarklet, il suffit de cliquer dessus
 
 ---
 
