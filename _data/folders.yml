@@ -7,8 +7,8 @@ folders:
     name: 06.X
   # - title: 7.1 Chaque script est-il, si nécessaire, compatible avec les technologies d’assistance ?
   #   name: 07.1
-  # - title: 8.9 Dans chaque page web, les balises ne doivent pas être utilisées uniquement à des fins de présentation. Cette règle est-elle respectée ?
-  #   name: 08.9
+  - title: 8.9 Dans chaque page web, les balises ne doivent pas être utilisées uniquement à des fins de présentation. Cette règle est-elle respectée ?
+    name: 08.9
   # - title: 9.2 Dans chaque page web, la structure du document est-elle cohérente (hors cas particuliers) ?
   #   name: 09.2
   # - title: 10.2 Dans chaque page web, le contenu visible porteur d’information reste-t-il présent lorsque les feuilles de styles sont désactivées ?
