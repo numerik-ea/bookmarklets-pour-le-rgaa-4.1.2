@@ -7,11 +7,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ site.title }} - Pages de test</title>
-    <meta property="og:title" content="{{ site.title }} - Pages de test" />
-    <meta property="og:description" content="{{ site.description }}" />
-    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{{ site.title }} - Pages de test">
+    <meta property="og:description" content="{{ site.description }}">
+    <meta property="og:type" content="website">
     <meta property="og:url"
-        content="https://florentroques.github.io/a11-scripts/" />
+        content="https://florentroques.github.io/a11-scripts/">
 </head>
 
 <body>
@@ -25,9 +25,9 @@
                 {% for file in site.static_files %}
                     {% if file.path contains folder_path and file.extname == ".html"
                     %}
-                        <li>
-                            <a href="{{ file.path | absolute_url }}">{{ file.name }}</a>
-                        </li>
+                    <li>
+                        <a href="{{ file.path | absolute_url }}">{{ file.name }}</a>
+                    </li>
                     {% endif %}
                 {% endfor %}
             </ul>
