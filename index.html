@@ -29,23 +29,43 @@
         {% endfor %}
     </ul>
 
-    <h2>Pages de test</h2>
-    <ul>
-        {% for folder in site.data.folders.folders %}
-            <li>
-                <strong>{{ folder.title }}</strong>
-                <ul>
-                    {% for file in site.static_files %}
-                        {% if file.path contains folder.name and file.extname == ".html" %}
-                            <li>
-                                <a href="{{ file.path | absolute_url }}">{{ file.name }}</a>
-                            </li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-            </li>
+    {% assign has_test_pages = 0 %}
+    {% for folder in site.data.folders.folders %}
+        {% assign found = false %}
+
+        {% for file in site.static_files %}
+            {% if file.path contains folder.name and file.extname == ".html" %}
+                {% assign found = true %}
+                {% if has_test_pages == 0 %}
+                    {% assign has_test_pages = 1 %}
+                {% endif %}
+            {% endif %}
         {% endfor %}
-    </ul>
+
+        {% if found and has_test_pages == 1 %}
+            <h2>Pages de test</h2>
+            {% assign has_test_pages = 2 %}
+        {% endif %}
+
+        {% if found %}
+            <ul>
+                {% for folder in site.data.folders.folders %}
+                    <li>
+                        <strong>{{ folder.title }}</strong>
+                        <ul>
+                            {% for file in site.static_files %}
+                                {% if file.path contains folder.name and file.extname == ".html" %}
+                                    <li>
+                                        <a href="{{ file.path | absolute_url }}">{{ file.name }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endfor %}
 </body>
 
 </html>
