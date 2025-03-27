@@ -105,7 +105,7 @@
 
         accessibleName = accessibleName.trim();
         // Remove all multiple spaces and replace with single space
-        accessibleName = accessibleName.replace(/ +(?= )/g,'');
+        accessibleName = accessibleName.replace(/ +(?= )/g, '');
 
         if (accessibleName !== "") {
             return accessibleName;
@@ -139,15 +139,59 @@
         return linksAccessibleNamesMap;
     }
 
-    const linksAccessibleNamesMap = getLinksAccessibleNames(document.body);
+    function getParentElementToBeTested() {
+        let parentElementToBeTestedSelector = null;
+        let parentElement = null;
+
+        while (!parentElementToBeTestedSelector || !parentElement) {
+            parentElementToBeTestedSelector = prompt("Entrez le sélecteur CSS de l'élément parent à tester :");
+
+            if (parentElementToBeTestedSelector === null) {
+                break;
+            }
+
+            parentElementToBeTestedSelector = parentElementToBeTestedSelector.trim();
+
+            if (parentElementToBeTestedSelector === "") {
+                alert("Veuillez entrer un sélecteur CSS valide.");
+                continue;
+            }
+
+            parentElement = document.querySelector(parentElementToBeTestedSelector);
+
+            if (!parentElement) {
+                alert("Elément de page non trouvé.");
+            }
+        }
+
+        return [
+            parentElementToBeTestedSelector,
+            parentElement
+        ];
+    }
+
+    const [
+        parentElementToBeTestedSelector,
+        parentElement
+    ] = getParentElementToBeTested();
+
+    const linksAccessibleNamesMap = getLinksAccessibleNames(parentElement);
     const numberOfLinksWithAccessibleNames = linksAccessibleNamesMap.length;
 
     if (numberOfLinksWithAccessibleNames === 0) {
-        alert("Pas de liens avec un nom accessible dans la page.");
+        alert(
+            "Pas de liens avec un nom accessible dans l'élément de page "
+            + parentElementToBeTestedSelector
+            + "."
+        );
         return;
     }
 
-    let message = numberOfLinksWithAccessibleNames + " liens avec un nom accessible dans la page";
+    let message = (
+        numberOfLinksWithAccessibleNames
+        + " liens avec un nom accessible dans l'élément de page "
+        + parentElementToBeTestedSelector
+    );
 
     if (numberOfLinksWithAccessibleNames === 1) {
         message = message.replace("liens", "lien");
