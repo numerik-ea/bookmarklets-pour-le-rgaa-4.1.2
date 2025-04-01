@@ -10,8 +10,7 @@ description: "Assurez-vous que votre contenu est accessible"
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.title }}</title>
     <meta name="description" content="{{ page.description }}">
-    <meta property="og:title"
-        content="{{ page.title }}">
+    <meta property="og:title" content="{{ page.title }}">
     <meta property="og:description" content="{{ page.description }}">
     <meta property="og:type" content="website">
     <meta property="og:url"
@@ -22,7 +21,8 @@ description: "Assurez-vous que votre contenu est accessible"
 <body>
     <header>
         <h1>{{ page.title }}</h1>
-        <a href="https://numerik-ea.github.io/bookmarklets-pour-le-rgaa-4.1.2/" class="back-link">
+        <a href="https://numerik-ea.github.io/bookmarklets-pour-le-rgaa-4.1.2/"
+            class="back-link">
             <span aria-hidden="true">← </span>Retour à la page d'accueil
         </a>
     </header>
@@ -32,55 +32,18 @@ description: "Assurez-vous que votre contenu est accessible"
             <h2>Bookmarklets</h2>
             <ul>
                 {% for file in site.static_files %}
-                    {% if file.extname == ".js" and file.basename contains "-bookmarklet" %}
+                    {% 
+                        if file.path contains "contributeurs-de-contenu"
+                        and file.basename contains "-bookmarklet"
+                        and file.extname == ".js"
+                    %}
                         <li>
-                            <a href="{{ file.path | absolute_url }}">{{ file.name }}</a>
+                            <a href="{{ file.content }}">{{ file.name | remove: ".js" | remove: "-bookmarklet" | replace: "-", " " }}</a>
                         </li>
                     {% endif %}
                 {% endfor %}
             </ul>
         </section>
-
-        {% assign has_test_pages = 0 %}
-        {% for folder in site.data.folders.folders %}
-            {% assign found = false %}
-
-            {% for file in site.static_files %}
-                {% if file.path contains folder.name and file.extname == ".html" %}
-                    {% assign found = true %}
-                    {% if has_test_pages == 0 %}
-                        {% assign has_test_pages = 1 %}
-                    {% endif %}
-                {% endif %}
-            {% endfor %}
-
-            {% if found and has_test_pages == 1 %}
-                <section>
-                    <h2>Pages de test</h2>
-                    {% assign has_test_pages = 2 %}
-                    <ul>
-            {% endif %}
-
-            {% if found %}
-                <li>
-                    <strong>{{ folder.title }}</strong>
-                    <ul>
-                        {% for file in site.static_files %}
-                            {% if file.path contains folder.name and file.extname == ".html" %}
-                                <li>
-                                    <a href="{{ file.path | absolute_url }}">{{ file.name }}</a>
-                                </li>
-                            {% endif %}
-                        {% endfor %}
-                    </ul>
-                </li>
-            {% endif %}
-        {% endfor %}
-
-        {% if found and has_test_pages == 2 %}
-                    </ul>
-                </section>
-        {% endif %}
     </main>
 </body>
 
