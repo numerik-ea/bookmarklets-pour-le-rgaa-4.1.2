@@ -19,12 +19,12 @@
 
                 span.className = 'altSpan';
                 span.style.cssText = 'color:black;font-weight:bold;font-family:sans-serif;font-size:small;background-color:yellow;speak:literal-punctuation;';
-                span.textContent = ` INVALIDE❌alt="${element.getAttribute('alt')}" sur ${element.tagName}`;
+                span.textContent = ` INVALIDE❌alt='${element.getAttribute('alt')}' sur ${element.tagName}`;
 
                 element.parentNode.insertBefore(span, element);
             });
 
-            // Check images and elements with role="img"
+            // Check images and elements with role='img'
             document.querySelectorAll('img, [role=img]').forEach(element => {
                 // Check role attribute
                 if (element.hasAttribute('role')) {
@@ -32,7 +32,7 @@
 
                     span.className = 'closeSpan';
                     span.style.cssText = 'color:black;font-weight:bold;font-family:sans-serif;font-size:small;background-color:yellow;outline:orange 2px dashed;margin:0 2px; padding:2px;speak:literal-punctuation;';
-                    span.textContent = `❓role="${element.getAttribute('role')}"`;
+                    span.textContent = `❓role='${element.getAttribute('role')}'`;
 
                     element.parentNode.insertBefore(span, element.nextSibling);
                 }
@@ -43,7 +43,7 @@
 
                     span.className = 'closeSpan';
                     span.style.cssText = 'color:black;font-weight:bold;font-family:sans-serif;font-size:small;background-color:yellow;outline:orange 2px dashed;margin:0 2px; padding:2px;speak:literal-punctuation;';
-                    span.textContent = `❓aria-label="${element.getAttribute('aria-label')}"`;
+                    span.textContent = `❓aria-label='${element.getAttribute('aria-label')}'`;
 
                     element.parentNode.insertBefore(span, element.nextSibling);
                 }
@@ -54,7 +54,7 @@
 
                     span.className = 'axSpan';
                     span.style.cssText = 'color:black;font-weight:bold;font-family:sans-serif;font-size:small;background-color:yellow;outline:orange 2px dashed;margin:0 2px; padding:2px;speak:literal-punctuation;';
-                    span.textContent = `aria-describedby="${element.getAttribute('aria-describedby')}"`;
+                    span.textContent = `aria-describedby='${element.getAttribute('aria-describedby')}'`;
 
                     element.parentNode.insertBefore(span, element);
 
@@ -71,7 +71,7 @@
 
                             inputSpan.className = 'inputSpan';
                             inputSpan.style.cssText = 'padding:1px;color:black;font-weight:bold;font-family:sans-serif;font-size:small;background-color:yellow;outline:orange 2px dashed;z-index:2147483647;speak:literal-punctuation;';
-                            inputSpan.textContent = `id="${id}"`;
+                            inputSpan.textContent = `id='${id}'`;
 
                             describedby.insertBefore(inputSpan, describedby.firstChild);
                         }
@@ -84,7 +84,7 @@
 
                     span.className = 'closeSpan';
                     span.style.cssText = 'color:black;font-weight:bold;font-family:sans-serif;font-size:small;background-color:yellow;outline:orange 2px dashed;margin:0 2px; padding:2px;speak:literal-punctuation;';
-                    span.textContent = `aria-labelledby="${element.getAttribute('aria-labelledby')}"`;
+                    span.textContent = `aria-labelledby='${element.getAttribute('aria-labelledby')}'`;
                     element.parentNode.insertBefore(span, element.nextSibling);
 
                     const labelledbyValue = element.getAttribute('aria-labelledby');
@@ -100,7 +100,7 @@
 
                             inputSpan.className = 'inputSpan';
                             inputSpan.style.cssText = 'padding:1px;color:black;font-weight:bold;font-family:sans-serif;font-size:small;background-color:yellow;outline:orange 2px dashed;z-index:2147483647;speak:literal-punctuation;';
-                            inputSpan.textContent = `id="${id}"`;
+                            inputSpan.textContent = `id='${id}'`;
                             labelledby.insertBefore(inputSpan, labelledby.firstChild);
                         }
                     });
@@ -152,9 +152,9 @@
                         span.style.cssText = 'outline:orange 2px dashed;padding:1px;color:black;font-family:sans-serif;font-weight:bold;font-size:small;background-color:yellow;position:absolute;line-height:100%;z-index:2147483647;speak:literal-punctuation;border-bottom:2px solid blue;';
 
                         if (element.getAttribute('alt') === '') {
-                            span.textContent = `IMAGE LIEN❓alt="${element.getAttribute('alt')}"`;
+                            span.textContent = `IMAGE LIEN❓alt='${element.getAttribute('alt')}'`;
                         } else {
-                            span.textContent = `IMAGE LIEN👍alt="${element.getAttribute('alt')}"❓`;
+                            span.textContent = `IMAGE LIEN👍alt='${element.getAttribute('alt')}'❓`;
                         }
 
                         element.parentNode.insertBefore(span, element);
@@ -163,7 +163,7 @@
 
                         span.className = 'altSpan';
                         span.style.cssText = 'outline:orange 2px dashed;padding:1px;color:black;font-family:sans-serif;font-weight:bold;font-size:small;background-color:yellow;position:absolute;line-height:100%;z-index:2147483647;speak:literal-punctuation;';
-                        span.textContent = `IMAGE👍alt="${element.getAttribute('alt')}"❓`;
+                        span.textContent = `IMAGE👍alt='${element.getAttribute('alt')}'❓`;
 
                         element.parentNode.insertBefore(span, element);
                     }
@@ -177,7 +177,7 @@
                     span.setAttribute('role', 'region');
                     span.setAttribute('aria-label', 'Titre');
                     span.style.cssText = 'outline:orange 2px dashed;padding:1px;color:black;font-family:sans-serif;font-weight:bold;font-size:small;background-color:yellow;position:relative;line-height:100%;z-index:2147483647;';
-                    span.textContent = `❓title="${element.getAttribute('title')}"`;
+                    span.textContent = `❓title='${element.getAttribute('title')}'`;
 
                     element.parentNode.insertBefore(span, element.nextSibling);
                 }
@@ -190,7 +190,7 @@
                     span.setAttribute('role', 'region');
                     span.setAttribute('aria-label', 'Description longue');
                     span.style.cssText = 'outline:orange 2px dashed;padding:1px;color:black;font-family:sans-serif;font-weight:bold;font-size:small;background-color:yellow;position:relative;line-height:100%;z-index:2147483647;';
-                    span.textContent = `❓longdesc="${element.getAttribute('longdesc')}"`;
+                    span.textContent = `❓longdesc='${element.getAttribute('longdesc')}'`;
 
                     element.parentNode.insertBefore(span, element.nextSibling);
                 }
