@@ -59,41 +59,37 @@
     recursiveFindAllChildrenWithDoubleBR(document.body, results);
 
     if (results.length === 0) {
-        alert("Pas d'éléments avec double <br>.");
+        alert('Pas d\'éléments avec double <br>.');
         return;
     }
 
     let message = (
-        results.length + " éléments avec double <br>.\n" +
-        "Plus de détails dans la console."
+        results.length + ' éléments avec double <br>.\n' +
+        'Plus de détails dans la console.'
     );
-
-    if (results.length === 1) {
-        message = message.replace("éléments", "élément");
-    }
 
     alert(message);
     results.forEach(element => {
-        element.style.border = "2px solid red";
+        element.style.border = '2px solid red';
 
         // Create a label element to show text
         const label = document.createElement('div');
-        label.textContent = "élément avec double <br>";
-        label.style.position = "absolute";
-        label.style.top = "0";
-        label.style.left = "0";
-        label.style.backgroundColor = "yellow";
-        label.style.color = "black";
-        label.style.padding = "2px 5px";
-        label.style.fontSize = "12px";
-        label.style.fontWeight = "bold";
-        label.style.zIndex = "10000";
-        label.style.pointerEvents = "none";
+        label.textContent = 'double <br>';
+        label.style.position = 'absolute';
+        label.style.top = '0';
+        label.style.left = '0';
+        label.style.backgroundColor = 'yellow';
+        label.style.color = 'black';
+        label.style.padding = '2px 5px';
+        label.style.fontSize = '12px';
+        label.style.fontWeight = 'bold';
+        label.style.zIndex = '10000';
+        label.style.pointerEvents = 'none';
 
         // Make sure the element has position relative for absolute positioning to work
         const computedStyle = window.getComputedStyle(element);
-        if (computedStyle.position === "static") {
-            element.style.position = "relative";
+        if (computedStyle.position === 'static') {
+            element.style.position = 'relative';
         }
 
         element.appendChild(label);
