@@ -38,7 +38,7 @@ description: "Assurez-vous que votre contenu est accessible"
                         and file.extname == ".js"
                     %}
                         {% capture current_file_content %}
-                            {% include_relative file.path %}
+                            {% include_relative bookmarklets/contributeurs-de-contenu/{{ file.basename }}.js %}
                         {% endcapture %}
                         <li>
                             <a href="{{ current_file_content }}">{{ file.name | remove: ".js" | remove: "-bookmarklet" | replace: "-", " " }}</a>
