@@ -1,6 +1,6 @@
-# a11y-scripts
+# bookmarklets-pour-le-rgaa-4.1.2
 
-Lien pour retrouver les bookmarklets et les pages de test des bookmarklets pour le RGAA 4.1.2 :  
+Lien pour retrouver les bookmarklets pour le RGAA 4.1.2 :  
 https://numerik-ea.github.io/bookmarklets-pour-le-rgaa-4.1.2/
 
 ---
