@@ -1,4 +1,6 @@
 ---
+title: "Bookmarklets pour le RGAA 4.1.2"
+description: "Pour les contributeurs de contenu, les développeurs et les auditeurs en accessibilité"
 ---
 <!DOCTYPE html>
 <html lang="fr">
@@ -6,67 +8,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bookmarklets et pages de test des bookmarklets pour le RGAA 4.1.2</title>
+    <title>{{ page.title }}</title>
+    <meta name="description" content="{{ page.description }}">
     <meta property="og:title"
-        content="Bookmarklets et pages de test des bookmarklets pour le RGAA 4.1.2">
-    <meta property="og:description" content="{{ site.description }}">
+        content="{{ page.title }}">
+    <meta property="og:description" content="{{ page.description }}">
     <meta property="og:type" content="website">
     <meta property="og:url"
-        content="https://numerik-ea.github.io/bookmarklets-rgaa-4.1.2/">
+        content="https://numerik-ea.github.io/bookmarklets-pour-le-rgaa-4.1.2/">
 </head>
 
 <body>
-    <h1>Bookmarklets et pages de test des bookmarklets pour le RGAA 4.1.2</h1>
-    
-    <h2>Bookmarklets</h2>
-    <ul>
-        {% for file in site.static_files %}
-            {% if file.extname == ".js" and file.basename contains "-bookmarklet" %}
-                <li>
-                    <a href="{{ file.path | absolute_url }}">{{ file.name }}</a>
-                </li>
-            {% endif %}
-        {% endfor %}
-    </ul>
-
-    {% assign has_test_pages = 0 %}
-    {% for folder in site.data.folders.folders %}
-        {% assign found = false %}
-
-        {% for file in site.static_files %}
-            {% if file.path contains folder.name and file.extname == ".html" %}
-                {% assign found = true %}
-                {% if has_test_pages == 0 %}
-                    {% assign has_test_pages = 1 %}
-                {% endif %}
-            {% endif %}
-        {% endfor %}
-
-        {% if found and has_test_pages == 1 %}
-            <h2>Pages de test</h2>
-            {% assign has_test_pages = 2 %}
-            <ul>
-        {% endif %}
-
-        {% if found %}
-            <li>
-                <strong>{{ folder.title }}</strong>
-                <ul>
-                    {% for file in site.static_files %}
-                        {% if file.path contains folder.name and file.extname == ".html" %}
-                            <li>
-                                <a href="{{ file.path | absolute_url }}">{{ file.name }}</a>
-                            </li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-            </li>
-        {% endif %}
-    {% endfor %}
-
-    {% if found and has_test_pages == 2 %}
-        </ul>
-    {% endif %}
+    <h1>{{ page.title }}</h1>
+    <p>
+        <a href="https://numerik-ea.github.io/bookmarklets-pour-le-rgaa-4.1.2/pour-les-contributeurs-de-contenu.html">
+            Accéder aux bookmarklets pour les contributeurs de contenu
+        </a>
+    </p>
+    <p>
+        <a href="https://numerik-ea.github.io/bookmarklets-pour-le-rgaa-4.1.2/pour-les-developpeurs.html">
+            Accéder aux bookmarklets pour les développeurs
+        </a>
+    </p>
+    <p>
+        <a href="https://numerik-ea.github.io/bookmarklets-pour-le-rgaa-4.1.2/pour-les-auditeurs-en-accessibilite.html">
+            Accéder aux bookmarklets pour les auditeurs en accessibilité
+        </a>
+    </p>
 </body>
 
 </html>
