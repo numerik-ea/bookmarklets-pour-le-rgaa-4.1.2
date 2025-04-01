@@ -1,6 +1,8 @@
-// source: https://giovanicamara.com/blog/accessibility-testing-favlets-bookmarklets/
-// which is based on:
-// source: https://mraccess77.github.io/favlets/img-alt.js
+/**
+ * source: https://giovanicamara.com/blog/accessibility-testing-favlets-bookmarklets/
+ * which is based on:
+ * source: https://mraccess77.github.io/favlets/img-alt.js
+ */
 
 (function () {
     function traverseFrames(doc) {
