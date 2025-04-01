@@ -37,8 +37,11 @@ description: "Assurez-vous que votre contenu est accessible"
                         and file.basename contains "-bookmarklet"
                         and file.extname == ".js"
                     %}
+                        {% capture current_file_content %}
+                            {% include_relative file.path %}
+                        {% endcapture %}
                         <li>
-                            <a href="{{ file.content }}">{{ file.name | remove: ".js" | remove: "-bookmarklet" | replace: "-", " " }}</a>
+                            <a href="{{ current_file_content }}">{{ file.name | remove: ".js" | remove: "-bookmarklet" | replace: "-", " " }}</a>
                         </li>
                     {% endif %}
                 {% endfor %}
