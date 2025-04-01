@@ -1,12 +1,12 @@
 # a11y-scripts
 
 Lien pour retrouver les bookmarklets et les pages de test des bookmarklets pour le RGAA 4.1.2 :  
-https://florentroques.github.io/a11y-scripts/
+https://numerik-ea.github.io/a11y-scripts/
 
 ---
 
 Pour ajouter un bookmarklet à votre navigateur :  
-1. Aller sur https://florentroques.github.io/a11y-scripts/
+1. Aller sur https://numerik-ea.github.io/a11y-scripts/
 2. Cliquer sur le lien d'un bookmarklet
 3. Copier le code du bookmarklet
 4. Faire un clic droit dans la barre des favoris/marque-pages
