@@ -51,11 +51,28 @@ a:hover {
     color: white;
     border-radius: 4px;
     text-decoration: none;
+    transition: background-color 0.2s ease;
 }
 
 .back-link:hover {
     background-color: var(--secondary-color);
     color: white;
+}
+
+.back-link:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+    background-color: var(--secondary-color);
+}
+
+.back-link:focus:not(:focus-visible) {
+    outline: none;
+}
+
+.back-link:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+    background-color: var(--secondary-color);
 }
 
 ul {
