@@ -53,7 +53,7 @@ bundle install
 
 ```bash
 # Lancer le site en local
-bundle exec jekyll serve
+bundle exec jekyll serve --baseurl /
 ```
 
 
