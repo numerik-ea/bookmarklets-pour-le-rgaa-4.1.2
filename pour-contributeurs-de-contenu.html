@@ -95,7 +95,7 @@ description: "Assurez-vous que votre contenu est accessible"
                             {% include_relative bookmarklets/contributeurs-de-contenu/{{ file.basename }}.js %}
                         {% endcapture %}
                         <li>
-                            <a href="{{ current_file_content }}">{{ file.name | remove: ".js" | remove: "-bookmarklet" | replace: "-", " " }}</a>
+                            <a href="{{ current_file_content }}">{{ file.name | remove: ".js" | remove: "-bookmarklet" | replace: "-", " " | capitalize }}</a>
                         </li>
                     {% endif %}
                 {% endfor %}
