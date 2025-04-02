@@ -85,7 +85,7 @@ description: "Assurez-vous que votre contenu est accessible"
                 <li>Voilà ! Vous pouvez maintenant utiliser le bookmarklet pour vérifier que votre contenu est accessible.</li>
             </ol>
             <ul>
-                {% for file in site.static_files %}
+                {% for file in site.static_files | sort: "name" %}
                     {% 
                         if file.path contains "contributeurs-de-contenu"
                         and file.basename contains "-bookmarklet"
