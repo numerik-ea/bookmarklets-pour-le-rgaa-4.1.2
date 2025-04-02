@@ -59,6 +59,9 @@ description: "Assurez-vous que votre contenu est accessible"
         .toggle-button[aria-expanded="true"] .arrow {
             transform: rotate(180deg);
         }
+        .toggle-button[aria-expanded="false"]:not(:hover) {
+            background-color: var(--primary-color);
+        }
     </style>
 </head>
 
