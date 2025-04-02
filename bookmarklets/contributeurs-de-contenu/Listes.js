@@ -15,19 +15,32 @@
 
     // Vérifier les paragraphes dans les listes
     document.querySelectorAll('ul, ol').forEach(list => {
-        const hasParagraphs = list.querySelector('p');
+        // Get all <p> elements that are direct children of the list
+        const paragraphs = list.querySelectorAll(':scope > p');
 
-        if (hasParagraphs) {
-            list.style.outline = '2px solid red';
-            list.querySelectorAll('p').forEach(p => p.style.outline = '2px solid red');
+        if (paragraphs.length === 0) {
+            return;
+        }
 
-            const warning = document.createElement('strong');
+        // Apply red outline to the list
+        list.style.outline = '2px solid red';
+        list.style.padding = '';
+        list.style.listStylePosition = '';
 
-            warning.className = 'openSpan';
-            warning.style.cssText = 'color:black;font-family:sans-serif;font-weight:bold;font-size:small;background-color:yellow;speak:literal-punctuation;';
-            warning.textContent = '❌PAS D\'ENFANT LI';
+        // Apply red outline to each paragraph
+        paragraphs.forEach(paragraph => {
+            paragraph.style.outline = '2px solid red';
+        });
 
-            list.insertBefore(warning, list.firstChild);
+        // Only add the warning message if it doesn't already exist
+        if (!list.querySelector('.openSpan')) {
+            const strongElement = document.createElement('strong');
+
+            strongElement.className = 'openSpan';
+            strongElement.style.cssText = 'color:black;font-family:sans-serif;font-weight:bold;font-size:small;background-color:yellow;speak:literal-punctuation';
+            strongElement.textContent = '❌PARAGRAPHE(S) DANS LA LISTE';
+
+            list.prepend(strongElement);
         }
     });
 
@@ -49,6 +62,7 @@
             openSpan.className = 'openSpan';
             openSpan.style.cssText = 'color:black;font-family:sans-serif;font-weight:bold;font-size:small;background-color:yellow;speak:literal-punctuation;';
             openSpan.textContent = `<${tag}>${emoji}`;
+
             element.insertBefore(openSpan, element.firstChild);
 
             // Ajouter la balise fermante
@@ -57,6 +71,7 @@
             closeSpan.className = 'closeSpan';
             closeSpan.style.cssText = 'color:black;font-family:sans-serif;font-weight:bold;font-size:small;background-color:yellow;speak:literal-punctuation;';
             closeSpan.textContent = `</${tag}>`;
+
             element.appendChild(closeSpan);
         });
     }
