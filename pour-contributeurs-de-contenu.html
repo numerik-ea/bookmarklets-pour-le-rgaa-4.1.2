@@ -34,8 +34,22 @@ description: "Assurez-vous que votre contenu est accessible"
             display: flex;
             align-items: center;
             gap: 8px;
+            transition: background-color 0.2s ease;
         }
         .toggle-button:hover {
+            background-color: var(--secondary-color);
+        }
+        .toggle-button:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+            background-color: var(--secondary-color);
+        }
+        .toggle-button:focus:not(:focus-visible) {
+            outline: none;
+        }
+        .toggle-button:focus-visible {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
             background-color: var(--secondary-color);
         }
         .toggle-button .arrow {
