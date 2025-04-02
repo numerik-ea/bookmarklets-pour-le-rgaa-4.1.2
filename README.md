@@ -19,11 +19,15 @@ Pour ajouter un bookmarklet à votre navigateur :
 
 ## Générer un bookmarklet ou tester le site en local
 
-Windows : pour générer un bookmarklet ou tester le site en local, il vous faut installer Chocolatey :
+
+### Windows
+⚠️ Lancer toutes les commandes ci-dessous dans Powershell en tant qu'administrateur.
+
+1. Pour générer un bookmarklet ou tester le site en local, il vous faut installer Chocolatey :
 https://chocolatey.org/install#individual
 
 
-Générer un bookmarklet à partir d'un script :
+2. Générer un bookmarklet à partir d'un script :
 ```bash
 # Installer php avec Chocolatey
 choco install php
@@ -34,7 +38,7 @@ choco install php
 php transform_script_to_bookmarklet.php <path_to_script_name>.js
 ```
 
-Pour tester le site en local :
+3. Pour tester le site en local :
 ```bash
 # Installer ruby avec Chocolatey
 choco install ruby -y
