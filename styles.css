@@ -98,10 +98,6 @@ li ul li {
     counter-reset: item 0;
 }
 
-.installation-steps li:first-child {
-    counter-increment: item 1;
-}
-
 .installation-steps li {
     display: flex;
     align-items: center;
