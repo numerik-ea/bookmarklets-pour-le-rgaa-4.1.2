@@ -47,11 +47,11 @@
             // Process h1-h6 elements
             for (let i = 1; i <= 6; i++) {
                 processHeadingElements(`h${i}`, `h${i}`);
-                processHeadingElements(`[role=heading][aria-level="${i}"]`, `[role=heading][aria-level=${i}]`);
+                processHeadingElements(`[role=heading][aria-level='${i}']`, `[role=heading][aria-level=${i}]`);
             }
 
             // Check if any headings exist
-            const hasHeadings = doc.querySelector('h1, h2, h3, h4, h5, h6, [role=heading][aria-level="1"], [role=heading][aria-level="2"], [role=heading][aria-level="3"], [role=heading][aria-level="4"], [role=heading][aria-level="5"], [role=heading][aria-level="6"]');
+            const hasHeadings = doc.querySelector('h1, h2, h3, h4, h5, h6, [role=heading][aria-level=\'1\'], [role=heading][aria-level=\'2\'], [role=heading][aria-level=\'3\'], [role=heading][aria-level=\'4\'], [role=heading][aria-level=\'5\'], [role=heading][aria-level=\'6\']');
             const message = `${hasHeadings ? 'Success! Headings Found' : 'No Headings Found'} on Page: ${doc.title}`;
 
             showMessage(message, hasHeadings ? 3000 : 6000, !hasHeadings);
