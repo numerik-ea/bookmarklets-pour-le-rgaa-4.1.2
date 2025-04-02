@@ -95,6 +95,11 @@ li ul li {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    counter-reset: item 0;
+}
+
+.installation-steps li:first-child {
+    counter-increment: item 1;
 }
 
 .installation-steps li {
@@ -122,16 +127,6 @@ li ul li {
     border-radius: 50%;
     font-size: 0.8rem;
     font-weight: bold;
-}
-
-.installation-steps li:last-child {
-    background-color: var(--primary-color);
-    color: white;
-}
-
-.installation-steps li:last-child::before {
-    background-color: white;
-    color: var(--primary-color);
 }
 
 @media (max-width: 768px) {
