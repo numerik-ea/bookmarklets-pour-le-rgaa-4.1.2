@@ -16,9 +16,40 @@ Pour ajouter un bookmarklet à votre navigateur :
 8. Cliquer sur "Enregistrer" et voilà !
 9. NB : Pour utiliser le bookmarklet, il suffit de cliquer dessus
 
----
 
-Générer un bookmarklet à partir d'un script :  
+## Générer un bookmarklet ou tester le site en local
+
+Windows : pour générer un bookmarklet ou tester le site en local, il vous faut installer Chocolatey :
+https://chocolatey.org/install#individual
+
+
+Générer un bookmarklet à partir d'un script :
 ```bash
+# Installer php avec Chocolatey
+choco install php
+```
+
+```bash
+# Générer le bookmarklet
 php transform_script_to_bookmarklet.php <path_to_script_name>.js
 ```
+
+Pour tester le site en local :
+```bash
+# Installer ruby avec Chocolatey
+choco install ruby -y
+```
+
+```bash
+# Installer les dépendances
+gem install bundler
+gem install jekyll
+bundle install
+```
+
+```bash
+# Lancer le site en local
+bundle exec jekyll serve
+```
+
+
