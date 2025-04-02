@@ -1,3 +1,4 @@
+/* CSS Variables */
 :root {
     --primary-color: #1a365d;
     --secondary-color: #2b6cb0;
@@ -7,6 +8,7 @@
     --border-color: #e2e8f0;
 }
 
+/* Base Styles */
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     line-height: 1.6;
@@ -15,20 +17,12 @@ body {
     margin: 0 auto;
 }
 
-.page-bookmarklets {
-    padding: 2rem;
-    max-width: 1200px;
-}
-
+/* Typography */
 h1 {
     color: var(--primary-color);
     font-size: 2.5rem;
     margin-bottom: 2rem;
     padding-bottom: 0.5rem;
-}
-
-.page-bookmarklets h1 {
-    border-bottom: 3px solid var(--secondary-color);
 }
 
 h2 {
@@ -38,6 +32,7 @@ h2 {
     margin-bottom: 1rem;
 }
 
+/* Links */
 a {
     color: var(--link-color);
     text-decoration: none;
@@ -49,6 +44,7 @@ a:hover {
     text-decoration: underline;
 }
 
+/* Back Link Component */
 .back-link {
     display: inline-block;
     padding: 0.5rem 1rem;
@@ -80,6 +76,7 @@ a:hover {
     background-color: var(--secondary-color);
 }
 
+/* Lists */
 ul {
     list-style: none;
     padding: 0;
@@ -110,6 +107,7 @@ li ul li {
     padding: 0.25rem 0;
 }
 
+/* Installation Steps */
 .installation-steps {
     list-style: none;
     padding: 0;
@@ -118,6 +116,11 @@ li ul li {
     flex-direction: column;
     gap: 0.5rem;
     counter-reset: item 0;
+    display: none;
+}
+
+.installation-steps.visible {
+    display: block;
 }
 
 .installation-steps li {
@@ -147,6 +150,65 @@ li ul li {
     font-weight: bold;
 }
 
+/* Toggle Button */
+.toggle-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.toggle-button:hover {
+    background-color: var(--secondary-color);
+}
+
+.toggle-button:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+    background-color: var(--secondary-color);
+}
+
+.toggle-button:focus:not(:focus-visible) {
+    outline: none;
+}
+
+.toggle-button:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+    background-color: var(--secondary-color);
+}
+
+.toggle-button .arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.toggle-button[aria-expanded="true"] .arrow {
+    transform: rotate(180deg);
+}
+
+.toggle-button[aria-expanded="false"]:not(:hover) {
+    background-color: var(--primary-color);
+}
+
+/* Layout */
+.page-bookmarklets {
+    padding: 2rem;
+    max-width: 1200px;
+}
+
+.page-bookmarklets h1 {
+    border-bottom: 3px solid var(--secondary-color);
+}
+
+/* Media Queries */
 @media (max-width: 768px) {
     body {
         padding: 1rem;
@@ -159,4 +221,4 @@ li ul li {
     h2 {
         font-size: 1.5rem;
     }
-} 
+}

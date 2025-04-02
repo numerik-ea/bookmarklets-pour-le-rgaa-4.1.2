@@ -1,0 +1,38 @@
+{% include header.html %}
+
+<body class="page-{{ page.layout }}">
+    <header role="banner">
+        <a href="{{ site.baseurl }}" class="back-link">
+            <span aria-hidden="true">← </span>Retour à la page d'accueil
+        </a>
+        <h1>{{ page.title }}</h1>
+    </header>
+
+    <main role="main">
+        <section class="installation-steps-section">
+            <button class="toggle-button" aria-expanded="false" aria-controls="installation-steps">
+                Étapes pour installer un bookmarklet
+                <span class="arrow" aria-hidden="true">▼</span>
+            </button>
+            <ol id="installation-steps" class="installation-steps">
+                <li>Cliquez sur le lien du bookmarklet que vous souhaitez ajouter.</li>
+                <li>Maintenez le clic gauche de la souris enfoncé sur le lien.</li>
+                <li>Faites glisser le lien vers la barre des favoris de votre navigateur.</li>
+                <li>Relâchez le bouton de la souris pour y déposer le bookmarklet.</li>
+                <li>Voilà ! Vous pouvez maintenant utiliser le bookmarklet pour vérifier que votre contenu est accessible.</li>
+            </ol>
+        </section>
+        {{ content }}
+    </main>
+    <script>
+        document.querySelector('.toggle-button').addEventListener('click', function() {
+            const steps = document.getElementById('installation-steps');
+            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+            
+            steps.classList.toggle('visible');
+            this.setAttribute('aria-expanded', !isExpanded);
+        });
+    </script>
+</body>
+
+</html> 

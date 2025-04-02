@@ -39,7 +39,7 @@ bundle install
 
 ```bash
 # Lancer le site en local
-bundle exec jekyll serve --baseurl / --config _config.yml,_config_dev.yml
+bundle exec jekyll serve --baseurl / --config _config.yml,_config_dev.yml --trace
 ```
 
 
