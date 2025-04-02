@@ -26,11 +26,11 @@ description: "Pour les contributeurs de contenu, les développeurs et les audite
 
         header {
             background-color: var(--primary-color);
-            color: white;
             padding: 2rem 0;
         }
 
         h1 {
+            color: var(--background-color);
             margin: 0;
             font-size: 2.5rem;
             text-align: center;
@@ -49,13 +49,13 @@ description: "Pour les contributeurs de contenu, les développeurs et les audite
 </head>
 
 <body>
-    <header>
+    <header role="banner">
         <div class="container">
             <h1>{{ page.title }}</h1>
         </div>
     </header>
 
-    <main class="container">
+    <main class="container" role="main">
         <ul>
             <li>
                 <a href="https://numerik-ea.github.io/bookmarklets-pour-le-rgaa-4.1.2/pour-contributeurs-de-contenu.html">
