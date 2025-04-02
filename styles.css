@@ -12,13 +12,12 @@ body {
     line-height: 1.6;
     color: var(--text-color);
     background-color: var(--background-color);
+    margin: 0 auto;
 }
 
 .page-bookmarklets {
-    margin: 0;
     padding: 2rem;
     max-width: 1200px;
-    margin: 0 auto;
 }
 
 h1 {
