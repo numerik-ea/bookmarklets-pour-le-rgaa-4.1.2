@@ -64,7 +64,7 @@ description: "Assurez-vous que votre contenu est accessible"
 
 <body class="page-bookmarklets">
     <header role="banner">
-        <a href="/" class="back-link">
+        <a href="{{ site.baseurl }}" class="back-link">
             <span aria-hidden="true">← </span>Retour à la page d'accueil
         </a>
         <h1>{{ page.title }}</h1>
@@ -84,7 +84,7 @@ description: "Assurez-vous que votre contenu est accessible"
                 <li>Voilà ! Vous pouvez maintenant utiliser le bookmarklet pour vérifier que votre contenu est accessible.</li>
             </ol>
             <ul>
-                {% for file in site.static_files %}
+                {% for file in site.static_files | reversed %}
                     {% 
                         if file.path contains "contributeurs-de-contenu"
                         and file.basename contains "-bookmarklet"
