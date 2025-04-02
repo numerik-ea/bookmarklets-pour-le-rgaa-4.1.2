@@ -16,24 +16,8 @@ description: "Pour les contributeurs de contenu, les développeurs et les audite
     <meta property="og:type" content="website">
     <meta property="og:url"
         content="https://numerik-ea.github.io/bookmarklets-pour-le-rgaa-4.1.2/">
+    <link rel="stylesheet" href="styles.css">
     <style>
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --background-color: #f8f9fa;
-            --text-color: #333;
-            --link-color: #2980b9;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: var(--background-color);
-            color: var(--text-color);
-        }
-
         .container {
             max-width: 800px;
             margin: 0 auto;
@@ -50,35 +34,6 @@ description: "Pour les contributeurs de contenu, les développeurs et les audite
             margin: 0;
             font-size: 2.5rem;
             text-align: center;
-        }
-
-        .links-container {
-            display: grid;
-            gap: 1.5rem;
-        }
-
-        .link-card {
-            background: white;
-            border-radius: 8px;
-            padding: 1.5rem;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .link-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        .link-card a {
-            color: var(--link-color);
-            text-decoration: none;
-            font-size: 1.2rem;
-            display: block;
-        }
-
-        .link-card a:hover {
-            text-decoration: underline;
         }
 
         @media (max-width: 600px) {
@@ -101,23 +56,23 @@ description: "Pour les contributeurs de contenu, les développeurs et les audite
     </header>
 
     <main class="container">
-        <div class="links-container">
-            <div class="link-card">
+        <ul>
+            <li>
                 <a href="https://numerik-ea.github.io/bookmarklets-pour-le-rgaa-4.1.2/pour-contributeurs-de-contenu.html">
                     Pour les contributeurs de contenu
                 </a>
-            </div>
-            <!-- <div class="link-card">
+            </li>
+            <!-- <li>
                 <a href="https://numerik-ea.github.io/bookmarklets-pour-le-rgaa-4.1.2/pour-developpeurs.html">
                     Pour les développeurs
                 </a>
-            </div> -->
-            <div class="link-card">
+            </li> -->
+            <li>
                 <a href="https://numerik-ea.github.io/bookmarklets-pour-le-rgaa-4.1.2/pour-professionnels-en-accessibilite-numerique.html">
                     Pour les professionnels en accessibilité numérique
                 </a>
-            </div>
-        </div>
+            </li>
+        </ul>
     </main>
 </body>
 
