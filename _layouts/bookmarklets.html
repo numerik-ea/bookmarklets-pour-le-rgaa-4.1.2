@@ -2,13 +2,15 @@
 
 <body class="page-{{ page.layout }}">
     <header role="banner">
-        <a href="{{ site.baseurl }}" class="back-link">
-            <span aria-hidden="true">← </span>Retour à la page d'accueil
-        </a>
-        <h1>{{ page.title }}</h1>
+        <div class="container">
+            <a href="{{ site.baseurl }}" class="back-link">
+                <span aria-hidden="true">← </span>Retour à la page d'accueil
+            </a>
+            <h1>{{ page.title }}</h1>
+        </div>
     </header>
 
-    <main role="main">
+    <main role="main" class="container">
         <section class="installation-steps-section">
             <button class="toggle-button" aria-expanded="false" aria-controls="installation-steps">
                 Étapes pour installer un bookmarklet
