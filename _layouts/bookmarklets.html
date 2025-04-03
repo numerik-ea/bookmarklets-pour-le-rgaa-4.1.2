@@ -26,6 +26,7 @@
         </section>
         {{ content }}
     </main>
+    {% include footer.html %}
     <script>
         document.querySelector('.toggle-button').addEventListener('click', function() {
             const steps = document.getElementById('installation-steps');
