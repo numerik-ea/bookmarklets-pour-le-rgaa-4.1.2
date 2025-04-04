@@ -1,0 +1,23 @@
+# Noms des bookmarklets par répertoire et par ordre alphabétique
+contributeurs-de-contenu:
+  - double-br
+  - headings
+  - images-afficher-les-alt
+  - images-check
+  - listes
+professionnels-en-accessibilite-numerique:
+  - 1.X-images-sans-lien
+  - 2.X-verifier-cadres
+  - 5.X-verifier-tableaux
+  - 6.1-noms-accessibles-liens
+  - 6.2-liens-sans-nom-accessible
+  - 7.1-ancres-sans-href
+  - 8.9-double-br
+  - 8.9-paragraphes-vides
+  - 9.2-verifier-header-nav-main-footer
+  - 9.3-verifier-listes
+  - 9.4-verifier-elements-citations
+  - 10.2-images-en-arriere-plan
+  - 10.8-elements-masques-pour-technologies-assistives
+  - 12.6-verifier-landmarks
+  - document-active-element
