@@ -5,6 +5,8 @@
  */
 
 (function () {
+    let imagesCount = 0;
+
     function traverseFrames(doc) {
         showAlt(doc);
 
@@ -26,6 +28,8 @@
     function showAlt(doc) {
         const images = doc.querySelectorAll('img, [role=\'img\']');
         let text;
+
+        imagesCount += images.length;
 
         for (let i = 0; i < images.length; i++) {
             // TODO: improve the aria-labelledby handling
@@ -72,4 +76,10 @@
     }
 
     traverseFrames(document);
+
+    const message = imagesCount > 0
+        ? `${imagesCount} images trouvées dans la page.`
+        : 'Aucune image trouvée dans la page.';
+
+    alert(message);
 })();
