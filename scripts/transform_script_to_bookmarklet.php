@@ -11,6 +11,20 @@
  * 
  * Usage : php transform_script_to_bookmarklet.php script.js
  */
+
+if (count($argv) !== 2) {
+    $isWindows = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
+    
+    if ($isWindows) {
+        echo "Usage: php .\\scripts\\transform_script_to_bookmarklet.php <chemin_vers_le_script>\n";
+        echo "Exemple: php .\\scripts\\transform_script_to_bookmarklet.php .\\bookmarklets\\contributeurs-de-contenu\\double-br.js\n";
+    } else {
+        echo "Usage: php ./scripts/transform_script_to_bookmarklet.php <chemin_vers_le_script>\n";
+        echo "Exemple: php ./scripts/transform_script_to_bookmarklet.php ./bookmarklets/contributeurs-de-contenu/double-br.js\n";
+    }
+    exit;
+}
+
 if (!file_exists($argv[1])) {
     echo "Le fichier n'existe pas.\n";
     exit;
