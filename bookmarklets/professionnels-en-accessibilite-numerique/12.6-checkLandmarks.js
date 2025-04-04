@@ -17,7 +17,7 @@
             elements = document.querySelectorAll(tagName);
 
             if (elements.length === 0) {
-                message += `<${tagName.toLowerCase()}> non trouvé\n`;
+                message += `Aucun élément <${tagName}> trouvé.\n`;
             } else if (elements.length > 1) {
                 message += `Plusieurs éléments <${tagName}> trouvés.\n`;
                 message += `Identifier le bon élément et ajouter l'attribut role='${role}' à celui-ci.\n`;
@@ -66,6 +66,19 @@
 
     if (roleNavigationElements.length === 0) {
         message += `Aucun élément avec role='navigation'.\n`;
+
+        const tagName = 'nav';
+        const navElements = document.querySelectorAll(tagName);
+
+        if (navElements.length === 0) {
+            message += `Aucun élément <${tagName}> trouvé.\n`;
+        } else if (navElements.length > 1) {
+            message += `Plusieurs éléments <${tagName}> trouvés.\n`;
+            message += `Identifier les bons éléments et ajouter l'attribut role='${role}' à ceux-ci.\n`;
+        } else {
+            message += `Un élément <${tagName}> trouvé.\n`;
+            message += `Vérifier que c'est bien le bon élément et lui ajouter l'attribut role='${role}'.\n`;
+        }
     } else if (roleNavigationElements.length > 1) {
         message += `Plusieurs éléments avec role='navigation' trouvés.\n`;
 
