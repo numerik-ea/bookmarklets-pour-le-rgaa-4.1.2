@@ -17,7 +17,7 @@ layout: bookmarklets
                     {% include_relative bookmarklets/professionnels-en-accessibilite-numerique/{{ file.basename }}.js %}
                 {% endcapture %}
                 <li>
-                    <a href="{{ current_file_content }}">{{ file.name | remove: ".js" | remove: "-bookmarklet" | replace: "-", " " }}</a>
+                    <a href="{{ current_file_content | strip }}">{{ file.name | remove: ".js" | remove: "-bookmarklet" | replace: "-", " " }}</a>
                 </li>
         {% endif %}
         {% endfor %}
@@ -50,7 +50,7 @@ layout: bookmarklets
             <ul>
                 {% for file in site.static_files %}
                 {%
-                if file.path contains "RGAA-4.1.2"
+                if file.path contains "professionnels-en-accessibilite-numerique"
                 and file.path contains folder.name
                 and file.extname == ".html"
                 %}
