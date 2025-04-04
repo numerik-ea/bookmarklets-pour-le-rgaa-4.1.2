@@ -17,10 +17,10 @@ if (count($argv) !== 2) {
     
     if ($isWindows) {
         echo "Usage : php .\\scripts\\transform_script_to_bookmarklet.php <chemin_vers_le_script>\n";
-        echo "Exemple : php .\\scripts\\transform_script_to_bookmarklet.php .\\bookmarklets\\contributeurs-de-contenu\\double-br.js\n";
+        echo "Exemple : php .\\scripts\\transform_script_to_bookmarklet.php .\\_includes\\bookmarklets\\contributeurs-de-contenu\\double-br.js\n";
     } else {
         echo "Usage : php ./scripts/transform_script_to_bookmarklet.php <chemin_vers_le_script>\n";
-        echo "Exemple : php ./scripts/transform_script_to_bookmarklet.php ./bookmarklets/contributeurs-de-contenu/double-br.js\n";
+        echo "Exemple : php ./scripts/transform_script_to_bookmarklet.php ./_includes/bookmarklets/contributeurs-de-contenu/double-br.js\n";
     }
     exit;
 }

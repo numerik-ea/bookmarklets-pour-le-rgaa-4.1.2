@@ -1,7 +1,7 @@
 <?php
 
 // Définition des chemins
-$bookmarkletsDir = __DIR__ . '/../bookmarklets';
+$bookmarkletsDir = __DIR__ . '/../_includes/bookmarklets';
 $dataDir = __DIR__ . '/../_data';
 $outputFile = $dataDir . '/bookmarklets_order.yml';
 

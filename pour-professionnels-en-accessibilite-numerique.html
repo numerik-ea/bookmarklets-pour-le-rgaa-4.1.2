@@ -9,7 +9,7 @@ layout: bookmarklets
     <ul>
         {% for file in site.data.bookmarklets_order.professionnels-en-accessibilite-numerique %}
             {% capture current_file_content %}
-                {% include_relative bookmarklets/professionnels-en-accessibilite-numerique/{{ file }}-bookmarklet.js %}
+                {% include_relative _includes/bookmarklets/professionnels-en-accessibilite-numerique/{{ file }}-bookmarklet.js %}
             {% endcapture %}
             <li>
                 <a href="{{ current_file_content | strip }}">{{ file | replace: "-", " " | capitalize }}</a>

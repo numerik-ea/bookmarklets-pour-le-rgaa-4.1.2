@@ -8,7 +8,7 @@ layout: bookmarklets
     <ul>
         {% for file in site.data.bookmarklets_order.contributeurs-de-contenu %}
             {% capture current_file_content %}
-                {% include_relative bookmarklets/contributeurs-de-contenu/{{ file }}-bookmarklet.js %}
+                {% include_relative _includes/bookmarklets/contributeurs-de-contenu/{{ file }}-bookmarklet.js %}
             {% endcapture %}
             <li>
                 <a href="{{ current_file_content | strip }}">{{ file | replace: "-", " " | capitalize }}</a>
