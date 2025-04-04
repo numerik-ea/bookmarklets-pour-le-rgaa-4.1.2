@@ -6,19 +6,13 @@ layout: bookmarklets
 
 <section>
     <ul>
-        {% for file in site.static_files %}
-            {% 
-                if file.path contains "contributeurs-de-contenu"
-                and file.basename contains "-bookmarklet"
-                and file.extname == ".js"
-            %}
-                {% capture current_file_content %}
-                    {% include_relative bookmarklets/contributeurs-de-contenu/{{ file.basename }}.js %}
-                {% endcapture %}
-                <li>
-                    <a href="{{ current_file_content | strip }}">{{ file.name | remove: ".js" | remove: "-bookmarklet" | replace: "-", " " | capitalize }}</a>
-                </li>
-            {% endif %}
+        {% for file in site.data.bookmarklets_order.contributeurs-de-contenu %}
+            {% capture current_file_content %}
+                {% include_relative bookmarklets/contributeurs-de-contenu/{{ file }}-bookmarklet.js %}
+            {% endcapture %}
+            <li>
+                <a href="{{ current_file_content | strip }}">{{ file | replace: "-", " " | capitalize }}</a>
+            </li>
         {% endfor %}
     </ul>
 </section>

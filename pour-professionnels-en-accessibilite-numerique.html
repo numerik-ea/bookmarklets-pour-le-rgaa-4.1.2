@@ -7,19 +7,13 @@ layout: bookmarklets
 <section>
     <h2>Bookmarklets</h2>
     <ul>
-        {% for file in site.static_files %}
-        {%
-        if file.path contains "professionnels-en-accessibilite-numerique"
-        and file.extname == ".js"
-        and file.basename contains "-bookmarklet"
-        %}
-                {% capture current_file_content %}
-                    {% include_relative bookmarklets/professionnels-en-accessibilite-numerique/{{ file.basename }}.js %}
-                {% endcapture %}
-                <li>
-                    <a href="{{ current_file_content | strip }}">{{ file.name | remove: ".js" | remove: "-bookmarklet" | replace: "-", " " }}</a>
-                </li>
-        {% endif %}
+        {% for file in site.data.bookmarklets_order.professionnels-en-accessibilite-numerique %}
+            {% capture current_file_content %}
+                {% include_relative bookmarklets/professionnels-en-accessibilite-numerique/{{ file }}-bookmarklet.js %}
+            {% endcapture %}
+            <li>
+                <a href="{{ current_file_content | strip }}">{{ file | replace: "-", " " | capitalize }}</a>
+            </li>
         {% endfor %}
     </ul>
 </section>

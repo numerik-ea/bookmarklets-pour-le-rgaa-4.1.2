@@ -6,7 +6,7 @@ contributeurs-de-contenu:
   - images-check
   - listes
 professionnels-en-accessibilite-numerique:
-  - 1.X-images-sans-lien
+  - 1.X-images-non-contenues-dans-un-lien
   - 2.X-verifier-cadres
   - 5.X-verifier-tableaux
   - 6.1-noms-accessibles-liens
