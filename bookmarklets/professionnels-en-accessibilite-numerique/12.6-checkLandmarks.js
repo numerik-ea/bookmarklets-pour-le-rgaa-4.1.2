@@ -42,26 +42,6 @@
     checkRoleThatMustBeUnique('banner', message);
     message += '\n';
 
-    const roleSearchElements = document.querySelectorAll(`[role='search']`);
-
-    if (roleSearchElements.length === 0) {
-        message += `Aucun élément avec role='search'.\n`;
-    } else if (roleSearchElements.length > 1) {
-        message += `Plusieurs éléments avec role='search' trouvés.\n`;
-
-        roleSearchElements.forEach(element => {
-            message += `<${element.tagName.toLowerCase()} role='search'>\n`;
-        });  
-
-        message += `Identifier le bon élément et ajouter l'attribut role='search' à celui-ci.\n`;
-        message += `Le moteur de recherche doit permettre d'effectuer des recherches sur les contenus de l'ensemble du site.\n`;
-    } else {
-        message += `Un élément avec role='search' trouvé :`;
-        message += `<${roleSearchElements[0].tagName.toLowerCase()} role='search'>\n`;
-    }
-
-    message += '\n';
-
     const roleNavigationElements = document.querySelectorAll(`[role='navigation']`);
 
     if (roleNavigationElements.length === 0) {
@@ -90,6 +70,26 @@
     } else {
         message += `Un élément avec role='navigation' trouvé :`;
         message += `<${roleNavigationElements[0].tagName.toLowerCase()} role='navigation'>\n`;
+    }
+
+    message += '\n';
+
+    const roleSearchElements = document.querySelectorAll(`[role='search']`);
+
+    if (roleSearchElements.length === 0) {
+        message += `Aucun élément avec role='search'.\n`;
+    } else if (roleSearchElements.length > 1) {
+        message += `Plusieurs éléments avec role='search' trouvés.\n`;
+
+        roleSearchElements.forEach(element => {
+            message += `<${element.tagName.toLowerCase()} role='search'>\n`;
+        });  
+
+        message += `Identifier le bon élément et ajouter l'attribut role='search' à celui-ci.\n`;
+        message += `Le moteur de recherche doit permettre d'effectuer des recherches sur les contenus de l'ensemble du site.\n`;
+    } else {
+        message += `Un élément avec role='search' trouvé :`;
+        message += `<${roleSearchElements[0].tagName.toLowerCase()} role='search'>\n`;
     }
 
     message += '\n';
