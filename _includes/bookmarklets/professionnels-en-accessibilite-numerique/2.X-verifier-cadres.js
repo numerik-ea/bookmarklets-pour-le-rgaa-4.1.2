@@ -2,7 +2,7 @@
     const iframesAndFrames = document.querySelectorAll('iframe, frame');
 
     if (iframesAndFrames.length === 0) {
-        alert('2.1 NA et 2.2 NA : pas de cadres dans la page.');
+        alert('2.1 NA et 2.2 NA : pas de cadres sur la page.');
         return true;
     }
 

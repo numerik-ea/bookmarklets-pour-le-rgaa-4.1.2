@@ -78,8 +78,8 @@
     traverseFrames(document);
 
     const message = imagesCount > 0
-        ? `${imagesCount} images trouvées dans la page.`
-        : 'Aucune image trouvée dans la page.';
+        ? `${imagesCount} images trouvées sur la page.`
+        : 'Aucune image trouvée sur la page.';
 
     alert(message);
 })();

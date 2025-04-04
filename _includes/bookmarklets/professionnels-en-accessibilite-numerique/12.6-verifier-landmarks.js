@@ -32,7 +32,7 @@
                 message += `<${element.tagName.toLowerCase()} role='${role}'>\n`;
             });
 
-            message += `Le rôle WAI-ARIA ${role} doit être unique dans la page\n`;
+            message += `Le rôle WAI-ARIA ${role} doit être unique sur la page\n`;
         } else {
             message += `Un élément avec role='${role}' trouvé :`;
             message += `<${elements[0].tagName.toLowerCase()} role='${role}'>\n`;

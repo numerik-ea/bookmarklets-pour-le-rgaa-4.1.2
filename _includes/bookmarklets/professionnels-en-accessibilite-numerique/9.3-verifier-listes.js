@@ -3,11 +3,11 @@
     const numberOfLists = lists.length;
 
     if (numberOfLists === 0) {
-        alert('Pas de listes dans la page.');
+        alert('Pas de listes sur la page.');
         return;
     }
 
-    let message = numberOfLists + ' listes dans la page';
+    let message = numberOfLists + ' listes sur la page';
 
     if (numberOfLists === 1) {
         message = message.replace('listes', 'liste');

@@ -3,11 +3,11 @@
     const numberOfTableElements = tableElements.length;
 
     if (numberOfTableElements === 0) {
-        alert('Pas de tableaux dans la page.');
+        alert('Pas de tableaux sur la page.');
         return;
     }
 
-    let message = numberOfTableElements + ' tableaux dans la page';
+    let message = numberOfTableElements + ' tableaux sur la page';
 
     if (numberOfTableElements === 1) {
         message = message.replace('tableaux', 'tableau');
