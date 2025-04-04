@@ -23,7 +23,7 @@
                 message += `Identifier le bon élément et ajouter l'attribut role='${role}' à celui-ci.\n`;
             } else {
                 message += `Un élément <${tagName}> trouvé.\n`;
-                message += `Vérifier que c'est bien le bon élément et lui ajouter l'attribut role='${role}'.\n`;
+                message += `Vérifier que c'est bien le bon élément <${tagName}> et lui ajouter l'attribut role='${role}'.\n`;
             }
         } else if (elements.length > 1) {
             message += `12.6 NC : [role='${role}'] trouvé mais plusieurs éléments avec ce rôle :\n`;
@@ -74,7 +74,7 @@
             message += `Aucun élément <${tagName}> trouvé.\n`;
         } else if (navElements.length > 1) {
             message += `Plusieurs éléments <${tagName}> trouvés.\n`;
-            message += `Identifier les bons éléments et ajouter l'attribut role='navigation' à ceux-ci.\n`;
+            message += `Identifier les bons éléments <${tagName}> et ajouter l'attribut role='navigation' à ceux-ci.\n`;
         } else {
             message += `Un élément <${tagName}> trouvé.\n`;
             message += `Vérifier que c'est bien le bon élément et lui ajouter l'attribut role='navigation'.\n`;
