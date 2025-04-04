@@ -17,7 +17,7 @@
             elements = document.querySelectorAll(tagName);
 
             if (elements.length === 0) {
-                message += `${element.tagName.toLowerCase()} non trouvé\n`;
+                message += `<${tagName.toLowerCase()}> non trouvé\n`;
             } else if (elements.length > 1) {
                 message += `Plusieurs éléments <${tagName}> trouvés.\n`;
                 message += `Identifier le bon élément et ajouter l'attribut role='${role}' à celui-ci.\n`;
@@ -40,6 +40,7 @@
     }
 
     checkRoleThatMustBeUnique('banner', message);
+    message += '\n';
 
     const roleSearchElements = document.querySelectorAll(`[role='search']`);
 
@@ -59,6 +60,8 @@
         message += `<${roleSearchElements[0].tagName.toLowerCase()} role='search'>\n`;
     }
 
+    message += '\n';
+
     const roleNavigationElements = document.querySelectorAll(`[role='navigation']`);
 
     if (roleNavigationElements.length === 0) {
@@ -76,10 +79,15 @@
         message += `<${roleNavigationElements[0].tagName.toLowerCase()} role='navigation'>\n`;
     }
 
-    checkRoleThatMustBeUnique('main', message);
-    checkRoleThatMustBeUnique('contentinfo', message);
+    message += '\n';
 
-    alert(message + '\nVoir la console pour plus de détails.');
+    checkRoleThatMustBeUnique('main', message);
+    message += '\n';
+
+    checkRoleThatMustBeUnique('contentinfo', message);
+    message += '\n';
+
+    alert(message + 'Voir la console pour plus de détails.');
 
     document.querySelectorAll([
         `[role='banner']`,
