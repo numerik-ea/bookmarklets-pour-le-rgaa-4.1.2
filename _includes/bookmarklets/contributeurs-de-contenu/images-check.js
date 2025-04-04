@@ -125,26 +125,12 @@
     }
 
     // Function to show status message
-    function showStatusMessage(hasImages) {
-        const message = hasImages
-            ? 'Succès ! Images trouvées sur la page : ' + document.title
-            : 'Aucune image trouvée sur la page : ' + document.title;
+    function showStatusMessage(imagesCount) {
+        const message = imagesCount > 0
+            ? `Succès ! ${imagesCount} images trouvées dans la page.`
+            : 'Aucune image trouvée dans la page.';
 
-        const element = document.createElement(hasImages ? 'div' : 'strong');
-        element.id = hasImages ? 'success' : 'failure';
-        element.setAttribute('role', hasImages ? 'alert' : 'status');
-        element.style.cssText = hasImages
-            ? 'position:absolute; width:0; height:0; clip: rect(0,0,0,0);'
-            : 'color:black;font-weight:bold;font-family:sans-serif;font-size:small;background-color:yellow;margin:0 2px; padding:2px;';
-        element.textContent = message;
-
-        if (hasImages) {
-            document.body.appendChild(element);
-        } else {
-            document.body.insertBefore(element, document.body.firstChild);
-        }
-
-        setTimeout(() => element.remove(), hasImages ? 3000 : 6000);
+        alert(message);
     }
 
     // Main function to check images
@@ -165,7 +151,7 @@
         });
 
         // Show status message
-        showStatusMessage(images.length > 0);
+        showStatusMessage(images.length);
     }
 
     // Execute the main function
