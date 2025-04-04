@@ -16,11 +16,11 @@ if (count($argv) !== 2) {
     $isWindows = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
     
     if ($isWindows) {
-        echo "Usage: php .\\scripts\\transform_script_to_bookmarklet.php <chemin_vers_le_script>\n";
-        echo "Exemple: php .\\scripts\\transform_script_to_bookmarklet.php .\\bookmarklets\\contributeurs-de-contenu\\double-br.js\n";
+        echo "Usage : php .\\scripts\\transform_script_to_bookmarklet.php <chemin_vers_le_script>\n";
+        echo "Exemple : php .\\scripts\\transform_script_to_bookmarklet.php .\\bookmarklets\\contributeurs-de-contenu\\double-br.js\n";
     } else {
-        echo "Usage: php ./scripts/transform_script_to_bookmarklet.php <chemin_vers_le_script>\n";
-        echo "Exemple: php ./scripts/transform_script_to_bookmarklet.php ./bookmarklets/contributeurs-de-contenu/double-br.js\n";
+        echo "Usage : php ./scripts/transform_script_to_bookmarklet.php <chemin_vers_le_script>\n";
+        echo "Exemple : php ./scripts/transform_script_to_bookmarklet.php ./bookmarklets/contributeurs-de-contenu/double-br.js\n";
     }
     exit;
 }
