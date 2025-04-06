@@ -3,12 +3,10 @@
     const paragraphs = document.querySelectorAll('p');
     const emptyParagraphs = [];
 
-    // Iterate over the selected elements
     paragraphs.forEach(p => {
-        // Check if the content is exactly &nbsp;
         let content = p.innerHTML;
 
-        content = content.replaceAll(`&nbsp;`, '');
+        content = content.replaceAll('&nbsp;', '');
         content = content.trim();
 
         if (content === '') {
@@ -62,7 +60,7 @@
         
         p.appendChild(label);
 
-        console.log(p)
+        console.log(p);
     });
 })();
 
