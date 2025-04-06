@@ -45,7 +45,7 @@ bundle install
 
 ```bash
 # Lancer le site en local
-bundle exec jekyll serve --baseurl / --config _config.yml,_config_dev.yml --trace
+bundle exec jekyll serve --config _config.yml,_config_dev.yml --trace
 ```
 
 3. Pour tout ajout de script ou pour tout renommage de script, lancer la commande suivante pour afficher correctement les bookmarklets sur les pages web correspondantes :

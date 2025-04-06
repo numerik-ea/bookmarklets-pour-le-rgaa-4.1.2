@@ -1,5 +1,5 @@
 url: ""
-baseurl: ""
+baseurl: "/"
 
 # Build settings
 exclude:
