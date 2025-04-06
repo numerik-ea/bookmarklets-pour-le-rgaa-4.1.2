@@ -7,12 +7,12 @@ layout: bookmarklets
 <section>
     <h2>Bookmarklets</h2>
     <ul>
-        {% for file in site.data.bookmarklets_order.professionnels-en-accessibilite-numerique %}
+        {% for file_basename in site.data.bookmarklets_order.professionnels-en-accessibilite-numerique %}
             {% capture current_file_content %}
-                {% include_relative _includes/bookmarklets/professionnels-en-accessibilite-numerique/{{ file }}-bookmarklet.js %}
+                {% include_relative _includes/bookmarklets/professionnels-en-accessibilite-numerique/{{ file_basename }}-bookmarklet.js %}
             {% endcapture %}
             <li>
-                <a href="{{ current_file_content | strip }}">{{ file | replace: "-", " " | capitalize }}</a>
+                <a href="{{ current_file_content | strip }}">{{ file_basename | replace: "-", " " | capitalize }}</a>
             </li>
         {% endfor %}
     </ul>
