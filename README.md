@@ -50,7 +50,7 @@ bundle exec jekyll serve --baseurl / --config _config.yml,_config_dev.yml --trac
 
 3. Pour tout ajout de script ou pour tout renommage de script, lancer la commande suivante pour afficher correctement les bookmarklets sur les pages web correspondantes :
 ```bash
-# Générer le fichier de configurattion (_data/bookmarklets_order.yml) des noms de bookmarklets dans l'ordre naturel
+# Générer le fichier de configuration (_data/bookmarklets_order.yml) des noms de bookmarklets dans l'ordre naturel
 php .\scripts\create_data_file_to_order_bookmarklets.php
 ```
 
