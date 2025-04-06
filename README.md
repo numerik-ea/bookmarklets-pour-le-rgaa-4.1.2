@@ -54,3 +54,40 @@ bundle exec jekyll serve --config _config.yml,_config_dev.yml --trace
 php .\scripts\create_data_file_to_order_bookmarklets.php
 ```
 
+### macOS
+Pour tester le site en local sur macOS :
+
+1. Installer les dépendances :
+```bash
+# Installer les dépendances
+gem install bundler
+gem install jekyll
+bundle install
+```
+
+2. Lancer le site en local :
+```bash
+bundle exec jekyll serve --config _config.yml,_config_dev.yml --trace
+```
+
+### Utilisation du script switch_gemfile.sh
+
+Le script `switch_gemfile.sh` permet de basculer facilement entre les configurations de Gemfile.lock spécifiques à chaque plateforme (macOS ou Windows). Cela est utile lorsque vous travaillez sur différentes plateformes ou lorsque vous rencontrez des problèmes de compatibilité.
+
+Pour utiliser le script :
+
+```bash
+# Sur macOS
+./switch_gemfile.sh mac
+
+# Sur Windows (dans Git Bash ou WSL)
+./switch_gemfile.sh windows
+```
+
+Le script effectue les opérations suivantes :
+1. Supprime le fichier Gemfile.lock existant (s'il existe)
+2. Copie le fichier Gemfile.lock approprié pour votre plateforme (Gemfile.lock.mac ou Gemfile.lock.windows)
+3. Exécute `bundle install` pour s'assurer que toutes les dépendances sont correctement installées
+
+Ce script est particulièrement utile pour éviter les problèmes de compatibilité entre les différentes plateformes lors du développement.
+
