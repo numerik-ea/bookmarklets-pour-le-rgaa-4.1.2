@@ -19,46 +19,47 @@ layout: bookmarklets
 </section>
 
 {% assign has_test_pages = 0 %}
-{% for folder in site.data.folders.folders %}
-{% assign found = false %}
+{% for test in site.data.tests_metadata.tests_metadata %}
+    {% assign found = false %}
 
-{% for file in site.static_files %}
-{% if file.path contains folder.name and file.extname == ".html" %}
-{% assign found = true %}
-{% if has_test_pages == 0 %}
-{% assign has_test_pages = 1 %}
-{% endif %}
-{% endif %}
+    {% for file in site.static_files %}
+        {% if file.path contains test.name and file.extname == ".html" %}
+            {% assign found = true %}
+
+            {% if has_test_pages == 0 %}
+                {% assign has_test_pages = 1 %}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+
+    {% if found and has_test_pages == 1 %}
+    <section>
+        <h2>Pages de test</h2>
+        {% assign has_test_pages = 2 %}
+        <ul>
+    {% endif %}
+
+    {% if found %}
+    <li>
+        <strong>{{ test.title }}</strong>
+        <ul>
+            {% for file in site.static_files %}
+                {%
+                    if file.path contains "professionnels-en-accessibilite-numerique"
+                    and file.path contains test.name
+                    and file.extname == ".html"
+                %}
+                    <li>
+                        <a href="{{ file.path | absolute_url }}">{{ file.name | split: "-" | slice: 1, 999 | join: "-" | replace: "-", " " | replace: ".html", "" | capitalize }}</a>
+                    </li>
+                 {% endif %}
+            {% endfor %}
+        </ul>
+    </li>
+    {% endif %}
 {% endfor %}
 
-{% if found and has_test_pages == 1 %}
-<section>
-    <h2>Pages de test</h2>
-    {% assign has_test_pages = 2 %}
-    <ul>
-        {% endif %}
-
-        {% if found %}
-        <li>
-            <strong>{{ folder.title }}</strong>
-            <ul>
-                {% for file in site.static_files %}
-                {%
-                if file.path contains "professionnels-en-accessibilite-numerique"
-                and file.path contains folder.name
-                and file.extname == ".html"
-                %}
-                <li>
-                    <a href="{{ file.path | absolute_url }}">{{ file.name }}</a>
-                </li>
-                {% endif %}
-                {% endfor %}
-            </ul>
-        </li>
-        {% endif %}
-        {% endfor %}
-
-        {% if found and has_test_pages == 2 %}
-    </ul>
-</section>
+{% if found and has_test_pages == 2 %}
+        </ul>
+    </section>
 {% endif %}
