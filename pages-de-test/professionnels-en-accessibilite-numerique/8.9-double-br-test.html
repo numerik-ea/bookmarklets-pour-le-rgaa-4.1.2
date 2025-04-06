@@ -1,0 +1,55 @@
+---
+layout: test-page
+title: Test 8.9 - Double saut de ligne
+test_description: Cette page contient des doubles sauts de ligne pour tester les critères d'accessibilité RGAA 4.1.2 concernant les sauts de ligne.
+---
+<div>
+    <div>
+        <p id="double-br-nested">
+            Test
+            <br>
+
+
+
+            <br>
+            Double br
+        </p>
+    </div>
+    <p id="double-br">
+        Test
+        <br>
+        <br>
+        Double br
+    </p>
+</div>
+<div id="double-br-div">
+    Test
+    <br>
+    <br>
+    End
+</div>
+<p id="double-br-slash">
+    Test
+    <br/>
+    <br/>
+    Double br
+</p>
+<p id="double-br-space-slash">
+    Test
+    <br />
+    <br />
+    Double br
+</p>
+<p id="double-br-space-br-space-slash">
+    Test
+    <br >
+    <br />
+    Double br
+</p>
+<p id="simple-br">
+    Test
+    <br>
+    Simple
+    <br>
+    Merci
+</p>
