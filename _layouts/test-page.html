@@ -1,0 +1,37 @@
+{% if page.test_description %}
+    {% assign page.description = page.test_description %}
+{% endif %}
+
+{% include header.html %}
+
+<body class="page-{{ page.layout }}">
+    <header role="banner">
+        <div class="container">
+            <a href="{{ site.baseurl }}" class="back-link">
+                <span aria-hidden="true">← </span>Retour à la page d'accueil
+            </a>
+            <h1>{{ page.title }}</h1>
+        </div>
+    </header>
+
+    <main role="main" class="container">
+        <section class="test-page-section">
+            <div class="test-info">
+                <h2>Informations sur le test</h2>
+                <p>Cette page est utilisée pour tester les bookmarklets d'accessibilité RGAA 4.1.2.</p>
+                <p>Nom du fichier: {{ page.name }}</p>
+                {% if page.test_description %}
+                    <p>Description du test: {{ page.test_description }}</p>
+                {% endif %}
+            </div>
+            
+            <div class="test-content">
+                <h2>Contenu du test</h2>
+                {{ content }}
+            </div>
+        </section>
+    </main>
+    {% include footer.html %}
+</body>
+
+</html> 
