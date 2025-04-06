@@ -15,14 +15,14 @@ fi
 case $1 in
     "mac")
         cp Gemfile.lock.mac Gemfile.lock
-        echo "Switched to Mac Gemfile.lock"
+        echo "Passage au Gemfile.lock pour Mac"
         ;;
     "windows")
         cp Gemfile.lock.windows Gemfile.lock
-        echo "Switched to Windows Gemfile.lock"
+        echo "Passage au Gemfile.lock pour Windows"
         ;;
     *)
-        echo "Invalid platform. Use 'mac' or 'windows'"
+        echo "Plateforme invalide. Utilisez 'mac' ou 'windows'"
         exit 1
         ;;
 esac
