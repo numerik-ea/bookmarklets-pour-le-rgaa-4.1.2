@@ -27,6 +27,7 @@
         {{ content }}
     </main>
     {% include footer.html %}
+    <script src="{{ site.baseurl }}assets/js/copy-bookmarklet.js"></script>
     <script>
         document.querySelector('.toggle-button').addEventListener('click', function() {
             const steps = document.getElementById('installation-steps');
@@ -34,6 +35,26 @@
             
             steps.classList.toggle('visible');
             this.setAttribute('aria-expanded', !isExpanded);
+        });
+
+        // Add event listeners for bookmarklet links
+        document.querySelectorAll('a[href^="javascript:"]').forEach(link => {
+            // Si le lien contient le caractère spécial %C2%A0 (espace insécable = &nbsp;),
+            // on ne peut pas le glisser dans la barre des favoris
+            // car sinon le bookmarklet ne fonctionnera pas correctement
+            // https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/setData
+            if (!link.href.includes('%C2%A0')) {
+                return;
+            }
+
+            // Handle drag event
+            link.addEventListener('dragstart', function(e) {
+                alert(
+                    'Ce bookmarklet ne peut pas être glissé directement dans la barre des favoris.'
+                    + '\n\n'
+                    + 'Veuillez copier le code du bookmarklet et le coller dans un nouveau favori.'
+                );
+            });
         });
     </script>
 </body>
