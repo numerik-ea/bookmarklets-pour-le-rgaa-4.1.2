@@ -17,6 +17,7 @@ layout: bookmarklets
                     {{ file_basename | split: "-" | slice: 1, 999 | 
                         join: "-" | 
                         replace: "-", " " | 
+                        replace: "br", "&lt;br&gt;" | 
                         replace: "elements", "éléments" | 
                         replace: "presence", "présence" | 
                         replace: "verifier", "vérifier" | 
