@@ -100,12 +100,18 @@
 
     console.clear();
 
-    console.log(messageNumberOfElementsHiddenOnlyToAT + ' :');
+    console.log(
+        messageNumberOfElementsHiddenOnlyToAT  
+        + messageNumberOfElementsHiddenOnlyToAT === 0 ? '.' : ' :'
+    );
     elementsHiddenOnlyToAT.forEach(element => {
         console.log(element);
     });
 
-    console.log(messageNumberOfHiddenElements + ' :');
+    console.log(
+        messageNumberOfHiddenElements
+        + messageNumberOfHiddenElements === 0 ? '.' : ' :'
+    );
     hiddenElements.forEach(element => {
         console.log(element);
     });

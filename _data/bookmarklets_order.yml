@@ -7,12 +7,12 @@ contributeurs-de-contenu:
   - listes
   - paragraphes-vides
 professionnels-en-accessibilite-numerique:
-  - 1.X-images-non-contenues-dans-un-lien
-  - 2.X-verifier-cadres
+  - 1.X-verifier-images-non-contenues-dans-un-lien
+  - 2.X-check-iframes-et-frames
   - 5.X-test-presence-tableaux
   - 6.1-voir-les-noms-accessibles-des-liens
   - 6.2-test-presence-de-liens-sans-nom-accessible
-  - 7.1-ancres-sans-href
+  - 7.1-lister-les-liens-sans-href
   - 8.9-double-br
   - 8.9-paragraphes-vides
   - 9.2-test-presence-header-nav-main-footer
