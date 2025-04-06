@@ -91,11 +91,11 @@
     }
 
     if (numberOfElementsHiddenOnlyToAT === 1) {
-        messageNumberOfElementsHiddenOnlyToAT = messageNumberOfElementsHiddenOnlyToAT.replace('éléments', 'élément');
+        messageNumberOfElementsHiddenOnlyToAT = messageNumberOfElementsHiddenOnlyToAT.replace('éléments cachés', 'élément caché');
     }
 
     if (numberOfHiddenElements === 1) {
-        messageNumberOfHiddenElements = messageNumberOfHiddenElements.replace('éléments', 'élément');
+        messageNumberOfHiddenElements = messageNumberOfHiddenElements.replace('éléments cachés', 'élément caché');
     }
 
     console.clear();
