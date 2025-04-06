@@ -25,7 +25,10 @@
         message = message.replace('éléments', 'élément');
     }
 
-    alert(message);
+    alert(message + '.\nPlus de détails dans la console.');
+    console.clear();
+    console.log(message + ' :');
+
     elementsWithBgImage.forEach(element => {
         element.style.border = '1px solid yellow';
         element.style.outline = '1px solid blue';

@@ -25,15 +25,17 @@
 
     let message = (
         countEmptyParagraphs
-        + ' paragraphes vides.\n'
-        + 'Plus de détails dans la console.'
+        + ' paragraphes vides'
     );
 
     if (countEmptyParagraphs === 1) {
         message = message.replace('paragraphes vides', 'paragraphe vide');
     }
 
-    alert(message);
+    alert(message + '.\nPlus de détails dans la console.');
+    console.clear();
+    console.log(message + ' :');
+
     emptyParagraphs.forEach(p => {
         p.style.border = '2px solid red';
         

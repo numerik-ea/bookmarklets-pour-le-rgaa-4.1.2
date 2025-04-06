@@ -36,7 +36,6 @@
         return false;
     }
 
-
     // Recursive function to find all children with double <br> tags
     function recursiveFindAllChildrenWithDoubleBR(element, results) {
         if (hasDoubleBR(element)) {
@@ -63,12 +62,12 @@
         return;
     }
 
-    let message = (
-        results.length + ' éléments avec double <br>.\n' +
-        'Plus de détails dans la console.'
-    );
+    let message = results.length + ' éléments avec double <br>';
 
-    alert(message);
+    alert(message + '.\nPlus de détails dans la console.');
+    console.clear();
+    console.log(message + ' :');
+
     results.forEach(element => {
         element.style.border = '2px solid red';
 

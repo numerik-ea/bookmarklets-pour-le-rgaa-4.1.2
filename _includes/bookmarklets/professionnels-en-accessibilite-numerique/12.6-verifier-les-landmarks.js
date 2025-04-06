@@ -101,6 +101,8 @@
     message += '\n';
 
     alert(message + 'Voir la console pour plus de détails.');
+    console.clear();
+    console.log(message + ' :');
 
     document.querySelectorAll([
         `[role='banner']`,

@@ -13,6 +13,7 @@
     }
 
     alert(message + '.\nVoir la console pour plus de détails.');
+    console.clear();
     console.log(message + ' :');
 
     anchorsWithoutHref.forEach(element => console.log(element));

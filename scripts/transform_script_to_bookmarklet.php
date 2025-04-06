@@ -3,37 +3,18 @@
 /**
  * Script permettant de transformer un script javascript en bookmarklet
  * 
- * @param string $argv[1] Chemin vers le script
+ * @param string $argv[1] Chemin vers le script (optionnel)
  * 
  * @return void
  * 
- * @version 1.0
+ * @version 1.1
  * 
- * Usage : php transform_script_to_bookmarklet.php script.js
+ * Usage : php transform_script_to_bookmarklet.php [script.js]
+ * Si aucun script n'est spécifié, tous les scripts dans le dossier bookmarklets seront transformés
  */
 
-if (count($argv) !== 2) {
-    $isWindows = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
-    
-    if ($isWindows) {
-        echo "Usage : php .\\scripts\\transform_script_to_bookmarklet.php <chemin_vers_le_script>\n";
-        echo "Exemple : php .\\scripts\\transform_script_to_bookmarklet.php .\\_includes\\bookmarklets\\contributeurs-de-contenu\\double-br.js\n";
-    } else {
-        echo "Usage : php ./scripts/transform_script_to_bookmarklet.php <chemin_vers_le_script>\n";
-        echo "Exemple : php ./scripts/transform_script_to_bookmarklet.php ./_includes/bookmarklets/contributeurs-de-contenu/double-br.js\n";
-    }
-    exit;
-}
-
-if (!file_exists($argv[1])) {
-    echo "Le fichier n'existe pas.\n";
-    exit;
-}
-
-if (!is_readable($argv[1])) {
-    echo "Le fichier n'est pas lisible.\n";
-    exit;
-}
+$isWindows = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
+$bookmarkletsDir = $isWindows ? '.\_includes\bookmarklets' : './_includes/bookmarklets';
 
 function remove_javascript_comments($js_code)
 {
@@ -42,12 +23,62 @@ function remove_javascript_comments($js_code)
     return $js_code;
 }
 
-$js_code = file_get_contents($argv[1]);
-$js_code = remove_javascript_comments($js_code);
-$js_code = preg_replace('/\s+/', ' ', $js_code); // Replace multiple spaces by a single space
-$js_code = trim($js_code);
+function transform_script_to_bookmarklet($script_path) {
+    if (!file_exists($script_path)) {
+        echo "Le fichier $script_path n'existe pas.\n";
+        return false;
+    }
 
-$bookmarklet = 'javascript:' . $js_code;
-file_put_contents(str_replace('.js', '', $argv[1]) . '-bookmarklet.js', $bookmarklet);
+    if (!is_readable($script_path)) {
+        echo "Le fichier $script_path n'est pas lisible.\n";
+        return false;
+    }
 
-echo "Le script a bien été transformé en bookmarklet.\n";
+    $js_code = file_get_contents($script_path);
+    $js_code = remove_javascript_comments($js_code);
+    $js_code = preg_replace('/\s+/', ' ', $js_code); // Replace multiple spaces by a single space
+    $js_code = trim($js_code);
+
+    $bookmarklet = 'javascript:' . $js_code;
+    $output_path = str_replace('.js', '', $script_path) . '-bookmarklet.js';
+    file_put_contents($output_path, $bookmarklet);
+
+    echo "Le script $script_path a bien été transformé en bookmarklet.\n";
+    return true;
+}
+
+// Si un argument est fourni, transformer uniquement ce script
+if (count($argv) === 2) {
+    transform_script_to_bookmarklet($argv[1]);
+    exit;
+}
+
+// Sinon, transformer tous les scripts dans le dossier bookmarklets
+echo "Aucun script spécifié. Transformation de tous les scripts dans le dossier $bookmarkletsDir...\n";
+
+if (!is_dir($bookmarkletsDir)) {
+    echo "Le dossier $bookmarkletsDir n'existe pas.\n";
+    exit;
+}
+
+$files = [];
+$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($bookmarkletsDir));
+foreach ($iterator as $file) {
+    if ($file->isFile() && $file->getExtension() === 'js' && !str_ends_with($file->getFilename(), '-bookmarklet.js')) {
+        $files[] = $file->getPathname();
+    }
+}
+
+if (empty($files)) {
+    echo "Aucun script JavaScript trouvé dans le dossier $bookmarkletsDir.\n";
+    exit;
+}
+
+$success_count = 0;
+foreach ($files as $file) {
+    if (transform_script_to_bookmarklet($file)) {
+        $success_count++;
+    }
+}
+
+echo "Transformation terminée. $success_count script(s) transformé(s) sur " . count($files) . ".\n";

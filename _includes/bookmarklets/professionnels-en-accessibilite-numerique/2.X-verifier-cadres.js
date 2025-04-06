@@ -64,6 +64,7 @@
             );
         }
 
+        console.clear();
         console.log(messageIframesAndFramesWithTitle + ' :');
         iframesAndFramesWithTitle.forEach(
             iframeOrFrame => console.log(iframeOrFrame)

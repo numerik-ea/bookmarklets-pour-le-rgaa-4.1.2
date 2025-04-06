@@ -98,6 +98,8 @@
         messageNumberOfHiddenElements = messageNumberOfHiddenElements.replace('éléments', 'élément');
     }
 
+    console.clear();
+
     console.log(messageNumberOfElementsHiddenOnlyToAT + ' :');
     elementsHiddenOnlyToAT.forEach(element => {
         console.log(element);
