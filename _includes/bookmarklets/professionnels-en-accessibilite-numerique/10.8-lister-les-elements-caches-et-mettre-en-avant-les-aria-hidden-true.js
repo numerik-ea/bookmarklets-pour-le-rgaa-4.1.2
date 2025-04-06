@@ -125,6 +125,6 @@
         '\n - avoir un fond rouge' +
         '\n' +
         '\nOuvrir la console pour voir la liste de tous les éléments cachés aux TA.' + 
-        '\nAppuyer sur OK.'
+        '\n\nAppuyer sur OK.'
     );
 })();
