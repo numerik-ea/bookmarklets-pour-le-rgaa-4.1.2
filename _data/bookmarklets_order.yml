@@ -8,16 +8,16 @@ contributeurs-de-contenu:
 professionnels-en-accessibilite-numerique:
   - 1.X-images-non-contenues-dans-un-lien
   - 2.X-verifier-cadres
-  - 5.X-verifier-tableaux
-  - 6.1-noms-accessibles-liens
-  - 6.2-liens-sans-nom-accessible
+  - 5.X-test-presence-tableaux
+  - 6.1-voir-les-noms-accessibles-des-liens
+  - 6.2-test-presence-de-liens-sans-nom-accessible
   - 7.1-ancres-sans-href
   - 8.9-double-br
   - 8.9-paragraphes-vides
-  - 9.2-verifier-header-nav-main-footer
-  - 9.3-verifier-listes
-  - 9.4-verifier-elements-citations
-  - 10.2-images-en-arriere-plan
+  - 9.2-test-presence-header-nav-main-footer
+  - 9.3-identifier-les-listes
+  - 9.4-test-presence-elements-de-citations
+  - 10.2-trouver-les-images-en-background-image
   - 10.8-elements-masques-pour-technologies-assistives
-  - 12.6-verifier-landmarks
+  - 12.6-verifier-les-landmarks
   - document-active-element
