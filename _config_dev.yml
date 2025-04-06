@@ -8,3 +8,5 @@ exclude:
   - Gemfile.lock
   - .gitignore
   - .DS_Store
+  - switch_gemfile.sh
+  - LICENSE
