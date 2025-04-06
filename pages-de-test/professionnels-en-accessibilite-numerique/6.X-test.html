@@ -1,108 +1,151 @@
----
-layout: test-page
-title: Test 6.X - Liens
-test_description: Cette page contient des liens pour tester les critères d'accessibilité RGAA 4.1.2 concernant les liens.
----
-<!-- TESTS FOR <a> -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test 6.X - Liens</title>
+    <link rel="shortcut icon" href="../../assets/images/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+</head>
+<body class="page-test">
+    <header role="banner">
+        <div class="container">
+            <a href="javascript:history.back()" class="back-link" id="back-link">
+                <span aria-hidden="true">← </span>Retour à la page précédente
+            </a>
+            <h1>Test 6.X - Liens</h1>
+        </div>
+    </header>
 
-<!-- Test <a> with no accessible name -->
-<a href="#"></a>
-<a href="#">
-    <span></span>
-</a>
-<a href="#">
-    <p></p>
-</a>
+    <main role="main" class="container">
+        <section class="test-page-section">
+            <div class="test-info">
+                <h2>Informations sur le test</h2>
+                <p>Cette page est utilisée pour tester les bookmarklets d'accessibilité RGAA 4.1.2.</p>
+                <p>Nom du fichier : 6.X-test.html</p>
+                <p>Description du test : Cette page contient des liens pour tester les critères d'accessibilité RGAA 4.1.2 concernant les liens.</p>
+            </div>
+            
+            <div class="test-content">
+                <h2>Contenu du test</h2>
+                
+                <!-- TESTS FOR <a> -->
 
-<!-- Test <a> with aria-labelledby -->
-<span id="a-aria-labelledby-span1">Span 1</span>
-<a href="#" aria-labelledby="a-aria-labelledby-span1"></a>
+                <!-- Test <a> with no accessible name -->
+                <a href="#"></a>
+                <a href="#">
+                    <span></span>
+                </a>
+                <a href="#">
+                    <p></p>
+                </a>
 
-<!-- Test <a> with aria-label -->
-<a href="#" aria-label="Link with aria-label">Link with accessible name
-    1</a>
+                <!-- Test <a> with aria-labelledby -->
+                <span id="a-aria-labelledby-span1">Span 1</span>
+                <a href="#" aria-labelledby="a-aria-labelledby-span1"></a>
 
-<!-- Test <a> with text content -->
-<a href="#">Link with accessible name 1</a>
-<a href="#">
-    <span>Link with accessible name 2</span>
-</a>
-<a href="#">
-    <p>Link with accessible name 3</p>
-</a>
-<a href="#">
-    <span>Link with accessible name 4</span>
-    <span>Link with accessible name 5</span>
-</a>
+                <!-- Test <a> with aria-label -->
+                <a href="#" aria-label="Link with aria-label">Link with accessible name
+                    1</a>
 
-<!-- Test <a> with title attribute only -->
-<a href="#" title="Link with title"></a>
+                <!-- Test <a> with text content -->
+                <a href="#">Link with accessible name 1</a>
+                <a href="#">
+                    <span>Link with accessible name 2</span>
+                </a>
+                <a href="#">
+                    <p>Link with accessible name 3</p>
+                </a>
+                <a href="#">
+                    <span>Link with accessible name 4</span>
+                    <span>Link with accessible name 5</span>
+                </a>
 
-<!-- TESTS WITH <img> -->
+                <!-- Test <a> with title attribute only -->
+                <a href="#" title="Link with title"></a>
 
-<!-- Test <a> containing <img> with no accessible name -->
-<a href="#">
-    <img alt="">
-</a>
+                <!-- TESTS WITH <img> -->
 
-<!-- Test <a> containing <img> with aria-labelledby -->
-<span id="aria-labelledby-span1">Span 1</span>
-<a href="#">
-    <img alt="Image 2 alt" aria-labelledby="aria-labelledby-span1">
-</a>
+                <!-- Test <a> containing <img> with no accessible name -->
+                <a href="#">
+                    <img alt="">
+                </a>
 
-<!-- Test <a> containing <img> with aria-label -->
-<a href="#">
-    <img alt="Image 2 alt" aria-label="Image with aria-label">
-</a>
+                <!-- Test <a> containing <img> with aria-labelledby -->
+                <span id="aria-labelledby-span1">Span 1</span>
+                <a href="#">
+                    <img alt="Image 2 alt" aria-labelledby="aria-labelledby-span1">
+                </a>
 
-<!-- Test <a> containing <img> with alt attribute only -->
-<a href="#">
-    <img alt="Image 1">
-</a>
+                <!-- Test <a> containing <img> with aria-label -->
+                <a href="#">
+                    <img alt="Image 2 alt" aria-label="Image with aria-label">
+                </a>
 
-<!-- TESTS WITH <svg> -->
+                <!-- Test <a> containing <img> with alt attribute only -->
+                <a href="#">
+                    <img alt="Image 1">
+                </a>
 
-<!-- Test <a> containing <svg> with no accessible name -->
-<a href="#">
-    <svg></svg>
-</a>
-<a href="#">
-    <svg>
-        <title></title>
-    </svg>
-</a>
+                <!-- TESTS WITH <svg> -->
 
-<!-- Test <a> containing <svg> with aria-labelledby -->
-<span id="span-svg-1">aria-labelledby SVG</span>
-<a href="#">
-    <svg aria-labelledby="span-svg-1">
-        <title>Title SVG 1</title>
-    </svg>
-</a>
+                <!-- Test <a> containing <svg> with no accessible name -->
+                <a href="#">
+                    <svg></svg>
+                </a>
+                <a href="#">
+                    <svg>
+                        <title></title>
+                    </svg>
+                </a>
 
-<!-- Test <a> containing <svg> with aria-label -->
-<a href="#">
-    <svg aria-label="aria-label SVG">
-        <title>Title SVG 2</title>
-    </svg>
-</a>
+                <!-- Test <a> containing <svg> with aria-labelledby -->
+                <span id="span-svg-1">aria-labelledby SVG</span>
+                <a href="#">
+                    <svg aria-labelledby="span-svg-1">
+                        <title>Title SVG 1</title>
+                    </svg>
+                </a>
 
-<!-- Test <a> containing <svg> with title tag only -->
-<a href="#">
-    <svg>
-        <title>Title SVG 3</title>
-    </svg>
-</a>
+                <!-- Test <a> containing <svg> with aria-label -->
+                <a href="#">
+                    <svg aria-label="aria-label SVG">
+                        <title>Title SVG 2</title>
+                    </svg>
+                </a>
 
-<!-- Test <a> containing <svg> with title attribute -->
-<a href="#">
-    <svg title="SVG 4 with title attribute">
-    </svg>
-</a>
+                <!-- Test <a> containing <svg> with title tag only -->
+                <a href="#">
+                    <svg>
+                        <title>Title SVG 3</title>
+                    </svg>
+                </a>
 
-<a href="#">
-    <svg title="SVG 5 with title attribute">
-        <title>Title SVG 5</title>
-    </svg>
-</a>
+                <!-- Test <a> containing <svg> with title attribute -->
+                <a href="#">
+                    <svg title="SVG 4 with title attribute">
+                    </svg>
+                </a>
+
+                <a href="#">
+                    <svg title="SVG 5 with title attribute">
+                        <title>Title SVG 5</title>
+                    </svg>
+                </a>
+            </div>
+        </section>
+    </main>
+    <footer role="contentinfo">
+        <div class="container">
+            <p>
+                © <span id="currentYear"></span> - <a href="https://www.numerik-ea.fr">numerik-ea</a>
+                |
+                <a href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2">
+                    Contribuer à ce site
+                </a>
+            </p>
+        </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+</body>
+</html>
