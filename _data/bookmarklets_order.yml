@@ -22,4 +22,4 @@ professionnels-en-accessibilite-numerique:
   - 10.8-afficher-tous-les-elements-caches
   - 10.8-lister-les-elements-caches-et-mettre-en-avant-les-aria-hidden-true
   - 12.6-verifier-les-landmarks
-  - document-active-element
+  - document-active-element-(-pour-firefox-)
