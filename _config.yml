@@ -9,4 +9,5 @@ exclude:
   - .gitignore
   - .DS_Store
   - switch_gemfile.sh
+  - switch_gemfile.ps1
   - LICENSE
