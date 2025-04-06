@@ -8,7 +8,7 @@
         // Check if the content is exactly &nbsp;
         let content = p.innerHTML;
 
-        content = content.replaceAll('&nbsp;', '');
+        content = content.replaceAll(`&nbsp;`, '');
         content = content.trim();
 
         if (content === '') {
@@ -55,6 +55,7 @@
         
         // Make sure the element has position relative for absolute positioning to work
         const computedStyle = window.getComputedStyle(p);
+
         if (computedStyle.position === 'static') {
             p.style.position = 'relative';
         }
