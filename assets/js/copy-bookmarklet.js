@@ -1,5 +1,7 @@
 function copyBookmarklet(button) {
-  const bookmarkletLink = button.previousElementSibling;
+  // Get the bookmarklet link - first find the container, then get the link
+  const container = button.closest('.bookmarklet-container');
+  const bookmarkletLink = container.querySelector('.bookmarklet-link');
   const bookmarkletContent = bookmarkletLink.getAttribute("href");
 
   // Create tooltip if it doesn't exist
