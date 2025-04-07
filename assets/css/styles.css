@@ -345,7 +345,8 @@ li ul li {
     display: inline-block;
 }
 
-.bookmarklet-container .tooltip {
+.bookmarklet-link + .tooltip {
+    display: none;
     position: absolute;
     bottom: 100%;
     left: 50%;
@@ -356,14 +357,12 @@ li ul li {
     border-radius: 4px;
     font-size: 12px;
     white-space: nowrap;
-    opacity: 0;
-    visibility: hidden;
     transition: opacity 0.2s ease, visibility 0.2s ease;
     margin-bottom: 5px;
     z-index: 1000;
 }
 
-.bookmarklet-container .tooltip::after {
+.bookmarklet-link + .tooltip::after {
     content: '';
     position: absolute;
     top: 100%;
@@ -375,6 +374,5 @@ li ul li {
 }
 
 .bookmarklet-link:hover + .tooltip {
-    opacity: 1;
-    visibility: visible;
+    display: block;
 }
