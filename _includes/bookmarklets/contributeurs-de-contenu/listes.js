@@ -80,24 +80,8 @@
     const lists = document.querySelectorAll('ul, ol, li, dd, dt, dl');
 
     if (!lists.length) {
-        const failure = document.createElement('strong');
-
-        failure.style.cssText = 'color:black;font-weight:bold;font-family:sans-serif;font-size:small;background-color:yellow;margin:0 2px; padding:2px;';
-        failure.id = 'failure';
-        failure.setAttribute('role', 'status');
-        failure.textContent = 'Aucune liste trouvée sur la page : ' + document.title;
-
-        document.body.insertBefore(failure, document.body.firstChild);
-        setTimeout(() => failure.remove(), 6000);
+        alert('Aucune liste trouvée sur la page.');
     } else {
-        const success = document.createElement('div');
-
-        success.id = 'success';
-        success.setAttribute('role', 'alert');
-        success.style.cssText = 'position:absolute; width:0; height:0; clip: rect(0,0,0,0);';
-        success.textContent = 'Succès ! Listes trouvées sur la page : ' + document.title;
-
-        document.body.appendChild(success);
-        setTimeout(() => success.remove(), 3000);
+        alert(`${lists.length} listes trouvées sur la page.`);
     }
 })();

@@ -127,7 +127,7 @@
     // Function to show status message
     function showStatusMessage(imagesCount) {
         const message = imagesCount > 0
-            ? `Succès ! ${imagesCount} images trouvées sur la page.`
+            ? `${imagesCount} images trouvées sur la page.`
             : 'Aucune image trouvée sur la page.';
 
         alert(message);
