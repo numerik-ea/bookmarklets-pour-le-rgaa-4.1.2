@@ -77,7 +77,7 @@
     }
 
     // Vérifier si des listes existent et afficher le message approprié
-    const lists = document.querySelectorAll('ul, ol, li, dd, dt, dl');
+    const lists = document.querySelectorAll('ul, ol, dl');
 
     if (!lists.length) {
         alert('Aucune liste trouvée sur la page.');
