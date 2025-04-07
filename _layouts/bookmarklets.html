@@ -47,13 +47,26 @@
                 return;
             }
 
+            const message = (
+                'Ce bookmarklet ne peut pas être glissé directement dans la barre des favoris.'
+                + '\n\n'
+                + 'Veuillez copier le code du bookmarklet et le coller dans un nouveau favori.'
+            );
+
+            // Find the tooltip and update its content
+            const container = link.closest('.bookmarklet-container');
+            
+            if (container) {
+                const tooltip = container.querySelector('.bookmarklet-link + .tooltip');
+                
+                if (tooltip) {
+                    tooltip.textContent = message;
+                }
+            }
+
             // Handle drag event
             link.addEventListener('dragstart', function(e) {
-                alert(
-                    'Ce bookmarklet ne peut pas être glissé directement dans la barre des favoris.'
-                    + '\n\n'
-                    + 'Veuillez copier le code du bookmarklet et le coller dans un nouveau favori.'
-                );
+                alert(message);
             });
         });
     </script>
