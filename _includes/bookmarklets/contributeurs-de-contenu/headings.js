@@ -65,7 +65,9 @@
     traverseFrames(document);
 
     const message = headingsCount > 0
-        ? `${headingsCount} titres trouvés sur la page.`
+        ? headingsCount === 1
+            ? '1 titre trouvé sur la page.'
+            : `${headingsCount} titres trouvés sur la page.`
         : 'Aucun titre trouvé sur la page.';
 
     alert(message);
