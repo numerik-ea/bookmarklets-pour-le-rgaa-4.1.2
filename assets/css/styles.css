@@ -329,3 +329,8 @@ li ul li {
     opacity: 1;
     visibility: visible;
 }
+
+.copy-button:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+}
