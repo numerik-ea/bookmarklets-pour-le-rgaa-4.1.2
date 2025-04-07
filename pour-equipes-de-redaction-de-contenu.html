@@ -1,14 +1,14 @@
 ---
-title: "Bookmarklets pour les contributeurs de contenu"
+title: "Bookmarklets pour les équipes de rédaction de contenu"
 description: "Assurez-vous que votre contenu est accessible"
 layout: bookmarklets
 ---
 
 <section>
     <ul>
-        {% for file_basename in site.data.bookmarklets_order.contributeurs-de-contenu %}
+        {% for file_basename in site.data.bookmarklets_order.equipes-de-redaction-de-contenu %}
             {% capture current_file_content %}
-                {% include_relative _includes/bookmarklets/contributeurs-de-contenu/{{ file_basename }}-bookmarklet.js %}
+                {% include_relative _includes/bookmarklets/equipes-de-redaction-de-contenu/{{ file_basename }}-bookmarklet.js %}
             {% endcapture %}
             <li>
                 <div class="bookmarklet-container">
