@@ -1,16 +1,13 @@
 <?php
 
 /**
- * Script permettant de transformer un script javascript en bookmarklet
- * 
- * @param string $argv[1] Chemin vers le script (optionnel)
+ * Script permettant de transformer des scripts javascript en bookmarklets
  * 
  * @return void
  * 
- * @version 1.1
+ * @version 1.2
  * 
- * Usage : php transform_script_to_bookmarklet.php [script.js]
- * Si aucun script n'est spécifié, tous les scripts dans le dossier bookmarklets seront transformés
+ * Usage : php transform_scripts_to_bookmarklets.php
  */
 
 $isWindows = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
@@ -47,14 +44,7 @@ function transform_script_to_bookmarklet($script_path) {
     return true;
 }
 
-// Si un argument est fourni, transformer uniquement ce script
-if (count($argv) === 2) {
-    transform_script_to_bookmarklet($argv[1]);
-    exit;
-}
-
-// Sinon, transformer tous les scripts dans le dossier bookmarklets
-echo "Aucun script spécifié. Transformation de tous les scripts dans le dossier $bookmarkletsDir...\n";
+echo "Transformation de tous les scripts dans le dossier $bookmarkletsDir...\n";
 
 if (!is_dir($bookmarkletsDir)) {
     echo "Le dossier $bookmarkletsDir n'existe pas.\n";
