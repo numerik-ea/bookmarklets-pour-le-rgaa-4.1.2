@@ -373,6 +373,9 @@ li ul li {
     border-color: #333 transparent transparent transparent;
 }
 
-.bookmarklet-link:hover + .tooltip {
-    display: block;
+/* Only show tooltip on hover for non-touch devices */
+@media (hover: hover) and (pointer: fine) {
+    .bookmarklet-link:hover + .tooltip {
+        display: block;
+    }
 }
