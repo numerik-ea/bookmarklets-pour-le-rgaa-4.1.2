@@ -26,7 +26,7 @@
     }
 
     function showAlt(doc) {
-        const images = doc.querySelectorAll('img, [role=\'img\']');
+        const images = doc.querySelectorAll(`img, [role='img']`);
         let text;
 
         imagesCount += images.length;

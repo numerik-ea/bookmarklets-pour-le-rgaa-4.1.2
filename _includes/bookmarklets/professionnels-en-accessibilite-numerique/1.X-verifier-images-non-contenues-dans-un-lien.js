@@ -34,14 +34,10 @@
 
     function getImagesNotInALink(parentElement) {
         const images = parentElement.querySelectorAll([
-            'img',
-            'area',
-            'input[type=\'image\']',
-            'svg',
-            'object[type=\'image\']',
-            'embed[type=\'image\']',
-            'canvas',
-            '[role=\'img\']',
+            `img`,
+            `[role='img']`,
+            `area`,
+            `input[type='image']`,
         ].join(','));
             
         const imagesNotInALink = [];
