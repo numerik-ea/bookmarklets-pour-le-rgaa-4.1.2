@@ -3,13 +3,30 @@
     const paragraphs = document.querySelectorAll('p');
     const emptyParagraphs = [];
 
+    // Iterate over the selected elements
     paragraphs.forEach(p => {
         let content = p.innerHTML;
+        let hasOnlyBrOrNbsp = true;
+
+        // Check if all child nodes are either BR or text nodes containing only &nbsp;
+        for (let node of p.childNodes) {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+                if (node.nodeName !== 'BR') {
+                    hasOnlyBrOrNbsp = false;
+                    break;
+                }
+            } else if (node.nodeType === Node.TEXT_NODE) {
+                if (node.textContent.trim() !== '' && node.textContent.trim() !== '&nbsp;') {
+                    hasOnlyBrOrNbsp = false;
+                    break;
+                }
+            }
+        }
 
         content = content.replaceAll('&nbsp;', '');
         content = content.trim();
 
-        if (content === '') {
+        if (content === '' || hasOnlyBrOrNbsp) {
             emptyParagraphs.push(p);
         }
     });
