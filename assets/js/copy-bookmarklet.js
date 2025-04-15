@@ -23,9 +23,11 @@ function copyBookmarklet(button) {
             </svg>
             <span class="tooltip show">Bookmarklet copié dans le presse-papiers</span>
         `;
+      button.classList.add('success');
 
       setTimeout(() => {
         button.innerHTML = originalHTML;
+        button.classList.remove('success');
       }, 2000);
     })
     .catch((err) => {

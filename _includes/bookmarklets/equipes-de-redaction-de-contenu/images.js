@@ -32,6 +32,15 @@
         imagesCount += images.length;
 
         for (let i = 0; i < images.length; i++) {
+            const imageStyle = window.getComputedStyle(images[i]);
+
+            if (imageStyle.display === 'none'
+                || imageStyle.visibility === 'hidden'
+                || imageStyle.opacity === '0'
+            ) {
+                continue;
+            }
+
             // TODO: improve the aria-labelledby handling
             // https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-labelledby
             if (images[i].hasAttribute('aria-labelledby')) {
@@ -39,7 +48,7 @@
                 const labelledbyElements = doc.querySelectorAll(labelledby);
 
                 let text = '';
-                
+
                 // get the text content of the labelledby elements
                 for (let j = 0; j < labelledbyElements.length; j++) {
                     text += labelledbyElements[j].textContent;
@@ -69,8 +78,9 @@
             node.style.backgroundColor = 'gold';
             node.style.fontSize = 'small';
             node.style.border = 'thin solid black';
-            node.style.position = 'absolute';
-            node.appendChild(text);
+            node.style.zIndex = '9999';
+
+            node.appendChild(text);            
             images[i].parentNode.insertBefore(node, images[i]);
         }
     }
