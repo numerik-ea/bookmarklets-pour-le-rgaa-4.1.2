@@ -44,6 +44,21 @@
                 <span id="a-aria-labelledby-span1">Span 1</span>
                 <a href="#" aria-labelledby="a-aria-labelledby-span1"></a>
 
+                <!-- Test <a> with aria-labelledby containing multiple ids -->
+                <span id="a-aria-labelledby-span2">Span 2</span>
+                <span id="a-aria-labelledby-span3">Span 3</span>
+                <a href="#" aria-labelledby="a-aria-labelledby-span2 a-aria-labelledby-span3"></a>
+
+                <!-- Test <a> with aria-labelledby containing multiple ids with duplicates -->
+                <span id="a-aria-labelledby-span4">Span 4</span>
+                <span id="a-aria-labelledby-span5">Span 5</span>
+                <a href="#" aria-labelledby="a-aria-labelledby-span4 a-aria-labelledby-span5 a-aria-labelledby-span4"></a>
+
+                <!-- Test <a> with aria-labelledby containing multiple ids and one id that does not exist -->
+                <span id="a-aria-labelledby-span6">Span 6</span>
+                <span id="a-aria-labelledby-span7">Span 7</span>
+                <a href="#" aria-labelledby="a-aria-labelledby-span6 a-aria-labelledby-span7 a-aria-labelledby-span8"></a>
+
                 <!-- Test <a> with aria-label -->
                 <a href="#" aria-label="Link with aria-label">Link with accessible name
                     1</a>
