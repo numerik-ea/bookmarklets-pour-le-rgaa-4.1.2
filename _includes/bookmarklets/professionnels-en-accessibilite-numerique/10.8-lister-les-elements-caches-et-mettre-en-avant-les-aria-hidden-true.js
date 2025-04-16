@@ -79,11 +79,11 @@
         return;
     }
 
-    let messageNumberOfElementsHiddenOnlyToAT = numberOfElementsHiddenOnlyToAT + ' éléments cachés aux TA avec aria-hidden=\'true\'';
+    let messageNumberOfElementsHiddenOnlyToAT = numberOfElementsHiddenOnlyToAT + ` éléments cachés aux TA avec aria-hidden='true'`;
     let messageNumberOfHiddenElements = numberOfHiddenElements + ' éléments cachés pour tout le monde';
 
     if (numberOfElementsHiddenOnlyToAT === 0) {
-        messageNumberOfElementsHiddenOnlyToAT = 'Aucun élément caché aux TA avec aria-hidden=\'true\'';
+        messageNumberOfElementsHiddenOnlyToAT = `Aucun élément caché aux TA avec aria-hidden='true'`;
     }
 
     if (numberOfHiddenElements === 0) {
@@ -120,7 +120,7 @@
         messageNumberOfElementsHiddenOnlyToAT + '.' +
         '\n' + messageNumberOfHiddenElements + '.' +
         '\n' +
-        '\nLes éléments cachés avec aria-hidden=\'true\' vont :' +
+        `\nLes éléments cachés avec aria-hidden='true' vont :` +
         '\n - être entourés de jaune et bleu' +
         '\n - avoir un fond rouge' +
         '\n' +
