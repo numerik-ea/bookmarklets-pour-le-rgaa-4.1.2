@@ -101,7 +101,7 @@
     console.clear();
 
     console.log(
-        messageNumberOfElementsHiddenOnlyToAT  
+        messageNumberOfElementsHiddenOnlyToAT
         + (numberOfElementsHiddenOnlyToAT === 0 ? '.' : ' :')
     );
     elementsHiddenOnlyToAT.forEach(element => {
@@ -120,11 +120,17 @@
         messageNumberOfElementsHiddenOnlyToAT + '.' +
         '\n' + messageNumberOfHiddenElements + '.' +
         '\n' +
-        `\nLes éléments cachés avec aria-hidden='true' vont :` +
-        '\n - être entourés de jaune et bleu' +
-        '\n - avoir un fond rouge' +
-        '\n' +
-        '\nOuvrir la console pour voir la liste de tous les éléments cachés aux TA.' + 
+        (numberOfElementsHiddenOnlyToAT > 0 ?
+            (
+                `\nLes éléments cachés avec aria-hidden='true' vont :` +
+                '\n - être entourés de jaune et bleu' +
+                '\n - avoir un fond rouge' +
+                '\n'
+            )
+        :   
+            ''
+        ) +
+        '\nOuvrir la console pour voir la liste de tous les éléments cachés aux TA.' +
         '\n\nAppuyer sur OK.'
     );
 })();
