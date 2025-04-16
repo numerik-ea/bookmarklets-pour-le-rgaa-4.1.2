@@ -17,10 +17,10 @@
         const computedStyle = getComputedStyle(element);
 
         if (
-            computedStyle.display === 'none' ||
-            computedStyle.visibility === 'hidden' ||
+            computedStyle.display === 'none'
+            || computedStyle.visibility === 'hidden'
             // Elements with font-size: 0 are not rendered on mobile
-            computedStyle.fontSize === '0px'
+            || computedStyle.fontSize === '0px'
         ) {
             return true;
         }
@@ -30,11 +30,27 @@
 
     function getAriaLabel(element) {
         if (element.hasAttribute('aria-labelledby')) {
-            const labelledById = element.getAttribute('aria-labelledby');
-            const labelledByElement = document.getElementById(labelledById);
+            // Algorithm to get the text content of the labelledby elements
+            // https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-labelledby#benefits_and_drawbacks
+            const labelledByIds = element.getAttribute('aria-labelledby');
+            // Split by whitespace and use Set to remove duplicates
+            const uniqueIds = [...new Set(labelledByIds.split(/\s+/))];
+            const labelledbyElements = uniqueIds.map(id => document.getElementById(id)).filter(Boolean);
 
-            if (labelledByElement) {
-                return labelledByElement.textContent.trim();
+            let text = '';
+
+            // get the text content of the labelledby elements
+            for (let j = 0; j < labelledbyElements.length; j++) {
+                text += labelledbyElements[j].textContent;
+                // add a space between the text content of the labelledby elements
+                text += ' ';
+            }
+
+            // remove the last space
+            text = text.trim();
+            
+            if (text !== '') {
+                return text;
             }
         }
 
@@ -119,7 +135,7 @@
     }
 
     function getLinksWithoutAccessibleName(parentElement) {
-        const links = parentElement.querySelectorAll('a[href], [role=\'link\']');
+        const links = parentElement.querySelectorAll(`a[href], [role='link']`);
         const linksWithoutAccessibleName = [];
 
         links.forEach(link => {
