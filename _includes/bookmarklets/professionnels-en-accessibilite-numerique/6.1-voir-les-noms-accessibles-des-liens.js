@@ -135,7 +135,7 @@
     }
 
     function getLinksAccessibleNames(parentElement) {
-        const links = parentElement.querySelectorAll('a[href], [role=\'link\']');
+        const links = parentElement.querySelectorAll(`a[href], [role='link']`);
         const linksAccessibleNamesMap = [];
 
         links.forEach(link => {
@@ -160,7 +160,7 @@
         let parentElement = null;
 
         while (!parentElementToBeTestedSelector || !parentElement) {
-            parentElementToBeTestedSelector = prompt('Entrez le sélecteur CSS de l\'élément parent à tester :');
+            parentElementToBeTestedSelector = prompt(`Entrez le sélecteur CSS de l'élément parent à tester :`);
 
             if (parentElementToBeTestedSelector === null) {
                 break;
@@ -196,7 +196,7 @@
 
     if (numberOfLinksWithAccessibleNames === 0) {
         alert(
-            'Pas de liens avec un nom accessible dans l\'élément de page '
+            `Pas de liens avec un nom accessible dans l'élément de page `
             + parentElementToBeTestedSelector
             + '.'
         );
@@ -205,7 +205,7 @@
 
     let message = (
         numberOfLinksWithAccessibleNames
-        + ' liens avec un nom accessible dans l\'élément de page '
+        + ` liens avec un nom accessible dans l'élément de page `
         + parentElementToBeTestedSelector
     );
 
