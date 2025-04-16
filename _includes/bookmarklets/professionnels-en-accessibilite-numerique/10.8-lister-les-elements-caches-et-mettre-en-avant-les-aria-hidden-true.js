@@ -102,7 +102,7 @@
 
     console.log(
         messageNumberOfElementsHiddenOnlyToAT  
-        + messageNumberOfElementsHiddenOnlyToAT === 0 ? '.' : ' :'
+        + (numberOfElementsHiddenOnlyToAT === 0 ? '.' : ' :')
     );
     elementsHiddenOnlyToAT.forEach(element => {
         console.log(element);
@@ -110,7 +110,7 @@
 
     console.log(
         messageNumberOfHiddenElements
-        + messageNumberOfHiddenElements === 0 ? '.' : ' :'
+        + (numberOfHiddenElements === 0 ? '.' : ' :')
     );
     hiddenElements.forEach(element => {
         console.log(element);
