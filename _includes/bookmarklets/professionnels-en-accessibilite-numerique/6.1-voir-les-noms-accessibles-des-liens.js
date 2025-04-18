@@ -1,32 +1,5 @@
 (function () {
-    const IS_HIDDEN = 1;
-    const HAS_NO_ACCESSIBLE_NAME = 2;
-
-    function isElementHidden(element) {
-        if (
-            element.hasAttribute('aria-hidden') &&
-            element.getAttribute('aria-hidden') === 'true'
-        ) {
-            return true;
-        }
-
-        if (element.hasAttribute('hidden')) {
-            return true;
-        }
-
-        const computedStyle = getComputedStyle(element);
-
-        if (
-            computedStyle.display === 'none' ||
-            computedStyle.visibility === 'hidden' ||
-            // Elements with font-size: 0 are not rendered on mobile
-            computedStyle.fontSize === '0px'
-        ) {
-            return true;
-        }
-
-        return false;
-    }
+    const HAS_NO_ACCESSIBLE_NAME = 1;
 
     function getAriaLabel(element) {
         if (element.hasAttribute('aria-labelledby')) {
@@ -71,13 +44,6 @@
         let accessibleName = '';
 
         function getLinkAccessibleNameRecursive(node) {
-            if (
-                node.nodeType === Node.ELEMENT_NODE
-                && isElementHidden(node)
-            ) {
-                return null;
-            }
-
             if (node.nodeType === Node.TEXT_NODE) {
                 accessibleName += node.textContent.trim() + ' ';
             } else if (
@@ -115,9 +81,7 @@
             }
         }
 
-        if (null === getLinkAccessibleNameRecursive(element)) {
-            return IS_HIDDEN;
-        }
+        getLinkAccessibleNameRecursive(element);
 
         accessibleName = accessibleName.trim();
         // Remove all multiple spaces and replace with single space
@@ -143,7 +107,6 @@
 
             if (
                 accessibleName !== HAS_NO_ACCESSIBLE_NAME
-                && accessibleName !== IS_HIDDEN
             ) {
                 linksAccessibleNamesMap.push({
                     link,
