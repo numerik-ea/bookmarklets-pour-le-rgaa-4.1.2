@@ -20,7 +20,8 @@
             computedStyle.display === 'none'
             || computedStyle.visibility === 'hidden'
             // Elements with font-size: 0 are not rendered on mobile
-            || computedStyle.fontSize === '0px'
+            // TODO : caché pour l'instant, à revérifier 
+            // || computedStyle.fontSize === '0px'
         ) {
             return true;
         }
