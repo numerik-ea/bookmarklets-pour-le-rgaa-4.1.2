@@ -13,8 +13,8 @@
             let text = '';
 
             // get the text content of the labelledby elements
-            for (let j = 0; j < labelledbyElements.length; j++) {
-                text += labelledbyElements[j].textContent;
+            for (let i = 0; i < labelledbyElements.length; i++) {
+                text += labelledbyElements[i].textContent;
                 // add a space between the text content of the labelledby elements
                 text += ' ';
             }
