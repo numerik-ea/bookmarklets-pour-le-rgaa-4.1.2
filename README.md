@@ -21,7 +21,7 @@ choco install php
 
 ```bash
 # Générer les bookmarklets
-php .\scripts\transform_scripts_to_bookmarklets.
+php .\scripts\transform_scripts_to_bookmarklets
 ```
 
 3. Pour tester le site en local :
