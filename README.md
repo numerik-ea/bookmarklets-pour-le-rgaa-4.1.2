@@ -20,14 +20,8 @@ choco install php
 ```
 
 ```bash
-# Générer le bookmarklet
-php .\scripts\transform_script_to_bookmarklet.php <path_to_bookmarklet_script>.js
-```
-```bash
-# Exemple
-php .\scripts\transform_script_to_bookmarklet.php .\bookmarklets\contributeurs-de-contenu\double-br.js
-# qui va générer le fichier de bookmarklet suivant :
-.\bookmarklets\contributeurs-de-contenu\double-br-bookmarklet.js
+# Générer les bookmarklets
+php .\scripts\transform_scripts_to_bookmarklets.
 ```
 
 3. Pour tester le site en local :
