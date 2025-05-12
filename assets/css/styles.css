@@ -362,12 +362,14 @@ li ul li {
     display: inline-block;
 }
 
-.bookmarklet-link {
+.bookmarklet-link,
+.bookmarklet-anchor-link {
     position: relative;
     display: inline-block;
 }
 
-.bookmarklet-link + .tooltip {
+.bookmarklet-link + .tooltip,
+.bookmarklet-anchor-link + .tooltip {
     display: none;
     position: absolute;
     bottom: 100%;
@@ -384,7 +386,12 @@ li ul li {
     z-index: 1000;
 }
 
-.bookmarklet-link + .tooltip::after {
+.bookmarklet-anchor-link + .tooltip {
+    left: 2%;
+}
+
+.bookmarklet-link + .tooltip::after,
+.bookmarklet-anchor-link + .tooltip::after {
     content: '';
     position: absolute;
     top: 100%;
@@ -397,7 +404,8 @@ li ul li {
 
 /* Only show tooltip on hover for non-touch devices */
 @media (hover: hover) and (pointer: fine) {
-    .bookmarklet-link:hover + .tooltip {
+    .bookmarklet-link:hover + .tooltip,
+    .bookmarklet-anchor-link:hover + .tooltip {
         display: block;
     }
 }
