@@ -14,6 +14,7 @@ professionnels-en-accessibilite-numerique:
   - 7.1-lister-les-liens-sans-href
   - 8.9-double-br
   - 8.9-paragraphes-vides
+  - 8.9-texte-inclus-dans-balise-non-semantique
   - 9.2-test-presence-header-nav-main-footer
   - 9.3-identifier-les-listes
   - 9.4-test-presence-elements-de-citations
