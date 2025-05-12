@@ -77,7 +77,15 @@ layout: bookmarklets
                 %}
                 
                     <li>
-                        <a href="{{ file.path | absolute_url }}">{{ file.name | split: "-" | slice: 1, 999 | join: "-" | replace: "-", " " | replace: ".html", "" | capitalize }}</a>
+                        <a href="{{ file.path | absolute_url }}">
+                            {{ file.name | split: "-" | slice: 1, 999 | 
+                                join: "-" | 
+                                replace: "-", " " | 
+                                replace: ".html", "" |
+                                replace: "semantique", "sémantique" | 
+                                capitalize 
+                            }}
+                        </a>
                     </li>
                  {% endif %}
             {% endfor %}
