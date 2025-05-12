@@ -11,7 +11,7 @@ layout: bookmarklets
             {% capture current_file_content %}
                 {% include_relative _includes/bookmarklets/professionnels-en-accessibilite-numerique/{{ file_basename }}-bookmarklet.js %}
             {% endcapture %}
-            <li>
+            <li id="{{ file_basename }}">
                 <div class="bookmarklet-container">
                     <a href="{{ current_file_content | strip }}" class="bookmarklet-link">
                         {{ file_basename | split: "-" | first }} - 
