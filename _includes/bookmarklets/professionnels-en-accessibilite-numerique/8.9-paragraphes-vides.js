@@ -53,10 +53,12 @@
 
     emptyParagraphs.forEach(p => {
         p.style.border = '2px solid red';
+        p.style.paddingTop = '26px';
+        p.style.display = 'block';
         
         // Create a label element to show text
         const label = document.createElement('div');
-        label.textContent = 'paragraphe vide';
+        label.textContent = 'Paragraphe vide';
         label.style.position = 'absolute';
         label.style.top = '0';
         label.style.left = '0';
@@ -74,8 +76,8 @@
         if (computedStyle.position === 'static') {
             p.style.position = 'relative';
         }
-        
-        p.appendChild(label);
+
+        p.appendChild(label);     
 
         console.log(p);
     });
