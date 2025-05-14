@@ -17,7 +17,8 @@
     const semanticTags = [
         'P', 'LI', 'A', 'BUTTON', 'LABEL',
         'OPTION', 'TEXTAREA', 'INPUT',
-        'H1', 'H2', 'H3', 'H4', 'H5', 'H6'
+        'H1', 'H2', 'H3', 'H4', 'H5', 'H6',
+        'FIGCAPTION'
     ];
     const tagsToIgnore = [
         'SCRIPT',
