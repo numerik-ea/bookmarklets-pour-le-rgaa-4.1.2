@@ -18,7 +18,8 @@
         'P', 'LI', 'A', 'BUTTON', 'LABEL',
         'OPTION', 'TEXTAREA', 'INPUT',
         'H1', 'H2', 'H3', 'H4', 'H5', 'H6',
-        'FIGCAPTION'
+        'FIGCAPTION', 'LEGEND', 'CAPTION',
+        'TD', 'TH'
     ];
     const tagsToIgnore = [
         'SCRIPT',
