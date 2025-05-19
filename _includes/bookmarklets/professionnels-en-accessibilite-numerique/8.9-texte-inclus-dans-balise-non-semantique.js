@@ -19,7 +19,8 @@
         'OPTION', 'TEXTAREA', 'INPUT',
         'H1', 'H2', 'H3', 'H4', 'H5', 'H6',
         'FIGCAPTION', 'LEGEND', 'CAPTION',
-        'TD', 'TH'
+        'TD', 'TH', 'DT', 'DD',
+        'BLOCKQUOTE', 'Q'
     ];
     const tagsToIgnore = [
         'SCRIPT',
