@@ -6,6 +6,7 @@ equipes-de-redaction-de-contenu:
   - listes
   - paragraphes-vides
 professionnels-en-accessibilite-numerique:
+  - 1.X-lister-images-avec-un-alt-non-vide
   - 1.X-verifier-images-non-contenues-dans-un-lien
   - 2.X-check-iframes-et-frames
   - 5.X-test-presence-tableaux
