@@ -6,7 +6,7 @@
         return;
     }
 
-    let message = 'Il y a ' + imagesWithAlt.length + ' images avec un alt.';
+    let message = 'Il y a ' + imagesWithAlt.length + ' images avec un alt';
 
     if (imagesWithAlt.length === 1) {
         message = message.replace('images', 'image');
