@@ -17,6 +17,6 @@
     console.log(message + ' :');
 
     imagesWithAlt.forEach(image => {       
-        console.log(image.alt);
+        console.log(image);
     });
 })();
