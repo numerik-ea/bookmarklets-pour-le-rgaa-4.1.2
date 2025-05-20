@@ -1,5 +1,5 @@
 (function () {
-    const imagesWithAlt = document.querySelectorAll('img[alt]:not([alt=""])');
+    const imagesWithAlt = document.querySelectorAll(`img[alt]:not([alt=''])`);
 
     if (imagesWithAlt.length === 0) {
         alert('Aucune image avec un alt rempli trouvée.');
