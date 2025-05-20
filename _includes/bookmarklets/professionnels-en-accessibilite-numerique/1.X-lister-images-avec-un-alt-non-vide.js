@@ -2,11 +2,11 @@
     const imagesWithAlt = document.querySelectorAll('img[alt]:not([alt=""])');
 
     if (imagesWithAlt.length === 0) {
-        alert('Aucune image avec un alt vide trouvée.');
+        alert('Aucune image avec un alt rempli trouvée.');
         return;
     }
 
-    let message = 'Il y a ' + imagesWithAlt.length + ' images avec un alt vide.';
+    let message = 'Il y a ' + imagesWithAlt.length + ' images avec un alt rempli.';
 
     if (imagesWithAlt.length === 1) {
         message = message.replace('images', 'image');
