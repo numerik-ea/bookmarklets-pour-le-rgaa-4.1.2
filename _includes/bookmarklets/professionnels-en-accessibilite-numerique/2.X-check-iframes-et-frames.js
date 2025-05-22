@@ -20,6 +20,8 @@
     let messageIframesAndFramesWithoutTitle = '';
     let messageIframesAndFramesWithTitle = '';
 
+    console.clear();
+    
     // Check for frames without title (test 2.1)
     if (iframesAndFramesWithoutTitle.length === 0) {
         messageIframesAndFramesWithoutTitle += '2.1 C : tous les cadres ont un attribut title';
@@ -64,7 +66,6 @@
             );
         }
 
-        console.clear();
         console.log(messageIframesAndFramesWithTitle + ' :');
         iframesAndFramesWithTitle.forEach(
             iframeOrFrame => console.log(iframeOrFrame)
