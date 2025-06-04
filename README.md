@@ -7,7 +7,6 @@ https://numerik-ea.github.io/bookmarklets-pour-le-rgaa-4.1.2/
 ## Générer un bookmarklet ou tester le site en local
 
 ### Windows
-⚠️ Lancer toutes les commandes ci-dessous dans Powershell en tant qu'administrateur.
 
 1. Pour générer un bookmarklet ou tester le site en local, il vous faut installer Chocolatey :  
 https://chocolatey.org/install#individual
