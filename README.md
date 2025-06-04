@@ -11,7 +11,6 @@ https://numerik-ea.github.io/bookmarklets-pour-le-rgaa-4.1.2/
 1. Pour générer un bookmarklet ou tester le site en local, il vous faut installer Chocolatey :  
 https://chocolatey.org/install#individual
 
-
 2. Générer un bookmarklet à partir d'un script :
 ```bash
 # Installer php avec Chocolatey
@@ -73,8 +72,8 @@ Pour utiliser le script :
 # Sur macOS
 ./switch_gemfile.sh mac
 
-# Sur Windows (dans Git Bash ou WSL)
-./switch_gemfile.sh windows
+# Sur Windows (dans Powershell)
+.\switch_gemfile.ps1 windows
 ```
 
 Le script effectue les opérations suivantes :
