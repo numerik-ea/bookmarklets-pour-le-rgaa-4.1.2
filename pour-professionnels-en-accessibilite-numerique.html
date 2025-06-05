@@ -21,19 +21,21 @@ layout: bookmarklets
                     </a>
                     <span class="tooltip">Lien vers ce bookmarklet</span>
                     <a href="{{ current_file_content | strip }}" class="bookmarklet-link">
-                        {{ file_basename | split: "-" | first }} - 
+                        {{ file_basename | split: "-" | first | replace: "_", " & " }} - 
                         {{ file_basename | split: "-" | slice: 1, 999 | 
                             join: "-" | 
                             replace: "-", " " | 
-                            replace: "br", "&lt;br&gt;" | 
-                            replace: "elements", "éléments" | 
-                            replace: "presence", "présence" | 
-                            replace: "verifier", "vérifier" | 
-                            replace: "caches", "cachés" | 
-                            replace: "semantique", "sémantique" | 
                             replace: "aria hidden true", 'aria-hidden="true"' | 
-                            replace: "header nav main footer", "header, nav, main, footer" | 
+                            replace: "br", "&lt;br&gt;" | 
+                            replace: "caches", "cachés" | 
+                            replace: "defaut", "défaut" | 
+                            replace: "detecter", "détecter" |
+                            replace: "elements", "éléments" | 
                             replace: "firefox", "Firefox" | 
+                            replace: "header nav main footer", "header, nav, main, footer" | 
+                            replace: "presence", "présence" | 
+                            replace: "semantique", "sémantique" | 
+                            replace: "verifier", "vérifier" | 
                             capitalize 
                         }}
                     </a>

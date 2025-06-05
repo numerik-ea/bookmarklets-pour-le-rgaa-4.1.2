@@ -7,6 +7,10 @@ tests_metadata:
     name: 6.X
   - title: 7.1 Chaque script est-il, si nécessaire, compatible avec les technologies d'assistance ?
     name: 7.1
+  - title: 8.3 & 8.4 Dans chaque page web, la langue est-elle définie ?
+    name: 8.3_8.4
+  - title: 8.7 & 8.8 Dans chaque page web, y a-t-il des changements de langue avec l'attribut lang ?
+    name: 8.7_8.8
   - title: 8.9 Dans chaque page web, les balises ne doivent pas être utilisées uniquement à des fins de présentation. Cette règle est-elle respectée ?
     name: 8.9
   - title: 9.2 Dans chaque page web, la structure du document est-elle cohérente (hors cas particuliers) ?
