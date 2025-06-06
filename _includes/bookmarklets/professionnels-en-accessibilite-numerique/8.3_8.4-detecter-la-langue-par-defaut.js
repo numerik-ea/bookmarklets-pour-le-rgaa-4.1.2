@@ -12,5 +12,5 @@
         alert(`8.3 NC & 8.4 NC`);
         return;
     }
-    alert(`Langue par défaut de la page : html[lang]='${lang}'`);
+    alert(`Langue par défaut de la page : <html lang="${lang}">`);
 })();

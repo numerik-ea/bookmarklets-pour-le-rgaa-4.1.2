@@ -14,7 +14,7 @@
         const lang = elements[0].getAttribute('lang');
 
         alert(
-            `Langue par défaut de la page : html[lang]='${lang}'\n\n`
+            `Langue par défaut de la page : <html lang="${lang}">\n\n`
             + `Aucun autre élément avec l'attribut lang trouvé.\n\n`
             + `Vérifier les potentiels changements de langue dans la page sans l'attribut lang.`
         );
