@@ -20,7 +20,7 @@ layout: bookmarklets
                         </svg>
                     </a>
                     <span class="tooltip">Lien vers ce bookmarklet</span>
-                <a href="{{ current_file_content | replace: '"', '&quot;' |  strip }}" class="bookmarklet-link">
+                    <a href="{{ current_file_content | replace: '"', '&quot;' |  strip }}" class="bookmarklet-link">
                         {{ file_basename | split: "-" | first | replace: "_", " & " }} - 
                         {{ file_basename | split: "-" | slice: 1, 999 | 
                             join: "-" | 
