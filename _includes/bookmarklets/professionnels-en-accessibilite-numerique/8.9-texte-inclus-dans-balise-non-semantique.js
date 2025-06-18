@@ -22,6 +22,9 @@
         'TD', 'TH', 'DT', 'DD',
         'BLOCKQUOTE', 'Q'
     ];
+    const semanticRoles = {
+        'heading': ['1', '2', '3', '4', '5', '6']
+    };
     const tagsToIgnore = [
         'SCRIPT',
         'STYLE',
@@ -49,6 +52,18 @@
             if (semanticTags.includes(parent.tagName)) {
                 isInSemanticElement = true;
                 break;
+            }
+
+            // Check for semantic role="heading" and valid aria-level
+            const role = parent.getAttribute && parent.getAttribute('role');
+            
+            if (role === 'heading') {
+                const ariaLevel = parent.getAttribute('aria-level');
+                
+                if (semanticRoles.heading.includes(ariaLevel)) {
+                    isInSemanticElement = true;
+                    break;
+                }
             }
 
             if (tagsToIgnore.includes(parent.tagName)) {
