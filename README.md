@@ -40,6 +40,9 @@ bundle install
 bundle exec jekyll serve --config _config.yml,_config_dev.yml --trace
 ```
 
+Pour voir le site en local, aller sur :  
+http://127.0.0.1:4000
+
 3. Pour tout ajout de script ou pour tout renommage de script, lancer la commande suivante pour afficher correctement les bookmarklets sur les pages web correspondantes :
 ```bash
 # Générer le fichier de configuration (_data/bookmarklets_order.yml) des noms de bookmarklets dans l'ordre naturel
