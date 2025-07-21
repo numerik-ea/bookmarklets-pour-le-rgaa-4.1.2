@@ -66,6 +66,11 @@
                 }
             }
 
+            if (role === 'button') {
+                isInSemanticElement = true;
+                break;
+            }
+
             if (tagsToIgnore.includes(parent.tagName)) {
                 isInIgnoredTag = true;
                 break;
