@@ -23,6 +23,7 @@ professionnels-en-accessibilite-numerique:
   - 9.3-identifier-les-listes
   - 9.4-test-presence-elements-de-citations
   - 10.2-trouver-les-images-en-background-image
+  - 10.5-verifier-declarations-css-de-couleurs-de-fond-d-element-et-de-police
   - 10.8-lister-les-elements-caches-et-mettre-en-avant-les-aria-hidden-true
   - 12.6-verifier-les-landmarks
   - OpenRGAA-ouvrir-tous-les-tests-du-rgaa-4.1.2
