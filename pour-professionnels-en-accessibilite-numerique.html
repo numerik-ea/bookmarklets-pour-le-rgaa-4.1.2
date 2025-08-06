@@ -25,6 +25,7 @@ layout: bookmarklets
                         {{ file_basename | split: "-" | slice: 1, 999 | 
                             join: "-" | 
                             replace: "-", " " | 
+                            replace: "a off", "à off" |
                             replace: "aria hidden true", 'aria-hidden="true"' | 
                             replace: "br", "&lt;br&gt;" | 
                             replace: "caches", "cachés" | 

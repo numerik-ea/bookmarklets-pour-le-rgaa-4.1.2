@@ -27,4 +27,5 @@ professionnels-en-accessibilite-numerique:
   - 10.8-lister-les-elements-caches-et-mettre-en-avant-les-aria-hidden-true
   - 12.6-verifier-les-landmarks
   - OpenRGAA-ouvrir-tous-les-tests-du-rgaa-4.1.2
+  - ariaLive-mettre-a-off
   - document.activeElement-(pour-firefox)
