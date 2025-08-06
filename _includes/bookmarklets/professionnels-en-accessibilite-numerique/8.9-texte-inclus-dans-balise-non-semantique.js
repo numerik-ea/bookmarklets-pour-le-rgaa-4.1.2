@@ -104,9 +104,50 @@
     console.clear();
     console.log(message + ' :');
 
+    // Function to check if an element or its parents are hidden
+    function checkForHiddenParents(element) {
+        const hiddenParents = [];
+        let currentElement = element;
+
+        while (currentElement && currentElement !== document.body && currentElement !== document.documentElement) {
+            const computedStyle = window.getComputedStyle(currentElement);
+            const isHidden = 
+                computedStyle.display === 'none' ||
+                computedStyle.visibility === 'hidden' ||
+                computedStyle.opacity === '0' ||
+                (computedStyle.height === '0px' && computedStyle.width === '0px') ||
+                currentElement.getAttribute('aria-hidden') === 'true';
+
+            if (isHidden) {
+                hiddenParents.push({
+                    element: currentElement,
+                    reason: getHiddenReason(currentElement, computedStyle)
+                });
+            }
+
+            currentElement = currentElement.parentElement;
+        }
+
+        return hiddenParents;
+    }
+
+    // Function to get the reason why an element is hidden
+    function getHiddenReason(element, computedStyle) {
+        const reasons = [];
+        
+        if (computedStyle.display === 'none') reasons.push('display: none');
+        if (computedStyle.visibility === 'hidden') reasons.push('visibility: hidden');
+        if (computedStyle.opacity === '0') reasons.push('opacity: 0');
+        if (computedStyle.height === '0px' && computedStyle.width === '0px') reasons.push('height: 0 and width: 0');
+        if (element.getAttribute('aria-hidden') === 'true') reasons.push('aria-hidden="true"');
+        
+        return reasons.join(', ');
+    }
+
     textNodesInNonSemanticTags.forEach(textNode => {
         // Get the parent element to style it
         const parentElement = textNode.parentElement;
+
         if (parentElement) {
             parentElement.style.border = '2px solid red';
             parentElement.style.paddingTop = '26px';
@@ -134,6 +175,19 @@
             }
 
             parentElement.appendChild(label);
+
+            // Check for hidden parents before logging the element
+            const hiddenParents = checkForHiddenParents(parentElement);
+            if (hiddenParents.length > 0) {
+                console.log('⚠️ Texte dans une balise non sémantique ayant des parents cachés :');
+                console.log(textNode);
+                
+                hiddenParents.forEach((hiddenParent, index) => {
+                    console.log(`  Parent caché ${index + 1} :`, hiddenParent.element, `(Raison: ${hiddenParent.reason})`);
+                });
+
+                return;
+            }
         }
 
         console.log(textNode);

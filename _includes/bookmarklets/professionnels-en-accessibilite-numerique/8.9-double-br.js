@@ -138,7 +138,7 @@
         // Check for hidden parents before logging the element
         const hiddenParents = checkForHiddenParents(element);
         if (hiddenParents.length > 0) {
-            console.log('⚠️  Élément avec double <br> ayant des parents cachés :');
+            console.log('⚠️ Élément avec double <br> ayant des parents cachés :');
             console.log(element);
             
             hiddenParents.forEach((hiddenParent, index) => {
