@@ -88,6 +88,14 @@ ul {
     padding: 0;
 }
 
+/* Last Updated Text */
+.last-updated {
+    color: #595959;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    font-style: italic;
+}
+
 li {
     margin-bottom: 1rem;
     padding: 1rem;

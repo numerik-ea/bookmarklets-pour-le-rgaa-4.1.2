@@ -6,14 +6,14 @@ layout: bookmarklets
 
 <section>
     <ul>
-        {% for file_basename in site.data.bookmarklets_order.equipes-de-redaction-de-contenu %}
+        {% for bookmarklet in site.data.bookmarklets_metadata.equipes-de-redaction-de-contenu %}
             {% capture current_file_content %}
-                {% include_relative _includes/bookmarklets/equipes-de-redaction-de-contenu/{{ file_basename }}-bookmarklet.js %}
+                {% include_relative _includes/bookmarklets/equipes-de-redaction-de-contenu/{{ bookmarklet.name }}-bookmarklet.js %}
             {% endcapture %}
             <li>
                 <div class="bookmarklet-container">
                     <a href="{{ current_file_content | strip }}" class="bookmarklet-link">
-                        {{ file_basename | replace: "-", " " | replace: "br", "&lt;br&gt;" | capitalize }}
+                        {{ bookmarklet.name | replace: "-", " " | replace: "br", "&lt;br&gt;" | capitalize }}
                     </a>
                     <span class="tooltip">Cliquez-déposez le bookmarklet dans la barre des favoris</span>
                     <button class="copy-button" onclick="copyBookmarklet(this)">
@@ -24,6 +24,7 @@ layout: bookmarklets
                         <span class="tooltip">Copier le bookmarklet</span>
                     </button>
                 </div>
+                <div class="last-updated">dernière mise à jour : {{ bookmarklet.date | date: "%d %B %Y" | replace: "January", "janvier" | replace: "February", "février" | replace: "March", "mars" | replace: "April", "avril" | replace: "May", "mai" | replace: "June", "juin" | replace: "July", "juillet" | replace: "August", "août" | replace: "September", "septembre" | replace: "October", "octobre" | replace: "November", "novembre" | replace: "December", "décembre" }}</div>
             </li>
         {% endfor %}
     </ul>
