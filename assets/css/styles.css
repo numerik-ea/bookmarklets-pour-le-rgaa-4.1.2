@@ -154,13 +154,103 @@ ul {
     background-color: var(--secondary-color);
 }
 
-.sort-button:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(26, 54, 93, 0.1);
+.sort-button:focus,
+.sort-button:focus-visible,
+.sort-button:focus-within {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
 }
 
 .sort-button:active {
     transform: translateY(1px);
+}
+
+/* Changelog Styles */
+.changelog-summary {
+    margin-bottom: 2rem;
+}
+
+.changelog-summary details {
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.changelog-summary details:focus-within,
+.changelog-summary details:focus-visible,
+.changelog-summary details:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+.changelog-summary summary {
+    padding: 0.75rem 1rem;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    font-family: Arial;
+    font-weight: 400;
+    font-size: 0.85rem;
+    transition: background-color 0.2s ease;
+    list-style: none;
+}
+
+.changelog-summary summary:hover {
+    background-color: var(--secondary-color);
+}
+
+.changelog-summary summary::-webkit-details-marker {
+    display: none;
+}
+
+.changelog-summary summary::after {
+    content: "▼";
+    margin-left: 0.5rem;
+    transition: transform 0.2s ease;
+}
+
+.changelog-summary details[open] summary::after {
+    content: "▲";
+}
+
+.changelog {
+    padding: 1rem;
+}
+
+.changelog-entry {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.changelog-entry:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.changelog-entry h3 {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    margin: 0 0 0.75rem 0;
+    font-weight: 600;
+}
+
+.changelog-entry ul {
+    margin: 0;
+    padding-left: 1.5rem;
+    list-style: disc;
+}
+
+.changelog-entry li {
+    background-color: transparent;
+    box-shadow: none;
+    padding: 0.25rem 0;
+    margin-bottom: 0.25rem;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    list-style: disc;
 }
 
 /* Responsive design for sort dropdown */
@@ -183,6 +273,23 @@ ul {
     .sort-button {
         margin-left: 0;
         margin-top: 0.5rem;
+    }
+    
+    .changelog-summary summary {
+        font-size: 0.8rem;
+        padding: 0.5rem 0.75rem;
+    }
+    
+    .changelog {
+        padding: 0.75rem;
+    }
+    
+    .changelog-entry h3 {
+        font-size: 1rem;
+    }
+    
+    .changelog-entry li {
+        font-size: 0.9rem;
     }
 }
 
