@@ -4,8 +4,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     sortDropdowns.forEach(function(sortDropdown) {
         const bookmarkletsList = sortDropdown.closest('section').querySelector('.bookmarklets-list');
+        const sortButton = sortDropdown.closest('.sort-dropdown-container').querySelector('.sort-button');
         
-        if (!bookmarkletsList) return;
+        if (!bookmarkletsList || !sortButton) return;
         
         // Get all bookmarklet items for this section
         const bookmarkletItems = Array.from(bookmarkletsList.querySelectorAll('li[id]'));
@@ -62,19 +63,19 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
         
-        // Event listener for dropdown change
-        sortDropdown.addEventListener('change', function() {
-            sortBookmarklets(this.value);
+        // Event listener for sort button click
+        sortButton.addEventListener('click', function() {
+            const selectedSortType = sortDropdown.value;
+            sortBookmarklets(selectedSortType);
             
             // Save preference to localStorage
-            localStorage.setItem('bookmarkletSortPreference', this.value);
+            localStorage.setItem('bookmarkletSortPreference', selectedSortType);
         });
         
-        // Load saved preference
+        // Load saved preference and set dropdown value (but don't auto-sort)
         const savedPreference = localStorage.getItem('bookmarkletSortPreference');
         if (savedPreference && (savedPreference === 'name' || savedPreference === 'date')) {
             sortDropdown.value = savedPreference;
-            sortBookmarklets(savedPreference);
         }
     });
 });
