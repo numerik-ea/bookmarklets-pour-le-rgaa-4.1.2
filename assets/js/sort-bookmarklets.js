@@ -72,10 +72,11 @@ document.addEventListener('DOMContentLoaded', function() {
             localStorage.setItem('bookmarkletSortPreference', selectedSortType);
         });
         
-        // Load saved preference and set dropdown value (but don't auto-sort)
+        // Load saved preference, set dropdown value, and auto-sort
         const savedPreference = localStorage.getItem('bookmarkletSortPreference');
         if (savedPreference && (savedPreference === 'name' || savedPreference === 'date')) {
             sortDropdown.value = savedPreference;
+            sortBookmarklets(savedPreference);
         }
     });
 });
