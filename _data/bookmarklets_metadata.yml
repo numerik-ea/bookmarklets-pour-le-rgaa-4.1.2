@@ -49,6 +49,8 @@ professionnels-en-accessibilite-numerique:
     date: 2025-08-01
   - name: 10.8-lister-les-elements-caches-et-mettre-en-avant-les-aria-hidden-true
     date: 2025-04-16
+  - name: 11.X-test-presence-formulaires
+    date: 2025-08-12
   - name: 12.6-verifier-les-landmarks
     date: 2025-06-25
   - name: OpenRGAA-ouvrir-tous-les-tests-du-rgaa-4.1.2
