@@ -43,6 +43,8 @@ professionnels-en-accessibilite-numerique:
     date: 2025-04-06
   - name: 9.4-test-presence-elements-de-citations
     date: 2025-04-06
+  - name: 10.1-test-presence-balises-et-attributs-de-presentation
+    date: 2025-08-13
   - name: 10.2-trouver-les-images-en-background-image
     date: 2025-04-06
   - name: 10.5-verifier-declarations-css-de-couleurs-de-fond-d-element-et-de-police
