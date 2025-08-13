@@ -45,7 +45,7 @@
  
  :root {
    --msg-bgcolor: #f2ce09;
-   --border-color: red;
+   --border-color-test-10-1: red;
  }
  
  * {
@@ -88,8 +88,8 @@
  :not(img, svg, canvas, embed, object, rect)[height], 
  :not(img, svg, canvas, embed, object, rect)[width][height],
  :not(select)[size] {
-     border: 3px solid var(--border-color);
-     outline: 3px solid var(--border-color); 
+     border: 3px solid var(--border-color-test-10-1);
+     outline: 3px solid var(--border-color-test-10-1); 
  }
  
  
@@ -314,7 +314,7 @@
     // Afficher le message approprié
     if (hasIssues) {
         // Résumé détaillé si des problèmes sont trouvés
-        let summary = '== RGAA 10.1 - Dépistage des balises et attributs de présentation ==\n\n';
+        let summary = 'RGAA 10.1 - Dépistage des balises et attributs de présentation\n\n';
         summary += `DOCTYPE détecté : ${isHTML5 ? 'HTML5' : 'Non HTML5'}\n\n`;
 
         deprecatedElements.forEach(tagName => {
