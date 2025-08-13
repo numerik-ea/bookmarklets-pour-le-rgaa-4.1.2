@@ -44,41 +44,41 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 });
             } else {
-                // Sort by name (with version number handling)
+                // Sort by name (with criteria number handling)
                 sortedItems.sort((a, b) => {
                     try {
                         const nameA = a.querySelector('.bookmarklet-link').textContent.trim();
                         const nameB = b.querySelector('.bookmarklet-link').textContent.trim();
                         
-                        // Function to parse version numbers for proper sorting
-                        function parseVersionNumber(text) {
-                            // Extract version pattern like "10.1", "1.X", "9.4", etc.
-                            const versionMatch = text.match(/^(\d+)\.(\d+|[Xx])/);
-                            if (versionMatch) {
-                                const major = parseInt(versionMatch[1], 10);
-                                const minor = versionMatch[2].toLowerCase() === 'x' ? 999 : parseInt(versionMatch[2], 10);
+                        // Function to parse criteria numbers for proper sorting
+                        function parseCriteriaNumber(text) {
+                            // Extract criteria number pattern like "10.1", "1.X", "9.4", etc.
+                            const criteriaNumberMatch = text.match(/^(\d+)\.(\d+|[Xx])/i);
+                            if (criteriaNumberMatch) {
+                                const major = parseInt(criteriaNumberMatch[1], 10);
+                                const minor = criteriaNumberMatch[2].toLowerCase() === 'x' ? 999 : parseInt(criteriaNumberMatch[2], 10);
                                 return { major, minor, original: text };
                             }
-                            // If no version pattern, return null for alphabetical sorting
+                            // If no criteria number pattern, return null for alphabetical sorting
                             return null;
                         }
                         
-                        const versionA = parseVersionNumber(nameA);
-                        const versionB = parseVersionNumber(nameB);
+                        const criteriaA = parseCriteriaNumber(nameA);
+                        const criteriaB = parseCriteriaNumber(nameB);
                         
-                        // If both have version numbers, sort numerically
-                        if (versionA && versionB) {
-                            if (versionA.major !== versionB.major) {
-                                return versionA.major - versionB.major;
+                        // If both have criteria numbers, sort numerically
+                        if (criteriaA && criteriaB) {
+                            if (criteriaA.major !== criteriaB.major) {
+                                return criteriaA.major - criteriaB.major;
                             }
-                            return versionA.minor - versionB.minor;
+                            return criteriaA.minor - criteriaB.minor;
                         }
                         
-                        // If only one has version number, put versioned items first
-                        if (versionA && !versionB) return -1;
-                        if (!versionA && versionB) return 1;
+                        // If only one has criteria number, put criteria numbered items first
+                        if (criteriaA && !criteriaB) return -1;
+                        if (!criteriaA && criteriaB) return 1;
                         
-                        // If neither has version number, sort alphabetically
+                        // If neither has criteria number, sort alphabetically
                         return nameA.localeCompare(nameB, 'fr');
                     } catch (error) {
                         console.warn('Error sorting by name:', error);
