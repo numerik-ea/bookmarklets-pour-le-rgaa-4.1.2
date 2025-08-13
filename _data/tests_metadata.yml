@@ -15,6 +15,8 @@ tests_metadata:
     name: 8.9
   - title: 9.2 Dans chaque page web, la structure du document est-elle cohérente (hors cas particuliers) ?
     name: 9.2
+  - title: 10.1 Dans chaque page web, les balises et attributs de présentation de l'information sont-ils utilisés ?
+    name: 10.1
   - title: 10.2 Dans chaque page web, le contenu visible porteur d'information reste-t-il présent lorsque les feuilles de styles sont désactivées ?
     name: 10.2
   - title: 10.8 Pour chaque page web, les contenus cachés ont-ils vocation à être ignorés par les technologies d'assistance ?
