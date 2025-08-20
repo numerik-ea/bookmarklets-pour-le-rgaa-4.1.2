@@ -11,6 +11,8 @@ equipes-de-redaction-de-contenu:
   - name: paragraphes-vides
     date: 2025-04-11
 professionnels-en-accessibilite-numerique:
+  - name: 1.2-detecter-svg-sans-aria-hidden-true
+    date: 2025-08-20
   - name: 1.X-lister-images-avec-un-alt-non-vide
     date: 2025-05-20
   - name: 1.X-lister-toutes-les-images-ayant-un-alt
