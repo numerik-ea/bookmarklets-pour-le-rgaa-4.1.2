@@ -138,7 +138,7 @@ layout: bookmarklets
 
             {% assign bookmarklet_criteria_number_and_name = bookmarklet_criteria_number | append: " - " | append: bookmarklet_name %}
 
-            <li id="{{ bookmarklet.name }}" data-date="{{ bookmarklet.date }}">
+            <li id="{{ bookmarklet.name }}" data-date="{{ bookmarklet.last-updated }}">
                 <div class="bookmarklet-container">
                     <a href="#{{ bookmarklet.name }}" class="bookmarklet-anchor-link" aria-label="Lien avec ancre vers le bookmarklet {{ bookmarklet_criteria_number_and_name }}">
                         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -159,7 +159,7 @@ layout: bookmarklets
                         <span class="tooltip">Copier le bookmarklet</span>
                     </button>
                 </div>
-                <p class="last-updated">dernière mise à jour : {{ bookmarklet.date | date: "%d %B %Y" | replace: "January", "janvier" | replace: "February", "février" | replace: "March", "mars" | replace: "April", "avril" | replace: "May", "mai" | replace: "June", "juin" | replace: "July", "juillet" | replace: "August", "août" | replace: "September", "septembre" | replace: "October", "octobre" | replace: "November", "novembre" | replace: "December", "décembre" }}</p>
+                <p class="last-updated">dernière mise à jour : {{ bookmarklet.last-updated | date: "%d %B %Y" | replace: "January", "janvier" | replace: "February", "février" | replace: "March", "mars" | replace: "April", "avril" | replace: "May", "mai" | replace: "June", "juin" | replace: "July", "juillet" | replace: "August", "août" | replace: "September", "septembre" | replace: "October", "octobre" | replace: "November", "novembre" | replace: "December", "décembre" }}</p>
             </li>
         {% endfor %}
     </ul>
