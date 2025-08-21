@@ -22,7 +22,7 @@ layout: bookmarklets
             {% capture current_file_content %}
                 {% include_relative _includes/bookmarklets/equipes-de-redaction-de-contenu/{{ bookmarklet.name }}-bookmarklet.js %}
             {% endcapture %}
-            <li id="{{ bookmarklet.name }}" data-date="{{ bookmarklet.last-updated }}">
+            <li id="{{ bookmarklet.name }}" data-last-updated="{{ bookmarklet.last-updated }}">
                 <div class="bookmarklet-container">
                     <a href="#{{ bookmarklet.name }}" class="bookmarklet-anchor-link" aria-label="Lien vers ce bookmarklet">
                         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

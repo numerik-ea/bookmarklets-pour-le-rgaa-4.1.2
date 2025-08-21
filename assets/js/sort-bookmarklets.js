@@ -21,8 +21,8 @@ document.addEventListener('DOMContentLoaded', function () {
             sortedItems.sort((a, b) => {
                 try {
                     // Get the original ISO date from the data attribute
-                    const dateA = a.getAttribute('data-date');
-                    const dateB = b.getAttribute('data-date');
+                    const dateA = a.dataset.lastUpdated;
+                    const dateB = b.dataset.lastUpdated;
 
                     if (!dateA || !dateB) {
                         return 0; // Keep original order if date is missing

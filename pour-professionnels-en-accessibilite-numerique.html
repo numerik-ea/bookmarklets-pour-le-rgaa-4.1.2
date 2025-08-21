@@ -138,7 +138,7 @@ layout: bookmarklets
 
             {% assign bookmarklet_criteria_number_and_name = bookmarklet_criteria_number | append: " - " | append: bookmarklet_name %}
 
-            <li id="{{ bookmarklet.name }}" data-date="{{ bookmarklet.last-updated }}">
+            <li id="{{ bookmarklet.name }}" data-last-updated="{{ bookmarklet.last-updated }}">
                 <div class="bookmarklet-container">
                     <a href="#{{ bookmarklet.name }}" class="bookmarklet-anchor-link" aria-label="Lien avec ancre vers le bookmarklet {{ bookmarklet_criteria_number_and_name }}">
                         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
