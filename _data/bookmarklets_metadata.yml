@@ -37,8 +37,10 @@ professionnels-en-accessibilite-numerique:
     date: 2025-08-04
   - name: 8.9-paragraphes-vides
     date: 2025-05-14
-  - name: 8.9-texte-inclus-dans-balise-non-semantique
+  - name: 8.9-texte-dans-balise-non-semantique
     date: 2025-08-06
+  - name: 8.9-texte-dans-balise-non-semantique-sans-label
+    date: 2025-08-21
   - name: 9.2-test-presence-header-nav-main-footer
     date: 2025-04-06
   - name: 9.3-identifier-les-listes
