@@ -116,9 +116,9 @@
  [valign],
  [vlink],
  [vspace],
- :not(img, svg, canvas, embed, object, rect)[width],
- :not(img, svg, canvas, embed, object, rect)[height], 
- :not(img, svg, canvas, embed, object, rect)[width][height],
+ :not(img, svg, canvas, embed, object, rect, source)[width],
+ :not(img, svg, canvas, embed, object, rect, source)[height], 
+ :not(img, svg, canvas, embed, object, rect, source)[width][height],
  :not(select)[size] {
      border: 3px solid var(--border-color-test-10-1);
      outline: 3px solid var(--border-color-test-10-1); 
@@ -285,17 +285,17 @@
      background-color: var(--msg-bgcolor);
  }
  
- :not(img, svg, canvas, embed, object, rect)[width]::before {
+ :not(img, svg, canvas, embed, object, rect, source)[width]::before {
      content: "[attr:width]";
      background-color: var(--msg-bgcolor);
  }
  
- :not(img, svg, canvas, embed, object, rect)[height]::before {
+ :not(img, svg, canvas, embed, object, rect, source)[height]::before {
      content: "[attr:height]";
      background-color: var(--msg-bgcolor);
  }
  
- :not(img, svg, canvas, embed, object, rect)[width][height]::before {
+ :not(img, svg, canvas, embed, object, rect, source)[width][height]::before {
      content: "[attr:height & width]";
      background-color: var(--msg-bgcolor);
  }
