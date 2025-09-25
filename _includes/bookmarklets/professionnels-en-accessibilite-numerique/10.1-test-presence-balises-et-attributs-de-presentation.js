@@ -1,46 +1,78 @@
 (function () {
-    // Avertissement : si plusieurs attributs sur le même élément, seul le dernier déclaré est révélé
+  // Avertissement : si plusieurs attributs sur le même élément, seul le dernier déclaré est révélé
 
-    // Vérifier le DOCTYPE pour l'élément <u>
-    const isHTML5 = document.doctype && document.doctype.name === 'html';
+  // Vérifier le DOCTYPE pour l'élément <u>
+  const isHTML5 = document.doctype && document.doctype.name === "html";
 
-    // Éléments HTML obsolètes à vérifier (selon RGAA 4.1.2)
-    const deprecatedElements = [
-        'basefont', 'blink', 'big', 'center', 'font', 'marquee',
-        's', 'strike', 'tt'
-    ];
+  // Éléments HTML obsolètes à vérifier (selon RGAA 4.1.2)
+  const deprecatedElements = [
+    "basefont",
+    "blink",
+    "big",
+    "center",
+    "font",
+    "marquee",
+    "s",
+    "strike",
+    "tt",
+  ];
 
-    // Ajouter <u> seulement si pas HTML5
-    if (!isHTML5) {
-        deprecatedElements.push('u');
-    }
+  // Ajouter <u> seulement si pas HTML5
+  if (!isHTML5) {
+    deprecatedElements.push("u");
+  }
 
-    // Attributs obsolètes à vérifier (selon RGAA 4.1.2)
-    const deprecatedAttributes = [
-        'align', 'alink', 'background', 'bgcolor', 'border',
-        'cellpadding', 'cellspacing', 'char', 'charoff', 'clear',
-        'compact', 'color', 'frameborder', 'hspace', 'link',
-        'marginheight', 'marginwidth', 'text', 'valign', 'vlink', 'vspace'
-    ];
+  // Attributs obsolètes à vérifier (selon RGAA 4.1.2)
+  const deprecatedAttributes = [
+    "align",
+    "alink",
+    "background",
+    "bgcolor",
+    "border",
+    "cellpadding",
+    "cellspacing",
+    "char",
+    "charoff",
+    "clear",
+    "compact",
+    "color",
+    "frameborder",
+    "hspace",
+    "link",
+    "marginheight",
+    "marginwidth",
+    "text",
+    "valign",
+    "vlink",
+    "vspace",
+  ];
 
-    // Éléments qui peuvent légitimement avoir des attributs width/height
-    const allowedWidthHeightElements = ['img', 'svg', 'canvas', 'embed', 'object', 'rect'];
+  // Éléments qui peuvent légitimement avoir des attributs width/height
+  const allowedWidthHeightElements = [
+    "img",
+    "svg",
+    "canvas",
+    "embed",
+    "object",
+    "rect",
+    "source",
+  ];
 
-    // Éléments qui peuvent légitimement avoir l'attribut size
-    const allowedSizeElements = ['select'];
+  // Éléments qui peuvent légitimement avoir l'attribut size
+  const allowedSizeElements = ["select"];
 
-    // Vérifier les attributs width/height sur les éléments non autorisés
-    const widthElements = document.querySelectorAll('[width]');
-    const heightElements = document.querySelectorAll('[height]');
+  // Vérifier les attributs width/height sur les éléments non autorisés
+  const widthElements = document.querySelectorAll("[width]");
+  const heightElements = document.querySelectorAll("[height]");
 
-    // Vérifier les éléments avec width et height
-    const bothElements = document.querySelectorAll('[width][height]');
+  // Vérifier les éléments avec width et height
+  const bothElements = document.querySelectorAll("[width][height]");
 
-    // Vérifier l'attribut size sur les éléments non autorisés
-    const sizeElements = document.querySelectorAll('[size]');
+  // Vérifier l'attribut size sur les éléments non autorisés
+  const sizeElements = document.querySelectorAll("[size]");
 
-    const style = document.createElement("style");
-    style.textContent = `
+  const style = document.createElement("style");
+  style.textContent = `
      /** disclaimer : si plusieurs attributs sur même élément : seul le dernier déclaré est révélé **/
  
  :root {
@@ -62,7 +94,7 @@
  s,
  strike,
  tt,
- ${!isHTML5 ? 'u,' : ''}
+ ${!isHTML5 ? "u," : ""}
  [align],
  [alink],
  [background],
@@ -137,12 +169,16 @@
      background-color: var(--msg-bgcolor);
  }
  
- ${!isHTML5 ? `
+ ${
+   !isHTML5
+     ? `
  u::before {
      content: "<u>";
      background-color: var(--msg-bgcolor);
  }
- ` : ''}
+ `
+     : ""
+ }
  
  [align]::before {
      content: "[attr:align]";
@@ -269,140 +305,155 @@
      background-color: var(--msg-bgcolor);
  }
      `;
-    document.head.appendChild(style);
+  document.head.appendChild(style);
 
-    // Vérifier s'il y a des problèmes
-    let hasIssues = false;
-    let issueCount = 0;
+  // Vérifier s'il y a des problèmes
+  let hasIssues = false;
+  let issueCount = 0;
 
-    // Compter les éléments obsolètes
-    deprecatedElements.forEach(tagName => {
-        const count = document.getElementsByTagName(tagName).length;
-        if (count > 0) {
-            hasIssues = true;
-            issueCount += count;
-        }
+  // Compter les éléments obsolètes
+  deprecatedElements.forEach((tagName) => {
+    const count = document.getElementsByTagName(tagName).length;
+    if (count > 0) {
+      hasIssues = true;
+      issueCount += count;
+    }
+  });
+
+  // Compter les attributs obsolètes
+  deprecatedAttributes.forEach((attr) => {
+    const count = document.querySelectorAll(`[${attr}]`).length;
+    if (count > 0) {
+      hasIssues = true;
+      issueCount += count;
+    }
+  });
+
+  // Compter les attributs width/height/size invalides
+  const invalidWidthCount = Array.from(widthElements).filter(
+    (el) => !allowedWidthHeightElements.includes(el.tagName.toLowerCase())
+  ).length;
+
+  const invalidHeightCount = Array.from(heightElements).filter(
+    (el) => !allowedWidthHeightElements.includes(el.tagName.toLowerCase())
+  ).length;
+
+  const invalidSizeCount = Array.from(sizeElements).filter(
+    (el) => !allowedSizeElements.includes(el.tagName.toLowerCase())
+  ).length;
+
+  if (invalidWidthCount > 0 || invalidHeightCount > 0 || invalidSizeCount > 0) {
+    hasIssues = true;
+    issueCount += invalidWidthCount + invalidHeightCount + invalidSizeCount;
+  }
+
+  // Afficher le message approprié
+  if (hasIssues) {
+    // Résumé détaillé si des problèmes sont trouvés
+    let summary =
+      "RGAA 10.1 - Dépistage des balises et attributs de présentation\n\n";
+    summary += `DOCTYPE détecté : ${isHTML5 ? "HTML5" : "Non HTML5"}\n\n`;
+
+    deprecatedElements.forEach((tagName) => {
+      const count = document.getElementsByTagName(tagName).length;
+      if (count > 0) {
+        summary += `Éléments <${tagName}> : ${count}\n`;
+      }
     });
 
-    // Compter les attributs obsolètes
-    deprecatedAttributes.forEach(attr => {
-        const count = document.querySelectorAll(`[${attr}]`).length;
-        if (count > 0) {
-            hasIssues = true;
-            issueCount += count;
-        }
+    deprecatedAttributes.forEach((attr) => {
+      const count = document.querySelectorAll(`[${attr}]`).length;
+      if (count > 0) {
+        summary += `Attributs [${attr}] : ${count}\n`;
+      }
     });
 
-    // Compter les attributs width/height/size invalides
-    const invalidWidthCount = Array.from(widthElements).filter(el =>
-        !allowedWidthHeightElements.includes(el.tagName.toLowerCase())
-    ).length;
-
-    const invalidHeightCount = Array.from(heightElements).filter(el =>
-        !allowedWidthHeightElements.includes(el.tagName.toLowerCase())
-    ).length;
-
-    const invalidSizeCount = Array.from(sizeElements).filter(el =>
-        !allowedSizeElements.includes(el.tagName.toLowerCase())
-    ).length;
-
-    if (invalidWidthCount > 0 || invalidHeightCount > 0 || invalidSizeCount > 0) {
-        hasIssues = true;
-        issueCount += invalidWidthCount + invalidHeightCount + invalidSizeCount;
+    if (invalidWidthCount > 0) {
+      summary += `Attributs [width] invalides : ${invalidWidthCount}\n`;
     }
 
-    // Afficher le message approprié
-    if (hasIssues) {
-        // Résumé détaillé si des problèmes sont trouvés
-        let summary = 'RGAA 10.1 - Dépistage des balises et attributs de présentation\n\n';
-        summary += `DOCTYPE détecté : ${isHTML5 ? 'HTML5' : 'Non HTML5'}\n\n`;
-
-        deprecatedElements.forEach(tagName => {
-            const count = document.getElementsByTagName(tagName).length;
-            if (count > 0) {
-                summary += `Éléments <${tagName}> : ${count}\n`;
-            }
-        });
-
-        deprecatedAttributes.forEach(attr => {
-            const count = document.querySelectorAll(`[${attr}]`).length;
-            if (count > 0) {
-                summary += `Attributs [${attr}] : ${count}\n`;
-            }
-        });
-
-        if (invalidWidthCount > 0) {
-            summary += `Attributs [width] invalides : ${invalidWidthCount}\n`;
-        }
-
-        if (invalidHeightCount > 0) {
-            summary += `Attributs [height] invalides : ${invalidHeightCount}\n`;
-        }
-
-        if (invalidSizeCount > 0) {
-            summary += `Attributs [size] invalides : ${invalidSizeCount}\n`;
-        }
-
-        alert(summary + '\n' + 'Voir la console pour plus de détails');
-
-        console.clear();
-        console.log(summary);
-
-        // Log des éléments correspondants après le résumé
-        console.log('=== Détail des éléments correspondants ===');
-
-        // Vérifier les éléments obsolètes
-        deprecatedElements.forEach(tagName => {
-            const elements = document.getElementsByTagName(tagName);
-            Array.from(elements).forEach(element => {
-                console.log(`${tagName}::before { content: "<${tagName}>"; }`);
-                console.log(element);
-            });
-        });
-
-        // Vérifier les attributs obsolètes
-        deprecatedAttributes.forEach(attr => {
-            const elements = document.querySelectorAll(`[${attr}]`);
-            Array.from(elements).forEach(element => {
-                console.log(`[${attr}]::before { content: "[attr:${attr}]"; }`);
-                console.log(element);
-            });
-        });
-
-        // Vérifier les attributs width/height sur les éléments non autorisés
-        // Vérifier les attributs width (seulement ceux qui n'ont PAS height)
-        Array.from(widthElements).forEach(element => {
-            if (!allowedWidthHeightElements.includes(element.tagName.toLowerCase()) && !element.hasAttribute('height')) {
-                console.log(`:not(img, svg, canvas, embed, object, rect)[width]::before { content: "[attr:width]"; }`);
-                console.log(element);
-            }
-        });
-
-        // Vérifier les attributs height (seulement ceux qui n'ont PAS width)
-        Array.from(heightElements).forEach(element => {
-            if (!allowedWidthHeightElements.includes(element.tagName.toLowerCase()) && !element.hasAttribute('width')) {
-                console.log(`:not(img, svg, canvas, embed, object, rect)[height]::before { content: "[attr:height]"; }`);
-                console.log(element);
-            }
-        });
-
-        // Vérifier les éléments avec width et height
-        Array.from(bothElements).forEach(element => {
-            if (!allowedWidthHeightElements.includes(element.tagName.toLowerCase())) {
-                console.log(`:not(img, svg, canvas, embed, object, rect)[width][height]::before { content: "[attr:height & width]"; }`);
-                console.log(element);
-            }
-        });
-
-        // Vérifier l'attribut size sur les éléments non autorisés
-        Array.from(sizeElements).forEach(element => {
-            if (!allowedSizeElements.includes(element.tagName.toLowerCase())) {
-                console.log(`:not(select)[size]::before { content: "[attr:size]"; }`);
-                console.log(element);
-            }
-        });
-    } else {
-        // Message positif si aucun problème n'est trouvé
-        alert(`Aucun problème de balises ou d'attributs de présentation de l'information`);
+    if (invalidHeightCount > 0) {
+      summary += `Attributs [height] invalides : ${invalidHeightCount}\n`;
     }
+
+    if (invalidSizeCount > 0) {
+      summary += `Attributs [size] invalides : ${invalidSizeCount}\n`;
+    }
+
+    alert(summary + "\n" + "Voir la console pour plus de détails");
+
+    console.clear();
+    console.log(summary);
+
+    // Log des éléments correspondants après le résumé
+    console.log("=== Détail des éléments correspondants ===");
+
+    // Vérifier les éléments obsolètes
+    deprecatedElements.forEach((tagName) => {
+      const elements = document.getElementsByTagName(tagName);
+      Array.from(elements).forEach((element) => {
+        console.log(`${tagName}::before { content: "<${tagName}>"; }`);
+        console.log(element);
+      });
+    });
+
+    // Vérifier les attributs obsolètes
+    deprecatedAttributes.forEach((attr) => {
+      const elements = document.querySelectorAll(`[${attr}]`);
+      Array.from(elements).forEach((element) => {
+        console.log(`[${attr}]::before { content: "[attr:${attr}]"; }`);
+        console.log(element);
+      });
+    });
+
+    // Vérifier les attributs width/height sur les éléments non autorisés
+    // Vérifier les attributs width (seulement ceux qui n'ont PAS height)
+    Array.from(widthElements).forEach((element) => {
+      if (
+        !allowedWidthHeightElements.includes(element.tagName.toLowerCase()) &&
+        !element.hasAttribute("height")
+      ) {
+        console.log(
+          `:not(img, svg, canvas, embed, object, rect)[width]::before { content: "[attr:width]"; }`
+        );
+        console.log(element);
+      }
+    });
+
+    // Vérifier les attributs height (seulement ceux qui n'ont PAS width)
+    Array.from(heightElements).forEach((element) => {
+      if (
+        !allowedWidthHeightElements.includes(element.tagName.toLowerCase()) &&
+        !element.hasAttribute("width")
+      ) {
+        console.log(
+          `:not(img, svg, canvas, embed, object, rect)[height]::before { content: "[attr:height]"; }`
+        );
+        console.log(element);
+      }
+    });
+
+    // Vérifier les éléments avec width et height
+    Array.from(bothElements).forEach((element) => {
+      if (!allowedWidthHeightElements.includes(element.tagName.toLowerCase())) {
+        console.log(
+          `:not(img, svg, canvas, embed, object, rect)[width][height]::before { content: "[attr:height & width]"; }`
+        );
+        console.log(element);
+      }
+    });
+
+    // Vérifier l'attribut size sur les éléments non autorisés
+    Array.from(sizeElements).forEach((element) => {
+      if (!allowedSizeElements.includes(element.tagName.toLowerCase())) {
+        console.log(`:not(select)[size]::before { content: "[attr:size]"; }`);
+        console.log(element);
+      }
+    });
+  } else {
+    // Message positif si aucun problème n'est trouvé
+    alert(
+      `Aucun problème de balises ou d'attributs de présentation de l'information`
+    );
+  }
 })();
