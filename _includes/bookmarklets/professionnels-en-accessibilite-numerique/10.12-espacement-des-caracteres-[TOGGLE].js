@@ -1,10 +1,11 @@
+// prettier-ignore
 (function () {
-  var id = "a11y-text-spacing-style";
+  var id = 'a11y-text-spacing-style';
   var el = document.getElementById(id);
 
   if (el) {
     el.remove();
-    alert("Espacement des caractères désactivé");
+    alert('Espacement des caractères désactivé');
   } else {
     var css = `html body * {
             line-height: 1.5 !important;
@@ -20,6 +21,6 @@
     s.id = id;
     s.appendChild(document.createTextNode(css));
     document.head.appendChild(s);
-    alert("Espacement des caractères activé");
+    alert('Espacement des caractères activé');
   }
 })();

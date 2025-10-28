@@ -1,10 +1,11 @@
+// prettier-ignore
 (function () {
-  var id = "a11y-deprecated-presentation-tags-and-attributes-highlighter";
+  var id = 'a11y-deprecated-presentation-tags-and-attributes-highlighter';
   var el = document.getElementById(id);
 
   if (el) {
     el.remove();
-    alert("Mise en évidence des balises et attributs dépréciés : DÉSACTIVÉE");
+    alert('Mise en évidence des balises et attributs dépréciés : DÉSACTIVÉE');
   } else {
     var css = `/** disclaimer : si plusieurs attributs sur même élément : seul le dernier déclaré est révélé **/
     :root {
@@ -46,127 +47,127 @@
     }
     
     basefont::before {
-        content: "<basefont>";
+        content: '<basefont>';
         background-color: var(--msg-bgcolor);
     }
     
     blink::before {
-        content: "<blink>";
+        content: '<blink>';
         background-color: var(--msg-bgcolor);
     }
     
     big::before {
-        content: "<big>";
+        content: '<big>';
         background-color: var(--msg-bgcolor);
     }
     
     center::before {
-        content: "<center>";
+        content: '<center>';
         background-color: var(--msg-bgcolor);
     }
     
     font::before {
-        content: "<font>";
+        content: '<font>';
         background-color: var(--msg-bgcolor);
     }
     
     marquee::before {
-        content: "<marquee>";
+        content: '<marquee>';
         background-color: var(--msg-bgcolor);
     }
     
     s::before {
-        content: "<s>";
+        content: '<s>';
         background-color: var(--msg-bgcolor);
     }
     
     strike::before {
-        content: "<strike>";
+        content: '<strike>';
         background-color: var(--msg-bgcolor);
     }
     
     tt::before {
-        content: "<tt>";
+        content: '<tt>';
         background-color: var(--msg-bgcolor);
     }
     
     u::before {
-        content: "<u>";
+        content: '<u>';
         background-color: var(--msg-bgcolor);
     }
     
     [align]::before {
-        content: "[attr:align]";
+        content: '[attr:align]';
         background-color: var(--msg-bgcolor);
     }
     
     [alink]::before {
-        content: "[attr:alink]";
+        content: '[attr:alink]';
         background-color: var(--msg-bgcolor);
     }
     
     [background]::before {
-        content: "[attr:background]";
+        content: '[attr:background]';
         background-color: var(--msg-bgcolor);
     }
     
     [basefont]::before {
-        content: "[attr:basefont]";
+        content: '[attr:basefont]';
         background-color: var(--msg-bgcolor);
     }
     
     [bgcolor]::before {
-        content: "[attr:bgcolor]";
+        content: '[attr:bgcolor]';
         background-color: var(--msg-bgcolor);
     }
     
     [border]::before {
-        content: "[attr:border]";
+        content: '[attr:border]';
         background-color: var(--msg-bgcolor);
     }
     
     [color]::before {
-        content: "[attr:color]";
+        content: '[attr:color]';
         background-color: var(--msg-bgcolor);
     }
     
     [link]::before {
-        content: "[attr:link]";
+        content: '[attr:link]';
         background-color: var(--msg-bgcolor);
     }
     
     [text]::before {
-        content: "[attr:text]";
+        content: '[attr:text]';
         background-color: var(--msg-bgcolor);
     }
     
     [vlink]::before {
-        content: "[attr:vlink]";
+        content: '[attr:vlink]';
         background-color: var(--msg-bgcolor);
     }
     
     [cellpadding]::before {
-        content: "[attr:cellpadding]";
+        content: '[attr:cellpadding]';
         background-color: var(--msg-bgcolor);
     }
     
     [cellspacing]::before {
-        content: "[attr:cellspacing]";
+        content: '[attr:cellspacing]';
         background-color: var(--msg-bgcolor);
     }
     
     :not(img,svg,canvas,embed,object)[width]::before {
-        content: "[attr:width]";
+        content: '[attr:width]';
         background-color: var(--msg-bgcolor);
     }
     
     :not(img,svg,canvas,embed,object)[height]::before {
-        content: "[attr:height]";
+        content: '[attr:height]';
         background-color: var(--msg-bgcolor);
     }
     
     :not(img,svg,canvas,embed,object)[width][height]::before {
-        content: "[attr:height & width]";
+        content: '[attr:height & width]';
         background-color: var(--msg-bgcolor);
     }`;
 
@@ -174,6 +175,6 @@
     s.id = id;
     s.appendChild(document.createTextNode(css));
     document.head.appendChild(s);
-    alert("Mise en évidence des balises et attributs dépréciés : ACTIVÉE");
+    alert('Mise en évidence des balises et attributs dépréciés : ACTIVÉE');
   }
 })();
