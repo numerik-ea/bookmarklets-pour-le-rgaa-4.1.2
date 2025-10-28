@@ -49,7 +49,7 @@ professionnels-en-accessibilite-numerique:
     last-updated: 2025-04-06
   - name: 10.1-test-presence-balises-et-attributs-de-presentation
     last-updated: 2025-08-13
-  - name: 10.1-test-presence-balises-et-attributs-de-presentation-seulement-CSS-[TOGGLE]
+  - name: 10.1-test-presence-balises-et-attributs-de-presentation-seulement-CSS-TOGGLE
     last-updated: 2025-10-28
   - name: 10.2-trouver-les-images-en-background-image
     last-updated: 2025-04-06
@@ -57,13 +57,13 @@ professionnels-en-accessibilite-numerique:
     last-updated: 2025-08-01
   - name: 10.8-lister-les-elements-caches-et-mettre-en-avant-les-aria-hidden-true
     last-updated: 2025-04-16
-  - name: 10.12-espacement-des-caracteres-[TOGGLE]
+  - name: 10.12-espacement-des-caracteres-TOGGLE
     last-updated: 2025-10-28
   - name: 11.X-test-presence-formulaires
     last-updated: 2025-08-12
   - name: 12.6-verifier-les-landmarks
     last-updated: 2025-06-25
-  - name: 12.8-visibilite-focus-[TOGGLE]
+  - name: 12.8-visibilite-focus-TOGGLE
     last-updated: 2025-10-28
   - name: OpenRGAA-ouvrir-tous-les-tests-du-rgaa-4.1.2
     last-updated: 2025-06-04
