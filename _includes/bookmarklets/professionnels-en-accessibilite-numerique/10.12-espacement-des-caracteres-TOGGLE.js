@@ -5,7 +5,6 @@
 
   if (el) {
     el.remove();
-    alert('Espacement des caractères désactivé');
   } else {
     var css = `html body * {
             line-height: 1.5 !important;
@@ -21,6 +20,5 @@
     s.id = id;
     s.appendChild(document.createTextNode(css));
     document.head.appendChild(s);
-    alert('Espacement des caractères activé');
   }
 })();

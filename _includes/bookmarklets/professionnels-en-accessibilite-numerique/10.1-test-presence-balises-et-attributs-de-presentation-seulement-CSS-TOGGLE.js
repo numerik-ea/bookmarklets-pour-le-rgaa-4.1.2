@@ -156,17 +156,17 @@
         background-color: var(--msg-bgcolor);
     }
     
-    :not(img,svg,canvas,embed,object)[width]::before {
+    :not(img,svg,canvas,embed,object,rect,source)[width]::before {
         content: '[attr:width]';
         background-color: var(--msg-bgcolor);
     }
     
-    :not(img,svg,canvas,embed,object)[height]::before {
+    :not(img,svg,canvas,embed,object,rect,source)[height]::before {
         content: '[attr:height]';
         background-color: var(--msg-bgcolor);
     }
     
-    :not(img,svg,canvas,embed,object)[width][height]::before {
+    :not(img,svg,canvas,embed,object,rect,source)[width][height]::before {
         content: '[attr:height & width]';
         background-color: var(--msg-bgcolor);
     }`;
