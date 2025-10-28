@@ -39,9 +39,9 @@
     [vlink],
     [cellpadding],
     [cellspacing],
-    :not(img,svg,canvas,embed,object)[width],
-    :not(img,svg,canvas,embed,object)[height],
-    :not(img,svg,canvas,embed,object)[width][height] {
+    :not(img,svg,canvas,embed,object,rect,source)[width],
+    :not(img,svg,canvas,embed,object,rect,source)[height],
+    :not(img,svg,canvas,embed,object,rect,source)[width][height] {
         border: 3px solid var(--border-color);
         outline: 3px solid var(--border-color);
     }
