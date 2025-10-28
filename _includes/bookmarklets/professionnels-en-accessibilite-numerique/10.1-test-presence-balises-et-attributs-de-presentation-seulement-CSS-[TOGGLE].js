@@ -171,7 +171,7 @@
         background-color: var(--msg-bgcolor);
     }`;
 
-    var s = document.createElement("style");
+    var s = document.createElement('style');
     s.id = id;
     s.appendChild(document.createTextNode(css));
     document.head.appendChild(s);
