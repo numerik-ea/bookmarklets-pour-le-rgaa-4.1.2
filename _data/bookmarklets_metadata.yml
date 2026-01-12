@@ -24,9 +24,9 @@ professionnels-en-accessibilite-numerique:
   - name: 5.X-test-presence-tableaux
     last-updated: 2025-04-06
   - name: 6.1-voir-les-noms-accessibles-des-liens
-    last-updated: 2025-04-18
+    last-updated: 2026-01-12
   - name: 6.2-test-presence-de-liens-sans-nom-accessible
-    last-updated: 2025-04-18
+    last-updated: 2026-01-12
   - name: 7.1-lister-les-liens-sans-href
     last-updated: 2025-04-06
   - name: 8.3_8.4-detecter-la-langue-par-defaut
