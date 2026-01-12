@@ -157,7 +157,8 @@
 
     while (!parentElementToBeTestedSelector || !parentElement) {
       parentElementToBeTestedSelector = prompt(
-        `Entrez le sélecteur CSS de l'élément parent à tester :`
+        `Entrez le sélecteur CSS de l'élément parent à tester :`,
+        'body'
       );
 
       if (parentElementToBeTestedSelector === null) {
