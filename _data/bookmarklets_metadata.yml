@@ -14,9 +14,9 @@ professionnels-en-accessibilite-numerique:
   - name: 1.2-detecter-svg-sans-aria-hidden-true
     last-updated: 2026-01-13
   - name: 1.X-lister-images-avec-un-alt-non-vide
-    last-updated: 2025-05-20
+    last-updated: 2026-01-13
   - name: 1.X-lister-toutes-les-images-ayant-un-alt
-    last-updated: 2025-05-20
+    last-updated: 2026-01-13
   - name: 1.X-verifier-images-non-contenues-dans-un-lien
     last-updated: 2026-01-13
   - name: 2.X-check-iframes-et-frames
