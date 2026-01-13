@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Test 1.X - Vérifier images non contenues dans un lien (Shadow DOM)
+    </title>
+    <link
+      rel="shortcut icon"
+      href="../../assets/images/favicon.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../../assets/css/styles.css" />
+    <style>
+      .test-note {
+        font-size: 12px;
+        color: #666;
+        margin-top: 5px;
+        font-style: italic;
+      }
+      .test-section {
+        margin: 20px 0;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+      img, input[type="image"], [role="img"] {
+        display: block;
+        margin: 10px 0;
+      }
+      area {
+        display: inline-block;
+        padding: 5px;
+        background: #f0f0f0;
+        border: 1px solid #ccc;
+        margin: 5px;
+      }
+    </style>
+  </head>
+  <body class="page-test">
+    <header role="banner">
+      <div class="container">
+        <a href="javascript:history.back()" class="back-link" id="back-link">
+          <span aria-hidden="true">← </span>Retour à la page précédente
+        </a>
+        <h1>
+          Test 1.X - Vérifier images non contenues dans un lien (Shadow DOM)
+        </h1>
+      </div>
+    </header>
+
+    <main role="main" class="container">
+      <section class="test-page-section">
+        <div class="test-info">
+          <h2>Informations sur le test</h2>
+          <p>
+            Cette page est utilisée pour tester les bookmarklets d'accessibilité
+            RGAA 4.1.2.
+          </p>
+          <p>
+            Nom du fichier :
+            1.X-verifier-images-non-contenues-dans-un-lien-test-shadow-dom.html
+          </p>
+          <p>
+            Description du test : Cette page contient des images dans différents
+            contextes dans le DOM principal et dans des Shadow DOM pour tester les
+            critères d'accessibilité RGAA 4.1.2 concernant la détection des
+            images qui ne sont pas contenues dans un lien.
+          </p>
+        </div>
+
+        <div class="test-content">
+          <h2>Contenu du test</h2>
+
+          <p>Cette page contient :</p>
+          <ul>
+            <li>
+              Des images <strong>NON contenues dans un lien</strong> dans le DOM
+              principal (doivent être détectées)
+            </li>
+            <li>
+              Des images <strong>contenues dans un lien</strong> dans le DOM
+              principal (ne doivent PAS être détectées)
+            </li>
+            <li>Des éléments similaires dans des Shadow DOM</li>
+            <li>
+              Des images avec différents états dans des Shadow DOM imbriqués
+            </li>
+          </ul>
+
+          <div class="test-section">
+            <h3>
+              Images NON contenues dans un lien dans le DOM principal (doivent
+              être détectées)
+            </h3>
+
+            <p>Test avec image <code>&lt;img&gt;</code> sans lien parent :</p>
+            <img
+              src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzAwN2JmZiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+SW1hZ2UgMTwvdGV4dD48L3N2Zz4="
+              alt="Image de test sans lien"
+              width="100"
+              height="100"
+            />
+            <p class="test-note">
+              Image sans lien parent (doit être détectée)
+            </p>
+
+            <p>
+              Test avec <code>&lt;input type="image"&gt;</code> sans lien parent :
+            </p>
+            <input
+              type="image"
+              src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzAwN2JmZiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+SW5wdXQgSW1hZ2U8L3RleHQ+PC9zdmc+"
+              alt="Input image sans lien"
+              width="100"
+              height="100"
+            />
+            <p class="test-note">
+              Input type="image" sans lien parent (doit être détecté)
+            </p>
+          </div>
+
+          <div class="test-section">
+            <h3>
+              Images contenues dans un lien dans le DOM principal (ne doivent PAS
+              être détectées)
+            </h3>
+
+            <p>
+              Test avec image <code>&lt;img&gt;</code> dans un lien
+              <code>&lt;a&gt;</code> :
+            </p>
+            <a href="#">
+              <img
+                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzI4YTc0NSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+SW1hZ2UgMiAoZGFucyBsaWVuKTwvdGV4dD48L3N2Zz4="
+                alt="Image dans un lien"
+                width="100"
+                height="100"
+              />
+            </a>
+            <p class="test-note">
+              Image dans un lien &lt;a&gt; (ne doit PAS être détectée)
+            </p>
+          </div>
+
+          <div class="test-section">
+            <h3>Composants avec Shadow DOM</h3>
+            <div id="shadow-component-1"></div>
+            <div id="shadow-component-2"></div>
+            <div id="shadow-component-3"></div>
+            <div id="shadow-component-4"></div>
+            <div id="shadow-component-5"></div>
+            <div id="shadow-component-nested"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer role="contentinfo">
+      <div class="container">
+        <p>
+          © <span id="currentYear"></span> -
+          <a href="https://www.numerik-ea.fr">numerik-ea</a>
+          |
+          <a
+            href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2"
+          >
+            Contribuer à ce site
+          </a>
+        </p>
+      </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+    <script>
+      // Shadow DOM 1 : Contient une image sans lien parent
+      (function () {
+        const host = document.getElementById('shadow-component-1');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    .test-note { font-size: 12px; color: #666; margin-top: 5px; font-style: italic; }
+                    img { display: block; margin: 10px 0; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 1 - Image sans lien parent</h4>
+                    <img
+                        src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzAwN2JmZiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+U2hhZG93IERPTSAxPC90ZXh0Pjwvc3ZnPg=="
+                        alt="Image Shadow DOM sans lien"
+                        width="100"
+                        height="100"
+                    />
+                    <p class="test-note">Image dans Shadow DOM sans lien parent (doit être détectée)</p>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 2 : Contient une image dans un lien
+      (function () {
+        const host = document.getElementById('shadow-component-2');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    .test-note { font-size: 12px; color: #666; margin-top: 5px; font-style: italic; }
+                    img { display: block; margin: 10px 0; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 2 - Image dans un lien</h4>
+                    <a href="#">
+                        <img
+                            src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzI4YTc0NSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+U2hhZG93IERPTSAyPC90ZXh0Pjwvc3ZnPg=="
+                            alt="Image Shadow DOM dans lien"
+                            width="100"
+                            height="100"
+                        />
+                    </a>
+                    <p class="test-note">Image dans Shadow DOM avec lien parent (ne doit PAS être détectée)</p>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 3 : Contient un input type="image" sans lien parent
+      (function () {
+        const host = document.getElementById('shadow-component-3');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    .test-note { font-size: 12px; color: #666; margin-top: 5px; font-style: italic; }
+                    input[type="image"] { display: block; margin: 10px 0; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 3 - Input type="image" sans lien parent</h4>
+                    <input
+                        type="image"
+                        src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzAwN2JmZiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+SW5wdXQgSW1hZ2U8L3RleHQ+PC9zdmc+"
+                        alt="Input image Shadow DOM sans lien"
+                        width="100"
+                        height="100"
+                    />
+                    <p class="test-note">Input type="image" dans Shadow DOM sans lien parent (doit être détecté)</p>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 4 : Contient un élément avec role="img" sans lien parent
+      (function () {
+        const host = document.getElementById('shadow-component-4');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    .test-note { font-size: 12px; color: #666; margin-top: 5px; font-style: italic; }
+                    [role="img"] { display: flex; align-items: center; justify-content: center; margin: 10px 0; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 4 - Élément avec role="img" sans lien parent</h4>
+                    <div
+                        role="img"
+                        aria-label="Élément Shadow DOM avec role img sans lien"
+                        style="width: 100px; height: 100px; background-color: #007bff; color: white;"
+                    >
+                        Role img
+                    </div>
+                    <p class="test-note">Élément avec role="img" dans Shadow DOM sans lien parent (doit être détecté)</p>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 5 : Contient plusieurs images avec différents états
+      (function () {
+        const host = document.getElementById('shadow-component-5');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    .test-note { font-size: 12px; color: #666; margin-top: 5px; font-style: italic; }
+                    .element-item { margin: 15px 0; }
+                    img { display: block; margin: 10px 0; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 5 - Plusieurs images avec différents états</h4>
+                    <div class="element-item">
+                        <img
+                            src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzAwN2JmZiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+SW1hZ2UgMSAoU0QpPC90ZXh0Pjwvc3ZnPg=="
+                            alt="Image 1 sans lien"
+                            width="100"
+                            height="100"
+                        />
+                        <p class="test-note">Image sans lien parent (doit être détectée)</p>
+                    </div>
+                    <div class="element-item">
+                        <a href="#">
+                            <img
+                                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzI4YTc0NSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+SW1hZ2UgMiAoU0QpPC90ZXh0Pjwvc3ZnPg=="
+                                alt="Image 2 dans lien"
+                                width="100"
+                                height="100"
+                            />
+                        </a>
+                        <p class="test-note">Image avec lien parent (ne doit PAS être détectée)</p>
+                    </div>
+                    <div class="element-item">
+                        <div role="link" tabindex="0">
+                            <img
+                                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzI4YTc0NSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+SW1hZ2UgMyAoU0QpPC90ZXh0Pjwvc3ZnPg=="
+                                alt="Image 3 dans role link"
+                                width="100"
+                                height="100"
+                            />
+                        </div>
+                        <p class="test-note">Image avec role="link" parent (ne doit PAS être détectée)</p>
+                    </div>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM imbriqué : Contient des images avec différents états dans un shadow root qui contient lui-même un shadow root
+      (function () {
+        const host = document.getElementById('shadow-component-nested');
+        const shadowRoot1 = host.attachShadow({ mode: 'open' });
+        shadowRoot1.innerHTML = `
+                <style>
+                    .container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    .test-note { font-size: 12px; color: #666; margin-top: 5px; font-style: italic; }
+                    .element-item { margin: 15px 0; }
+                    img { display: block; margin: 10px 0; }
+                </style>
+                <div class="container">
+                    <h4>Shadow DOM imbriqué (niveau 1) - Images avec différents états</h4>
+                    <div class="element-item">
+                        <img
+                            src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzAwN2JmZiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+SW1hZ2UgTjEgTDE8L3RleHQ+PC9zdmc+"
+                            alt="Image niveau 1 sans lien"
+                            width="100"
+                            height="100"
+                        />
+                        <p class="test-note">Image niveau 1 sans lien parent (doit être détectée)</p>
+                    </div>
+                    <div class="element-item">
+                        <a href="#">
+                            <img
+                                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzI4YTc0NSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+SW1hZ2UgTjEgTDI8L3RleHQ+PC9zdmc+"
+                                alt="Image niveau 1 dans lien"
+                                width="100"
+                                height="100"
+                            />
+                        </a>
+                        <p class="test-note">Image niveau 1 avec lien parent (ne doit PAS être détectée)</p>
+                    </div>
+                    <div id="nested-shadow-host"></div>
+                </div>
+            `;
+
+        // Shadow DOM de niveau 2
+        const nestedHost = shadowRoot1.querySelector('#nested-shadow-host');
+        const shadowRoot2 = nestedHost.attachShadow({ mode: 'open' });
+        shadowRoot2.innerHTML = `
+                <style>
+                    .nested-container { padding: 10px; margin: 10px 0; border: 1px solid #666; }
+                    h5 { margin-top: 0; }
+                    .test-note { font-size: 12px; color: #666; margin-top: 5px; font-style: italic; }
+                    .element-item { margin: 15px 0; }
+                    img { display: block; margin: 10px 0; }
+                </style>
+                <div class="nested-container">
+                    <h5>Shadow DOM imbriqué (niveau 2) - Images avec différents états</h5>
+                    <div class="element-item">
+                        <img
+                            src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzAwN2JmZiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+SW1hZ2UgTjIgTDE8L3RleHQ+PC9zdmc+"
+                            alt="Image niveau 2 sans lien"
+                            width="100"
+                            height="100"
+                        />
+                        <p class="test-note">Image niveau 2 sans lien parent (doit être détectée)</p>
+                    </div>
+                    <div class="element-item">
+                        <a href="#">
+                            <img
+                                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzI4YTc0NSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+SW1hZ2UgTjIgTDI8L3RleHQ+PC9zdmc+"
+                                alt="Image niveau 2 dans lien"
+                                width="100"
+                                height="100"
+                            />
+                        </a>
+                        <p class="test-note">Image niveau 2 avec lien parent (ne doit PAS être détectée)</p>
+                    </div>
+                    <div class="element-item">
+                        <input
+                            type="image"
+                            src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzAwN2JmZiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+SW5wdXQgTjI8L3RleHQ+PC9zdmc+"
+                            alt="Input image niveau 2 sans lien"
+                            width="100"
+                            height="100"
+                        />
+                        <p class="test-note">Input type="image" niveau 2 sans lien parent (doit être détecté)</p>
+                    </div>
+                </div>
+            `;
+      })();
+    </script>
+  </body>
+</html>

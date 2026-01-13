@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test 1.X - Vérifier images non contenues dans un lien</title>
+    <link
+      rel="shortcut icon"
+      href="../../assets/images/favicon.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../../assets/css/styles.css" />
+    <style>
+      .test-note {
+        font-size: 12px;
+        color: #666;
+        margin-top: 5px;
+        font-style: italic;
+      }
+      .test-section {
+        margin: 20px 0;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+      img, input[type="image"], [role="img"] {
+        display: block;
+        margin: 10px 0;
+      }
+      area {
+        display: inline-block;
+        padding: 5px;
+        background: #f0f0f0;
+        border: 1px solid #ccc;
+        margin: 5px;
+      }
+    </style>
+  </head>
+  <body class="page-test">
+    <header role="banner">
+      <div class="container">
+        <a href="javascript:history.back()" class="back-link" id="back-link">
+          <span aria-hidden="true">← </span>Retour à la page précédente
+        </a>
+        <h1>Test 1.X - Vérifier images non contenues dans un lien</h1>
+      </div>
+    </header>
+
+    <main role="main" class="container">
+      <section class="test-page-section">
+        <div class="test-info">
+          <h2>Informations sur le test</h2>
+          <p>
+            Cette page est utilisée pour tester les bookmarklets d'accessibilité
+            RGAA 4.1.2.
+          </p>
+          <p>Nom du fichier : 1.X-verifier-images-non-contenues-dans-un-lien-test.html</p>
+          <p>
+            Description du test : Cette page contient des images dans différents
+            contextes pour tester les critères d'accessibilité RGAA 4.1.2
+            concernant la détection des images qui ne sont pas contenues dans un
+            lien.
+          </p>
+        </div>
+
+        <div class="test-content">
+          <h2>Contenu du test</h2>
+
+          <p>Cette page contient :</p>
+          <ul>
+            <li>
+              Des images <strong>NON contenues dans un lien</strong> (doivent être
+              détectées et mises en évidence)
+            </li>
+            <li>
+              Des images <strong>contenues dans un lien</strong> (ne doivent PAS
+              être détectées)
+            </li>
+            <li>
+              Différents types d'images : <code>&lt;img&gt;</code>,
+              <code>&lt;input type="image"&gt;</code>, <code>&lt;area&gt;</code>,
+              éléments avec <code>role="img"</code>
+            </li>
+          </ul>
+
+          <div class="test-section">
+            <h3>
+              Images NON contenues dans un lien (doivent être détectées)
+            </h3>
+
+            <p>Test avec image <code>&lt;img&gt;</code> sans lien parent :</p>
+            <img
+              src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzAwN2JmZiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+SW1hZ2UgMTwvdGV4dD48L3N2Zz4="
+              alt="Image de test sans lien"
+              width="100"
+              height="100"
+            />
+            <p class="test-note">
+              Image sans lien parent (doit être détectée)
+            </p>
+
+            <p>Test avec <code>&lt;input type="image"&gt;</code> sans lien parent :</p>
+            <input
+              type="image"
+              src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzAwN2JmZiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+SW5wdXQgSW1hZ2U8L3RleHQ+PC9zdmc+"
+              alt="Input image sans lien"
+              width="100"
+              height="100"
+            />
+            <p class="test-note">
+              Input type="image" sans lien parent (doit être détecté)
+            </p>
+
+            <p>Test avec élément ayant <code>role="img"</code> sans lien parent :</p>
+            <div
+              role="img"
+              aria-label="Élément avec role img sans lien"
+              style="width: 100px; height: 100px; background-color: #007bff; color: white; display: flex; align-items: center; justify-content: center;"
+            >
+              Role img
+            </div>
+            <p class="test-note">
+              Élément avec role="img" sans lien parent (doit être détecté)
+            </p>
+
+            <p>Test avec <code>&lt;area&gt;</code> sans lien parent :</p>
+            <map name="testmap">
+              <area
+                shape="rect"
+                coords="0,0,100,100"
+                alt="Area sans lien"
+                href="#"
+              />
+            </map>
+            <img
+              usemap="#testmap"
+              src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzAwN2JmZiIvPjwvc3ZnPg=="
+              alt="Image avec map"
+              width="100"
+              height="100"
+            />
+            <p class="test-note">
+              Area sans lien parent (doit être détecté)
+            </p>
+          </div>
+
+          <div class="test-section">
+            <h3>
+              Images contenues dans un lien (ne doivent PAS être détectées)
+            </h3>
+
+            <p>Test avec image <code>&lt;img&gt;</code> dans un lien <code>&lt;a&gt;</code> :</p>
+            <a href="#">
+              <img
+                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzI4YTc0NSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+SW1hZ2UgMiAoZGFucyBsaWVuKTwvdGV4dD48L3N2Zz4="
+                alt="Image dans un lien"
+                width="100"
+                height="100"
+              />
+            </a>
+            <p class="test-note">
+              Image dans un lien &lt;a&gt; (ne doit PAS être détectée)
+            </p>
+
+            <p>Test avec <code>&lt;input type="image"&gt;</code> dans un lien <code>&lt;a&gt;</code> :</p>
+            <a href="#">
+              <input
+                type="image"
+                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzI4YTc0NSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+SW5wdXQgSW1hZ2UgKGRhbnMgbGllbik8L3RleHQ+PC9zdmc+"
+                alt="Input image dans un lien"
+                width="100"
+                height="100"
+              />
+            </a>
+            <p class="test-note">
+              Input type="image" dans un lien &lt;a&gt; (ne doit PAS être détecté)
+            </p>
+
+            <p>Test avec élément ayant <code>role="img"</code> dans un lien <code>&lt;a&gt;</code> :</p>
+            <a href="#">
+              <div
+                role="img"
+                aria-label="Élément avec role img dans un lien"
+                style="width: 100px; height: 100px; background-color: #28a745; color: white; display: flex; align-items: center; justify-content: center;"
+              >
+                Role img (dans lien)
+              </div>
+            </a>
+            <p class="test-note">
+              Élément avec role="img" dans un lien &lt;a&gt; (ne doit PAS être détecté)
+            </p>
+
+            <p>Test avec image dans un élément ayant <code>role="link"</code> :</p>
+            <div role="link" tabindex="0">
+              <img
+                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzI4YTc0NSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+SW1hZ2UgMyAoZGFucyByb2xlPWxpbmspPC90ZXh0Pjwvc3ZnPg=="
+                alt="Image dans role link"
+                width="100"
+                height="100"
+              />
+            </div>
+            <p class="test-note">
+              Image dans un élément avec role="link" (ne doit PAS être détectée)
+            </p>
+
+            <p>Test avec image dans un lien <code>&lt;a&gt;</code> avec texte :</p>
+            <a href="#">
+              <img
+                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzI4YTc0NSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+SW1hZ2UgNCBhdmVjIHRleHRlPC90ZXh0Pjwvc3ZnPg=="
+                alt="Image avec texte"
+                width="100"
+                height="100"
+              />
+              Texte du lien
+            </a>
+            <p class="test-note">
+              Image dans un lien avec texte (ne doit PAS être détectée)
+            </p>
+          </div>
+
+          <div class="test-section">
+            <h3>Cas limites</h3>
+
+            <p>Test avec lien <code>&lt;a&gt;</code> sans attribut <code>href</code> :</p>
+            <a>
+              <img
+                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2ZmYzEwNyIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiMwMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5JbWFnZSA1IChsaWVuIHNhbnMgaHJlZik8L3RleHQ+PC9zdmc+"
+                alt="Image dans lien sans href"
+                width="100"
+                height="100"
+              />
+            </a>
+            <p class="test-note">
+              Image dans un lien &lt;a&gt; sans href (doit être détectée car le lien n'est pas valide)
+            </p>
+
+            <p>Test avec élément ayant <code>role="link"</code> mais pas de lien fonctionnel :</p>
+            <div role="link">
+              <img
+                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2ZmYzEwNyIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiMwMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5JbWFnZSA2IChyb2xlPWxpbmspPC90ZXh0Pjwvc3ZnPg=="
+                alt="Image dans role link"
+                width="100"
+                height="100"
+              />
+            </div>
+            <p class="test-note">
+              Image dans un élément avec role="link" (ne doit PAS être détectée car role="link" est considéré comme un lien)
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer role="contentinfo">
+      <div class="container">
+        <p>
+          © <span id="currentYear"></span> -
+          <a href="https://www.numerik-ea.fr">numerik-ea</a>
+          |
+          <a
+            href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2"
+          >
+            Contribuer à ce site
+          </a>
+        </p>
+      </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+  </body>
+</html>
