@@ -1,80 +1,168 @@
 (function checkIframesAndFrames() {
-    const iframesAndFrames = document.querySelectorAll('iframe, frame');
+  // Function to recursively get all shadow roots
+  function getAllShadowRoots(root = document) {
+    const shadowRoots = [];
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT);
+    let node;
+    while ((node = walker.nextNode())) {
+      if (node.shadowRoot) {
+        shadowRoots.push(node.shadowRoot);
+        // Recursively get shadow roots within shadow roots
+        shadowRoots.push(...getAllShadowRoots(node.shadowRoot));
+      }
+    }
+    return shadowRoots;
+  }
 
-    if (iframesAndFrames.length === 0) {
-        alert('2.1 NA et 2.2 NA : pas de cadres sur la page.');
-        return true;
+  // Function to query selector all in a root
+  function querySelectorAllInRoot(selector, root) {
+    return Array.from(root.querySelectorAll(selector));
+  }
+
+  // Get all roots (document + shadow roots)
+  const allRoots = [document, ...getAllShadowRoots()];
+  const shadowRootCount = allRoots.length - 1;
+
+  // Collect all iframes and frames from all roots
+  const allIframesAndFrames = [];
+  allRoots.forEach((root) => {
+    const frames = querySelectorAllInRoot('iframe, frame', root);
+    allIframesAndFrames.push(...frames);
+  });
+
+  if (allIframesAndFrames.length === 0) {
+    alert('2.1 NA et 2.2 NA : pas de cadres sur la page.');
+    return true;
+  }
+
+  const iframesAndFramesWithoutTitle = allIframesAndFrames.filter(
+    (iframeOrFrame) => !iframeOrFrame.hasAttribute('title')
+  );
+
+  const iframesAndFramesWithTitle = allIframesAndFrames.filter(
+    (iframeOrFrame) => iframeOrFrame.hasAttribute('title')
+  );
+
+  // Count frames in document vs shadow DOM
+  const framesInDocument = querySelectorAllInRoot('iframe, frame', document);
+  const framesInShadow = allIframesAndFrames.filter(
+    (frame) => !framesInDocument.includes(frame)
+  );
+
+  const framesWithoutTitleInDocument = framesInDocument.filter(
+    (f) => !f.hasAttribute('title')
+  );
+  const framesWithoutTitleInShadow = framesInShadow.filter(
+    (f) => !f.hasAttribute('title')
+  );
+
+  const framesWithTitleInDocument = framesInDocument.filter((f) =>
+    f.hasAttribute('title')
+  );
+  const framesWithTitleInShadow = framesInShadow.filter((f) =>
+    f.hasAttribute('title')
+  );
+
+  let message = '';
+  let messageIframesAndFramesWithoutTitle = '';
+  let messageIframesAndFramesWithTitle = '';
+
+  console.clear();
+
+  // Check for frames without title (test 2.1)
+  if (iframesAndFramesWithoutTitle.length === 0) {
+    messageIframesAndFramesWithoutTitle +=
+      '2.1 C : tous les cadres ont un attribut title';
+  } else {
+    const locationParts = [];
+    if (framesWithoutTitleInDocument.length > 0) {
+      locationParts.push(
+        `${framesWithoutTitleInDocument.length} dans le document`
+      );
+    }
+    if (framesWithoutTitleInShadow.length > 0) {
+      locationParts.push(
+        `${framesWithoutTitleInShadow.length} dans shadow DOM`
+      );
+    }
+    const location =
+      locationParts.length > 0 ? ` (${locationParts.join(', ')})` : '';
+
+    messageIframesAndFramesWithoutTitle +=
+      '2.1 NC : ' +
+      iframesAndFramesWithoutTitle.length +
+      " cadres n'ont pas d'attribut title" +
+      location;
+
+    if (iframesAndFramesWithoutTitle.length === 1) {
+      messageIframesAndFramesWithoutTitle =
+        messageIframesAndFramesWithoutTitle.replace(
+          "cadres n'ont pas",
+          "cadre n'a pas"
+        );
     }
 
-    const iframesAndFramesWithoutTitle = (
-        Array.from(iframesAndFrames)
-             .filter(iframeOrFrame => !iframeOrFrame.hasAttribute('title'))
+    console.log(messageIframesAndFramesWithoutTitle + ' :');
+    iframesAndFramesWithoutTitle.forEach((iframeOrFrame) =>
+      console.log(iframeOrFrame)
     );
+  }
 
-    const iframesAndFramesWithTitle = (
-        Array.from(iframesAndFrames)
-             .filter(iframeOrFrame => iframeOrFrame.hasAttribute('title'))
+  message += messageIframesAndFramesWithoutTitle;
+
+  // Check for frames with title (test 2.2)
+  if (iframesAndFramesWithTitle.length === 0) {
+    messageIframesAndFramesWithTitle +=
+      "2.2 NA : tous les cadres n'ont pas d'attribut title";
+  } else {
+    const locationParts = [];
+    if (framesWithTitleInDocument.length > 0) {
+      locationParts.push(
+        `${framesWithTitleInDocument.length} dans le document`
+      );
+    }
+    if (framesWithTitleInShadow.length > 0) {
+      locationParts.push(`${framesWithTitleInShadow.length} dans shadow DOM`);
+    }
+    const location =
+      locationParts.length > 0 ? ` (${locationParts.join(', ')})` : '';
+
+    messageIframesAndFramesWithTitle +=
+      '2.2 : ' +
+      iframesAndFramesWithTitle.length +
+      ' cadres ont un attribut title' +
+      location;
+
+    if (iframesAndFramesWithTitle.length === 1) {
+      messageIframesAndFramesWithTitle =
+        messageIframesAndFramesWithTitle.replace('cadres ont', 'cadre a');
+    }
+
+    console.log(messageIframesAndFramesWithTitle + ' :');
+    iframesAndFramesWithTitle.forEach((iframeOrFrame) =>
+      console.log(iframeOrFrame)
     );
+  }
 
-    let message = '';
-    let messageIframesAndFramesWithoutTitle = '';
-    let messageIframesAndFramesWithTitle = '';
+  message += '.\n';
+  message += messageIframesAndFramesWithTitle;
 
-    console.clear();
-    
-    // Check for frames without title (test 2.1)
-    if (iframesAndFramesWithoutTitle.length === 0) {
-        messageIframesAndFramesWithoutTitle += '2.1 C : tous les cadres ont un attribut title';
-    } else {
-        messageIframesAndFramesWithoutTitle += (
-            '2.1 NC : '
-            + iframesAndFramesWithoutTitle.length
-            + ' cadres n\'ont pas d\'attribut title'
-        );
+  if (shadowRootCount > 0) {
+    message += `\n${shadowRootCount} shadow root(s) analysé(s).`;
+  }
 
-        if (iframesAndFramesWithoutTitle.length === 1) {
-            messageIframesAndFramesWithoutTitle = (
-                messageIframesAndFramesWithoutTitle.replace(
-                    'cadres n\'ont pas', 'cadre n\'a pas'
-                )
-            );
-        }
+  message += '\nVoir la console pour plus de détails.';
 
-        console.log(messageIframesAndFramesWithoutTitle + ' :');
-        iframesAndFramesWithoutTitle.forEach(
-            iframeOrFrame => console.log(iframeOrFrame)
-        );
+  // Log all found elements from all roots
+  allRoots.forEach((root, index) => {
+    const rootName =
+      index === 0 ? 'Document principal' : `Shadow root ${index}`;
+    const frames = querySelectorAllInRoot('iframe, frame', root);
+    if (frames.length > 0) {
+      console.log(`\n${rootName}:`);
+      frames.forEach((frame) => console.log(frame));
     }
+  });
 
-    message += messageIframesAndFramesWithoutTitle;
-
-    // Check for frames with title (test 2.2)
-    if (iframesAndFramesWithTitle.length === 0) {
-        messageIframesAndFramesWithTitle += '2.2 NA : tous les cadres n\'ont pas d\'attribut title';
-    } else {
-        messageIframesAndFramesWithTitle += (
-            '2.2 : '
-            + iframesAndFramesWithTitle.length
-            + ' cadres ont un attribut title'
-        );
-
-        if (iframesAndFramesWithTitle.length === 1) {
-            messageIframesAndFramesWithTitle = (
-                messageIframesAndFramesWithTitle.replace(
-                    'cadres ont', 'cadre a'
-                )
-            );
-        }
-
-        console.log(messageIframesAndFramesWithTitle + ' :');
-        iframesAndFramesWithTitle.forEach(
-            iframeOrFrame => console.log(iframeOrFrame)
-        );
-    }
-
-    message += '.\n';
-    message += messageIframesAndFramesWithTitle;
-    message += '.\nVoir la console pour plus de détails.';
-
-    alert(message);
+  alert(message);
 })();
