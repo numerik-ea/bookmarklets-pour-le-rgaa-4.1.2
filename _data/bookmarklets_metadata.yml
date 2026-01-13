@@ -22,7 +22,7 @@ professionnels-en-accessibilite-numerique:
   - name: 2.X-check-iframes-et-frames
     last-updated: 2026-01-13
   - name: 5.X-test-presence-tableaux
-    last-updated: 2025-04-06
+    last-updated: 2026-01-13
   - name: 6.1-voir-les-noms-accessibles-des-liens
     last-updated: 2026-01-12
   - name: 6.2-test-presence-de-liens-sans-nom-accessible
@@ -34,7 +34,7 @@ professionnels-en-accessibilite-numerique:
   - name: 8.7_8.8-lister-les-attributs-lang
     last-updated: 2025-06-06
   - name: 8.9-double-br
-    last-updated: 2025-08-04
+    last-updated: 2026-01-13
   - name: 8.9-paragraphes-vides
     last-updated: 2025-05-14
   - name: 8.9-texte-dans-balise-non-semantique
