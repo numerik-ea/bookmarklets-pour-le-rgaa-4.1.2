@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Test 10.1 - Test présence balises et attributs de présentation avec Shadow
+      DOM
+    </title>
+    <link
+      rel="shortcut icon"
+      href="../../assets/images/favicon.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../../assets/css/styles.css" />
+  </head>
+  <body class="page-test">
+    <header role="banner">
+      <div class="container">
+        <a href="javascript:history.back()" class="back-link" id="back-link">
+          <span aria-hidden="true">← </span>Retour à la page précédente
+        </a>
+        <h1>
+          Test 10.1 - Test présence balises et attributs de présentation avec
+          Shadow DOM
+        </h1>
+      </div>
+    </header>
+
+    <main role="main" class="container">
+      <section class="test-page-section">
+        <div class="test-info">
+          <h2>Informations sur le test</h2>
+          <p>
+            Cette page est utilisée pour tester les bookmarklets d'accessibilité
+            RGAA 4.1.2.
+          </p>
+          <p>Nom du fichier : 10.1-test-shadow-dom.html</p>
+          <p>
+            Description du test : Cette page contient des balises et attributs
+            de présentation obsolètes dans le DOM principal et dans des Shadow
+            DOM pour tester les critères d'accessibilité RGAA 4.1.2 concernant
+            les balises et attributs de présentation de l'information.
+          </p>
+        </div>
+
+        <div class="test-content">
+          <h2>Contenu du test</h2>
+
+          <p>Cette page contient :</p>
+          <ul>
+            <li>
+              Des balises obsolètes (<code>&lt;center&gt;</code>,
+              <code>&lt;font&gt;</code>, <code>&lt;big&gt;</code>, etc.) dans le
+              DOM principal
+            </li>
+            <li>
+              Des attributs obsolètes (<code>align</code>, <code>bgcolor</code>,
+              <code>color</code>, etc.) dans le DOM principal
+            </li>
+            <li>
+              Des attributs <code>width</code>/<code>height</code> invalides
+              dans le DOM principal
+            </li>
+            <li>
+              Des attributs <code>size</code> invalides dans le DOM principal
+            </li>
+            <li>Des éléments similaires dans des Shadow DOM</li>
+          </ul>
+
+          <h3>Balises obsolètes dans le DOM principal</h3>
+
+          <p>Test avec balise <code>&lt;center&gt;</code> :</p>
+          <center>Texte centré avec balise center</center>
+
+          <p>Test avec balise <code>&lt;font&gt;</code> :</p>
+          <font color="red">Texte avec balise font</font>
+
+          <p>Test avec balise <code>&lt;big&gt;</code> :</p>
+          <big>Texte avec balise big</big>
+
+          <p>Test avec balise <code>&lt;s&gt;</code> :</p>
+          <s>Texte barré avec balise s</s>
+
+          <p>Test avec balise <code>&lt;strike&gt;</code> :</p>
+          <strike>Texte barré avec balise strike</strike>
+
+          <p>Test avec balise <code>&lt;tt&gt;</code> :</p>
+          <tt>Texte avec balise tt</tt>
+
+          <h3>Attributs obsolètes dans le DOM principal</h3>
+
+          <p>Test avec attribut <code>align</code> :</p>
+          <p align="center">Paragraphe avec align="center"</p>
+
+          <p>Test avec attribut <code>bgcolor</code> :</p>
+          <div bgcolor="yellow">Div avec bgcolor="yellow"</div>
+
+          <p>Test avec attribut <code>color</code> :</p>
+          <p color="blue">Paragraphe avec color="blue"</p>
+
+          <p>Test avec attribut <code>border</code> :</p>
+          <div border="1">Div avec border="1"</div>
+
+          <p>Test avec attribut <code>valign</code> :</p>
+          <table>
+            <tr>
+              <td valign="top">Cellule avec valign="top"</td>
+            </tr>
+          </table>
+
+          <p>Test avec attribut <code>cellpadding</code> :</p>
+          <table cellpadding="10">
+            <tr>
+              <td>Cellule avec cellpadding</td>
+            </tr>
+          </table>
+
+          <p>Test avec attribut <code>cellspacing</code> :</p>
+          <table cellspacing="5">
+            <tr>
+              <td>Cellule avec cellspacing</td>
+            </tr>
+          </table>
+
+          <p>Test avec attribut <code>frameborder</code> :</p>
+          <iframe
+            src="about:blank"
+            frameborder="1"
+            width="200"
+            height="100"
+          ></iframe>
+
+          <p>Test avec attribut <code>hspace</code> :</p>
+          <img
+            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+            alt="test"
+            hspace="10"
+          />
+
+          <p>Test avec attribut <code>vspace</code> :</p>
+          <img
+            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+            alt="test"
+            vspace="10"
+          />
+
+          <p>Test avec attribut <code>marginwidth</code> :</p>
+          <iframe
+            src="about:blank"
+            marginwidth="10"
+            width="200"
+            height="100"
+          ></iframe>
+
+          <p>Test avec attribut <code>marginheight</code> :</p>
+          <iframe
+            src="about:blank"
+            marginheight="10"
+            width="200"
+            height="100"
+          ></iframe>
+
+          <h3>Attributs width/height invalides dans le DOM principal</h3>
+
+          <p>Test avec attribut <code>width</code> invalide :</p>
+          <div width="200px">Div avec width="200px" (invalide)</div>
+
+          <p>Test avec attribut <code>height</code> invalide :</p>
+          <div height="100px">Div avec height="100px" (invalide)</div>
+
+          <p>
+            Test avec attributs <code>width</code> et
+            <code>height</code> invalides :
+          </p>
+          <p width="200px" height="100px">
+            Paragraphe avec width et height (invalides)
+          </p>
+
+          <p>Test avec attribut <code>width</code> valide (sur img) :</p>
+          <img
+            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+            alt="test"
+            width="100"
+            height="100"
+          />
+
+          <h3>Attribut size invalide dans le DOM principal</h3>
+
+          <p>Test avec attribut <code>size</code> invalide :</p>
+          <input type="text" size="20" />
+
+          <p>Test avec attribut <code>size</code> valide (sur select) :</p>
+          <select size="3">
+            <option>Option 1</option>
+            <option>Option 2</option>
+            <option>Option 3</option>
+          </select>
+
+          <h3>Composants avec Shadow DOM</h3>
+          <div id="shadow-component-1"></div>
+          <div id="shadow-component-2"></div>
+          <div id="shadow-component-3"></div>
+          <div id="shadow-component-4"></div>
+          <div id="shadow-component-nested"></div>
+        </div>
+      </section>
+    </main>
+    <footer role="contentinfo">
+      <div class="container">
+        <p>
+          © <span id="currentYear"></span> -
+          <a href="https://www.numerik-ea.fr">numerik-ea</a>
+          |
+          <a
+            href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2"
+          >
+            Contribuer à ce site
+          </a>
+        </p>
+      </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+    <script>
+      // Shadow DOM 1 : Contient des balises obsolètes
+      (function () {
+        const host = document.getElementById('shadow-component-1');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 1 - Balises obsolètes</h4>
+                    <center>Texte centré dans Shadow DOM</center>
+                    <font color="green">Texte avec font dans Shadow DOM</font>
+                    <big>Texte avec big dans Shadow DOM</big>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 2 : Contient des attributs obsolètes
+      (function () {
+        const host = document.getElementById('shadow-component-2');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 2 - Attributs obsolètes</h4>
+                    <p align="right">Paragraphe avec align dans Shadow DOM</p>
+                    <div bgcolor="lightblue">Div avec bgcolor dans Shadow DOM</div>
+                    <p color="red">Paragraphe avec color dans Shadow DOM</p>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 3 : Contient des attributs width/height invalides
+      (function () {
+        const host = document.getElementById('shadow-component-3');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 3 - Attributs width/height invalides</h4>
+                    <div width="150px">Div avec width dans Shadow DOM</div>
+                    <div height="50px">Div avec height dans Shadow DOM</div>
+                    <p width="200px" height="80px">Paragraphe avec width et height dans Shadow DOM</p>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 4 : Contient des attributs size invalides
+      (function () {
+        const host = document.getElementById('shadow-component-4');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 4 - Attribut size invalide</h4>
+                    <input type="text" size="30" />
+                    <div size="10">Div avec size dans Shadow DOM</div>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM imbriqué : Contient des éléments obsolètes dans un shadow root qui contient lui-même un shadow root
+      (function () {
+        const host = document.getElementById('shadow-component-nested');
+        const shadowRoot1 = host.attachShadow({ mode: 'open' });
+        shadowRoot1.innerHTML = `
+                <style>
+                    .container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                </style>
+                <div class="container">
+                    <h4>Shadow DOM imbriqué (niveau 1) - Balise obsolète</h4>
+                    <center>Texte centré niveau 1</center>
+                    <p align="left">Paragraphe avec align niveau 1</p>
+                    <div id="nested-shadow-host"></div>
+                </div>
+            `;
+
+        // Shadow DOM de niveau 2
+        const nestedHost = shadowRoot1.querySelector('#nested-shadow-host');
+        const shadowRoot2 = nestedHost.attachShadow({ mode: 'open' });
+        shadowRoot2.innerHTML = `
+                <style>
+                    .nested-container { padding: 10px; margin: 10px 0; border: 1px solid #666; }
+                    h5 { margin-top: 0; }
+                </style>
+                <div class="nested-container">
+                    <h5>Shadow DOM imbriqué (niveau 2) - Attributs obsolètes</h5>
+                    <font color="purple">Texte avec font niveau 2</font>
+                    <div bgcolor="lightgreen">Div avec bgcolor niveau 2</div>
+                    <div width="100px" height="50px">Div avec width et height niveau 2</div>
+                </div>
+            `;
+      })();
+    </script>
+  </body>
+</html>
