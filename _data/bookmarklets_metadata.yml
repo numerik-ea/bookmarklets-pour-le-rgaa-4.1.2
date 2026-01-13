@@ -12,7 +12,7 @@ equipes-de-redaction-de-contenu:
     last-updated: 2025-04-11
 professionnels-en-accessibilite-numerique:
   - name: 1.2-detecter-svg-sans-aria-hidden-true
-    last-updated: 2025-08-20
+    last-updated: 2026-01-13
   - name: 1.X-lister-images-avec-un-alt-non-vide
     last-updated: 2025-05-20
   - name: 1.X-lister-toutes-les-images-ayant-un-alt
@@ -42,7 +42,7 @@ professionnels-en-accessibilite-numerique:
   - name: 8.9-texte-dans-balise-non-semantique-sans-label
     last-updated: 2025-09-03
   - name: 9.2-test-presence-header-nav-main-footer
-    last-updated: 2025-04-06
+    last-updated: 2026-01-13
   - name: 9.3-identifier-les-listes
     last-updated: 2025-04-06
   - name: 9.4-test-presence-elements-de-citations
@@ -62,7 +62,7 @@ professionnels-en-accessibilite-numerique:
   - name: 11.X-test-presence-formulaires
     last-updated: 2025-08-12
   - name: 12.6-verifier-les-landmarks
-    last-updated: 2025-06-25
+    last-updated: 2026-01-13
   - name: 12.8-visibilite-focus-TOGGLE
     last-updated: 2025-10-28
   - name: OpenRGAA-ouvrir-tous-les-tests-du-rgaa-4.1.2
