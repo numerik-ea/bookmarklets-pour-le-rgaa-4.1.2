@@ -106,9 +106,9 @@
     [valign],
     [vlink],
     [vspace],
-    :not(img,svg,canvas,embed,object,rect,source)[width],
-    :not(img,svg,canvas,embed,object,rect,source)[height],
-    :not(img,svg,canvas,embed,object,rect,source)[width][height],
+    :not(img,svg,canvas,embed,object,rect,source,mask)[width],
+    :not(img,svg,canvas,embed,object,rect,source,mask)[height],
+    :not(img,svg,canvas,embed,object,rect,source,mask)[width][height],
     :not(select)[size] {
         border: 3px solid var(--border-color);
         outline: 3px solid var(--border-color);
@@ -274,17 +274,17 @@
         background-color: var(--msg-bgcolor);
     }
     
-    :not(img,svg,canvas,embed,object,rect,source)[width]::before {
+    :not(img,svg,canvas,embed,object,rect,source,mask)[width]::before {
         content: '[attr:width]';
         background-color: var(--msg-bgcolor);
     }
     
-    :not(img,svg,canvas,embed,object,rect,source)[height]::before {
+    :not(img,svg,canvas,embed,object,rect,source,mask)[height]::before {
         content: '[attr:height]';
         background-color: var(--msg-bgcolor);
     }
     
-    :not(img,svg,canvas,embed,object,rect,source)[width][height]::before {
+    :not(img,svg,canvas,embed,object,rect,source,mask)[width][height]::before {
         content: '[attr:height & width]';
         background-color: var(--msg-bgcolor);
     }
