@@ -221,7 +221,39 @@
     message += `${shadowRootCount} shadow root(s) analysé(s).\n`;
   }
 
-  alert(message + '\nVoir la console pour plus de détails.');
+  // Truncate message for alert if too long (most browsers limit alert to ~2000 chars)
+  // Show instruction at beginning AND end to ensure visibility even if browser truncates
+  const consoleInstructionStart =
+    '⚠️ Voir la console pour plus de détails.\n\n';
+  const consoleInstructionEnd = '\n\nVoir la console pour plus de détails.';
+  const maxMessageLength = 1200; // Very conservative limit
+  let alertMessage = message;
+
+  if (message.length > maxMessageLength) {
+    // Find the last newline before the limit to avoid cutting in the middle of a line
+    const truncated = message.substring(0, maxMessageLength);
+    const lastNewline = truncated.lastIndexOf('\n');
+    alertMessage =
+      message.substring(0, lastNewline > 0 ? lastNewline : maxMessageLength) +
+      '\n\n[... message tronqué ...]';
+  }
+
+  // Build alert with instruction at both start and end
+  const fullAlert =
+    consoleInstructionStart + alertMessage + consoleInstructionEnd;
+
+  // Final safety check - if still too long, truncate message more
+  if (fullAlert.length > 1800) {
+    const safeMessageLength =
+      1800 - consoleInstructionStart.length - consoleInstructionEnd.length - 50;
+    const truncated = message.substring(0, safeMessageLength);
+    const lastNewline = truncated.lastIndexOf('\n');
+    alertMessage =
+      message.substring(0, lastNewline > 0 ? lastNewline : safeMessageLength) +
+      '\n\n[... message tronqué ...]';
+  }
+
+  alert(consoleInstructionStart + alertMessage + consoleInstructionEnd);
   console.clear();
   console.log(message + ' :');
 

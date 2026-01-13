@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test 12.6 - Vérifier les landmarks avec Shadow DOM</title>
+    <link
+      rel="shortcut icon"
+      href="../../assets/images/favicon.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../../assets/css/styles.css" />
+  </head>
+  <body class="page-test">
+    <header role="banner">
+      <div class="container">
+        <a href="javascript:history.back()" class="back-link" id="back-link">
+          <span aria-hidden="true">← </span>Retour à la page précédente
+        </a>
+        <h1>Test 12.6 - Vérifier les landmarks avec Shadow DOM</h1>
+      </div>
+    </header>
+
+    <nav role="navigation">
+      <ul>
+        <li><a href="#test1">Test 1</a></li>
+        <li><a href="#test2">Test 2</a></li>
+      </ul>
+    </nav>
+
+    <main role="main" class="container">
+      <section class="test-page-section">
+        <div class="test-info">
+          <h2>Informations sur le test</h2>
+          <p>
+            Cette page est utilisée pour tester les bookmarklets d'accessibilité
+            RGAA 4.1.2.
+          </p>
+          <p>Nom du fichier : 12.6-test-shadow-dom.html</p>
+          <p>
+            Description du test : Cette page contient des landmarks (header,
+            nav, main, footer, search) dans le DOM principal et dans des Shadow
+            DOM pour tester les critères d'accessibilité RGAA 4.1.2 concernant
+            les landmarks.
+          </p>
+        </div>
+
+        <div class="test-content">
+          <h2>Contenu du test</h2>
+
+          <p>Cette page contient :</p>
+          <ul>
+            <li>
+              Des landmarks dans le DOM principal (header avec role="banner",
+              nav avec role="navigation", main avec role="main", footer avec
+              role="contentinfo")
+            </li>
+            <li>Des landmarks dans des Shadow DOM</li>
+            <li>
+              Des cas de test avec plusieurs landmarks du même type (pour tester
+              les avertissements)
+            </li>
+            <li>Des landmarks dans des Shadow DOM imbriqués</li>
+          </ul>
+
+          <h3>Landmarks dans le DOM principal</h3>
+
+          <p>Cette page contient déjà :</p>
+          <ul>
+            <li>
+              Un <code>&lt;header role="banner"&gt;</code> dans le DOM principal
+            </li>
+            <li>
+              Un <code>&lt;nav role="navigation"&gt;</code> dans le DOM
+              principal
+            </li>
+            <li>
+              Un <code>&lt;main role="main"&gt;</code> dans le DOM principal
+            </li>
+            <li>
+              Un <code>&lt;footer role="contentinfo"&gt;</code> dans le DOM
+              principal (en bas de page)
+            </li>
+          </ul>
+
+          <div role="search">
+            <form>
+              <label for="search-main">Recherche</label>
+              <input type="search" id="search-main" name="q" />
+              <button type="submit">Rechercher</button>
+            </form>
+          </div>
+
+          <h3>Composants avec Shadow DOM</h3>
+          <div id="shadow-component-1"></div>
+          <div id="shadow-component-2"></div>
+          <div id="shadow-component-3"></div>
+          <div id="shadow-component-4"></div>
+          <div id="shadow-component-5"></div>
+          <div id="shadow-component-nested"></div>
+        </div>
+      </section>
+    </main>
+    <footer role="contentinfo">
+      <div class="container">
+        <p>
+          © <span id="currentYear"></span> -
+          <a href="https://www.numerik-ea.fr">numerik-ea</a>
+          |
+          <a
+            href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2"
+          >
+            Contribuer à ce site
+          </a>
+        </p>
+      </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+    <script>
+      // Shadow DOM 1 : Contient un header avec role="banner" (devrait déclencher un avertissement car il y en a déjà un dans le DOM principal)
+      (function () {
+        const host = document.getElementById('shadow-component-1');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    header { background-color: #f0f0f0; padding: 10px; margin: 10px 0; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 1 - Header avec role="banner"</h4>
+                    <header role="banner">
+                        <h2>Header dans Shadow DOM</h2>
+                        <p>Ce header a role="banner" alors qu'il y en a déjà un dans le DOM principal</p>
+                    </header>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 2 : Contient un nav avec role="navigation"
+      (function () {
+        const host = document.getElementById('shadow-component-2');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    nav { background-color: #e0e0e0; padding: 10px; margin: 10px 0; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 2 - Nav avec role="navigation"</h4>
+                    <nav role="navigation">
+                        <ul>
+                            <li><a href="#shadow-nav-1">Lien Shadow Nav 1</a></li>
+                            <li><a href="#shadow-nav-2">Lien Shadow Nav 2</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 3 : Contient un main avec role="main" (devrait déclencher un avertissement car il y en a déjà un dans le DOM principal)
+      (function () {
+        const host = document.getElementById('shadow-component-3');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    main { background-color: #d0d0d0; padding: 10px; margin: 10px 0; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 3 - Main avec role="main"</h4>
+                    <main role="main">
+                        <h2>Main dans Shadow DOM</h2>
+                        <p>Ce main a role="main" alors qu'il y en a déjà un dans le DOM principal</p>
+                    </main>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 4 : Contient un footer avec role="contentinfo" (devrait déclencher un avertissement car il y en a déjà un dans le DOM principal)
+      (function () {
+        const host = document.getElementById('shadow-component-4');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    footer { background-color: #c0c0c0; padding: 10px; margin: 10px 0; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 4 - Footer avec role="contentinfo"</h4>
+                    <footer role="contentinfo">
+                        <p>Footer dans Shadow DOM</p>
+                        <p>Ce footer a role="contentinfo" alors qu'il y en a déjà un dans le DOM principal</p>
+                    </footer>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 5 : Contient un élément avec role="search"
+      (function () {
+        const host = document.getElementById('shadow-component-5');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    [role="search"] { background-color: #b0b0b0; padding: 10px; margin: 10px 0; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 5 - Élément avec role="search"</h4>
+                    <div role="search">
+                        <form>
+                            <label for="search-shadow">Recherche dans Shadow DOM</label>
+                            <input type="search" id="search-shadow" name="q" />
+                            <button type="submit">Rechercher</button>
+                        </form>
+                    </div>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM imbriqué : Contient des landmarks dans un shadow root qui contient lui-même un shadow root
+      (function () {
+        const host = document.getElementById('shadow-component-nested');
+        const shadowRoot1 = host.attachShadow({ mode: 'open' });
+        shadowRoot1.innerHTML = `
+                <style>
+                    .container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    header { background-color: #b0b0b0; padding: 10px; }
+                    nav { background-color: #a0a0a0; padding: 10px; margin: 10px 0; }
+                </style>
+                <div class="container">
+                    <h4>Shadow DOM imbriqué (niveau 1) - Header et Nav</h4>
+                    <header role="banner">
+                        <h2>Header dans Shadow DOM imbriqué (niveau 1)</h2>
+                    </header>
+                    <nav role="navigation">
+                        <ul>
+                            <li><a href="#nested-nav">Navigation imbriquée</a></li>
+                        </ul>
+                    </nav>
+                    <div id="nested-shadow-host"></div>
+                </div>
+            `;
+
+        // Shadow DOM de niveau 2
+        const nestedHost = shadowRoot1.querySelector('#nested-shadow-host');
+        const shadowRoot2 = nestedHost.attachShadow({ mode: 'open' });
+        shadowRoot2.innerHTML = `
+                <style>
+                    .nested-container { padding: 10px; margin: 10px 0; border: 1px solid #666; }
+                    h5 { margin-top: 0; }
+                    main { background-color: #909090; padding: 10px; margin: 10px 0; }
+                    footer { background-color: #808080; padding: 10px; margin: 10px 0; }
+                    [role="search"] { background-color: #707070; padding: 10px; margin: 10px 0; }
+                </style>
+                <div class="nested-container">
+                    <h5>Shadow DOM imbriqué (niveau 2) - Main, Footer et Search</h5>
+                    <main role="main">
+                        <h2>Main dans Shadow DOM imbriqué (niveau 2)</h2>
+                        <p>Contenu principal</p>
+                    </main>
+                    <div role="search">
+                        <form>
+                            <label for="search-nested">Recherche imbriquée</label>
+                            <input type="search" id="search-nested" name="q" />
+                            <button type="submit">Rechercher</button>
+                        </form>
+                    </div>
+                    <footer role="contentinfo">
+                        <p>Footer dans Shadow DOM imbriqué (niveau 2)</p>
+                    </footer>
+                </div>
+            `;
+      })();
+    </script>
+  </body>
+</html>
