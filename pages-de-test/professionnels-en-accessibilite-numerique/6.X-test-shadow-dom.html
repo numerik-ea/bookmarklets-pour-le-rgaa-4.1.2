@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test 6.X - Liens avec Shadow DOM</title>
+    <link
+      rel="shortcut icon"
+      href="../../assets/images/favicon.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../../assets/css/styles.css" />
+  </head>
+  <body class="page-test">
+    <header role="banner">
+      <div class="container">
+        <a href="javascript:history.back()" class="back-link" id="back-link">
+          <span aria-hidden="true">← </span>Retour à la page précédente
+        </a>
+        <h1>Test 6.X - Liens avec Shadow DOM</h1>
+      </div>
+    </header>
+
+    <main role="main" class="container">
+      <section class="test-page-section">
+        <div class="test-info">
+          <h2>Informations sur le test</h2>
+          <p>
+            Cette page est utilisée pour tester les bookmarklets d'accessibilité
+            RGAA 4.1.2.
+          </p>
+          <p>Nom du fichier : 6.X-test-shadow-dom.html</p>
+          <p>
+            Description du test : Cette page contient des liens dans le DOM
+            principal et dans des Shadow DOM pour tester les critères
+            d'accessibilité RGAA 4.1.2 concernant les liens (6.1 et 6.2).
+          </p>
+        </div>
+
+        <div class="test-content">
+          <h2>Contenu du test</h2>
+
+          <p>Cette page contient :</p>
+          <ul>
+            <li>
+              Des liens dans le DOM principal (avec et sans nom accessible)
+            </li>
+            <li>Des liens dans des Shadow DOM (avec et sans nom accessible)</li>
+          </ul>
+
+          <h3>Liens dans le DOM principal</h3>
+
+          <!-- Links without accessible name -->
+          <p><strong>Liens sans nom accessible :</strong></p>
+          <a href="#"></a>
+          <a href="#">
+            <span></span>
+          </a>
+          <a href="#">
+            <p></p>
+          </a>
+
+          <!-- Links with accessible name -->
+          <p><strong>Liens avec nom accessible :</strong></p>
+          <a href="#">Lien avec texte</a>
+          <a href="#" aria-label="Lien avec aria-label">Texte visible</a>
+          <span id="main-labelledby-span">Texte pour aria-labelledby</span>
+          <a href="#" aria-labelledby="main-labelledby-span"></a>
+          <a href="#" title="Lien avec title uniquement"></a>
+
+          <!-- Links with images -->
+          <p><strong>Liens avec images :</strong></p>
+          <a href="#">
+            <img
+              alt="Image avec alt"
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3C/svg%3E"
+            />
+          </a>
+          <a href="#">
+            <img
+              alt=""
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3C/svg%3E"
+            />
+          </a>
+
+          <!-- Links with SVG -->
+          <p><strong>Liens avec SVG :</strong></p>
+          <a href="#">
+            <svg>
+              <title>SVG avec title</title>
+            </svg>
+          </a>
+          <a href="#">
+            <svg></svg>
+          </a>
+
+          <!-- Links with role="link" -->
+          <p><strong>Éléments avec role="link" :</strong></p>
+          <span role="link" tabindex="0"
+            >Élément avec role="link" et texte</span
+          >
+          <span role="link" tabindex="0"></span>
+
+          <h3>Composants avec Shadow DOM</h3>
+          <div id="shadow-component-1"></div>
+          <div id="shadow-component-2"></div>
+          <div id="shadow-component-3"></div>
+          <div id="shadow-component-4"></div>
+          <div id="shadow-component-nested"></div>
+        </div>
+      </section>
+    </main>
+    <footer role="contentinfo">
+      <div class="container">
+        <p>
+          © <span id="currentYear"></span> -
+          <a href="https://www.numerik-ea.fr">numerik-ea</a>
+          |
+          <a
+            href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2"
+          >
+            Contribuer à ce site
+          </a>
+        </p>
+      </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+    <script>
+      // Shadow DOM 1 : Contient des liens sans nom accessible
+      (function () {
+        const host = document.getElementById('shadow-component-1');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 1 - Liens sans nom accessible</h4>
+                    <a href="#"></a>
+                    <a href="#"><span></span></a>
+                    <a href="#"><p></p></a>
+                    <a href="#"><img alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3C/svg%3E"></a>
+                    <a href="#"><svg></svg></a>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 2 : Contient des liens avec nom accessible
+      (function () {
+        const host = document.getElementById('shadow-component-2');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 2 - Liens avec nom accessible</h4>
+                    <a href="#">Lien avec texte dans Shadow DOM</a>
+                    <a href="#" aria-label="Lien avec aria-label dans Shadow DOM">Texte visible</a>
+                    <span id="shadow-labelledby-span">Texte pour aria-labelledby</span>
+                    <a href="#" aria-labelledby="shadow-labelledby-span"></a>
+                    <a href="#" title="Lien avec title dans Shadow DOM"></a>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 3 : Contient des liens avec images et SVG
+      (function () {
+        const host = document.getElementById('shadow-component-3');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    .element-wrapper { margin: 10px 0; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 3 - Liens avec images et SVG</h4>
+                    <div class="element-wrapper">
+                        <p>Lien avec image avec alt :</p>
+                        <a href="#">
+                            <img alt="Image avec alt dans Shadow DOM" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3C/svg%3E">
+                        </a>
+                    </div>
+                    <div class="element-wrapper">
+                        <p>Lien avec image sans alt :</p>
+                        <a href="#">
+                            <img alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3C/svg%3E">
+                        </a>
+                    </div>
+                    <div class="element-wrapper">
+                        <p>Lien avec SVG avec title :</p>
+                        <a href="#">
+                            <svg>
+                                <title>SVG avec title dans Shadow DOM</title>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="element-wrapper">
+                        <p>Lien avec SVG sans title :</p>
+                        <a href="#">
+                            <svg></svg>
+                        </a>
+                    </div>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 4 : Contient des éléments avec role="link"
+      (function () {
+        const host = document.getElementById('shadow-component-4');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    .element-wrapper { margin: 10px 0; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 4 - Éléments avec role="link"</h4>
+                    <div class="element-wrapper">
+                        <p>Élément avec role="link" et texte :</p>
+                        <span role="link" tabindex="0">Élément avec role="link" et texte dans Shadow DOM</span>
+                    </div>
+                    <div class="element-wrapper">
+                        <p>Élément avec role="link" sans texte :</p>
+                        <span role="link" tabindex="0"></span>
+                    </div>
+                    <div class="element-wrapper">
+                        <p>Élément avec role="link" et aria-label :</p>
+                        <span role="link" tabindex="0" aria-label="Élément avec role='link' et aria-label"></span>
+                    </div>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM imbriqué : Contient des liens dans un shadow root qui contient lui-même un shadow root
+      (function () {
+        const host = document.getElementById('shadow-component-nested');
+        const shadowRoot1 = host.attachShadow({ mode: 'open' });
+        shadowRoot1.innerHTML = `
+                <style>
+                    .container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                </style>
+                <div class="container">
+                    <h4>Shadow DOM imbriqué (niveau 1) - Liens</h4>
+                    <a href="#">Lien avec texte niveau 1</a>
+                    <a href="#"></a>
+                    <div id="nested-shadow-host"></div>
+                </div>
+            `;
+
+        // Shadow DOM de niveau 2
+        const nestedHost = shadowRoot1.querySelector('#nested-shadow-host');
+        const shadowRoot2 = nestedHost.attachShadow({ mode: 'open' });
+        shadowRoot2.innerHTML = `
+                <style>
+                    .nested-container { padding: 10px; margin: 10px 0; border: 1px solid #666; }
+                    h5 { margin-top: 0; }
+                </style>
+                <div class="nested-container">
+                    <h5>Shadow DOM imbriqué (niveau 2) - Liens</h5>
+                    <a href="#">Lien avec texte niveau 2</a>
+                    <a href="#"><span></span></a>
+                    <a href="#" aria-label="Lien avec aria-label niveau 2"></a>
+                </div>
+            `;
+      })();
+    </script>
+  </body>
+</html>

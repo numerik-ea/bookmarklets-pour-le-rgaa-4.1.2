@@ -99,6 +99,21 @@
     return HAS_NO_ACCESSIBLE_NAME;
   }
 
+  // Function to recursively get all shadow roots
+  function getAllShadowRoots(root = document) {
+    const shadowRoots = [];
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT);
+    let node;
+    while ((node = walker.nextNode())) {
+      if (node.shadowRoot) {
+        shadowRoots.push(node.shadowRoot);
+        // Recursively get shadow roots within shadow roots
+        shadowRoots.push(...getAllShadowRoots(node.shadowRoot));
+      }
+    }
+    return shadowRoots;
+  }
+
   function findAllLinks(element) {
     const links = new Set();
     const linkSelector = `a[href], [role='link']`;
@@ -148,6 +163,10 @@
     return linksWithoutAccessibleName;
   }
 
+  // Get all roots (document + shadow roots)
+  const allRoots = [document, ...getAllShadowRoots()];
+  const shadowRootCount = allRoots.length - 1;
+
   const linksWithoutAccessibleName = getLinksWithoutAccessibleName(document);
   const numberOfLinksWithoutAccessibleName = linksWithoutAccessibleName.length;
 
@@ -156,6 +175,21 @@
     return;
   }
 
+  // Count elements in document vs shadow DOM
+  const elementsInDocument = [];
+  const docLinks = Array.from(
+    document.querySelectorAll(`a[href], [role='link']`)
+  );
+  docLinks.forEach((link) => {
+    const accessibleName = getLinkAccessibleName(link);
+    if (accessibleName === HAS_NO_ACCESSIBLE_NAME) {
+      elementsInDocument.push(link);
+    }
+  });
+  const elementsInShadow = linksWithoutAccessibleName.filter(
+    (el) => !elementsInDocument.includes(el)
+  );
+
   let message =
     numberOfLinksWithoutAccessibleName + ' liens sans nom accessible';
 
@@ -163,9 +197,47 @@
     message = message.replace('liens', 'lien');
   }
 
+  // Add location information
+  const locationParts = [];
+  if (elementsInDocument.length > 0) {
+    locationParts.push(`${elementsInDocument.length} dans le document`);
+  }
+  if (elementsInShadow.length > 0) {
+    locationParts.push(`${elementsInShadow.length} dans shadow DOM`);
+  }
+  if (locationParts.length > 0) {
+    message += ` (${locationParts.join(', ')})`;
+  }
+
+  if (shadowRootCount > 0) {
+    message += `\n${shadowRootCount} shadow root(s) analysé(s).`;
+  }
+
   alert(message + '.\nVoir la console pour plus de détails.');
   console.clear();
   console.log(message + ' :');
+
+  // Log all found links from all roots
+  allRoots.forEach((root, index) => {
+    const rootName =
+      index === 0 ? 'Document principal' : `Shadow root ${index}`;
+    const rootLinks = Array.from(
+      root.querySelectorAll(`a[href], [role='link']`)
+    );
+    const rootLinksWithoutAccessibleName = [];
+
+    rootLinks.forEach((link) => {
+      const accessibleName = getLinkAccessibleName(link);
+      if (accessibleName === HAS_NO_ACCESSIBLE_NAME) {
+        rootLinksWithoutAccessibleName.push(link);
+      }
+    });
+
+    if (rootLinksWithoutAccessibleName.length > 0) {
+      console.log(`\n${rootName}:`);
+      rootLinksWithoutAccessibleName.forEach((link) => console.log(link));
+    }
+  });
 
   linksWithoutAccessibleName.forEach((link) => {
     link.style.border = '1px solid yellow';
@@ -173,7 +245,5 @@
     link.style.outlineOffset = '2px';
     link.style.background = 'red';
     link.style.backgroundColor = 'red';
-
-    console.log(link);
   });
 })();
