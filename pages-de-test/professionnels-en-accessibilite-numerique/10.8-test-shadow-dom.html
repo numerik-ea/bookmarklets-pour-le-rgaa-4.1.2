@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test 10.8 - Lister les éléments cachés avec Shadow DOM</title>
+    <link
+      rel="shortcut icon"
+      href="../../assets/images/favicon.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../../assets/css/styles.css" />
+    <style>
+      .test-note {
+        font-size: 12px;
+        color: #666;
+        margin-top: 5px;
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body class="page-test">
+    <header role="banner">
+      <div class="container">
+        <a href="javascript:history.back()" class="back-link" id="back-link">
+          <span aria-hidden="true">← </span>Retour à la page précédente
+        </a>
+        <h1>Test 10.8 - Lister les éléments cachés avec Shadow DOM</h1>
+      </div>
+    </header>
+
+    <main role="main" class="container">
+      <section class="test-page-section">
+        <div class="test-info">
+          <h2>Informations sur le test</h2>
+          <p>
+            Cette page est utilisée pour tester les bookmarklets d'accessibilité
+            RGAA 4.1.2.
+          </p>
+          <p>Nom du fichier : 10.8-test-shadow-dom.html</p>
+          <p>
+            Description du test : Cette page contient des éléments cachés dans
+            le DOM principal et dans des Shadow DOM pour tester les critères
+            d'accessibilité RGAA 4.1.2 concernant la détection des éléments
+            cachés et la mise en évidence des éléments avec
+            <code>aria-hidden="true"</code>.
+          </p>
+        </div>
+
+        <div class="test-content">
+          <h2>Contenu du test</h2>
+
+          <p>Cette page contient :</p>
+          <ul>
+            <li>
+              Des éléments avec <code>aria-hidden="true"</code> dans le DOM
+              principal (doivent être détectés et mis en évidence)
+            </li>
+            <li>
+              Des éléments cachés avec différents moyens dans le DOM principal
+              (doivent être détectés)
+            </li>
+            <li>Des éléments similaires dans des Shadow DOM</li>
+            <li>
+              Des éléments avec différents états dans des Shadow DOM imbriqués
+            </li>
+          </ul>
+
+          <h3>
+            Éléments avec aria-hidden="true" dans le DOM principal (doivent être
+            détectés et mis en évidence)
+          </h3>
+
+          <p>Test avec élément ayant <code>aria-hidden="true"</code> :</p>
+          <div aria-hidden="true">
+            <p>Contenu avec aria-hidden="true"</p>
+          </div>
+          <p class="test-note">
+            Div avec aria-hidden="true" (doit être détecté et mis en évidence)
+          </p>
+
+          <p>Test avec paragraphe ayant <code>aria-hidden="true"</code> :</p>
+          <p aria-hidden="true">Paragraphe avec aria-hidden="true"</p>
+          <p class="test-note">
+            Paragraphe avec aria-hidden="true" (doit être détecté et mis en
+            évidence)
+          </p>
+
+          <h3>Éléments cachés dans le DOM principal (doivent être détectés)</h3>
+
+          <p>Test avec élément ayant l'attribut <code>hidden</code> :</p>
+          <div hidden>
+            <p>Contenu caché avec attribut hidden</p>
+          </div>
+          <p class="test-note">Div avec attribut hidden (doit être détecté)</p>
+
+          <p>Test avec élément ayant <code>display: none</code> :</p>
+          <div style="display: none">
+            <p>Contenu caché avec display: none</p>
+          </div>
+          <p class="test-note">Div avec display: none (doit être détecté)</p>
+
+          <p>Test avec élément ayant <code>visibility: hidden</code> :</p>
+          <div style="visibility: hidden">
+            <p>Contenu caché avec visibility: hidden</p>
+          </div>
+          <p class="test-note">
+            Div avec visibility: hidden (doit être détecté)
+          </p>
+
+          <h3>
+            Éléments visibles dans le DOM principal (ne doivent PAS être
+            détectés)
+          </h3>
+
+          <p>Test avec élément visible :</p>
+          <div>
+            <p>Contenu visible normal</p>
+          </div>
+          <p class="test-note">Div visible (ne doit PAS être détecté)</p>
+
+          <h3>Composants avec Shadow DOM</h3>
+          <div id="shadow-component-1"></div>
+          <div id="shadow-component-2"></div>
+          <div id="shadow-component-3"></div>
+          <div id="shadow-component-4"></div>
+          <div id="shadow-component-5"></div>
+          <div id="shadow-component-nested"></div>
+        </div>
+      </section>
+    </main>
+    <footer role="contentinfo">
+      <div class="container">
+        <p>
+          © <span id="currentYear"></span> -
+          <a href="https://www.numerik-ea.fr">numerik-ea</a>
+          |
+          <a
+            href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2"
+          >
+            Contribuer à ce site
+          </a>
+        </p>
+      </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+    <script>
+      // Shadow DOM 1 : Contient un élément avec aria-hidden="true"
+      (function () {
+        const host = document.getElementById('shadow-component-1');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    .test-note { font-size: 12px; color: #666; margin-top: 5px; font-style: italic; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 1 - Élément avec aria-hidden="true"</h4>
+                    <div aria-hidden="true">
+                        <p>Contenu Shadow DOM avec aria-hidden="true"</p>
+                    </div>
+                    <p class="test-note">Div avec aria-hidden="true" dans Shadow DOM (doit être détecté et mis en évidence)</p>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 2 : Contient un élément avec attribut hidden
+      (function () {
+        const host = document.getElementById('shadow-component-2');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    .test-note { font-size: 12px; color: #666; margin-top: 5px; font-style: italic; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 2 - Élément avec attribut hidden</h4>
+                    <div hidden>
+                        <p>Contenu Shadow DOM avec attribut hidden</p>
+                    </div>
+                    <p class="test-note">Div avec attribut hidden dans Shadow DOM (doit être détecté)</p>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 3 : Contient un élément avec display: none
+      (function () {
+        const host = document.getElementById('shadow-component-3');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    .test-note { font-size: 12px; color: #666; margin-top: 5px; font-style: italic; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 3 - Élément avec display: none</h4>
+                    <div style="display: none;">
+                        <p>Contenu Shadow DOM avec display: none</p>
+                    </div>
+                    <p class="test-note">Div avec display: none dans Shadow DOM (doit être détecté)</p>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 4 : Contient un élément avec visibility: hidden
+      (function () {
+        const host = document.getElementById('shadow-component-4');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    .test-note { font-size: 12px; color: #666; margin-top: 5px; font-style: italic; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 4 - Élément avec visibility: hidden</h4>
+                    <div style="visibility: hidden;">
+                        <p>Contenu Shadow DOM avec visibility: hidden</p>
+                    </div>
+                    <p class="test-note">Div avec visibility: hidden dans Shadow DOM (doit être détecté)</p>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 5 : Contient plusieurs éléments avec différents états
+      (function () {
+        const host = document.getElementById('shadow-component-5');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    .test-note { font-size: 12px; color: #666; margin-top: 5px; font-style: italic; }
+                    .element-item { margin: 10px 0; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 5 - Plusieurs éléments avec différents états</h4>
+                    <div class="element-item">
+                        <div aria-hidden="true">
+                            <p>Élément avec aria-hidden="true"</p>
+                        </div>
+                        <p class="test-note">Doit être détecté et mis en évidence</p>
+                    </div>
+                    <div class="element-item">
+                        <div style="display: none;">
+                            <p>Élément avec display: none</p>
+                        </div>
+                        <p class="test-note">Doit être détecté</p>
+                    </div>
+                    <div class="element-item">
+                        <div>
+                            <p>Élément visible</p>
+                        </div>
+                        <p class="test-note">Ne doit PAS être détecté</p>
+                    </div>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM imbriqué : Contient des éléments avec différents états dans un shadow root qui contient lui-même un shadow root
+      (function () {
+        const host = document.getElementById('shadow-component-nested');
+        const shadowRoot1 = host.attachShadow({ mode: 'open' });
+        shadowRoot1.innerHTML = `
+                <style>
+                    .container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    .test-note { font-size: 12px; color: #666; margin-top: 5px; font-style: italic; }
+                    .element-item { margin: 10px 0; }
+                </style>
+                <div class="container">
+                    <h4>Shadow DOM imbriqué (niveau 1) - Éléments avec différents états</h4>
+                    <div class="element-item">
+                        <div aria-hidden="true">
+                            <p>Élément niveau 1 avec aria-hidden="true"</p>
+                        </div>
+                        <p class="test-note">Doit être détecté et mis en évidence</p>
+                    </div>
+                    <div class="element-item">
+                        <div style="display: none;">
+                            <p>Élément niveau 1 avec display: none</p>
+                        </div>
+                        <p class="test-note">Doit être détecté</p>
+                    </div>
+                    <div id="nested-shadow-host"></div>
+                </div>
+            `;
+
+        // Shadow DOM de niveau 2
+        const nestedHost = shadowRoot1.querySelector('#nested-shadow-host');
+        const shadowRoot2 = nestedHost.attachShadow({ mode: 'open' });
+        shadowRoot2.innerHTML = `
+                <style>
+                    .nested-container { padding: 10px; margin: 10px 0; border: 1px solid #666; }
+                    h5 { margin-top: 0; }
+                    .test-note { font-size: 12px; color: #666; margin-top: 5px; font-style: italic; }
+                    .element-item { margin: 10px 0; }
+                </style>
+                <div class="nested-container">
+                    <h5>Shadow DOM imbriqué (niveau 2) - Éléments avec différents états</h5>
+                    <div class="element-item">
+                        <div aria-hidden="true">
+                            <p>Élément niveau 2 avec aria-hidden="true"</p>
+                        </div>
+                        <p class="test-note">Doit être détecté et mis en évidence</p>
+                    </div>
+                    <div class="element-item">
+                        <div style="visibility: hidden;">
+                            <p>Élément niveau 2 avec visibility: hidden</p>
+                        </div>
+                        <p class="test-note">Doit être détecté</p>
+                    </div>
+                    <div class="element-item">
+                        <div hidden>
+                            <p>Élément niveau 2 avec attribut hidden</p>
+                        </div>
+                        <p class="test-note">Doit être détecté</p>
+                    </div>
+                </div>
+            `;
+      })();
+    </script>
+  </body>
+</html>

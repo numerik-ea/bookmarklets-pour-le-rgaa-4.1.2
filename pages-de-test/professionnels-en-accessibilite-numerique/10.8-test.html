@@ -1,101 +1,163 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Test 10.8 - Élements cachés</title>
-    <link rel="shortcut icon" href="../../assets/images/favicon.png" type="image/x-icon" />
-    <link rel="stylesheet" href="../../assets/css/styles.css">
-</head>
-<body class="page-test">
+    <link
+      rel="shortcut icon"
+      href="../../assets/images/favicon.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../../assets/css/styles.css" />
+    <style>
+      .test-note {
+        font-size: 12px;
+        color: #666;
+        margin-top: 5px;
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body class="page-test">
     <header role="banner">
-        <div class="container">
-            <a href="javascript:history.back()" class="back-link" id="back-link">
-                <span aria-hidden="true">← </span>Retour à la page précédente
-            </a>
-            <h1>Test 10.8 - Élements cachés</h1>
-        </div>
+      <div class="container">
+        <a href="javascript:history.back()" class="back-link" id="back-link">
+          <span aria-hidden="true">← </span>Retour à la page précédente
+        </a>
+        <h1>Test 10.8 - Élements cachés</h1>
+      </div>
     </header>
 
     <main role="main" class="container">
-        <section class="test-page-section">
-            <div class="test-info">
-                <h2>Informations sur le test</h2>
-                <p>Cette page est utilisée pour tester les bookmarklets d'accessibilité RGAA 4.1.2.</p>
-                <p>Nom du fichier : 10.8-test.html</p>
-                <p>Description du test : Cette page contient des éléments cachés pour tester les critères d'accessibilité RGAA 4.1.2 concernant les éléments cachés.</p>
-            </div>
-            
-            <div class="test-content">
-                <h2>Contenu du test</h2>
+      <section class="test-page-section">
+        <div class="test-info">
+          <h2>Informations sur le test</h2>
+          <p>
+            Cette page est utilisée pour tester les bookmarklets d'accessibilité
+            RGAA 4.1.2.
+          </p>
+          <p>Nom du fichier : 10.8-test.html</p>
+          <p>
+            Description du test : Cette page contient des éléments cachés pour
+            tester les critères d'accessibilité RGAA 4.1.2 concernant les
+            éléments cachés.
+          </p>
+        </div>
 
-                <!-- Liens cachés aux TA -->
-                <a href="#" hidden>Hidden</a>
-                <a href="#" style="visibility: hidden;">Visibility hidden</a>
-                <a href="#" style="font-size: 0;">Font size 0</a>
-                <a href="#" aria-hidden="true">Aria hidden</a>
-                <a href="#" style="display: none;">Display none</a>
+        <div class="test-content">
+          <h2>Contenu du test</h2>
 
-                <!-- sr-only -->
-                <a href="#">
-                    <img alt="" src="image.png"/>
-                    <span class="sr-only">Image</span>
-                </a>
+          <p>Cette page contient :</p>
+          <ul>
+            <li>
+              Des éléments avec <code>aria-hidden="true"</code> (doivent être
+              détectés et mis en évidence avec bordure jaune/bleue et fond
+              rouge)
+            </li>
+            <li>
+              Des éléments cachés avec l'attribut <code>hidden</code> (doivent
+              être détectés)
+            </li>
+            <li>
+              Des éléments cachés avec <code>display: none</code> (doivent être
+              détectés)
+            </li>
+            <li>
+              Des éléments cachés avec <code>visibility: hidden</code> (doivent
+              être détectés)
+            </li>
+            <li>Des éléments visibles (ne doivent PAS être détectés)</li>
+          </ul>
 
-                <!-- img alt vide -->
-                <a href="#">
-                    <img alt="" src="image.png"/>
-                </a>
+          <h3>
+            Éléments avec aria-hidden="true" (doivent être détectés et mis en
+            évidence)
+          </h3>
 
-                <!-- a avec contenu aria-hidden -->
-                <a href="#">
-                    <span aria-hidden="true">Span aria hidden</span>
-                </a>
-                <a href="#">
-                    <span style="display: none;">A span display none</span>
-                </a>
+          <p>Test avec élément ayant <code>aria-hidden="true"</code> :</p>
+          <div aria-hidden="true">
+            <p>Contenu avec aria-hidden="true"</p>
+          </div>
+          <p class="test-note">
+            Div avec aria-hidden="true" (doit être détecté et mis en évidence)
+          </p>
 
-                <a href="#">
-                    <img alt="" src="image.png"/>
-                    <span style="font-size: 0;">A span display none</span>
-                </a>
+          <p>Test avec paragraphe ayant <code>aria-hidden="true"</code> :</p>
+          <p aria-hidden="true">Paragraphe avec aria-hidden="true"</p>
+          <p class="test-note">
+            Paragraphe avec aria-hidden="true" (doit être détecté et mis en
+            évidence)
+          </p>
 
-                <a href="#" title="toto">
-                    <img alt="" src="image.png"/>
-                    <span style="display: none;">A span display none</span>
-                </a>
-                <a href="#" aria-label="toto">
-                    <img alt="" src="image.png"/>
-                    <span style="display: none;">A span display none</span>
-                </a>
-                <p id="toto">Toto</p>
-                <a href="#" aria-labelledby="toto">
-                    <img alt="" src="image.png"/>
-                </a>
+          <p>Test avec span ayant <code>aria-hidden="true"</code> :</p>
+          <span aria-hidden="true">Span avec aria-hidden="true"</span>
+          <p class="test-note">
+            Span avec aria-hidden="true" (doit être détecté et mis en évidence)
+          </p>
 
-                <!-- role link -->
-                <a role="link">Link</a>
-                <div role="link">Div</div>
-                <a role="link">
-                    <span aria-hidden="true">A role link Span aria hidden</span>
-                </a>
-                <div role="link">
-                    <span aria-hidden="true">div role link Span aria hidden</span>
-                </div>
-            </div>
-        </section>
+          <h3>
+            Éléments cachés avec l'attribut hidden (doivent être détectés)
+          </h3>
+
+          <p>Test avec élément ayant l'attribut <code>hidden</code> :</p>
+          <div hidden>
+            <p>Contenu caché avec attribut hidden</p>
+          </div>
+          <p class="test-note">Div avec attribut hidden (doit être détecté)</p>
+
+          <h3>Éléments cachés avec display: none (doivent être détectés)</h3>
+
+          <p>Test avec élément ayant <code>display: none</code> :</p>
+          <div style="display: none">
+            <p>Contenu caché avec display: none</p>
+          </div>
+          <p class="test-note">Div avec display: none (doit être détecté)</p>
+
+          <h3>
+            Éléments cachés avec visibility: hidden (doivent être détectés)
+          </h3>
+
+          <p>Test avec élément ayant <code>visibility: hidden</code> :</p>
+          <div style="visibility: hidden">
+            <p>Contenu caché avec visibility: hidden</p>
+          </div>
+          <p class="test-note">
+            Div avec visibility: hidden (doit être détecté)
+          </p>
+
+          <h3>Éléments visibles (ne doivent PAS être détectés)</h3>
+
+          <p>Test avec élément visible :</p>
+          <div>
+            <p>Contenu visible normal</p>
+          </div>
+          <p class="test-note">Div visible (ne doit PAS être détecté)</p>
+
+          <p>Test avec élément ayant <code>aria-hidden="false"</code> :</p>
+          <div aria-hidden="false">
+            <p>Contenu avec aria-hidden="false"</p>
+          </div>
+          <p class="test-note">
+            Div avec aria-hidden="false" (ne doit PAS être détecté)
+          </p>
+        </div>
+      </section>
     </main>
     <footer role="contentinfo">
-        <div class="container">
-            <p>
-                © <span id="currentYear"></span> - <a href="https://www.numerik-ea.fr">numerik-ea</a>
-                |
-                <a href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2">
-                    Contribuer à ce site
-                </a>
-            </p>
-        </div>
+      <div class="container">
+        <p>
+          © <span id="currentYear"></span> -
+          <a href="https://www.numerik-ea.fr">numerik-ea</a>
+          |
+          <a
+            href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2"
+          >
+            Contribuer à ce site
+          </a>
+        </p>
+      </div>
     </footer>
     <script src="../../assets/js/test-page.js"></script>
-</body>
+  </body>
 </html>
