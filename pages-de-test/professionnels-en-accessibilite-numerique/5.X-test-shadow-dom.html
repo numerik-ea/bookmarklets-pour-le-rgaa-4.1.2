@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test 5.X - Test présence tableaux avec Shadow DOM</title>
+    <link rel="shortcut icon" href="../../assets/images/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+</head>
+<body class="page-test">
+    <header role="banner">
+        <div class="container">
+            <a href="javascript:history.back()" class="back-link" id="back-link">
+                <span aria-hidden="true">← </span>Retour à la page précédente
+            </a>
+            <h1>Test 5.X - Test présence tableaux avec Shadow DOM</h1>
+        </div>
+    </header>
+
+    <main role="main" class="container">
+        <section class="test-page-section">
+            <div class="test-info">
+                <h2>Informations sur le test</h2>
+                <p>Cette page est utilisée pour tester les bookmarklets d'accessibilité RGAA 4.1.2.</p>
+                <p>Nom du fichier : 5.X-test-shadow-dom.html</p>
+                <p>Description du test : Cette page contient des tableaux dans le DOM principal et dans des Shadow DOM pour tester les critères d'accessibilité RGAA 4.1.2 concernant la présence de tableaux.</p>
+            </div>
+            
+            <div class="test-content">
+                <h2>Contenu du test</h2>
+                
+                <p>Cette page contient :</p>
+                <ul>
+                    <li>Des tableaux dans le DOM principal</li>
+                    <li>Des tableaux supplémentaires dans des Shadow DOM</li>
+                </ul>
+
+                <h3>Tableaux dans le DOM principal</h3>
+                
+                <h4>Tableau 1 - Exemple simple</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Colonne 1</th>
+                            <th>Colonne 2</th>
+                            <th>Colonne 3</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Donnée 1</td>
+                            <td>Donnée 2</td>
+                            <td>Donnée 3</td>
+                        </tr>
+                        <tr>
+                            <td>Donnée 4</td>
+                            <td>Donnée 5</td>
+                            <td>Donnée 6</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>Tableau 2 - Exemple avec caption</h4>
+                <table>
+                    <caption>Tableau avec légende</caption>
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Âge</th>
+                            <th>Ville</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Jean</td>
+                            <td>25</td>
+                            <td>Paris</td>
+                        </tr>
+                        <tr>
+                            <td>Marie</td>
+                            <td>30</td>
+                            <td>Lyon</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Composants avec Shadow DOM</h3>
+                <div id="shadow-component-1"></div>
+                <div id="shadow-component-2"></div>
+                <div id="shadow-component-3"></div>
+                <div id="shadow-component-nested"></div>
+            </div>
+        </section>
+    </main>
+    <footer role="contentinfo">
+        <div class="container">
+            <p>
+                © <span id="currentYear"></span> - <a href="https://www.numerik-ea.fr">numerik-ea</a>
+                |
+                <a href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2">
+                    Contribuer à ce site
+                </a>
+            </p>
+        </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+    <script>
+        // Shadow DOM 1 : Contient un tableau simple
+        (function() {
+            const host = document.getElementById('shadow-component-1');
+            const shadowRoot = host.attachShadow({ mode: 'open' });
+            shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    table { border-collapse: collapse; width: 100%; margin: 10px 0; }
+                    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+                    th { background-color: #f2f2f2; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 1 - Tableau simple</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Produit</th>
+                                <th>Prix</th>
+                                <th>Stock</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Produit A</td>
+                                <td>10€</td>
+                                <td>50</td>
+                            </tr>
+                            <tr>
+                                <td>Produit B</td>
+                                <td>20€</td>
+                                <td>30</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        })();
+
+        // Shadow DOM 2 : Contient un tableau avec caption
+        (function() {
+            const host = document.getElementById('shadow-component-2');
+            const shadowRoot = host.attachShadow({ mode: 'open' });
+            shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    table { border-collapse: collapse; width: 100%; margin: 10px 0; }
+                    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+                    th { background-color: #f2f2f2; }
+                    caption { font-weight: bold; margin-bottom: 5px; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 2 - Tableau avec caption</h4>
+                    <table>
+                        <caption>Tableau des ventes mensuelles</caption>
+                        <thead>
+                            <tr>
+                                <th>Mois</th>
+                                <th>Ventes</th>
+                                <th>Croissance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Janvier</td>
+                                <td>1000€</td>
+                                <td>+5%</td>
+                            </tr>
+                            <tr>
+                                <td>Février</td>
+                                <td>1200€</td>
+                                <td>+20%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        })();
+
+        // Shadow DOM 3 : Contient deux tableaux
+        (function() {
+            const host = document.getElementById('shadow-component-3');
+            const shadowRoot = host.attachShadow({ mode: 'open' });
+            shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    table { border-collapse: collapse; width: 100%; margin: 10px 0; }
+                    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+                    th { background-color: #f2f2f2; }
+                    .table-wrapper { margin: 15px 0; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 3 - Deux tableaux</h4>
+                    <div class="table-wrapper">
+                        <p>Premier tableau :</p>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nom</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Élément 1</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Élément 2</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-wrapper">
+                        <p>Deuxième tableau :</p>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Catégorie</th>
+                                    <th>Nombre</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Catégorie A</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>Catégorie B</td>
+                                    <td>15</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+        })();
+
+        // Shadow DOM imbriqué : Contient un tableau dans un shadow root qui contient lui-même un shadow root
+        (function() {
+            const host = document.getElementById('shadow-component-nested');
+            const shadowRoot1 = host.attachShadow({ mode: 'open' });
+            shadowRoot1.innerHTML = `
+                <style>
+                    .container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    table { border-collapse: collapse; width: 100%; margin: 10px 0; }
+                    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+                    th { background-color: #f2f2f2; }
+                </style>
+                <div class="container">
+                    <h4>Shadow DOM imbriqué (niveau 1) - Tableau</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Niveau</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Premier niveau de Shadow DOM</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="nested-shadow-host"></div>
+                </div>
+            `;
+
+            // Shadow DOM de niveau 2
+            const nestedHost = shadowRoot1.querySelector('#nested-shadow-host');
+            const shadowRoot2 = nestedHost.attachShadow({ mode: 'open' });
+            shadowRoot2.innerHTML = `
+                <style>
+                    .nested-container { padding: 10px; margin: 10px 0; border: 1px solid #666; }
+                    h5 { margin-top: 0; }
+                    table { border-collapse: collapse; width: 100%; margin: 10px 0; }
+                    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+                    th { background-color: #e0e0e0; }
+                </style>
+                <div class="nested-container">
+                    <h5>Shadow DOM imbriqué (niveau 2) - Tableau</h5>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Niveau</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2</td>
+                                <td>Deuxième niveau de Shadow DOM</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        })();
+    </script>
+</body>
+</html>

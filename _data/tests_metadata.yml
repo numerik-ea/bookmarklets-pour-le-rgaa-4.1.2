@@ -3,6 +3,8 @@ tests_metadata:
     name: 1.X
   - title: 2. Cadres
     name: 2.X
+  - title: 5. Tableaux
+    name: 5.X
   - title: 6. Liens
     name: 6.X
   - title: 7.1 Chaque script est-il, si nécessaire, compatible avec les technologies d'assistance ?
