@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test 8.9 - Double &lt;br&gt; avec Shadow DOM</title>
+    <link
+      rel="shortcut icon"
+      href="../../assets/images/favicon.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../../assets/css/styles.css" />
+  </head>
+  <body class="page-test">
+    <header role="banner">
+      <div class="container">
+        <a href="javascript:history.back()" class="back-link" id="back-link">
+          <span aria-hidden="true">← </span>Retour à la page précédente
+        </a>
+        <h1>Test 8.9 - Double &lt;br&gt; avec Shadow DOM</h1>
+      </div>
+    </header>
+
+    <main role="main" class="container">
+      <section class="test-page-section">
+        <div class="test-info">
+          <h2>Informations sur le test</h2>
+          <p>
+            Cette page est utilisée pour tester les bookmarklets d'accessibilité
+            RGAA 4.1.2.
+          </p>
+          <p>Nom du fichier : 8.9-test-double-br-shadow-dom.html</p>
+          <p>
+            Description du test : Cette page contient des doubles &lt;br&gt;
+            dans le DOM principal et dans des Shadow DOM pour tester les
+            critères d'accessibilité RGAA 4.1.2 concernant les sauts de ligne.
+          </p>
+        </div>
+
+        <div class="test-content">
+          <h2>Contenu du test</h2>
+
+          <p>Cette page contient :</p>
+          <ul>
+            <li>Des éléments avec doubles &lt;br&gt; dans le DOM principal</li>
+            <li>Des éléments avec doubles &lt;br&gt; dans des Shadow DOM</li>
+          </ul>
+
+          <h3>Éléments avec doubles &lt;br&gt; dans le DOM principal</h3>
+
+          <p id="double-br-main">
+            Texte avant
+            <br />
+            <br />
+            Texte après
+          </p>
+
+          <div id="double-br-div-main">
+            Contenu avant
+            <br />
+            <br />
+            Contenu après
+          </div>
+
+          <p id="double-br-with-spaces">
+            Texte
+            <br />
+
+            <br />
+            Autre texte
+          </p>
+
+          <h3>Composants avec Shadow DOM</h3>
+          <div id="shadow-component-1"></div>
+          <div id="shadow-component-2"></div>
+          <div id="shadow-component-3"></div>
+          <div id="shadow-component-nested"></div>
+        </div>
+      </section>
+    </main>
+    <footer role="contentinfo">
+      <div class="container">
+        <p>
+          © <span id="currentYear"></span> -
+          <a href="https://www.numerik-ea.fr">numerik-ea</a>
+          |
+          <a
+            href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2"
+          >
+            Contribuer à ce site
+          </a>
+        </p>
+      </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+    <script>
+      // Shadow DOM 1 : Contient un élément avec doubles <br>
+      (function () {
+        const host = document.getElementById('shadow-component-1');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 1 - Élément avec doubles &lt;br&gt;</h4>
+                    <p>
+                        Texte dans Shadow DOM
+                        <br>
+                        <br>
+                        Suite du texte
+                    </p>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 2 : Contient un div avec doubles <br>
+      (function () {
+        const host = document.getElementById('shadow-component-2');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 2 - Div avec doubles &lt;br&gt;</h4>
+                    <div>
+                        Contenu dans Shadow DOM
+                        <br>
+                        <br>
+                        Autre contenu
+                    </div>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 3 : Contient plusieurs éléments avec doubles <br>
+      (function () {
+        const host = document.getElementById('shadow-component-3');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    .element-wrapper { margin: 10px 0; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 3 - Plusieurs éléments avec doubles &lt;br&gt;</h4>
+                    <div class="element-wrapper">
+                        <p>Premier élément :</p>
+                        <p>
+                            Texte 1
+                            <br>
+                            <br>
+                            Texte 2
+                        </p>
+                    </div>
+                    <div class="element-wrapper">
+                        <p>Deuxième élément :</p>
+                        <div>
+                            Contenu 1
+                            <br>
+                            <br>
+                            Contenu 2
+                        </div>
+                    </div>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM imbriqué : Contient un élément avec doubles <br> dans un shadow root qui contient lui-même un shadow root
+      (function () {
+        const host = document.getElementById('shadow-component-nested');
+        const shadowRoot1 = host.attachShadow({ mode: 'open' });
+        shadowRoot1.innerHTML = `
+                <style>
+                    .container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                </style>
+                <div class="container">
+                    <h4>Shadow DOM imbriqué (niveau 1) - Élément avec doubles &lt;br&gt;</h4>
+                    <p>
+                        Niveau 1
+                        <br>
+                        <br>
+                        Suite niveau 1
+                    </p>
+                    <div id="nested-shadow-host"></div>
+                </div>
+            `;
+
+        // Shadow DOM de niveau 2
+        const nestedHost = shadowRoot1.querySelector('#nested-shadow-host');
+        const shadowRoot2 = nestedHost.attachShadow({ mode: 'open' });
+        shadowRoot2.innerHTML = `
+                <style>
+                    .nested-container { padding: 10px; margin: 10px 0; border: 1px solid #666; }
+                    h5 { margin-top: 0; }
+                </style>
+                <div class="nested-container">
+                    <h5>Shadow DOM imbriqué (niveau 2) - Élément avec doubles &lt;br&gt;</h5>
+                    <div>
+                        Niveau 2
+                        <br>
+                        <br>
+                        Suite niveau 2
+                    </div>
+                </div>
+            `;
+      })();
+    </script>
+  </body>
+</html>
