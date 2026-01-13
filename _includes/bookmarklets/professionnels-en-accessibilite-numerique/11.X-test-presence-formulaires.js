@@ -1,29 +1,55 @@
 (function checkFormElements() {
-    const formElements = document.body.querySelectorAll('form');
-    const numberOfFormElements = formElements.length;
-
-    if (numberOfFormElements === 0) {
-        alert('Pas de formulaires sur la page.');
-        return;
+  // Function to recursively get all shadow roots
+  function getAllShadowRoots(root = document) {
+    const shadowRoots = [];
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT);
+    let node;
+    while ((node = walker.nextNode())) {
+      if (node.shadowRoot) {
+        shadowRoots.push(node.shadowRoot);
+        // Recursively get shadow roots within shadow roots
+        shadowRoots.push(...getAllShadowRoots(node.shadowRoot));
+      }
     }
+    return shadowRoots;
+  }
 
-    let message = numberOfFormElements + ' formulaires sur la page';
-
-    if (numberOfFormElements === 1) {
-        message = message.replace('formulaires', 'formulaire');
-    }
-
-    alert(message + '.\nVoir la console pour plus de détails.');
-    console.clear();
-    console.log(message + ' :');
-
-    formElements.forEach(formElement => {
-        formElement.style.border = '1px solid yellow';
-        formElement.style.outline = '1px solid blue';
-        formElement.style.outlineOffset = '2px';
-        formElement.style.background = 'red';
-        formElement.style.backgroundColor = 'red';
-
-        console.log(formElement);
+  // Function to query selector all across all roots
+  function querySelectorAllInAllRoots(selector) {
+    const allRoots = [document.body, ...getAllShadowRoots()];
+    const allElements = [];
+    allRoots.forEach((root) => {
+      const elements = Array.from(root.querySelectorAll(selector));
+      allElements.push(...elements);
     });
+    return allElements;
+  }
+
+  const formElements = querySelectorAllInAllRoots('form');
+  const numberOfFormElements = formElements.length;
+
+  if (numberOfFormElements === 0) {
+    alert('Pas de formulaires sur la page.');
+    return;
+  }
+
+  let message = numberOfFormElements + ' formulaires sur la page';
+
+  if (numberOfFormElements === 1) {
+    message = message.replace('formulaires', 'formulaire');
+  }
+
+  alert(message + '.\nVoir la console pour plus de détails.');
+  console.clear();
+  console.log(message + ' :');
+
+  formElements.forEach((formElement) => {
+    formElement.style.border = '1px solid yellow';
+    formElement.style.outline = '1px solid blue';
+    formElement.style.outlineOffset = '2px';
+    formElement.style.background = 'red';
+    formElement.style.backgroundColor = 'red';
+
+    console.log(formElement);
+  });
 })();

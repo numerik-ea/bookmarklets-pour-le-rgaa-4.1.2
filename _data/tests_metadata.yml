@@ -27,5 +27,7 @@ tests_metadata:
     name: 10.2
   - title: 10.8 Pour chaque page web, les contenus cachés ont-ils vocation à être ignorés par les technologies d'assistance ?
     name: 10.8
+  - title: 11.X Dans chaque page web, les formulaires sont-ils utilisés correctement ?
+    name: 11.X
   - title: 12.6 Dans chaque page web, les landmarks sont-ils utilisés correctement ?
     name: 12.6

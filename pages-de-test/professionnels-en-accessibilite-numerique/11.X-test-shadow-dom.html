@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test 11.X - Test présence formulaires avec Shadow DOM</title>
+    <link
+      rel="shortcut icon"
+      href="../../assets/images/favicon.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../../assets/css/styles.css" />
+  </head>
+  <body class="page-test">
+    <header role="banner">
+      <div class="container">
+        <a href="javascript:history.back()" class="back-link" id="back-link">
+          <span aria-hidden="true">← </span>Retour à la page précédente
+        </a>
+        <h1>Test 11.X - Test présence formulaires avec Shadow DOM</h1>
+      </div>
+    </header>
+
+    <main role="main" class="container">
+      <section class="test-page-section">
+        <div class="test-info">
+          <h2>Informations sur le test</h2>
+          <p>
+            Cette page est utilisée pour tester les bookmarklets d'accessibilité
+            RGAA 4.1.2.
+          </p>
+          <p>Nom du fichier : 11.X-test-shadow-dom.html</p>
+          <p>
+            Description du test : Cette page contient des formulaires dans le
+            DOM principal et dans des Shadow DOM pour tester les critères
+            d'accessibilité RGAA 4.1.2 concernant la présence des formulaires.
+          </p>
+        </div>
+
+        <div class="test-content">
+          <h2>Contenu du test</h2>
+
+          <p>Cette page contient :</p>
+          <ul>
+            <li>
+              Des formulaires <code>&lt;form&gt;</code> dans le DOM principal
+            </li>
+            <li>Des formulaires dans des Shadow DOM</li>
+            <li>Des formulaires dans des Shadow DOM imbriqués</li>
+          </ul>
+
+          <h3>Formulaires dans le DOM principal</h3>
+
+          <form id="form-main-1" method="post" action="#">
+            <h4>Formulaire de contact</h4>
+            <div>
+              <label for="name-main">Nom</label>
+              <input type="text" id="name-main" name="name" required />
+            </div>
+            <div>
+              <label for="email-main">Email</label>
+              <input type="email" id="email-main" name="email" required />
+            </div>
+            <div>
+              <label for="message-main">Message</label>
+              <textarea
+                id="message-main"
+                name="message"
+                rows="4"
+                required
+              ></textarea>
+            </div>
+            <button type="submit">Envoyer</button>
+          </form>
+
+          <form id="form-main-2" method="get" action="#">
+            <h4>Formulaire de recherche</h4>
+            <div>
+              <label for="search-main">Recherche</label>
+              <input type="search" id="search-main" name="q" />
+            </div>
+            <button type="submit">Rechercher</button>
+          </form>
+
+          <form id="form-main-3" method="post" action="#">
+            <h4>Formulaire d'inscription</h4>
+            <div>
+              <label for="username-main">Nom d'utilisateur</label>
+              <input type="text" id="username-main" name="username" required />
+            </div>
+            <div>
+              <label for="password-main">Mot de passe</label>
+              <input
+                type="password"
+                id="password-main"
+                name="password"
+                required
+              />
+            </div>
+            <div>
+              <label>
+                <input type="checkbox" name="terms" required />
+                J'accepte les conditions d'utilisation
+              </label>
+            </div>
+            <button type="submit">S'inscrire</button>
+          </form>
+
+          <h3>Composants avec Shadow DOM</h3>
+          <div id="shadow-component-1"></div>
+          <div id="shadow-component-2"></div>
+          <div id="shadow-component-3"></div>
+          <div id="shadow-component-nested"></div>
+        </div>
+      </section>
+    </main>
+    <footer role="contentinfo">
+      <div class="container">
+        <p>
+          © <span id="currentYear"></span> -
+          <a href="https://www.numerik-ea.fr">numerik-ea</a>
+          |
+          <a
+            href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2"
+          >
+            Contribuer à ce site
+          </a>
+        </p>
+      </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+    <script>
+      // Shadow DOM 1 : Contient un formulaire de connexion
+      (function () {
+        const host = document.getElementById('shadow-component-1');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    form { margin: 10px 0; }
+                    label { display: block; margin-top: 10px; }
+                    input, button { margin-top: 5px; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 1 - Formulaire de connexion</h4>
+                    <form method="post" action="#">
+                        <div>
+                            <label for="login-shadow">Identifiant</label>
+                            <input type="text" id="login-shadow" name="login" required />
+                        </div>
+                        <div>
+                            <label for="pass-shadow">Mot de passe</label>
+                            <input type="password" id="pass-shadow" name="pass" required />
+                        </div>
+                        <button type="submit">Se connecter</button>
+                    </form>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 2 : Contient un formulaire de newsletter
+      (function () {
+        const host = document.getElementById('shadow-component-2');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    form { margin: 10px 0; }
+                    label { display: block; margin-top: 10px; }
+                    input, button { margin-top: 5px; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 2 - Formulaire de newsletter</h4>
+                    <form method="post" action="#">
+                        <div>
+                            <label for="newsletter-email-shadow">Email</label>
+                            <input type="email" id="newsletter-email-shadow" name="email" required />
+                        </div>
+                        <div>
+                            <label>
+                                <input type="checkbox" name="newsletter-consent" required />
+                                J'accepte de recevoir la newsletter
+                            </label>
+                        </div>
+                        <button type="submit">S'abonner</button>
+                    </form>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 3 : Contient plusieurs formulaires
+      (function () {
+        const host = document.getElementById('shadow-component-3');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    form { margin: 15px 0; padding: 10px; background-color: #f5f5f5; }
+                    label { display: block; margin-top: 10px; }
+                    input, button { margin-top: 5px; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 3 - Plusieurs formulaires</h4>
+                    <form method="post" action="#">
+                        <h5>Formulaire 1 - Commentaire</h5>
+                        <div>
+                            <label for="comment-shadow">Commentaire</label>
+                            <textarea id="comment-shadow" name="comment" rows="3" required></textarea>
+                        </div>
+                        <button type="submit">Publier</button>
+                    </form>
+                    <form method="get" action="#">
+                        <h5>Formulaire 2 - Filtres</h5>
+                        <div>
+                            <label for="filter-shadow">Filtrer par</label>
+                            <select id="filter-shadow" name="filter">
+                                <option value="">Tous</option>
+                                <option value="recent">Récent</option>
+                                <option value="popular">Populaire</option>
+                            </select>
+                        </div>
+                        <button type="submit">Appliquer</button>
+                    </form>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM imbriqué : Contient des formulaires dans un shadow root qui contient lui-même un shadow root
+      (function () {
+        const host = document.getElementById('shadow-component-nested');
+        const shadowRoot1 = host.attachShadow({ mode: 'open' });
+        shadowRoot1.innerHTML = `
+                <style>
+                    .container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    form { margin: 10px 0; }
+                    label { display: block; margin-top: 10px; }
+                    input, button { margin-top: 5px; }
+                </style>
+                <div class="container">
+                    <h4>Shadow DOM imbriqué (niveau 1) - Formulaire de feedback</h4>
+                    <form method="post" action="#">
+                        <div>
+                            <label for="feedback-nested-1">Votre avis</label>
+                            <textarea id="feedback-nested-1" name="feedback" rows="3" required></textarea>
+                        </div>
+                        <button type="submit">Envoyer</button>
+                    </form>
+                    <div id="nested-shadow-host"></div>
+                </div>
+            `;
+
+        // Shadow DOM de niveau 2
+        const nestedHost = shadowRoot1.querySelector('#nested-shadow-host');
+        const shadowRoot2 = nestedHost.attachShadow({ mode: 'open' });
+        shadowRoot2.innerHTML = `
+                <style>
+                    .nested-container { padding: 10px; margin: 10px 0; border: 1px solid #666; }
+                    h5 { margin-top: 0; }
+                    form { margin: 10px 0; }
+                    label { display: block; margin-top: 10px; }
+                    input, button { margin-top: 5px; }
+                </style>
+                <div class="nested-container">
+                    <h5>Shadow DOM imbriqué (niveau 2) - Formulaire de vote</h5>
+                    <form method="post" action="#">
+                        <div>
+                            <label>
+                                <input type="radio" name="vote" value="yes" required />
+                                Oui
+                            </label>
+                            <label>
+                                <input type="radio" name="vote" value="no" required />
+                                Non
+                            </label>
+                        </div>
+                        <button type="submit">Voter</button>
+                    </form>
+                </div>
+            `;
+      })();
+    </script>
+  </body>
+</html>
