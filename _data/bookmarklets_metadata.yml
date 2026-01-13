@@ -20,7 +20,7 @@ professionnels-en-accessibilite-numerique:
   - name: 1.X-verifier-images-non-contenues-dans-un-lien
     last-updated: 2026-01-13
   - name: 2.X-check-iframes-et-frames
-    last-updated: 2025-05-22
+    last-updated: 2026-01-13
   - name: 5.X-test-presence-tableaux
     last-updated: 2025-04-06
   - name: 6.1-voir-les-noms-accessibles-des-liens
