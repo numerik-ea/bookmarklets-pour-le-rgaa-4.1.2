@@ -1,55 +1,76 @@
 (function showTextInNonSemanticTags() {
-  // Select all text nodes in the document
-  const textNodes = [];
-  const walker = document.createTreeWalker(
-    document.body,
-    NodeFilter.SHOW_TEXT,
-    null,
-    false
-  );
-
-  let node;
-  while ((node = walker.nextNode())) {
-    textNodes.push(node);
+  // Function to recursively get all shadow roots
+  function getAllShadowRoots(root = document) {
+    const shadowRoots = [];
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT);
+    let node;
+    while ((node = walker.nextNode())) {
+      if (node.shadowRoot) {
+        shadowRoots.push(node.shadowRoot);
+        // Recursively get shadow roots within shadow roots
+        shadowRoots.push(...getAllShadowRoots(node.shadowRoot));
+      }
+    }
+    return shadowRoots;
   }
+
+  // Get all roots (document.body + shadow roots)
+  const allRoots = [document.body, ...getAllShadowRoots()];
+  const shadowRootCount = allRoots.length - 1;
+
+  // Select all text nodes in all roots
+  const textNodes = [];
+  allRoots.forEach((root) => {
+    const walker = document.createTreeWalker(
+      root,
+      NodeFilter.SHOW_TEXT,
+      null,
+      false
+    );
+
+    let node;
+    while ((node = walker.nextNode())) {
+      textNodes.push(node);
+    }
+  });
 
   const textNodesInNonSemanticTags = [];
   const semanticTags = [
-    "P",
-    "LI",
-    "A",
-    "BUTTON",
-    "LABEL",
-    "OPTION",
-    "TEXTAREA",
-    "INPUT",
-    "H1",
-    "H2",
-    "H3",
-    "H4",
-    "H5",
-    "H6",
-    "FIGCAPTION",
-    "LEGEND",
-    "CAPTION",
-    "TD",
-    "TH",
-    "DT",
-    "DD",
-    "BLOCKQUOTE",
-    "Q",
-    "TIME",
+    'P',
+    'LI',
+    'A',
+    'BUTTON',
+    'LABEL',
+    'OPTION',
+    'TEXTAREA',
+    'INPUT',
+    'H1',
+    'H2',
+    'H3',
+    'H4',
+    'H5',
+    'H6',
+    'FIGCAPTION',
+    'LEGEND',
+    'CAPTION',
+    'TD',
+    'TH',
+    'DT',
+    'DD',
+    'BLOCKQUOTE',
+    'Q',
+    'TIME',
   ];
   const semanticRoles = {
-    heading: ["1", "2", "3", "4", "5", "6"],
+    heading: ['1', '2', '3', '4', '5', '6'],
   };
   const tagsToIgnore = [
-    "SCRIPT",
-    "STYLE",
-    "META",
-    "LINK",
-    "NOSCRIPT",
-    "COMMENT",
+    'SCRIPT',
+    'STYLE',
+    'META',
+    'LINK',
+    'NOSCRIPT',
+    'COMMENT',
   ];
 
   // Iterate over the selected text nodes
@@ -57,7 +78,7 @@
     let content = textNode.textContent;
     content = content.trim();
 
-    if (content === "") {
+    if (content === '') {
       return; // Skip empty text nodes
     }
 
@@ -65,6 +86,7 @@
     let parent = textNode.parentElement;
     let isInSemanticElement = false;
     let isInIgnoredTag = false;
+    let root = textNode.getRootNode();
 
     while (parent) {
       if (semanticTags.includes(parent.tagName)) {
@@ -73,10 +95,10 @@
       }
 
       // Check for semantic role="heading" and valid aria-level
-      const role = parent.getAttribute && parent.getAttribute("role");
+      const role = parent.getAttribute && parent.getAttribute('role');
 
-      if (role === "heading") {
-        const ariaLevel = parent.getAttribute("aria-level");
+      if (role === 'heading') {
+        const ariaLevel = parent.getAttribute('aria-level');
 
         if (semanticRoles.heading.includes(ariaLevel)) {
           isInSemanticElement = true;
@@ -84,7 +106,7 @@
         }
       }
 
-      if (role === "button") {
+      if (role === 'button') {
         isInSemanticElement = true;
         break;
       }
@@ -94,7 +116,19 @@
         break;
       }
 
-      parent = parent.parentElement;
+      // Check if we're crossing a shadow boundary
+      const nextParent = parent.parentElement;
+      if (!nextParent && root instanceof ShadowRoot) {
+        const host = root.host;
+        if (host) {
+          parent = host;
+          root = host.getRootNode();
+          continue;
+        }
+        break;
+      }
+
+      parent = nextParent;
     }
 
     if (!isInSemanticElement && !isInIgnoredTag) {
@@ -105,29 +139,182 @@
   const counttextNodesInNonSemanticTags = textNodesInNonSemanticTags.length;
 
   if (counttextNodesInNonSemanticTags === 0) {
-    alert("Pas de texte dans des balises non sémantiques.");
+    alert('Pas de texte dans des balises non sémantiques.');
     return;
   }
 
+  // Count elements in document vs shadow DOM
+  const elementsInDocument = [];
+  const docTextNodes = [];
+  const docWalker = document.createTreeWalker(
+    document.body,
+    NodeFilter.SHOW_TEXT,
+    null,
+    false
+  );
+  let docNode;
+  while ((docNode = docWalker.nextNode())) {
+    docTextNodes.push(docNode);
+  }
+
+  docTextNodes.forEach((textNode) => {
+    let content = textNode.textContent.trim();
+    if (content === '') {
+      return;
+    }
+
+    let parent = textNode.parentElement;
+    let isInSemanticElement = false;
+    let isInIgnoredTag = false;
+
+    while (parent) {
+      if (semanticTags.includes(parent.tagName)) {
+        isInSemanticElement = true;
+        break;
+      }
+
+      const role = parent.getAttribute && parent.getAttribute('role');
+      if (role === 'heading') {
+        const ariaLevel = parent.getAttribute('aria-level');
+        if (semanticRoles.heading.includes(ariaLevel)) {
+          isInSemanticElement = true;
+          break;
+        }
+      }
+      if (role === 'button') {
+        isInSemanticElement = true;
+        break;
+      }
+      if (tagsToIgnore.includes(parent.tagName)) {
+        isInIgnoredTag = true;
+        break;
+      }
+      parent = parent.parentElement;
+    }
+
+    if (!isInSemanticElement && !isInIgnoredTag) {
+      elementsInDocument.push(textNode);
+    }
+  });
+
+  const elementsInShadow = textNodesInNonSemanticTags.filter(
+    (el) => !elementsInDocument.includes(el)
+  );
+
   let message =
     counttextNodesInNonSemanticTags +
-    " textes dans des balises non sémantiques";
+    ' textes dans des balises non sémantiques';
 
   if (counttextNodesInNonSemanticTags === 1) {
     message = message.replace(
-      "textes dans des balises non sémantiques",
-      "texte dans une balise non sémantique"
+      'textes dans des balises non sémantiques',
+      'texte dans une balise non sémantique'
     );
   }
 
-  alert(message + ".\nPlus de détails dans la console.");
+  // Add location information
+  const locationParts = [];
+  if (elementsInDocument.length > 0) {
+    locationParts.push(`${elementsInDocument.length} dans le document`);
+  }
+  if (elementsInShadow.length > 0) {
+    locationParts.push(`${elementsInShadow.length} dans shadow DOM`);
+  }
+  if (locationParts.length > 0) {
+    message += ` (${locationParts.join(', ')})`;
+  }
+
+  if (shadowRootCount > 0) {
+    message += `\n${shadowRootCount} shadow root(s) analysé(s).`;
+  }
+
+  alert(message + '.\nPlus de détails dans la console.');
   console.clear();
-  console.log(message + " :");
+  console.log(message + ' :');
+
+  // Log all found text nodes from all roots
+  allRoots.forEach((root, index) => {
+    const rootName =
+      index === 0 ? 'Document principal' : `Shadow root ${index}`;
+    const rootTextNodes = [];
+    const rootWalker = document.createTreeWalker(
+      root,
+      NodeFilter.SHOW_TEXT,
+      null,
+      false
+    );
+    let rootNode;
+    while ((rootNode = rootWalker.nextNode())) {
+      rootTextNodes.push(rootNode);
+    }
+
+    const rootTextNodesInNonSemanticTags = [];
+
+    rootTextNodes.forEach((textNode) => {
+      let content = textNode.textContent.trim();
+      if (content === '') {
+        return;
+      }
+
+      let parent = textNode.parentElement;
+      let isInSemanticElement = false;
+      let isInIgnoredTag = false;
+      let nodeRoot = textNode.getRootNode();
+
+      while (parent) {
+        if (semanticTags.includes(parent.tagName)) {
+          isInSemanticElement = true;
+          break;
+        }
+
+        const role = parent.getAttribute && parent.getAttribute('role');
+        if (role === 'heading') {
+          const ariaLevel = parent.getAttribute('aria-level');
+          if (semanticRoles.heading.includes(ariaLevel)) {
+            isInSemanticElement = true;
+            break;
+          }
+        }
+        if (role === 'button') {
+          isInSemanticElement = true;
+          break;
+        }
+        if (tagsToIgnore.includes(parent.tagName)) {
+          isInIgnoredTag = true;
+          break;
+        }
+
+        const nextParent = parent.parentElement;
+        if (!nextParent && nodeRoot instanceof ShadowRoot) {
+          const host = nodeRoot.host;
+          if (host) {
+            parent = host;
+            nodeRoot = host.getRootNode();
+            continue;
+          }
+          break;
+        }
+        parent = nextParent;
+      }
+
+      if (!isInSemanticElement && !isInIgnoredTag) {
+        rootTextNodesInNonSemanticTags.push(textNode);
+      }
+    });
+
+    if (rootTextNodesInNonSemanticTags.length > 0) {
+      console.log(`\n${rootName}:`);
+      rootTextNodesInNonSemanticTags.forEach((textNode) =>
+        console.log(textNode)
+      );
+    }
+  });
 
   // Function to check if an element or its parents are hidden
   function checkForHiddenParents(element) {
     const hiddenParents = [];
     let currentElement = element;
+    let root = element.getRootNode();
 
     while (
       currentElement &&
@@ -136,11 +323,11 @@
     ) {
       const computedStyle = window.getComputedStyle(currentElement);
       const isHidden =
-        computedStyle.display === "none" ||
-        computedStyle.visibility === "hidden" ||
-        computedStyle.opacity === "0" ||
-        (computedStyle.height === "0px" && computedStyle.width === "0px") ||
-        currentElement.getAttribute("aria-hidden") === "true";
+        computedStyle.display === 'none' ||
+        computedStyle.visibility === 'hidden' ||
+        computedStyle.opacity === '0' ||
+        (computedStyle.height === '0px' && computedStyle.width === '0px') ||
+        currentElement.getAttribute('aria-hidden') === 'true';
 
       if (isHidden) {
         hiddenParents.push({
@@ -149,7 +336,19 @@
         });
       }
 
-      currentElement = currentElement.parentElement;
+      // Check if we're crossing a shadow boundary
+      let parent = currentElement.parentElement;
+      if (!parent && root instanceof ShadowRoot) {
+        const host = root.host;
+        if (host) {
+          currentElement = host;
+          root = host.getRootNode();
+          continue;
+        }
+        break;
+      }
+
+      currentElement = parent;
     }
 
     return hiddenParents;
@@ -159,16 +358,16 @@
   function getHiddenReason(element, computedStyle) {
     const reasons = [];
 
-    if (computedStyle.display === "none") reasons.push("display: none");
-    if (computedStyle.visibility === "hidden")
-      reasons.push("visibility: hidden");
-    if (computedStyle.opacity === "0") reasons.push("opacity: 0");
-    if (computedStyle.height === "0px" && computedStyle.width === "0px")
-      reasons.push("height: 0 and width: 0");
-    if (element.getAttribute("aria-hidden") === "true")
+    if (computedStyle.display === 'none') reasons.push('display: none');
+    if (computedStyle.visibility === 'hidden')
+      reasons.push('visibility: hidden');
+    if (computedStyle.opacity === '0') reasons.push('opacity: 0');
+    if (computedStyle.height === '0px' && computedStyle.width === '0px')
+      reasons.push('height: 0 and width: 0');
+    if (element.getAttribute('aria-hidden') === 'true')
       reasons.push('aria-hidden="true"');
 
-    return reasons.join(", ");
+    return reasons.join(', ');
   }
 
   textNodesInNonSemanticTags.forEach((textNode) => {
@@ -176,29 +375,29 @@
     const parentElement = textNode.parentElement;
 
     if (parentElement) {
-      parentElement.style.border = "2px solid red";
-      parentElement.style.paddingTop = "26px";
-      parentElement.style.display = "block";
+      parentElement.style.border = '2px solid red';
+      parentElement.style.paddingTop = '26px';
+      parentElement.style.display = 'block';
 
       // Create a label element to show text
-      const label = document.createElement("div");
-      label.textContent = "texte non sémantique";
-      label.style.position = "absolute";
-      label.style.top = "0";
-      label.style.left = "0";
-      label.style.backgroundColor = "yellow";
-      label.style.color = "black";
-      label.style.padding = "2px 5px";
-      label.style.fontSize = "12px";
-      label.style.fontWeight = "bold";
-      label.style.zIndex = "10000";
-      label.style.pointerEvents = "none";
+      const label = document.createElement('div');
+      label.textContent = 'texte non sémantique';
+      label.style.position = 'absolute';
+      label.style.top = '0';
+      label.style.left = '0';
+      label.style.backgroundColor = 'yellow';
+      label.style.color = 'black';
+      label.style.padding = '2px 5px';
+      label.style.fontSize = '12px';
+      label.style.fontWeight = 'bold';
+      label.style.zIndex = '10000';
+      label.style.pointerEvents = 'none';
 
       // Make sure the element has position relative for absolute positioning to work
       const computedStyle = window.getComputedStyle(parentElement);
 
-      if (computedStyle.position === "static") {
-        parentElement.style.position = "relative";
+      if (computedStyle.position === 'static') {
+        parentElement.style.position = 'relative';
       }
 
       parentElement.appendChild(label);
@@ -207,7 +406,7 @@
       const hiddenParents = checkForHiddenParents(parentElement);
       if (hiddenParents.length > 0) {
         console.log(
-          "⚠️ Texte dans une balise non sémantique ayant des parents cachés :"
+          '⚠️ Texte dans une balise non sémantique ayant des parents cachés :'
         );
         console.log(textNode);
 
