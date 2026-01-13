@@ -232,7 +232,11 @@ layout: bookmarklets
     {% assign found = false %}
 
     {% for file in site.static_files %}
-        {% if file.path contains test.name and file.extname == ".html" %}
+        {% assign exclude_11x = false %}
+        {% if test.name == "1.X" and file.path contains "11.X" %}
+            {% assign exclude_11x = true %}
+        {% endif %}
+        {% if file.path contains test.name and exclude_11x == false and file.extname == ".html" %}
             {% assign found = true %}
 
             {% if has_test_pages == 0 %}
@@ -253,12 +257,17 @@ layout: bookmarklets
         <strong>{{ test.title }}</strong>
         <ul>
             {% for file in site.static_files %}
+                {% assign exclude_11x = false %}
+                {% if test.name == "1.X" and file.path contains "11.X" %}
+                    {% assign exclude_11x = true %}
+                {% endif %}
                 {%
                     if file.path contains "professionnels-en-accessibilite-numerique"
                     and file.path contains test.name
+                    and exclude_11x == false
                     and file.extname == ".html"
                 %}
-                
+
                     <li>
                         <a href="{{ file.path | absolute_url }}">
                             {{ file.name | split: "-" | slice: 1, 999 | 
