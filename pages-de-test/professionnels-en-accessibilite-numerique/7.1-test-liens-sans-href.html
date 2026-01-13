@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test 7.1 - Lister les liens sans href</title>
+    <link rel="shortcut icon" href="../../assets/images/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+</head>
+<body class="page-test">
+    <header role="banner">
+        <div class="container">
+            <a href="javascript:history.back()" class="back-link" id="back-link">
+                <span aria-hidden="true">← </span>Retour à la page précédente
+            </a>
+            <h1>Test 7.1 - Lister les liens sans href</h1>
+        </div>
+    </header>
+
+    <main role="main" class="container">
+        <section class="test-page-section">
+            <div class="test-info">
+                <h2>Informations sur le test</h2>
+                <p>Cette page est utilisée pour tester les bookmarklets d'accessibilité RGAA 4.1.2.</p>
+                <p>Nom du fichier : 7.1-test.html</p>
+                <p>Description du test : Cette page contient des ancres (<code>&lt;a&gt;</code>) sans attribut <code>href</code> dans le DOM principal pour tester les critères d'accessibilité RGAA 4.1.2 concernant les liens sans attribut href.</p>
+            </div>
+            
+            <div class="test-content">
+                <h2>Contenu du test</h2>
+                
+                <p>Cette page contient des ancres sans attribut <code>href</code> dans le DOM principal.</p>
+
+                <h3>Liens valides avec href (ne doivent pas être détectés)</h3>
+
+                <p>Lien valide : <a href="#section1">Lien avec href</a></p>
+                <p>Lien externe : <a href="https://example.com">Lien externe</a></p>
+                <p>Lien avec href vide : <a href="">Lien avec href vide</a></p>
+
+                <h3>Ancres sans attribut href (doivent être détectées)</h3>
+
+                <p>Ancre sans href : <a>Ancre sans attribut href</a></p>
+                <p>Ancre sans href avec texte : <a>Cliquez ici</a></p>
+                <p>Ancre sans href avec contenu : <a><span>Ancre avec span</span></a></p>
+                <p>Ancre sans href vide : <a></a></p>
+                <p>Ancre sans href avec image : <a><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="test" /></a></p>
+
+                <nav>
+                    <ul>
+                        <li><a href="#nav1">Lien de navigation valide</a></li>
+                        <li><a>Lien de navigation sans href</a></li>
+                    </ul>
+                </nav>
+
+                <div>
+                    <a>Ancre dans un div</a>
+                    <a href="#valid">Ancre valide dans un div</a>
+                    <a>Autre ancre sans href</a>
+                </div>
+
+                <p>Ancre utilisée comme bouton : <a onclick="alert('test')">Cliquez-moi</a></p>
+                <p>Ancre avec role="button" : <a role="button">Bouton simulé</a></p>
+            </div>
+        </section>
+    </main>
+    <footer role="contentinfo">
+        <div class="container">
+            <p>
+                © <span id="currentYear"></span> - <a href="https://www.numerik-ea.fr">numerik-ea</a>
+                |
+                <a href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2">
+                    Contribuer à ce site
+                </a>
+            </p>
+        </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+</body>
+</html>

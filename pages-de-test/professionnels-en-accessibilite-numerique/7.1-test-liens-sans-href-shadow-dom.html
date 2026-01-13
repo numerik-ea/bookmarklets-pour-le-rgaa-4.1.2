@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test 7.1 - Lister les liens sans href avec Shadow DOM</title>
+    <link rel="shortcut icon" href="../../assets/images/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+</head>
+<body class="page-test">
+    <header role="banner">
+        <div class="container">
+            <a href="javascript:history.back()" class="back-link" id="back-link">
+                <span aria-hidden="true">← </span>Retour à la page précédente
+            </a>
+            <h1>Test 7.1 - Lister les liens sans href avec Shadow DOM</h1>
+        </div>
+    </header>
+
+    <main role="main" class="container">
+        <section class="test-page-section">
+            <div class="test-info">
+                <h2>Informations sur le test</h2>
+                <p>Cette page est utilisée pour tester les bookmarklets d'accessibilité RGAA 4.1.2.</p>
+                <p>Nom du fichier : 7.1-test-shadow-dom.html</p>
+                <p>Description du test : Cette page contient des ancres (<code>&lt;a&gt;</code>) sans attribut <code>href</code> dans le DOM principal et dans des Shadow DOM pour tester les critères d'accessibilité RGAA 4.1.2 concernant les liens sans attribut href.</p>
+            </div>
+            
+            <div class="test-content">
+                <h2>Contenu du test</h2>
+                
+                <p>Cette page contient :</p>
+                <ul>
+                    <li>Des ancres sans attribut <code>href</code> dans le DOM principal</li>
+                    <li>Des ancres sans attribut <code>href</code> dans des Shadow DOM</li>
+                    <li>Des ancres sans attribut <code>href</code> dans des Shadow DOM imbriqués</li>
+                </ul>
+
+                <h3>Liens valides avec href dans le DOM principal (ne doivent pas être détectés)</h3>
+
+                <p>Lien valide : <a href="#section1">Lien avec href</a></p>
+                <p>Lien externe : <a href="https://example.com">Lien externe</a></p>
+
+                <h3>Ancres sans attribut href dans le DOM principal (doivent être détectées)</h3>
+
+                <p>Ancre sans href : <a>Ancre sans attribut href</a></p>
+                <p>Ancre sans href avec texte : <a>Cliquez ici</a></p>
+                <p>Ancre sans href vide : <a></a></p>
+
+                <nav>
+                    <ul>
+                        <li><a href="#nav1">Lien de navigation valide</a></li>
+                        <li><a>Lien de navigation sans href</a></li>
+                    </ul>
+                </nav>
+
+                <div>
+                    <a>Ancre dans un div</a>
+                    <a href="#valid">Ancre valide dans un div</a>
+                    <a>Autre ancre sans href</a>
+                </div>
+
+                <h3>Composants avec Shadow DOM</h3>
+                <div id="shadow-component-1"></div>
+                <div id="shadow-component-2"></div>
+                <div id="shadow-component-3"></div>
+                <div id="shadow-component-nested"></div>
+            </div>
+        </section>
+    </main>
+    <footer role="contentinfo">
+        <div class="container">
+            <p>
+                © <span id="currentYear"></span> - <a href="https://www.numerik-ea.fr">numerik-ea</a>
+                |
+                <a href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2">
+                    Contribuer à ce site
+                </a>
+            </p>
+        </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+    <script>
+        // Shadow DOM 1 : Contient des ancres sans href
+        (function() {
+            const host = document.getElementById('shadow-component-1');
+            const shadowRoot = host.attachShadow({ mode: 'open' });
+            shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    a { margin: 5px; display: inline-block; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 1 - Ancres sans href</h4>
+                    <p>Ancre sans href dans Shadow DOM : <a>Lien sans href</a></p>
+                    <p>Ancre valide : <a href="#shadow-link-1">Lien avec href</a></p>
+                    <p>Autre ancre sans href : <a>Cliquez ici</a></p>
+                </div>
+            `;
+        })();
+
+        // Shadow DOM 2 : Contient des ancres sans href dans une navigation
+        (function() {
+            const host = document.getElementById('shadow-component-2');
+            const shadowRoot = host.attachShadow({ mode: 'open' });
+            shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    nav { background-color: #e0e0e0; padding: 10px; margin: 10px 0; }
+                    ul { list-style: none; padding: 0; }
+                    li { margin: 5px 0; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 2 - Navigation avec ancres sans href</h4>
+                    <nav>
+                        <ul>
+                            <li><a href="#shadow-nav-1">Lien valide</a></li>
+                            <li><a>Lien sans href</a></li>
+                            <li><a href="#shadow-nav-2">Autre lien valide</a></li>
+                            <li><a>Autre lien sans href</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            `;
+        })();
+
+        // Shadow DOM 3 : Contient plusieurs ancres sans href
+        (function() {
+            const host = document.getElementById('shadow-component-3');
+            const shadowRoot = host.attachShadow({ mode: 'open' });
+            shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    a { margin: 5px; display: inline-block; }
+                    .link-group { margin: 10px 0; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 3 - Plusieurs ancres sans href</h4>
+                    <div class="link-group">
+                        <a>Première ancre sans href</a>
+                        <a href="#valid-1">Lien valide</a>
+                        <a>Deuxième ancre sans href</a>
+                    </div>
+                    <div class="link-group">
+                        <a href="#valid-2">Lien valide</a>
+                        <a>Troisième ancre sans href</a>
+                        <a>Quatrième ancre sans href</a>
+                    </div>
+                    <div class="link-group">
+                        <a></a>
+                        <a href="#valid-3">Lien valide</a>
+                    </div>
+                </div>
+            `;
+        })();
+
+        // Shadow DOM imbriqué : Contient des ancres sans href dans un shadow root qui contient lui-même un shadow root
+        (function() {
+            const host = document.getElementById('shadow-component-nested');
+            const shadowRoot1 = host.attachShadow({ mode: 'open' });
+            shadowRoot1.innerHTML = `
+                <style>
+                    .container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    a { margin: 5px; display: inline-block; }
+                </style>
+                <div class="container">
+                    <h4>Shadow DOM imbriqué (niveau 1) - Ancres sans href</h4>
+                    <p>Ancre sans href niveau 1 : <a>Lien niveau 1</a></p>
+                    <p>Ancre valide niveau 1 : <a href="#nested-1">Lien valide niveau 1</a></p>
+                    <div id="nested-shadow-host"></div>
+                </div>
+            `;
+
+            // Shadow DOM de niveau 2
+            const nestedHost = shadowRoot1.querySelector('#nested-shadow-host');
+            const shadowRoot2 = nestedHost.attachShadow({ mode: 'open' });
+            shadowRoot2.innerHTML = `
+                <style>
+                    .nested-container { padding: 10px; margin: 10px 0; border: 1px solid #666; }
+                    h5 { margin-top: 0; }
+                    a { margin: 5px; display: inline-block; }
+                </style>
+                <div class="nested-container">
+                    <h5>Shadow DOM imbriqué (niveau 2) - Ancres sans href</h5>
+                    <p>Ancre sans href niveau 2 : <a>Lien niveau 2</a></p>
+                    <p>Ancre valide niveau 2 : <a href="#nested-2">Lien valide niveau 2</a></p>
+                    <p>Autre ancre sans href niveau 2 : <a>Autre lien niveau 2</a></p>
+                </div>
+            `;
+        })();
+    </script>
+</body>
+</html>
