@@ -1,6 +1,8 @@
 tests_metadata:
   - title: 1. Images
     name: 1.X
+  - title: 1.2 Dans chaque page web, les éléments SVG sont-ils correctement configurés ?
+    name: 1.2
   - title: 2. Cadres
     name: 2.X
   - title: 5. Tableaux

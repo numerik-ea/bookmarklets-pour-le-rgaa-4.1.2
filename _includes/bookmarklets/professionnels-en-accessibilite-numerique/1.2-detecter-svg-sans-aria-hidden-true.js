@@ -50,6 +50,7 @@
             return true;
           }
           // Passer au host et continuer dans le DOM parent
+          // Continuer à vérifier les parents du host
           current = host;
         } else {
           // On a atteint la racine du document
@@ -76,6 +77,7 @@
     if (!svg.hasAttribute('aria-hidden')) {
       // SVG sans aria-hidden
       svgWithoutAriaHidden.push(svg);
+      highlightSvgElement(svg);
     } else {
       const ariaHiddenValue = svg.getAttribute('aria-hidden');
 
@@ -87,46 +89,59 @@
       if (ariaHiddenValue === 'false') {
         // SVG avec aria-hidden="false"
         svgWithAriaHiddenFalse.push(svg);
+        highlightSvgElement(svg);
       } else {
         // SVG avec aria-hidden avec une valeur invalide
         svgWithoutAriaHidden.push(svg);
+        highlightSvgElement(svg);
       }
     }
   });
 
-  // Créer les styles CSS pour mettre en évidence les SVG sans aria-hidden="true"
-  const style = document.createElement('style');
-  style.textContent = `
-        :root {
-            --svg-warning-bg: #ff6b6b;
-            --svg-warning-border: #e74c3c;
-            --svg-warning-outline: #c0392b;
-        }
+  // Fonction pour appliquer les styles directement aux éléments SVG
+  // (nécessaire pour fonctionner avec Shadow DOM)
+  function highlightSvgElement(svg) {
+    svg.style.border = '3px solid #e74c3c';
+    svg.style.outline = '3px solid #c0392b';
+    svg.style.outlineOffset = '2px';
+    svg.style.backgroundColor = '#ff6b6b';
 
-        svg:not([aria-hidden="true"]) {
-            border: 3px solid var(--svg-warning-border) !important;
-            outline: 3px solid var(--svg-warning-outline) !important;
-            outline-offset: 2px !important;
-            background-color: var(--svg-warning-bg) !important;
-            position: relative !important;
-        }
+    // Vérifier si le SVG a déjà un parent avec position relative/absolute
+    const computedStyle = window.getComputedStyle(svg);
+    if (computedStyle.position === 'static') {
+      svg.style.position = 'relative';
+    }
 
-        svg:not([aria-hidden="true"])::before {
-            content: "SVG sans aria-hidden='true'" !important;
-            position: absolute !important;
-            top: -25px !important;
-            left: 0 !important;
-            background-color: var(--svg-warning-bg) !important;
-            color: white !important;
-            padding: 2px 6px !important;
-            font-size: 12px !important;
-            font-weight: bold !important;
-            z-index: 10000 !important;
-            border: 1px solid var(--svg-warning-border) !important;
-            white-space: nowrap !important;
-        }
-    `;
-  document.head.appendChild(style);
+    // Créer un label pour afficher le message
+    const label = document.createElement('div');
+    label.textContent = "SVG sans aria-hidden='true'";
+    label.style.position = 'absolute';
+    label.style.top = '-25px';
+    label.style.left = '0';
+    label.style.backgroundColor = '#ff6b6b';
+    label.style.color = 'white';
+    label.style.padding = '2px 6px';
+    label.style.fontSize = '12px';
+    label.style.fontWeight = 'bold';
+    label.style.zIndex = '10000';
+    label.style.border = '1px solid #e74c3c';
+    label.style.whiteSpace = 'nowrap';
+    label.style.pointerEvents = 'none';
+
+    // Ajouter le label au parent du SVG s'il existe et a une position non-static
+    // Sinon, l'ajouter au SVG lui-même
+    const parent = svg.parentElement;
+    if (parent) {
+      const parentComputedStyle = window.getComputedStyle(parent);
+      if (parentComputedStyle.position !== 'static') {
+        parent.appendChild(label);
+      } else {
+        svg.appendChild(label);
+      }
+    } else {
+      svg.appendChild(label);
+    }
+  }
 
   // Compter les éléments
   const totalSvg = allSvgElements.length;
