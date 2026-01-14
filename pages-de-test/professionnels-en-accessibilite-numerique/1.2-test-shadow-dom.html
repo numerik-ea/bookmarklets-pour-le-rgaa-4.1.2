@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Test 1.2 - Détecter les SVG sans aria-hidden="true" avec Shadow DOM
+    </title>
+    <link
+      rel="shortcut icon"
+      href="../../assets/images/favicon.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../../assets/css/styles.css" />
+    <style>
+      .svg-container {
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        display: inline-block;
+      }
+      .svg-info {
+        font-size: 12px;
+        color: #666;
+        margin-top: 5px;
+      }
+    </style>
+  </head>
+  <body class="page-test">
+    <header role="banner">
+      <div class="container">
+        <a href="javascript:history.back()" class="back-link" id="back-link">
+          <span aria-hidden="true">← </span>Retour à la page précédente
+        </a>
+        <h1>
+          Test 1.2 - Détecter les SVG sans aria-hidden="true" avec Shadow DOM
+        </h1>
+      </div>
+    </header>
+
+    <main role="main" class="container">
+      <section class="test-page-section">
+        <div class="test-info">
+          <h2>Informations sur le test</h2>
+          <p>
+            Cette page est utilisée pour tester les bookmarklets d'accessibilité
+            RGAA 4.1.2.
+          </p>
+          <p>Nom du fichier : 1.2-test-shadow-dom.html</p>
+          <p>
+            Description du test : Cette page contient des éléments SVG avec
+            différents états d'attribut <code>aria-hidden</code> dans le DOM
+            principal et dans des Shadow DOM pour tester les critères
+            d'accessibilité RGAA 4.1.2 concernant la détection des SVG sans
+            <code>aria-hidden="true"</code>.
+          </p>
+        </div>
+
+        <div class="test-content">
+          <h2>Contenu du test</h2>
+
+          <p>Cette page contient :</p>
+          <ul>
+            <li>
+              Des SVG sans attribut <code>aria-hidden</code> dans le DOM
+              principal (doivent être détectés)
+            </li>
+            <li>
+              Des SVG avec <code>aria-hidden="true"</code> dans le DOM principal
+              (ne doivent PAS être détectés)
+            </li>
+            <li>
+              Des SVG avec <code>aria-hidden="false"</code> dans le DOM
+              principal (doivent être détectés)
+            </li>
+            <li>
+              Des SVG avec des valeurs invalides de
+              <code>aria-hidden</code> dans le DOM principal (doivent être
+              détectés)
+            </li>
+            <li>
+              Des SVG à l'intérieur d'éléments avec
+              <code>aria-hidden="true"</code> (doivent être ignorés)
+            </li>
+            <li>Des éléments similaires dans des Shadow DOM</li>
+            <li>Des SVG avec différents états dans des Shadow DOM imbriqués</li>
+          </ul>
+
+          <h3>SVG dans le DOM principal</h3>
+
+          <p>Test avec SVG sans attribut <code>aria-hidden</code> :</p>
+          <div class="svg-container">
+            <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="25" cy="25" r="20" fill="blue" />
+            </svg>
+            <div class="svg-info">SVG sans aria-hidden (doit être détecté)</div>
+          </div>
+
+          <p>Test avec SVG avec <code>aria-hidden="true"</code> :</p>
+          <div class="svg-container">
+            <svg
+              width="50"
+              height="50"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <circle cx="25" cy="25" r="20" fill="green" />
+            </svg>
+            <div class="svg-info">
+              SVG avec aria-hidden="true" (ne doit PAS être détecté)
+            </div>
+          </div>
+
+          <p>Test avec SVG avec <code>aria-hidden="false"</code> :</p>
+          <div class="svg-container">
+            <svg
+              width="50"
+              height="50"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="false"
+            >
+              <circle cx="25" cy="25" r="20" fill="red" />
+            </svg>
+            <div class="svg-info">
+              SVG avec aria-hidden="false" (doit être détecté)
+            </div>
+          </div>
+
+          <p>
+            Test avec SVG avec valeur invalide de
+            <code>aria-hidden</code> :
+          </p>
+          <div class="svg-container">
+            <svg
+              width="50"
+              height="50"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="invalid"
+            >
+              <circle cx="25" cy="25" r="20" fill="orange" />
+            </svg>
+            <div class="svg-info">
+              SVG avec aria-hidden="invalid" (doit être détecté)
+            </div>
+          </div>
+
+          <p>
+            Test avec SVG avec <code>aria-hidden="yes"</code> (valeur invalide)
+            :
+          </p>
+          <div class="svg-container">
+            <svg
+              width="50"
+              height="50"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="yes"
+            >
+              <circle cx="25" cy="25" r="20" fill="purple" />
+            </svg>
+            <div class="svg-info">
+              SVG avec aria-hidden="yes" (doit être détecté)
+            </div>
+          </div>
+
+          <h3>SVG à l'intérieur d'éléments avec aria-hidden="true"</h3>
+
+          <p>
+            Test avec SVG sans <code>aria-hidden</code> mais dans un parent avec
+            <code>aria-hidden="true"</code> (doit être ignoré) :
+          </p>
+          <div class="svg-container" aria-hidden="true">
+            <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="25" cy="25" r="20" fill="gray" />
+            </svg>
+            <div class="svg-info">
+              SVG sans aria-hidden mais parent avec aria-hidden="true" (doit
+              être ignoré)
+            </div>
+          </div>
+
+          <p>
+            Test avec SVG avec <code>aria-hidden="false"</code> mais dans un
+            parent avec <code>aria-hidden="true"</code> (doit être ignoré) :
+          </p>
+          <div class="svg-container" aria-hidden="true">
+            <svg
+              width="50"
+              height="50"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="false"
+            >
+              <circle cx="25" cy="25" r="20" fill="brown" />
+            </svg>
+            <div class="svg-info">
+              SVG avec aria-hidden="false" mais parent avec aria-hidden="true"
+              (doit être ignoré)
+            </div>
+          </div>
+
+          <h3>Composants avec Shadow DOM</h3>
+          <div id="shadow-component-1"></div>
+          <div id="shadow-component-2"></div>
+          <div id="shadow-component-3"></div>
+          <div id="shadow-component-4"></div>
+          <div id="shadow-component-5"></div>
+          <div id="shadow-component-6"></div>
+          <div id="shadow-component-nested"></div>
+        </div>
+      </section>
+    </main>
+    <footer role="contentinfo">
+      <div class="container">
+        <p>
+          © <span id="currentYear"></span> -
+          <a href="https://www.numerik-ea.fr">numerik-ea</a>
+          |
+          <a
+            href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2"
+          >
+            Contribuer à ce site
+          </a>
+        </p>
+      </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+    <script>
+      // Shadow DOM 1 : Contient un SVG sans aria-hidden
+      (function () {
+        const host = document.getElementById('shadow-component-1');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    .svg-info { font-size: 12px; color: #666; margin-top: 5px; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 1 - SVG sans aria-hidden</h4>
+                    <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="25" cy="25" r="20" fill="blue" />
+                    </svg>
+                    <div class="svg-info">SVG sans aria-hidden dans Shadow DOM (doit être détecté)</div>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 2 : Contient un SVG avec aria-hidden="true"
+      (function () {
+        const host = document.getElementById('shadow-component-2');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    .svg-info { font-size: 12px; color: #666; margin-top: 5px; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 2 - SVG avec aria-hidden="true"</h4>
+                    <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <circle cx="25" cy="25" r="20" fill="green" />
+                    </svg>
+                    <div class="svg-info">SVG avec aria-hidden="true" dans Shadow DOM (ne doit PAS être détecté)</div>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 3 : Contient un SVG avec aria-hidden="false"
+      (function () {
+        const host = document.getElementById('shadow-component-3');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    .svg-info { font-size: 12px; color: #666; margin-top: 5px; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 3 - SVG avec aria-hidden="false"</h4>
+                    <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg" aria-hidden="false">
+                        <circle cx="25" cy="25" r="20" fill="red" />
+                    </svg>
+                    <div class="svg-info">SVG avec aria-hidden="false" dans Shadow DOM (doit être détecté)</div>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 4 : Contient un SVG avec valeur invalide de aria-hidden
+      (function () {
+        const host = document.getElementById('shadow-component-4');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    .svg-info { font-size: 12px; color: #666; margin-top: 5px; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 4 - SVG avec aria-hidden invalide</h4>
+                    <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg" aria-hidden="invalid">
+                        <circle cx="25" cy="25" r="20" fill="orange" />
+                    </svg>
+                    <div class="svg-info">SVG avec aria-hidden="invalid" dans Shadow DOM (doit être détecté)</div>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 5 : Contient plusieurs SVG avec différents états
+      (function () {
+        const host = document.getElementById('shadow-component-5');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    .svg-info { font-size: 12px; color: #666; margin-top: 5px; }
+                    .svg-item { margin: 10px 0; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 5 - Plusieurs SVG avec différents états</h4>
+                    <div class="svg-item">
+                        <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="25" cy="25" r="20" fill="blue" />
+                        </svg>
+                        <div class="svg-info">SVG sans aria-hidden</div>
+                    </div>
+                    <div class="svg-item">
+                        <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <circle cx="25" cy="25" r="20" fill="green" />
+                        </svg>
+                        <div class="svg-info">SVG avec aria-hidden="true"</div>
+                    </div>
+                    <div class="svg-item">
+                        <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg" aria-hidden="false">
+                            <circle cx="25" cy="25" r="20" fill="red" />
+                        </svg>
+                        <div class="svg-info">SVG avec aria-hidden="false"</div>
+                    </div>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 6 : Contient un SVG dans un parent avec aria-hidden="true"
+      (function () {
+        const host = document.getElementById('shadow-component-6');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    .svg-info { font-size: 12px; color: #666; margin-top: 5px; }
+                </style>
+                <div class="shadow-container" aria-hidden="true">
+                    <h4>Shadow DOM 6 - SVG dans parent avec aria-hidden="true"</h4>
+                    <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="25" cy="25" r="20" fill="gray" />
+                    </svg>
+                    <div class="svg-info">SVG sans aria-hidden mais parent avec aria-hidden="true" (doit être ignoré)</div>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM imbriqué : Contient des SVG avec différents états dans un shadow root qui contient lui-même un shadow root
+      (function () {
+        const host = document.getElementById('shadow-component-nested');
+        const shadowRoot1 = host.attachShadow({ mode: 'open' });
+        shadowRoot1.innerHTML = `
+                <style>
+                    .container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    .svg-info { font-size: 12px; color: #666; margin-top: 5px; }
+                    .svg-item { margin: 10px 0; }
+                </style>
+                <div class="container">
+                    <h4>Shadow DOM imbriqué (niveau 1) - SVG avec différents états</h4>
+                    <div class="svg-item">
+                        <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="25" cy="25" r="20" fill="blue" />
+                        </svg>
+                        <div class="svg-info">SVG niveau 1 sans aria-hidden</div>
+                    </div>
+                    <div class="svg-item">
+                        <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <circle cx="25" cy="25" r="20" fill="green" />
+                        </svg>
+                        <div class="svg-info">SVG niveau 1 avec aria-hidden="true"</div>
+                    </div>
+                    <div id="nested-shadow-host"></div>
+                </div>
+            `;
+
+        // Shadow DOM de niveau 2
+        const nestedHost = shadowRoot1.querySelector('#nested-shadow-host');
+        const shadowRoot2 = nestedHost.attachShadow({ mode: 'open' });
+        shadowRoot2.innerHTML = `
+                <style>
+                    .nested-container { padding: 10px; margin: 10px 0; border: 1px solid #666; }
+                    h5 { margin-top: 0; }
+                    .svg-info { font-size: 12px; color: #666; margin-top: 5px; }
+                    .svg-item { margin: 10px 0; }
+                </style>
+                <div class="nested-container">
+                    <h5>Shadow DOM imbriqué (niveau 2) - SVG avec différents états</h5>
+                    <div class="svg-item">
+                        <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="25" cy="25" r="20" fill="purple" />
+                        </svg>
+                        <div class="svg-info">SVG niveau 2 sans aria-hidden</div>
+                    </div>
+                    <div class="svg-item">
+                        <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg" aria-hidden="false">
+                            <circle cx="25" cy="25" r="20" fill="red" />
+                        </svg>
+                        <div class="svg-info">SVG niveau 2 avec aria-hidden="false"</div>
+                    </div>
+                    <div class="svg-item">
+                        <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <circle cx="25" cy="25" r="20" fill="green" />
+                        </svg>
+                        <div class="svg-info">SVG niveau 2 avec aria-hidden="true"</div>
+                    </div>
+                </div>
+            `;
+      })();
+    </script>
+  </body>
+</html>

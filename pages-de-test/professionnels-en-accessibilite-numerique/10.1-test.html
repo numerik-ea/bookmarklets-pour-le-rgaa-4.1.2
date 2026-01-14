@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test 10.1 - Test présence balises et attributs de présentation de l'information</title>
+    <link rel="shortcut icon" href="../../assets/images/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+</head>
+<body class="page-test">
+    <header role="banner">
+        <div class="container">
+            <a href="javascript:history.back()" class="back-link" id="back-link">
+                <span aria-hidden="true">← </span>Retour à la page précédente
+            </a>
+            <h1>Test 10.1 - Test présence balises et attributs de présentation de l'information</h1>
+        </div>
+    </header>
+
+    <main role="main" class="container">
+        <section class="test-page-section">
+            <div class="test-info">
+                <h2>Informations sur le test</h2>
+                <p>Cette page est utilisée pour tester les bookmarklets d'accessibilité RGAA 4.1.2.</p>
+                <p>Nom du fichier : 10.1-test.html</p>
+                <p>Description du test : Cette page contient des éléments pour tester les critères d'accessibilité RGAA 4.1.2 concernant les balises et attributs de présentation de l'information.</p>
+            </div>
+            
+            <div class="test-content">
+                <h2>Contenu du test</h2>
+                
+                <p>Cette page contient des balises et attributs de présentation obsolètes dans le DOM principal pour tester les critères d'accessibilité RGAA 4.1.2.</p>
+
+                <h3>Balises obsolètes</h3>
+
+                <p>Test avec balise <code>&lt;center&gt;</code> :</p>
+                <center>Texte centré avec balise center</center>
+
+                <p>Test avec balise <code>&lt;font&gt;</code> :</p>
+                <font color="red">Texte avec balise font</font>
+
+                <p>Test avec balise <code>&lt;big&gt;</code> :</p>
+                <big>Texte avec balise big</big>
+
+                <p>Test avec balise <code>&lt;s&gt;</code> :</p>
+                <s>Texte barré avec balise s</s>
+
+                <p>Test avec balise <code>&lt;strike&gt;</code> :</p>
+                <strike>Texte barré avec balise strike</strike>
+
+                <p>Test avec balise <code>&lt;tt&gt;</code> :</p>
+                <tt>Texte avec balise tt</tt>
+
+                <h3>Attributs obsolètes</h3>
+
+                <p>Test avec attribut <code>align</code> :</p>
+                <p align="center">Paragraphe avec align="center"</p>
+
+                <p>Test avec attribut <code>bgcolor</code> :</p>
+                <div bgcolor="yellow">Div avec bgcolor="yellow"</div>
+
+                <p>Test avec attribut <code>color</code> :</p>
+                <p color="blue">Paragraphe avec color="blue"</p>
+
+                <p>Test avec attribut <code>border</code> :</p>
+                <div border="1">Div avec border="1"</div>
+
+                <p>Test avec attribut <code>valign</code> :</p>
+                <table>
+                    <tr>
+                        <td valign="top">Cellule avec valign="top"</td>
+                    </tr>
+                </table>
+
+                <p>Test avec attribut <code>cellpadding</code> :</p>
+                <table cellpadding="10">
+                    <tr>
+                        <td>Cellule avec cellpadding</td>
+                    </tr>
+                </table>
+
+                <p>Test avec attribut <code>cellspacing</code> :</p>
+                <table cellspacing="5">
+                    <tr>
+                        <td>Cellule avec cellspacing</td>
+                    </tr>
+                </table>
+
+                <p>Test avec attribut <code>frameborder</code> :</p>
+                <iframe src="about:blank" frameborder="1" width="200" height="100"></iframe>
+
+                <p>Test avec attribut <code>hspace</code> :</p>
+                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="test" hspace="10" />
+
+                <p>Test avec attribut <code>vspace</code> :</p>
+                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="test" vspace="10" />
+
+                <p>Test avec attribut <code>marginwidth</code> :</p>
+                <iframe src="about:blank" marginwidth="10" width="200" height="100"></iframe>
+
+                <p>Test avec attribut <code>marginheight</code> :</p>
+                <iframe src="about:blank" marginheight="10" width="200" height="100"></iframe>
+
+                <h3>Attributs width/height invalides</h3>
+
+                <p>Test avec attribut <code>width</code> invalide :</p>
+                <div width="200px">Div avec width="200px" (invalide)</div>
+
+                <p>Test avec attribut <code>height</code> invalide :</p>
+                <div height="100px">Div avec height="100px" (invalide)</div>
+
+                <p>Test avec attributs <code>width</code> et <code>height</code> invalides :</p>
+                <p width="200px" height="100px">Paragraphe avec width et height (invalides)</p>
+
+                <p>Test avec attribut <code>width</code> valide (sur img) :</p>
+                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="test" width="100" height="100" />
+
+                <h3>Attribut size invalide</h3>
+
+                <p>Test avec attribut <code>size</code> invalide :</p>
+                <input type="text" size="20" />
+
+                <p>Test avec attribut <code>size</code> valide (sur select) :</p>
+                <select size="3">
+                    <option>Option 1</option>
+                    <option>Option 2</option>
+                    <option>Option 3</option>
+                </select>
+                
+            </div>
+        </section>
+    </main>
+    <footer role="contentinfo">
+        <div class="container">
+            <p>
+                © <span id="currentYear"></span> - <a href="https://www.numerik-ea.fr">numerik-ea</a>
+                |
+                <a href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2">
+                    Contribuer à ce site
+                </a>
+            </p>
+        </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+</body>
+</html>

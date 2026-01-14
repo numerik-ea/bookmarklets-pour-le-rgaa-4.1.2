@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test 8.7 & 8.8 - Attributs lang avec Shadow DOM</title>
+    <link
+      rel="shortcut icon"
+      href="../../assets/images/favicon.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../../assets/css/styles.css" />
+  </head>
+  <body class="page-test">
+    <header role="banner">
+      <div class="container">
+        <a href="javascript:history.back()" class="back-link" id="back-link">
+          <span aria-hidden="true">← </span>Retour à la page précédente
+        </a>
+        <h1>Test 8.7 & 8.8 - Attributs lang avec Shadow DOM</h1>
+      </div>
+    </header>
+
+    <main role="main" class="container">
+      <section class="test-page-section">
+        <div class="test-info">
+          <h2>Informations sur le test</h2>
+          <p>
+            Cette page est utilisée pour tester les bookmarklets d'accessibilité
+            RGAA 4.1.2.
+          </p>
+          <p>Nom du fichier : 8.7_8.8-test-shadow-dom.html</p>
+          <p>
+            Description du test : Cette page contient des éléments avec
+            l'attribut <code>lang</code> dans le DOM principal et dans des
+            Shadow DOM pour tester les critères d'accessibilité RGAA 4.1.2
+            concernant les attributs de langue.
+          </p>
+        </div>
+
+        <div class="test-content">
+          <h2>Contenu du test</h2>
+
+          <p>Cette page contient :</p>
+          <ul>
+            <li>
+              Des éléments avec l'attribut <code>lang</code> dans le DOM
+              principal
+            </li>
+            <li>
+              Des éléments avec l'attribut <code>lang</code> dans des Shadow DOM
+            </li>
+            <li>
+              Des éléments avec l'attribut <code>lang</code> dans des Shadow DOM
+              imbriqués
+            </li>
+          </ul>
+
+          <h3>Éléments avec attribut lang dans le DOM principal</h3>
+
+          <p lang="fr">Ce paragraphe est en français.</p>
+          <p lang="en">This paragraph is in English.</p>
+          <p lang="es">Este párrafo está en español.</p>
+
+          <div lang="en">
+            <p>This div contains English content.</p>
+            <p>Another paragraph in English.</p>
+          </div>
+
+          <span lang="de">Dieser Text ist auf Deutsch.</span>
+
+          <blockquote lang="it">
+            <p>Questa citazione è in italiano.</p>
+          </blockquote>
+
+          <h3>Composants avec Shadow DOM</h3>
+          <div id="shadow-component-1"></div>
+          <div id="shadow-component-2"></div>
+          <div id="shadow-component-3"></div>
+          <div id="shadow-component-nested"></div>
+        </div>
+      </section>
+    </main>
+    <footer role="contentinfo">
+      <div class="container">
+        <p>
+          © <span id="currentYear"></span> -
+          <a href="https://www.numerik-ea.fr">numerik-ea</a>
+          |
+          <a
+            href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2"
+          >
+            Contribuer à ce site
+          </a>
+        </p>
+      </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+    <script>
+      // Shadow DOM 1 : Contient des éléments avec attribut lang
+      (function () {
+        const host = document.getElementById('shadow-component-1');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 1 - Éléments avec attribut lang</h4>
+                    <p lang="en">This paragraph is in English within Shadow DOM.</p>
+                    <p lang="fr">Ce paragraphe est en français dans Shadow DOM.</p>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 2 : Contient un div avec attribut lang
+      (function () {
+        const host = document.getElementById('shadow-component-2');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 2 - Div avec attribut lang</h4>
+                    <div lang="es">
+                        <p>Este contenido está en español dentro de Shadow DOM.</p>
+                        <p>Otro párrafo en español.</p>
+                    </div>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 3 : Contient plusieurs éléments avec attributs lang différents
+      (function () {
+        const host = document.getElementById('shadow-component-3');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    .lang-section { margin: 10px 0; padding: 10px; background-color: #f5f5f5; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 3 - Plusieurs éléments avec attributs lang</h4>
+                    <div class="lang-section">
+                        <p lang="de">Dieser Text ist auf Deutsch.</p>
+                        <span lang="de">Weiterer deutscher Text.</span>
+                    </div>
+                    <div class="lang-section">
+                        <p lang="it">Questo testo è in italiano.</p>
+                        <blockquote lang="it">Una citazione in italiano.</blockquote>
+                    </div>
+                    <div class="lang-section">
+                        <p lang="pt">Este texto está em português.</p>
+                    </div>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM imbriqué : Contient des éléments avec attributs lang dans un shadow root qui contient lui-même un shadow root
+      (function () {
+        const host = document.getElementById('shadow-component-nested');
+        const shadowRoot1 = host.attachShadow({ mode: 'open' });
+        shadowRoot1.innerHTML = `
+                <style>
+                    .container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                </style>
+                <div class="container">
+                    <h4>Shadow DOM imbriqué (niveau 1) - Éléments avec attribut lang</h4>
+                    <p lang="en">English text at level 1.</p>
+                    <div lang="fr">
+                        <p>Texte français niveau 1.</p>
+                    </div>
+                    <div id="nested-shadow-host"></div>
+                </div>
+            `;
+
+        // Shadow DOM de niveau 2
+        const nestedHost = shadowRoot1.querySelector('#nested-shadow-host');
+        const shadowRoot2 = nestedHost.attachShadow({ mode: 'open' });
+        shadowRoot2.innerHTML = `
+                <style>
+                    .nested-container { padding: 10px; margin: 10px 0; border: 1px solid #666; }
+                    h5 { margin-top: 0; }
+                </style>
+                <div class="nested-container">
+                    <h5>Shadow DOM imbriqué (niveau 2) - Éléments avec attribut lang</h5>
+                    <p lang="es">Texto en español nivel 2.</p>
+                    <span lang="de">Deutscher Text Niveau 2.</span>
+                    <div lang="it">
+                        <p>Testo italiano livello 2.</p>
+                    </div>
+                </div>
+            `;
+      })();
+    </script>
+  </body>
+</html>

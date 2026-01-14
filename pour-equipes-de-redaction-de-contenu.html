@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookmarklets pour les équipes de rédaction de contenu</title>
+    <meta name="description" content="Assurez-vous que votre contenu est accessible">
+    <meta property="og:title" content="Bookmarklets pour les équipes de rédaction de contenu">
+    <meta property="og:description" content="Assurez-vous que votre contenu est accessible">
+    <meta property="og:type" content="website">
+    <meta property="og:url"
+        content="https://numerik-ea.github.io/bookmarklets-pour-le-rgaa-4.1.2/pour-equipes-de-redaction-de-contenu.html">
+    <link rel="shortcut icon" href="/bookmarklets-pour-le-rgaa-4.1.2/assets/images/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="/bookmarklets-pour-le-rgaa-4.1.2/assets/css/styles.css">
+</head>
+
+<body class="page-bookmarklets">
+    <header role="banner">
+        <div class="container">
+            <a href="/bookmarklets-pour-le-rgaa-4.1.2/" class="back-link">
+                <span aria-hidden="true">← </span>Retour à la page d'accueil
+            </a>
+            <h1>Bookmarklets pour les équipes de rédaction de contenu</h1>
+        </div>
+    </header>
+
+    <main role="main" class="container">
+        <section class="installation-steps-section">
+            <button class="toggle-button" aria-expanded="false"
+                aria-controls="installation-steps">
+                Étapes pour installer un bookmarklet
+                <span class="arrow" aria-hidden="true">▼</span>
+            </button>
+            <ol id="installation-steps" class="installation-steps">
+                <li>Cliquez sur le lien du bookmarklet que vous souhaitez
+                    ajouter.</li>
+                <li>Maintenez le clic gauche de la souris enfoncé sur le lien.
+                </li>
+                <li>Faites glisser le lien vers la barre des favoris de votre
+                    navigateur.</li>
+                <li>Relâchez le bouton de la souris pour y déposer le
+                    bookmarklet.</li>
+                <li>Voilà ! Vous pouvez maintenant utiliser le bookmarklet pour
+                    vérifier que votre contenu est accessible.</li>
+            </ol>
+        </section>
+        <section>
+    <h2>Bookmarklets</h2>
+    
+    <!-- Sort Dropdown -->
+    <div class="sort-dropdown-container">
+        <label class="sort-dropdown-label" for="sort-dropdown-equipes-de-redaction">Trier par :</label>
+        <select id="sort-dropdown-equipes-de-redaction" class="sort-dropdown-select" aria-label="Choisir le type de tri">
+            <option value="name">Nom (A-Z)</option>
+            <option value="date">Date (Plus récent)</option>
+        </select>
+        <button type="button" class="sort-button" aria-label="Appliquer le tri">Trier</button>
+    </div>
+    
+    <ul class="bookmarklets-list">
+        
+            
+            <li id="double-br" data-last-updated="2025-04-07">
+                <div class="bookmarklet-container">
+                    <a href="#double-br" class="bookmarklet-anchor-link" aria-label="Lien vers ce bookmarklet">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                        </svg>
+                    </a>
+                    <span class="tooltip">Lien vers ce bookmarklet</span>
+                    <a href="javascript:(function findAllChildrenWithDoubleBR() { function hasDoubleBR(element) { const children = Array.from(element.childNodes); for (let i = 0; i < children.length - 1; i++) { if (children[i].nodeName !== 'BR') { continue; } if (!((i + 1) in children)) { break; } if (children[i + 1].nodeName === 'BR') { return true; } let j = i + 1; while ( j < children.length && children[j].nodeType === Node.TEXT_NODE && children[j].textContent.trim() === '' ) { j++; } if ( j < children.length && children[j].nodeName === 'BR' ) { return true; } } return false; } function recursiveFindAllChildrenWithDoubleBR(element, results) { if (hasDoubleBR(element)) { results.push(element); return; } const children = Array.from(element.children); if (children.length === 0) { return; } for (let child of children) { recursiveFindAllChildrenWithDoubleBR(child, results); } } const results = []; recursiveFindAllChildrenWithDoubleBR(document.body, results); if (results.length === 0) { alert('Pas d\'éléments avec double <br>.'); return; } let message = ( results.length + ' éléments avec double <br>.\n' + 'Appuyer sur OK pour voir les éléments.' ); alert(message); results.forEach(element => { element.style.border = '2px solid red'; const label = document.createElement('div'); label.textContent = 'double <br>'; label.style.position = 'absolute'; label.style.top = '0'; label.style.left = '0'; label.style.backgroundColor = 'yellow'; label.style.color = 'black'; label.style.padding = '2px 5px'; label.style.fontSize = '12px'; label.style.fontWeight = 'bold'; label.style.zIndex = '10000'; label.style.pointerEvents = 'none'; const computedStyle = window.getComputedStyle(element); if (computedStyle.position === 'static') { element.style.position = 'relative'; } element.appendChild(label); }); })();" class="bookmarklet-link">
+                        Double &lt;br&gt;
+                    </a>
+                    <span class="tooltip">Cliquez-déposez le bookmarklet dans la barre des favoris</span>
+                    <button class="copy-button" onclick="copyBookmarklet(this)">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        <span class="tooltip">Copier le bookmarklet</span>
+                    </button>
+                </div>
+                <div class="last-updated">dernière mise à jour : 07 avril 2025</div>
+            </li>
+        
+            
+            <li id="headings" data-last-updated="2025-04-07">
+                <div class="bookmarklet-container">
+                    <a href="#headings" class="bookmarklet-anchor-link" aria-label="Lien vers ce bookmarklet">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                        </svg>
+                    </a>
+                    <span class="tooltip">Lien vers ce bookmarklet</span>
+                    <a href="javascript:(function () { let headingsCount = 0; function main(doc) { const headingStyles = 'color:black;font-family:sans-serif;font-weight:bold;font-size:small;background-color:yellow;speak:literal-punctuation;'; function createSpan(className, content) { const span = doc.createElement('strong'); span.className = className; span.style.cssText = headingStyles; span.textContent = content; return span; } function processHeadingElements(selector, tagName) { doc.querySelectorAll(selector).forEach(heading => { heading.insertBefore(createSpan('openSpan', `<${tagName}>`), heading.firstChild); heading.appendChild(createSpan('closeSpan', `</${tagName}>`)); }); } function processHeadings() { doc.querySelectorAll('.openSpan, .closeSpan').forEach(el => el.remove()); for (let i = 1; i <= 6; i++) { processHeadingElements(`h${i}`, `h${i}`); processHeadingElements(`[role=heading][aria-level='${i}']`, `[role=heading][aria-level=${i}]`); } const hasHeadings = doc.querySelectorAll('h1, h2, h3, h4, h5, h6, [role=heading][aria-level=\'1\'], [role=heading][aria-level=\'2\'], [role=heading][aria-level=\'3\'], [role=heading][aria-level=\'4\'], [role=heading][aria-level=\'5\'], [role=heading][aria-level=\'6\']'); headingsCount += hasHeadings.length; } processHeadings(); } function traverseFrames(doc) { main(doc); const frametypes = ['frame', 'iframe']; for (let i = 0; i < frametypes.length; i++) { const myframes = doc.getElementsByTagName(frametypes[i]); for (let z = 0; z < myframes.length; z++) { try { traverseFrames(myframes[z].contentWindow.document); } catch (e) { console.log(e); } } } } traverseFrames(document); const message = headingsCount > 0 ? headingsCount === 1 ? '1 titre trouvé sur la page.' : `${headingsCount} titres trouvés sur la page.` : 'Aucun titre trouvé sur la page.'; alert(message); })();" class="bookmarklet-link">
+                        Headings
+                    </a>
+                    <span class="tooltip">Cliquez-déposez le bookmarklet dans la barre des favoris</span>
+                    <button class="copy-button" onclick="copyBookmarklet(this)">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        <span class="tooltip">Copier le bookmarklet</span>
+                    </button>
+                </div>
+                <div class="last-updated">dernière mise à jour : 07 avril 2025</div>
+            </li>
+        
+            
+            <li id="images" data-last-updated="2025-04-15">
+                <div class="bookmarklet-container">
+                    <a href="#images" class="bookmarklet-anchor-link" aria-label="Lien vers ce bookmarklet">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                        </svg>
+                    </a>
+                    <span class="tooltip">Lien vers ce bookmarklet</span>
+                    <a href="javascript:(function () { let imagesCount = 0; function traverseFrames(doc) { showAlt(doc); const frametypes = ['frame', 'iframe']; for (let i = 0; i < frametypes.length; i++) { const myframes = doc.getElementsByTagName(frametypes[i]); for (let z = 0; z < myframes.length; z++) { try { traverseFrames(myframes[z].contentWindow.document); } catch (e) { console.log(e); } } } } function showAlt(doc) { const images = doc.querySelectorAll(`img, [role='img']`); let text; imagesCount += images.length; for (let i = 0; i < images.length; i++) { const imageStyle = window.getComputedStyle(images[i]); if (imageStyle.display === 'none' || imageStyle.visibility === 'hidden' || imageStyle.opacity === '0' ) { continue; } if (images[i].hasAttribute('aria-labelledby')) { const labelledby = images[i].getAttribute('aria-labelledby'); const labelledbyElements = doc.querySelectorAll(labelledby); let text = ''; for (let j = 0; j < labelledbyElements.length; j++) { text += labelledbyElements[j].textContent; text += ' '; } text = text.trim(); text = document.createTextNode('aria-labelledby=' + text); } else if (images[i].hasAttribute('aria-label')) { text = document.createTextNode('aria-label=' + images[i].getAttribute('aria-label')); } else if (images[i].hasAttribute('alt')) { text = document.createTextNode('alt=' + images[i].alt); } else if (images[i].hasAttribute('title')) { text = document.createTextNode('title=' + images[i].title); } else { text = document.createTextNode('Pas de alt'); } const node = document.createElement('span'); node.style.color = 'black'; node.style.backgroundColor = 'gold'; node.style.fontSize = 'small'; node.style.border = 'thin solid black'; node.style.zIndex = '9999'; node.appendChild(text); images[i].parentNode.insertBefore(node, images[i]); } } traverseFrames(document); const message = imagesCount > 0 ? `${imagesCount} images trouvées sur la page.` : 'Aucune image trouvée sur la page.'; alert(message); })();" class="bookmarklet-link">
+                        Images
+                    </a>
+                    <span class="tooltip">Cliquez-déposez le bookmarklet dans la barre des favoris</span>
+                    <button class="copy-button" onclick="copyBookmarklet(this)">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        <span class="tooltip">Copier le bookmarklet</span>
+                    </button>
+                </div>
+                <div class="last-updated">dernière mise à jour : 15 avril 2025</div>
+            </li>
+        
+            
+            <li id="listes" data-last-updated="2025-04-07">
+                <div class="bookmarklet-container">
+                    <a href="#listes" class="bookmarklet-anchor-link" aria-label="Lien vers ce bookmarklet">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                        </svg>
+                    </a>
+                    <span class="tooltip">Lien vers ce bookmarklet</span>
+                    <a href="javascript:(function () { document.querySelectorAll('strong.openSpan, strong.closeSpan').forEach(el => el.remove()); document.querySelectorAll('ul, ol, dl').forEach(list => { list.style.outline = 'green 2px solid'; list.style.padding = '2px'; list.style.listStylePosition = 'inside'; }); document.querySelectorAll('ul, ol').forEach(list => { const paragraphs = list.querySelectorAll(':scope > p'); if (paragraphs.length === 0) { return; } list.style.outline = '2px solid red'; list.style.padding = ''; list.style.listStylePosition = ''; paragraphs.forEach(paragraph => { paragraph.style.outline = '2px solid red'; }); if (!list.querySelector('.openSpan')) { const strongElement = document.createElement('strong'); strongElement.className = 'openSpan'; strongElement.style.cssText = 'color:black;font-family:sans-serif;font-weight:bold;font-size:small;background-color:yellow;speak:literal-punctuation'; strongElement.textContent = '❌PARAGRAPHE(S) DANS LA LISTE'; list.prepend(strongElement); } }); const elements = { 'ul': '📝', 'ol': '🔢', 'dl': '📕', 'li': '', 'dd': '', 'dt': '' }; for (const [tag, emoji] of Object.entries(elements)) { document.querySelectorAll(tag).forEach(element => { const openSpan = document.createElement('strong'); openSpan.className = 'openSpan'; openSpan.style.cssText = 'color:black;font-family:sans-serif;font-weight:bold;font-size:small;background-color:yellow;speak:literal-punctuation;'; openSpan.textContent = `<${tag}>${emoji}`; element.insertBefore(openSpan, element.firstChild); const closeSpan = document.createElement('strong'); closeSpan.className = 'closeSpan'; closeSpan.style.cssText = 'color:black;font-family:sans-serif;font-weight:bold;font-size:small;background-color:yellow;speak:literal-punctuation;'; closeSpan.textContent = `</${tag}>`; element.appendChild(closeSpan); }); } const lists = document.querySelectorAll('ul, ol, dl'); if (!lists.length) { alert('Aucune liste trouvée sur la page.'); } else { alert(`${lists.length} listes trouvées sur la page.`); } })();" class="bookmarklet-link">
+                        Listes
+                    </a>
+                    <span class="tooltip">Cliquez-déposez le bookmarklet dans la barre des favoris</span>
+                    <button class="copy-button" onclick="copyBookmarklet(this)">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        <span class="tooltip">Copier le bookmarklet</span>
+                    </button>
+                </div>
+                <div class="last-updated">dernière mise à jour : 07 avril 2025</div>
+            </li>
+        
+            
+            <li id="paragraphes-vides" data-last-updated="2025-04-11">
+                <div class="bookmarklet-container">
+                    <a href="#paragraphes-vides" class="bookmarklet-anchor-link" aria-label="Lien vers ce bookmarklet">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                        </svg>
+                    </a>
+                    <span class="tooltip">Lien vers ce bookmarklet</span>
+                    <a href="javascript:(function getEmptyParagraphs() { const paragraphs = document.querySelectorAll('p'); const emptyParagraphs = []; paragraphs.forEach(p => { let content = p.innerHTML; let hasOnlyBrOrNbsp = true; for (let node of p.childNodes) { if (node.nodeType === Node.ELEMENT_NODE) { if (node.nodeName !== 'BR') { hasOnlyBrOrNbsp = false; break; } } else if (node.nodeType === Node.TEXT_NODE) { if (node.textContent.trim() !== '' && node.textContent.trim() !== '&nbsp;') { hasOnlyBrOrNbsp = false; break; } } } content = content.replaceAll('&nbsp;', ''); content = content.trim(); if (content === '' || hasOnlyBrOrNbsp) { emptyParagraphs.push(p); } }); const countEmptyParagraphs = emptyParagraphs.length; if (countEmptyParagraphs === 0) { alert('Pas de paragraphes vides.'); return; } let message = ( countEmptyParagraphs + ' paragraphes vides' ); if (countEmptyParagraphs === 1) { message = message.replace('paragraphes vides', 'paragraphe vide'); } alert(message + '.'); emptyParagraphs.forEach(p => { p.style.border = '2px solid red'; const label = document.createElement('div'); label.textContent = 'paragraphe vide'; label.style.position = 'absolute'; label.style.top = '0'; label.style.left = '0'; label.style.backgroundColor = 'yellow'; label.style.color = 'black'; label.style.padding = '2px 5px'; label.style.fontSize = '12px'; label.style.fontWeight = 'bold'; label.style.zIndex = '10000'; label.style.pointerEvents = 'none'; const computedStyle = window.getComputedStyle(p); if (computedStyle.position === 'static') { p.style.position = 'relative'; } p.appendChild(label); }); })();" class="bookmarklet-link">
+                        Paragraphes vides
+                    </a>
+                    <span class="tooltip">Cliquez-déposez le bookmarklet dans la barre des favoris</span>
+                    <button class="copy-button" onclick="copyBookmarklet(this)">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        <span class="tooltip">Copier le bookmarklet</span>
+                    </button>
+                </div>
+                <div class="last-updated">dernière mise à jour : 11 avril 2025</div>
+            </li>
+        
+    </ul>
+</section>
+    </main>
+    <footer role="contentinfo"  >
+    <div class="container">
+        <p>
+            © <span id="currentYear"></span> - <a href="https://www.numerik-ea.fr">numerik-ea</a>
+            |
+            <a href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2">
+                Contribuer à ce site
+            </a>
+        </p>
+    </div>
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</footer>
+    <script src="/bookmarklets-pour-le-rgaa-4.1.2/assets/js/copy-bookmarklet.js"></script>
+    <script src="/bookmarklets-pour-le-rgaa-4.1.2/assets/js/sort-bookmarklets.js"></script>
+    <script>
+        document.querySelector('.toggle-button').addEventListener('click', function () {
+            const steps = document.getElementById('installation-steps');
+            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+
+            steps.classList.toggle('visible');
+            this.setAttribute('aria-expanded', !isExpanded);
+        });
+
+        // Add event listeners for bookmarklet links
+        // document.querySelectorAll('a[href^="javascript:"]').forEach(link => {
+        //     // Si le lien contient le caractère spécial %C2%A0 (espace insécable = &nbsp;),
+        //     // on ne peut pas le glisser dans la barre des favoris
+        //     // car sinon le bookmarklet ne fonctionnera pas correctement
+        //     // https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/setData
+        //     if (!link.href.includes('%C2%A0')) {
+        //         return;
+        //     }
+
+        //     function getMessage(contentType = '') {
+        //         return ('Ce bookmarklet ne peut pas être glissé directement dans la barre des favoris.'
+        //             + `${contentType === 'HTML' ? '<br>' : ' '}`
+        //             + 'Veuillez copier le code du bookmarklet et le coller dans un nouveau favori.'
+        //         );
+        //     }
+
+        //     // Find the tooltip and update its content
+        //     const container = link.closest('.bookmarklet-container');
+
+        //     if (container) {
+        //         const tooltip = container.querySelector('.bookmarklet-link + .tooltip');
+
+        //         if (tooltip) {
+        //             tooltip.innerHTML = getMessage('HTML');
+        //         }
+        //     }
+
+        //     // Handle drag event
+        //     link.addEventListener('dragstart', function (e) {
+        //         alert(getMessage());
+        //     });
+        // });
+    </script>
+</body>
+
+</html>

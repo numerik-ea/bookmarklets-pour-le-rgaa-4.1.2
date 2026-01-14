@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test 2.X - Test iframes et frames avec Shadow DOM</title>
+    <link
+      rel="shortcut icon"
+      href="../../assets/images/favicon.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../../assets/css/styles.css" />
+    <style>
+      /* Styles pour rendre les iframes responsives */
+      .iframe-responsive-wrapper {
+        position: relative;
+        padding-bottom: 56.25%; /* Ratio 16:9 */
+        height: 0;
+        overflow: hidden;
+        max-width: 100%;
+        margin: 10px 0;
+      }
+
+      .iframe-responsive-wrapper iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+      }
+
+      /* Pour les iframes sans wrapper, appliquer directement */
+      iframe {
+        max-width: 100%;
+        height: auto;
+      }
+    </style>
+  </head>
+  <body class="page-test">
+    <header role="banner">
+      <div class="container">
+        <a href="javascript:history.back()" class="back-link" id="back-link">
+          <span aria-hidden="true">← </span>Retour à la page précédente
+        </a>
+        <h1>Test 2.X - Test iframes et frames avec Shadow DOM</h1>
+      </div>
+    </header>
+
+    <main role="main" class="container">
+      <section class="test-page-section">
+        <div class="test-info">
+          <h2>Informations sur le test</h2>
+          <p>
+            Cette page est utilisée pour tester les bookmarklets d'accessibilité
+            RGAA 4.1.2.
+          </p>
+          <p>Nom du fichier : 2.X-test-shadow-dom.html</p>
+          <p>
+            Description du test : Cette page contient des iframes et frames dans
+            le DOM principal et dans des Shadow DOM pour tester les critères
+            d'accessibilité RGAA 4.1.2 concernant la présence d'attributs title
+            sur les cadres.
+          </p>
+        </div>
+
+        <div class="test-content">
+          <h2>Contenu du test</h2>
+
+          <p>Cette page contient :</p>
+          <ul>
+            <li>Un iframe avec titre dans le DOM principal</li>
+            <li>Un iframe sans titre dans le DOM principal</li>
+            <li>
+              Des iframes supplémentaires dans des Shadow DOM (avec et sans
+              titre)
+            </li>
+          </ul>
+
+          <h3>Iframes dans le DOM principal</h3>
+          <p>Iframe avec titre :</p>
+          <div class="iframe-responsive-wrapper">
+            <iframe
+              src="https://www.youtube.com/embed/VhMqwbsyXPo"
+              title="YouTube - Vidéo de test"
+              width="560"
+              height="315"
+            ></iframe>
+          </div>
+
+          <p>Iframe sans titre :</p>
+          <div class="iframe-responsive-wrapper">
+            <iframe
+              src="https://www.youtube.com/embed/VhMqwbsyXPo"
+              width="560"
+              height="315"
+            ></iframe>
+          </div>
+
+          <h3>Composants avec Shadow DOM</h3>
+          <div id="shadow-component-1"></div>
+          <div id="shadow-component-2"></div>
+          <div id="shadow-component-3"></div>
+          <div id="shadow-component-nested"></div>
+        </div>
+      </section>
+    </main>
+    <footer role="contentinfo">
+      <div class="container">
+        <p>
+          © <span id="currentYear"></span> -
+          <a href="https://www.numerik-ea.fr">numerik-ea</a>
+          |
+          <a
+            href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2"
+          >
+            Contribuer à ce site
+          </a>
+        </p>
+      </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+    <script>
+      // Shadow DOM 1 : Contient un iframe avec titre
+      (function () {
+        const host = document.getElementById('shadow-component-1');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    .iframe-responsive-wrapper {
+                        position: relative;
+                        padding-bottom: 56.25%;
+                        height: 0;
+                        overflow: hidden;
+                        max-width: 100%;
+                        margin: 10px 0;
+                    }
+                    .iframe-responsive-wrapper iframe {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        max-width: 100%;
+                    }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 1 - Iframe avec titre</h4>
+                    <div class="iframe-responsive-wrapper">
+                        <iframe src="https://www.youtube.com/embed/VhMqwbsyXPo" title="YouTube dans Shadow DOM 1" width="560" height="315"></iframe>
+                    </div>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 2 : Contient un iframe sans titre
+      (function () {
+        const host = document.getElementById('shadow-component-2');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    .iframe-responsive-wrapper {
+                        position: relative;
+                        padding-bottom: 56.25%;
+                        height: 0;
+                        overflow: hidden;
+                        max-width: 100%;
+                        margin: 10px 0;
+                    }
+                    .iframe-responsive-wrapper iframe {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        max-width: 100%;
+                    }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 2 - Iframe sans titre</h4>
+                    <div class="iframe-responsive-wrapper">
+                        <iframe src="https://www.youtube.com/embed/VhMqwbsyXPo" width="560" height="315"></iframe>
+                    </div>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 3 : Contient deux iframes (un avec titre, un sans titre)
+      (function () {
+        const host = document.getElementById('shadow-component-3');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    .iframe-wrapper { margin: 10px 0; }
+                    .iframe-responsive-wrapper {
+                        position: relative;
+                        padding-bottom: 56.25%;
+                        height: 0;
+                        overflow: hidden;
+                        max-width: 100%;
+                        margin: 10px 0;
+                    }
+                    .iframe-responsive-wrapper iframe {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        max-width: 100%;
+                    }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 3 - Deux iframes</h4>
+                    <div class="iframe-wrapper">
+                        <p>Iframe avec titre :</p>
+                        <div class="iframe-responsive-wrapper">
+                            <iframe src="https://www.youtube.com/embed/VhMqwbsyXPo" title="Premier iframe dans Shadow DOM 3" width="560" height="315"></iframe>
+                        </div>
+                    </div>
+                    <div class="iframe-wrapper">
+                        <p>Iframe sans titre :</p>
+                        <div class="iframe-responsive-wrapper">
+                            <iframe src="https://www.youtube.com/embed/VhMqwbsyXPo" width="560" height="315"></iframe>
+                        </div>
+                    </div>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM imbriqué : Contient un iframe dans un shadow root qui contient lui-même un shadow root
+      (function () {
+        const host = document.getElementById('shadow-component-nested');
+        const shadowRoot1 = host.attachShadow({ mode: 'open' });
+        shadowRoot1.innerHTML = `
+                <style>
+                    .container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    .iframe-responsive-wrapper {
+                        position: relative;
+                        padding-bottom: 56.25%;
+                        height: 0;
+                        overflow: hidden;
+                        max-width: 100%;
+                        margin: 10px 0;
+                    }
+                    .iframe-responsive-wrapper iframe {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        max-width: 100%;
+                    }
+                </style>
+                <div class="container">
+                    <h4>Shadow DOM imbriqué (niveau 1) - Iframe avec titre</h4>
+                    <div class="iframe-responsive-wrapper">
+                        <iframe src="https://www.youtube.com/embed/VhMqwbsyXPo" title="Iframe dans Shadow DOM niveau 1" width="560" height="315"></iframe>
+                    </div>
+                    <div id="nested-shadow-host"></div>
+                </div>
+            `;
+
+        // Shadow DOM de niveau 2
+        const nestedHost = shadowRoot1.querySelector('#nested-shadow-host');
+        const shadowRoot2 = nestedHost.attachShadow({ mode: 'open' });
+        shadowRoot2.innerHTML = `
+                <style>
+                    .nested-container { padding: 10px; margin: 10px 0; border: 1px solid #666; }
+                    h5 { margin-top: 0; }
+                    .iframe-responsive-wrapper {
+                        position: relative;
+                        padding-bottom: 56.25%;
+                        height: 0;
+                        overflow: hidden;
+                        max-width: 100%;
+                        margin: 10px 0;
+                    }
+                    .iframe-responsive-wrapper iframe {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        max-width: 100%;
+                    }
+                </style>
+                <div class="nested-container">
+                    <h5>Shadow DOM imbriqué (niveau 2) - Iframe sans titre</h5>
+                    <div class="iframe-responsive-wrapper">
+                        <iframe src="https://www.youtube.com/embed/VhMqwbsyXPo" width="560" height="315"></iframe>
+                    </div>
+                </div>
+            `;
+      })();
+    </script>
+  </body>
+</html>

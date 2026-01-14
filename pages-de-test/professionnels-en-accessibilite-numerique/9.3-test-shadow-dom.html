@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test 9.3 - Identifier les listes avec Shadow DOM</title>
+    <link rel="shortcut icon" href="../../assets/images/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+</head>
+<body class="page-test">
+    <header role="banner">
+        <div class="container">
+            <a href="javascript:history.back()" class="back-link" id="back-link">
+                <span aria-hidden="true">← </span>Retour à la page précédente
+            </a>
+            <h1>Test 9.3 - Identifier les listes avec Shadow DOM</h1>
+        </div>
+    </header>
+
+    <main role="main" class="container">
+        <section class="test-page-section">
+            <div class="test-info">
+                <h2>Informations sur le test</h2>
+                <p>Cette page est utilisée pour tester les bookmarklets d'accessibilité RGAA 4.1.2.</p>
+                <p>Nom du fichier : 9.3-test-shadow-dom.html</p>
+                <p>Description du test : Cette page contient des listes (ul et ol) dans le DOM principal et dans des Shadow DOM pour tester les critères d'accessibilité RGAA 4.1.2 concernant l'identification des listes.</p>
+            </div>
+            
+            <div class="test-content">
+                <h2>Contenu du test</h2>
+                
+                <p>Cette page contient :</p>
+                <ul>
+                    <li>Des listes <code>&lt;ul&gt;</code> et <code>&lt;ol&gt;</code> dans le DOM principal</li>
+                    <li>Des listes dans des Shadow DOM</li>
+                    <li>Des listes dans des Shadow DOM imbriqués</li>
+                </ul>
+
+                <h3>Listes dans le DOM principal</h3>
+
+                <ul>
+                    <li>Premier élément de liste non ordonnée</li>
+                    <li>Deuxième élément de liste non ordonnée</li>
+                    <li>Troisième élément de liste non ordonnée</li>
+                </ul>
+
+                <ol>
+                    <li>Premier élément de liste ordonnée</li>
+                    <li>Deuxième élément de liste ordonnée</li>
+                    <li>Troisième élément de liste ordonnée</li>
+                </ol>
+
+                <nav>
+                    <ul>
+                        <li><a href="#test1">Lien de navigation 1</a></li>
+                        <li><a href="#test2">Lien de navigation 2</a></li>
+                    </ul>
+                </nav>
+
+                <h3>Composants avec Shadow DOM</h3>
+                <div id="shadow-component-1"></div>
+                <div id="shadow-component-2"></div>
+                <div id="shadow-component-3"></div>
+                <div id="shadow-component-nested"></div>
+            </div>
+        </section>
+    </main>
+    <footer role="contentinfo">
+        <div class="container">
+            <p>
+                © <span id="currentYear"></span> - <a href="https://www.numerik-ea.fr">numerik-ea</a>
+                |
+                <a href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2">
+                    Contribuer à ce site
+                </a>
+            </p>
+        </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+    <script>
+        // Shadow DOM 1 : Contient une liste ul
+        (function() {
+            const host = document.getElementById('shadow-component-1');
+            const shadowRoot = host.attachShadow({ mode: 'open' });
+            shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    ul { margin: 10px 0; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 1 - Liste non ordonnée</h4>
+                    <ul>
+                        <li>Élément 1 dans Shadow DOM</li>
+                        <li>Élément 2 dans Shadow DOM</li>
+                        <li>Élément 3 dans Shadow DOM</li>
+                    </ul>
+                </div>
+            `;
+        })();
+
+        // Shadow DOM 2 : Contient une liste ol
+        (function() {
+            const host = document.getElementById('shadow-component-2');
+            const shadowRoot = host.attachShadow({ mode: 'open' });
+            shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    ol { margin: 10px 0; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 2 - Liste ordonnée</h4>
+                    <ol>
+                        <li>Premier élément dans Shadow DOM</li>
+                        <li>Deuxième élément dans Shadow DOM</li>
+                        <li>Troisième élément dans Shadow DOM</li>
+                    </ol>
+                </div>
+            `;
+        })();
+
+        // Shadow DOM 3 : Contient plusieurs listes
+        (function() {
+            const host = document.getElementById('shadow-component-3');
+            const shadowRoot = host.attachShadow({ mode: 'open' });
+            shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    ul, ol { margin: 10px 0; }
+                    .list-wrapper { margin: 15px 0; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 3 - Plusieurs listes</h4>
+                    <div class="list-wrapper">
+                        <p>Liste non ordonnée :</p>
+                        <ul>
+                            <li>Item 1</li>
+                            <li>Item 2</li>
+                        </ul>
+                    </div>
+                    <div class="list-wrapper">
+                        <p>Liste ordonnée :</p>
+                        <ol>
+                            <li>Étape 1</li>
+                            <li>Étape 2</li>
+                            <li>Étape 3</li>
+                        </ol>
+                    </div>
+                    <div class="list-wrapper">
+                        <p>Autre liste non ordonnée :</p>
+                        <ul>
+                            <li>Autre item 1</li>
+                            <li>Autre item 2</li>
+                            <li>Autre item 3</li>
+                            <li>Autre item 4</li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+        })();
+
+        // Shadow DOM imbriqué : Contient des listes dans un shadow root qui contient lui-même un shadow root
+        (function() {
+            const host = document.getElementById('shadow-component-nested');
+            const shadowRoot1 = host.attachShadow({ mode: 'open' });
+            shadowRoot1.innerHTML = `
+                <style>
+                    .container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    ul { margin: 10px 0; }
+                </style>
+                <div class="container">
+                    <h4>Shadow DOM imbriqué (niveau 1) - Liste non ordonnée</h4>
+                    <ul>
+                        <li>Élément niveau 1 - Item 1</li>
+                        <li>Élément niveau 1 - Item 2</li>
+                    </ul>
+                    <div id="nested-shadow-host"></div>
+                </div>
+            `;
+
+            // Shadow DOM de niveau 2
+            const nestedHost = shadowRoot1.querySelector('#nested-shadow-host');
+            const shadowRoot2 = nestedHost.attachShadow({ mode: 'open' });
+            shadowRoot2.innerHTML = `
+                <style>
+                    .nested-container { padding: 10px; margin: 10px 0; border: 1px solid #666; }
+                    h5 { margin-top: 0; }
+                    ol { margin: 10px 0; }
+                </style>
+                <div class="nested-container">
+                    <h5>Shadow DOM imbriqué (niveau 2) - Liste ordonnée</h5>
+                    <ol>
+                        <li>Élément niveau 2 - Étape 1</li>
+                        <li>Élément niveau 2 - Étape 2</li>
+                        <li>Élément niveau 2 - Étape 3</li>
+                    </ol>
+                </div>
+            `;
+        })();
+    </script>
+</body>
+</html>

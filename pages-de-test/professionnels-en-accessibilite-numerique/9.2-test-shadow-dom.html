@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test 9.2 - Test présence header, nav, main, footer avec Shadow DOM</title>
+    <link rel="shortcut icon" href="../../assets/images/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+</head>
+<body class="page-test">
+    <header role="banner">
+        <div class="container">
+            <a href="javascript:history.back()" class="back-link" id="back-link">
+                <span aria-hidden="true">← </span>Retour à la page précédente
+            </a>
+            <h1>Test 9.2 - Test présence header, nav, main, footer avec Shadow DOM</h1>
+        </div>
+    </header>
+
+    <main role="main" class="container">
+        <section class="test-page-section">
+            <div class="test-info">
+                <h2>Informations sur le test</h2>
+                <p>Cette page est utilisée pour tester les bookmarklets d'accessibilité RGAA 4.1.2.</p>
+                <p>Nom du fichier : 9.2-test-shadow-dom.html</p>
+                <p>Description du test : Cette page contient des éléments header, nav, main et footer dans le DOM principal et dans des Shadow DOM pour tester les critères d'accessibilité RGAA 4.1.2 concernant la présence de ces éléments de structure.</p>
+            </div>
+            
+            <div class="test-content">
+                <h2>Contenu du test</h2>
+                
+                <p>Cette page contient :</p>
+                <ul>
+                    <li>Un <code>&lt;header&gt;</code> dans le DOM principal</li>
+                    <li>Un <code>&lt;nav&gt;</code> dans le DOM principal</li>
+                    <li>Un <code>&lt;main&gt;</code> dans le DOM principal</li>
+                    <li>Un <code>&lt;footer&gt;</code> dans le DOM principal</li>
+                    <li>Des éléments supplémentaires dans des Shadow DOM</li>
+                </ul>
+
+                <nav>
+                    <ul>
+                        <li><a href="#test1">Test 1</a></li>
+                        <li><a href="#test2">Test 2</a></li>
+                    </ul>
+                </nav>
+
+                <h3>Composants avec Shadow DOM</h3>
+                <div id="shadow-component-1"></div>
+                <div id="shadow-component-2"></div>
+                <div id="shadow-component-3"></div>
+                <div id="shadow-component-nested"></div>
+            </div>
+        </section>
+    </main>
+    <footer role="contentinfo">
+        <div class="container">
+            <p>
+                © <span id="currentYear"></span> - <a href="https://www.numerik-ea.fr">numerik-ea</a>
+                |
+                <a href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2">
+                    Contribuer à ce site
+                </a>
+            </p>
+        </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+    <script>
+        // Shadow DOM 1 : Contient un header
+        (function() {
+            const host = document.getElementById('shadow-component-1');
+            const shadowRoot = host.attachShadow({ mode: 'open' });
+            shadowRoot.innerHTML = `
+                <style>
+                    header { background-color: #f0f0f0; padding: 10px; margin: 10px 0; }
+                </style>
+                <header>
+                    <h2>Header dans Shadow DOM 1</h2>
+                    <p>Ce header est dans un Shadow DOM</p>
+                </header>
+            `;
+        })();
+
+        // Shadow DOM 2 : Contient un nav
+        (function() {
+            const host = document.getElementById('shadow-component-2');
+            const shadowRoot = host.attachShadow({ mode: 'open' });
+            shadowRoot.innerHTML = `
+                <style>
+                    nav { background-color: #e0e0e0; padding: 10px; margin: 10px 0; }
+                </style>
+                <nav>
+                    <ul>
+                        <li><a href="#shadow-nav-1">Lien Shadow Nav 1</a></li>
+                        <li><a href="#shadow-nav-2">Lien Shadow Nav 2</a></li>
+                    </ul>
+                </nav>
+            `;
+        })();
+
+        // Shadow DOM 3 : Contient un main et un footer
+        (function() {
+            const host = document.getElementById('shadow-component-3');
+            const shadowRoot = host.attachShadow({ mode: 'open' });
+            shadowRoot.innerHTML = `
+                <style>
+                    main { background-color: #d0d0d0; padding: 10px; margin: 10px 0; }
+                    footer { background-color: #c0c0c0; padding: 10px; margin: 10px 0; }
+                </style>
+                <main>
+                    <h2>Main dans Shadow DOM 3</h2>
+                    <p>Ce main est dans un Shadow DOM</p>
+                </main>
+                <footer>
+                    <p>Footer dans Shadow DOM 3</p>
+                </footer>
+            `;
+        })();
+
+        // Shadow DOM imbriqué : Contient un header dans un shadow root qui contient lui-même un shadow root
+        (function() {
+            const host = document.getElementById('shadow-component-nested');
+            const shadowRoot1 = host.attachShadow({ mode: 'open' });
+            shadowRoot1.innerHTML = `
+                <style>
+                    .container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    header { background-color: #b0b0b0; padding: 10px; }
+                </style>
+                <div class="container">
+                    <header>
+                        <h2>Header dans Shadow DOM imbriqué (niveau 1)</h2>
+                    </header>
+                    <div id="nested-shadow-host"></div>
+                </div>
+            `;
+
+            // Shadow DOM de niveau 2
+            const nestedHost = shadowRoot1.querySelector('#nested-shadow-host');
+            const shadowRoot2 = nestedHost.attachShadow({ mode: 'open' });
+            shadowRoot2.innerHTML = `
+                <style>
+                    nav { background-color: #a0a0a0; padding: 10px; margin: 10px 0; }
+                    footer { background-color: #909090; padding: 10px; margin: 10px 0; }
+                </style>
+                <nav>
+                    <ul>
+                        <li><a href="#nested-nav">Navigation imbriquée</a></li>
+                    </ul>
+                </nav>
+                <footer>
+                    <p>Footer dans Shadow DOM imbriqué (niveau 2)</p>
+                </footer>
+            `;
+        })();
+    </script>
+</body>
+</html>

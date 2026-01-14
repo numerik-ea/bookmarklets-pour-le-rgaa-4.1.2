@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Test 10.2 - Trouver les images en background-image avec Shadow DOM
+    </title>
+    <link
+      rel="shortcut icon"
+      href="../../assets/images/favicon.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../../assets/css/styles.css" />
+    <style>
+      .bg-image-inline {
+        background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2U1ZTVlNSIvPjwvc3ZnPg==');
+        width: 100px;
+        height: 100px;
+        border: 1px solid #ccc;
+        color: #000;
+        padding: 5px;
+      }
+      .bg-image-class {
+        background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2U1ZTVlNSIvPjwvc3ZnPg==');
+        width: 100px;
+        height: 100px;
+        border: 1px solid #ccc;
+        color: #000;
+        padding: 5px;
+      }
+      .bg-shorthand {
+        background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2U1ZTVlNSIvPjwvc3ZnPg==') no-repeat center;
+        width: 100px;
+        height: 100px;
+        border: 1px solid #ccc;
+        color: #000;
+        padding: 5px;
+      }
+      .no-bg-image {
+        background-color: #f0f0f0;
+        width: 100px;
+        height: 100px;
+        border: 1px solid #ccc;
+        color: #000;
+        padding: 5px;
+      }
+    </style>
+  </head>
+  <body class="page-test">
+    <header role="banner">
+      <div class="container">
+        <a href="javascript:history.back()" class="back-link" id="back-link">
+          <span aria-hidden="true">← </span>Retour à la page précédente
+        </a>
+        <h1>
+          Test 10.2 - Trouver les images en background-image avec Shadow DOM
+        </h1>
+      </div>
+    </header>
+
+    <main role="main" class="container">
+      <section class="test-page-section">
+        <div class="test-info">
+          <h2>Informations sur le test</h2>
+          <p>
+            Cette page est utilisée pour tester les bookmarklets d'accessibilité
+            RGAA 4.1.2.
+          </p>
+          <p>Nom du fichier : 10.2-test-shadow-dom.html</p>
+          <p>
+            Description du test : Cette page contient des éléments avec des
+            images en background-image dans le DOM principal et dans des Shadow
+            DOM pour tester les critères d'accessibilité RGAA 4.1.2 concernant
+            la détection des images utilisées comme background-image.
+          </p>
+        </div>
+
+        <div class="test-content">
+          <h2>Contenu du test</h2>
+
+          <p>Cette page contient :</p>
+          <ul>
+            <li>
+              Des éléments avec <code>background-image</code> dans le DOM
+              principal (inline styles)
+            </li>
+            <li>
+              Des éléments avec <code>background-image</code> via des classes CSS
+              dans le DOM principal
+            </li>
+            <li>
+              Des éléments avec <code>background</code> (shorthand) contenant une
+              image dans le DOM principal
+            </li>
+            <li>
+              Des éléments sans background-image dans le DOM principal (test
+              négatif)
+            </li>
+            <li>Des éléments similaires dans des Shadow DOM</li>
+            <li>
+              Des éléments avec background-image dans des Shadow DOM imbriqués
+            </li>
+          </ul>
+
+          <h3>Éléments avec background-image dans le DOM principal</h3>
+
+          <p>
+            Test avec <code>background-image</code> en style inline :
+          </p>
+          <div
+            style="background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2U1ZTVlNSIvPjwvc3ZnPg=='); width: 100px; height: 100px; border: 1px solid #ccc; color: #000; padding: 5px;"
+          >
+            Élément avec background-image inline
+          </div>
+
+          <p>
+            Test avec <code>background-image</code> via classe CSS :
+          </p>
+          <div class="bg-image-class">
+            Élément avec background-image via classe
+          </div>
+
+          <p>
+            Test avec <code>background</code> (shorthand) contenant une image :
+          </p>
+          <div class="bg-shorthand">
+            Élément avec background shorthand
+          </div>
+
+          <p>
+            Test avec plusieurs background-image (multiple backgrounds) :
+          </p>
+          <div
+            style="background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2U1ZTVlNSIvPjwvc3ZnPg=='), url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2U1ZTVlNSIvPjwvc3ZnPg=='); width: 100px; height: 100px; border: 1px solid #ccc; color: #000; padding: 5px;"
+          >
+            Élément avec plusieurs background-image
+          </div>
+
+          <h3>Éléments sans background-image dans le DOM principal (test négatif)</h3>
+
+          <p>
+            Test avec seulement <code>background-color</code> (ne doit pas être
+            détecté) :
+          </p>
+          <div class="no-bg-image">
+            Élément sans background-image
+          </div>
+
+          <p>
+            Test avec élément sans style de background (ne doit pas être détecté)
+            :
+          </p>
+          <div style="width: 100px; height: 100px; border: 1px solid #ccc; color: #000; padding: 5px;">
+            Élément sans background
+          </div>
+
+          <h3>Composants avec Shadow DOM</h3>
+          <div id="shadow-component-1"></div>
+          <div id="shadow-component-2"></div>
+          <div id="shadow-component-3"></div>
+          <div id="shadow-component-4"></div>
+          <div id="shadow-component-nested"></div>
+        </div>
+      </section>
+    </main>
+    <footer role="contentinfo">
+      <div class="container">
+        <p>
+          © <span id="currentYear"></span> -
+          <a href="https://www.numerik-ea.fr">numerik-ea</a>
+          |
+          <a
+            href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2"
+          >
+            Contribuer à ce site
+          </a>
+        </p>
+      </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+    <script>
+      // Shadow DOM 1 : Contient des éléments avec background-image en inline style
+      (function () {
+        const host = document.getElementById('shadow-component-1');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 1 - Background-image en inline style</h4>
+                    <div style="background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2U1ZTVlNSIvPjwvc3ZnPg=='); width: 100px; height: 100px; border: 1px solid #ccc; color: #000; padding: 5px;">
+                        Élément Shadow DOM avec background-image inline
+                    </div>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 2 : Contient des éléments avec background-image via style tag
+      (function () {
+        const host = document.getElementById('shadow-component-2');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    .bg-image-shadow {
+                        background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2U1ZTVlNSIvPjwvc3ZnPg==');
+                        width: 100px;
+                        height: 100px;
+                        border: 1px solid #ccc;
+                        color: #000;
+                        padding: 5px;
+                    }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 2 - Background-image via style tag</h4>
+                    <div class="bg-image-shadow">
+                        Élément Shadow DOM avec background-image via CSS
+                    </div>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 3 : Contient des éléments avec background shorthand
+      (function () {
+        const host = document.getElementById('shadow-component-3');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    .bg-shorthand-shadow {
+                        background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2U1ZTVlNSIvPjwvc3ZnPg==') no-repeat center;
+                        width: 100px;
+                        height: 100px;
+                        border: 1px solid #ccc;
+                        color: #000;
+                        padding: 5px;
+                    }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 3 - Background shorthand</h4>
+                    <div class="bg-shorthand-shadow">
+                        Élément Shadow DOM avec background shorthand
+                    </div>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 4 : Contient des éléments sans background-image (test négatif)
+      (function () {
+        const host = document.getElementById('shadow-component-4');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    .no-bg-shadow {
+                        background-color: #f0f0f0;
+                        width: 100px;
+                        height: 100px;
+                        border: 1px solid #ccc;
+                    }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 4 - Sans background-image (test négatif)</h4>
+                    <div class="no-bg-shadow">
+                        Élément Shadow DOM sans background-image
+                    </div>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM imbriqué : Contient des éléments avec background-image dans un shadow root qui contient lui-même un shadow root
+      (function () {
+        const host = document.getElementById('shadow-component-nested');
+        const shadowRoot1 = host.attachShadow({ mode: 'open' });
+        shadowRoot1.innerHTML = `
+                <style>
+                    .container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    .bg-nested-level1 {
+                        background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2U1ZTVlNSIvPjwvc3ZnPg==');
+                        width: 100px;
+                        height: 100px;
+                        border: 1px solid #ccc;
+                        color: #000;
+                        padding: 5px;
+                    }
+                </style>
+                <div class="container">
+                    <h4>Shadow DOM imbriqué (niveau 1) - Background-image</h4>
+                    <div class="bg-nested-level1">
+                        Élément niveau 1 avec background-image
+                    </div>
+                    <div id="nested-shadow-host"></div>
+                </div>
+            `;
+
+        // Shadow DOM de niveau 2
+        const nestedHost = shadowRoot1.querySelector('#nested-shadow-host');
+        const shadowRoot2 = nestedHost.attachShadow({ mode: 'open' });
+        shadowRoot2.innerHTML = `
+                <style>
+                    .nested-container { padding: 10px; margin: 10px 0; border: 1px solid #666; }
+                    h5 { margin-top: 0; }
+                    .bg-nested-level2 {
+                        background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2U1ZTVlNSIvPjwvc3ZnPg==') no-repeat center;
+                        width: 100px;
+                        height: 100px;
+                        border: 1px solid #ccc;
+                        color: #000;
+                        padding: 5px;
+                    }
+                </style>
+                <div class="nested-container">
+                    <h5>Shadow DOM imbriqué (niveau 2) - Background shorthand</h5>
+                    <div class="bg-nested-level2">
+                        Élément niveau 2 avec background shorthand
+                    </div>
+                    <div style="background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2U1ZTVlNSIvPjwvc3ZnPg=='); width: 100px; height: 100px; border: 1px solid #ccc; color: #000; padding: 5px;">
+                        Élément niveau 2 avec background-image inline
+                    </div>
+                </div>
+            `;
+      })();
+    </script>
+  </body>
+</html>
