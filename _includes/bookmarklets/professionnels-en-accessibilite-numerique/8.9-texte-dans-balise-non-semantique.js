@@ -94,6 +94,16 @@
         break;
       }
 
+      // <summary> dans <details> est sémantique
+      if (
+        parent.tagName === 'SUMMARY' &&
+        parent.parentElement &&
+        parent.parentElement.tagName === 'DETAILS'
+      ) {
+        isInSemanticElement = true;
+        break;
+      }
+
       // Check for semantic role="heading" and valid aria-level
       const role = parent.getAttribute && parent.getAttribute('role');
 
@@ -169,6 +179,16 @@
 
     while (parent) {
       if (semanticTags.includes(parent.tagName)) {
+        isInSemanticElement = true;
+        break;
+      }
+
+      // <summary> dans <details> est sémantique
+      if (
+        parent.tagName === 'SUMMARY' &&
+        parent.parentElement &&
+        parent.parentElement.tagName === 'DETAILS'
+      ) {
         isInSemanticElement = true;
         break;
       }
@@ -263,6 +283,16 @@
 
       while (parent) {
         if (semanticTags.includes(parent.tagName)) {
+          isInSemanticElement = true;
+          break;
+        }
+
+        // <summary> dans <details> est sémantique
+        if (
+          parent.tagName === 'SUMMARY' &&
+          parent.parentElement &&
+          parent.parentElement.tagName === 'DETAILS'
+        ) {
           isInSemanticElement = true;
           break;
         }
