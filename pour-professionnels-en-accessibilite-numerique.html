@@ -57,6 +57,7 @@
                     <h3>Version 2026.1.22 - 22 janvier 2026</h3>
                     <ul>
                         <li>8.9 - &lt;summary&gt; dans &lt;details&gt; est sémantique</li>
+                        <li>Ajout de la gestion de touche Echap pour masquer les tooltips</li>
                     </ul>
                 </div>
                 <div class="changelog-entry">
@@ -5165,6 +5166,27 @@
 
             steps.classList.toggle('visible');
             this.setAttribute('aria-expanded', !isExpanded);
+        });
+
+        function hideTooltips() {
+            document.body.classList.add('tooltips-hidden');
+            document.querySelectorAll('.tooltip.show').forEach((tooltip) => {
+                tooltip.classList.remove('show');
+            });
+
+            const restoreTooltips = () => {
+                document.body.classList.remove('tooltips-hidden');
+            };
+
+            window.addEventListener('pointermove', restoreTooltips, { once: true });
+            window.addEventListener('focusin', restoreTooltips, { once: true });
+            window.addEventListener('touchstart', restoreTooltips, { once: true });
+        }
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                hideTooltips();
+            }
         });
 
         // Add event listeners for bookmarklet links

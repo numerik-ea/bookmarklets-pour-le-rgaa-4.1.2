@@ -213,6 +213,27 @@
             this.setAttribute('aria-expanded', !isExpanded);
         });
 
+        function hideTooltips() {
+            document.body.classList.add('tooltips-hidden');
+            document.querySelectorAll('.tooltip.show').forEach((tooltip) => {
+                tooltip.classList.remove('show');
+            });
+
+            const restoreTooltips = () => {
+                document.body.classList.remove('tooltips-hidden');
+            };
+
+            window.addEventListener('pointermove', restoreTooltips, { once: true });
+            window.addEventListener('focusin', restoreTooltips, { once: true });
+            window.addEventListener('touchstart', restoreTooltips, { once: true });
+        }
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                hideTooltips();
+            }
+        });
+
         // Add event listeners for bookmarklet links
         // document.querySelectorAll('a[href^="javascript:"]').forEach(link => {
         //     // Si le lien contient le caractère spécial %C2%A0 (espace insécable = &nbsp;),
