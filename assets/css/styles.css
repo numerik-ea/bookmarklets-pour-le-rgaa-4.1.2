@@ -610,6 +610,14 @@ li ul li {
   visibility: visible;
 }
 
+body.tooltips-hidden .copy-button .tooltip,
+body.tooltips-hidden .bookmarklet-link + .tooltip,
+body.tooltips-hidden .bookmarklet-anchor-link + .tooltip {
+  opacity: 0;
+  visibility: hidden;
+  display: none;
+}
+
 .bookmarklet-container {
   position: relative;
   display: inline-block;
