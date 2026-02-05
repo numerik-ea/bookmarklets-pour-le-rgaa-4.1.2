@@ -61,6 +61,31 @@
     <ul class="bookmarklets-list">
         
             
+            <li id="citations" data-last-updated="2026-02-05">
+                <div class="bookmarklet-container">
+                    <a href="#citations" class="bookmarklet-anchor-link" aria-label="Lien vers ce bookmarklet">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                        </svg>
+                    </a>
+                    <span class="tooltip">Lien vers ce bookmarklet</span>
+                    <a href="javascript:(function checkQuotesElements() { function getAllShadowRoots(root = document) { const shadowRoots = []; const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT); let node; while ((node = walker.nextNode())) { if (node.shadowRoot) { shadowRoots.push(node.shadowRoot); shadowRoots.push(...getAllShadowRoots(node.shadowRoot)); } } return shadowRoots; } function querySelectorAllInAllRoots(selector) { const allRoots = [document.body, ...getAllShadowRoots()]; const allElements = []; allRoots.forEach((root) => { const elements = Array.from(root.querySelectorAll(selector)); allElements.push(...elements); }); return allElements; } const quotesElements = querySelectorAllInAllRoots('q, blockquote'); const numberOfQuotesElements = quotesElements.length; if (numberOfQuotesElements === 0) { alert('Pas d\'éléments de citation sur la page.'); return; } let message = numberOfQuotesElements + ' éléments de citation sur la page'; if (numberOfQuotesElements === 1) { message = message.replace('éléments', 'élément'); } alert(message + '.\nAppuyer sur OK pour voir les éléments de citation mis en évidence.'); quotesElements.forEach((quoteElement) => { quoteElement.style.border = '2px solid red'; const label = document.createElement('div'); const tagName = quoteElement.tagName.toLowerCase(); label.textContent = '<' + tagName + '>'; label.style.backgroundColor = 'yellow'; label.style.color = 'black'; label.style.padding = '2px 5px'; label.style.fontSize = '12px'; label.style.fontWeight = 'bold'; label.style.zIndex = '10000'; label.style.pointerEvents = 'none'; label.style.display = 'inline-block'; label.style.verticalAlign = 'middle'; label.style.marginRight = '4px'; if (tagName === 'q') { const computedStyle = window.getComputedStyle(quoteElement); const quotes = computedStyle.quotes; let openQuote = '\u00ab\u00a0'; let closeQuote = '\u00a0\u00bb'; if (quotes && quotes !== 'none' && quotes !== 'auto') { const parts = quotes.match(/\x22([^\x22]*)\x22/g); if (parts && parts.length >= 2) { openQuote = parts[0].replace(/\x22/g, ''); closeQuote = parts[1].replace(/\x22/g, ''); } } quoteElement.style.quotes = 'none'; quoteElement.insertBefore(document.createTextNode(openQuote), quoteElement.firstChild); quoteElement.insertBefore(label, quoteElement.firstChild); quoteElement.appendChild(document.createTextNode(closeQuote)); } else { quoteElement.insertBefore(label, quoteElement.firstChild); } }); })();" class="bookmarklet-link">
+                        Citations
+                    </a>
+                    <span class="tooltip">Cliquez-déposez le bookmarklet dans la barre des favoris</span>
+                    <button class="copy-button" onclick="copyBookmarklet(this)">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        <span class="tooltip">Copier le bookmarklet</span>
+                    </button>
+                </div>
+                <div class="last-updated">dernière mise à jour : 05 février 2026</div>
+            </li>
+        
+            
             <li id="double-br" data-last-updated="2025-04-07">
                 <div class="bookmarklet-container">
                     <a href="#double-br" class="bookmarklet-anchor-link" aria-label="Lien vers ce bookmarklet">
@@ -187,6 +212,141 @@
         
     </ul>
 </section>
+
+
+
+    
+
+    
+
+    
+    <section>
+        <h2>Pages de test</h2>
+        
+        <ul>
+    
+
+    
+    <li>
+        <ul>
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    <li>
+                        <a href="https://numerik-ea.github.io/bookmarklets-pour-le-rgaa-4.1.2/pages-de-test/equipes-de-redaction-de-contenu/citations.html">
+                            Citations
+                        </a>
+                    </li>
+                 
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+        </ul>
+    </li>
+    
+
+
+
+        </ul>
+    </section>
+
     </main>
     <footer role="contentinfo"  >
     <div class="container">
