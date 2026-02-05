@@ -1,5 +1,7 @@
 # Noms des bookmarklets par répertoire et par ordre alphabétique
 equipes-de-redaction-de-contenu:
+  - name: citations
+    last-updated: 2026-02-05
   - name: double-br
     last-updated: 2025-04-07
   - name: headings

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test - Citations avec et sans Shadow DOM</title>
+    <link
+      rel="shortcut icon"
+      href="../../assets/images/favicon.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../../assets/css/styles.css" />
+  </head>
+  <body class="page-test">
+    <header role="banner">
+      <div class="container">
+        <a href="javascript:history.back()" class="back-link" id="back-link">
+          <span aria-hidden="true">← </span>Retour à la page précédente
+        </a>
+        <h1>Test - Citations avec et sans Shadow DOM</h1>
+      </div>
+    </header>
+
+    <main role="main" class="container">
+      <section class="test-page-section">
+        <div class="test-info">
+          <h2>Informations sur le test</h2>
+          <p>
+            Cette page est utilisée pour tester les bookmarklets d'accessibilité
+            RGAA 4.1.2.
+          </p>
+          <p>Nom du fichier : citations.html</p>
+          <p>
+            Description du test : Cette page contient des éléments de citation
+            (<code>&lt;q&gt;</code> et <code>&lt;blockquote&gt;</code>) dans le
+            DOM principal et dans des Shadow DOM pour tester la détection des
+            éléments de citations.
+          </p>
+        </div>
+
+        <div class="test-content">
+          <h2>Contenu du test</h2>
+
+          <p>Cette page contient :</p>
+          <ul>
+            <li>
+              Des éléments <code>&lt;q&gt;</code> et
+              <code>&lt;blockquote&gt;</code> dans le DOM principal
+            </li>
+            <li>Des éléments de citation dans des Shadow DOM</li>
+            <li>Des éléments de citation dans des Shadow DOM imbriqués</li>
+          </ul>
+
+          <h3>Éléments de citation dans le DOM principal</h3>
+
+          <p>
+            Comme le disait Albert Einstein :
+            <q>L'imagination est plus importante que le savoir.</q>
+          </p>
+
+          <p>
+            Voici une autre citation en ligne :
+            <q>Le seul moyen de faire du bon travail est d'aimer ce que vous
+              faites.</q>
+            - Steve Jobs
+          </p>
+
+          <blockquote>
+            <p>
+              La vie est ce qui vous arrive pendant que vous êtes occupé à faire
+              d'autres projets.
+            </p>
+            <cite>John Lennon</cite>
+          </blockquote>
+
+          <blockquote cite="https://example.com/source">
+            <p>L'innovation distingue un leader d'un suiveur.</p>
+            <cite>Steve Jobs</cite>
+          </blockquote>
+
+          <h3>Composants avec Shadow DOM</h3>
+          <div id="shadow-component-1"></div>
+          <div id="shadow-component-2"></div>
+          <div id="shadow-component-3"></div>
+          <div id="shadow-component-nested"></div>
+        </div>
+      </section>
+    </main>
+    <footer role="contentinfo">
+      <div class="container">
+        <p>
+          © <span id="currentYear"></span> -
+          <a href="https://www.numerik-ea.fr">numerik-ea</a>
+          |
+          <a
+            href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2"
+          >
+            Contribuer à ce site
+          </a>
+        </p>
+      </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+    <script>
+      // Shadow DOM 1 : Contient un élément q
+      (function () {
+        const host = document.getElementById('shadow-component-1');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    q { quotes: '\u00ab\u00a0' '\u00a0\u00bb'; font-style: italic; }
+                    blockquote { margin: 10px 0; padding-left: 20px; border-left: 3px solid #ccc; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 1 - Citation en ligne</h4>
+                    <p>
+                        Citation dans Shadow DOM : <q>Le savoir est la seule chose qui augmente quand on le partage.</q>
+                    </p>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 2 : Contient un élément blockquote
+      (function () {
+        const host = document.getElementById('shadow-component-2');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    q { quotes: '\u00ab\u00a0' '\u00a0\u00bb'; font-style: italic; }
+                    blockquote { margin: 10px 0; padding-left: 20px; border-left: 3px solid #ccc; }
+                    cite { display: block; margin-top: 10px; font-style: normal; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 2 - Citation en bloc</h4>
+                    <blockquote>
+                        <p>Le succès, c'est tomber neuf fois et se relever dix fois.</p>
+                        <cite>Jon Bon Jovi</cite>
+                    </blockquote>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM 3 : Contient plusieurs éléments de citation
+      (function () {
+        const host = document.getElementById('shadow-component-3');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+                <style>
+                    .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    q { quotes: '\u00ab\u00a0' '\u00a0\u00bb'; font-style: italic; }
+                    blockquote { margin: 10px 0; padding-left: 20px; border-left: 3px solid #ccc; }
+                    cite { display: block; margin-top: 10px; font-style: normal; }
+                    .quote-wrapper { margin: 15px 0; }
+                </style>
+                <div class="shadow-container">
+                    <h4>Shadow DOM 3 - Plusieurs éléments de citation</h4>
+                    <div class="quote-wrapper">
+                        <p>Première citation en ligne : <q>La simplicité est la sophistication suprême.</q></p>
+                    </div>
+                    <div class="quote-wrapper">
+                        <blockquote>
+                            <p>Il n'y a pas de raccourci vers n'importe où qui vaille la peine d'être visité.</p>
+                            <cite>Beverly Sills</cite>
+                        </blockquote>
+                    </div>
+                    <div class="quote-wrapper">
+                        <p>Deuxième citation en ligne : <q>Le courage n'est pas l'absence de peur, mais l'action malgré la peur.</q></p>
+                    </div>
+                </div>
+            `;
+      })();
+
+      // Shadow DOM imbriqué : Contient des éléments de citation dans un shadow root qui contient lui-même un shadow root
+      (function () {
+        const host = document.getElementById('shadow-component-nested');
+        const shadowRoot1 = host.attachShadow({ mode: 'open' });
+        shadowRoot1.innerHTML = `
+                <style>
+                    .container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+                    h4 { margin-top: 0; }
+                    q { quotes: '\u00ab\u00a0' '\u00a0\u00bb'; font-style: italic; }
+                    blockquote { margin: 10px 0; padding-left: 20px; border-left: 3px solid #ccc; }
+                </style>
+                <div class="container">
+                    <h4>Shadow DOM imbriqué (niveau 1) - Citation en ligne</h4>
+                    <p>
+                        Citation niveau 1 : <q>L'éducation est l'arme la plus puissante pour changer le monde.</q>
+                    </p>
+                    <div id="nested-shadow-host"></div>
+                </div>
+            `;
+
+        // Shadow DOM de niveau 2
+        const nestedHost = shadowRoot1.querySelector('#nested-shadow-host');
+        const shadowRoot2 = nestedHost.attachShadow({ mode: 'open' });
+        shadowRoot2.innerHTML = `
+                <style>
+                    .nested-container { padding: 10px; margin: 10px 0; border: 1px solid #666; }
+                    h5 { margin-top: 0; }
+                    blockquote { margin: 10px 0; padding-left: 20px; border-left: 3px solid #999; }
+                    cite { display: block; margin-top: 10px; font-style: normal; }
+                </style>
+                <div class="nested-container">
+                    <h5>Shadow DOM imbriqué (niveau 2) - Citation en bloc</h5>
+                    <blockquote>
+                        <p>Le seul vrai risque est de ne rien risquer du tout.</p>
+                        <cite>Mark Zuckerberg</cite>
+                    </blockquote>
+                </div>
+            `;
+      })();
+    </script>
+  </body>
+</html>

@@ -1,4 +1,4 @@
-tests_metadata:
+professionnel-en-accessibilite-numerique:
   - title: 1. Images
     name: 1.X
   - title: 1.2 Dans chaque page web, les éléments SVG sont-ils correctement configurés ?
@@ -33,3 +33,6 @@ tests_metadata:
     name: 11.X
   - title: 12.6 Dans chaque page web, les landmarks sont-ils utilisés correctement ?
     name: 12.6
+
+equipes-de-redaction-de-contenu:
+  - name: citations

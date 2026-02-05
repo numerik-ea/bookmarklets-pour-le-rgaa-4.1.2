@@ -48,3 +48,54 @@ layout: bookmarklets
         {% endfor %}
     </ul>
 </section>
+
+{% assign has_test_pages = 0 %}
+{% for test in site.data.tests_metadata.equipes-de-redaction-de-contenu %}
+    {% assign found = false %}
+
+    {% for file in site.static_files %}
+        {% if file.path contains test.name and file.extname == ".html" %}
+            {% assign found = true %}
+
+            {% if has_test_pages == 0 %}
+                {% assign has_test_pages = 1 %}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+
+    {% if found and has_test_pages == 1 %}
+    <section>
+        <h2>Pages de test</h2>
+        {% assign has_test_pages = 2 %}
+        <ul>
+    {% endif %}
+
+    {% if found %}
+    <li>
+        <ul>
+            {% for file in site.static_files %}
+                {%
+                    if file.path contains "equipes-de-redaction-de-contenu"
+                    and file.path contains test.name
+                    and file.extname == ".html"
+                %}
+                    <li>
+                        <a href="{{ file.path | absolute_url }}">
+                            {{ file.name |
+                                replace: "-", " " | 
+                                replace: ".html", "" |
+                                capitalize 
+                            }}
+                        </a>
+                    </li>
+                 {% endif %}
+            {% endfor %}
+        </ul>
+    </li>
+    {% endif %}
+{% endfor %}
+
+{% if found and has_test_pages == 2 %}
+        </ul>
+    </section>
+{% endif %}
