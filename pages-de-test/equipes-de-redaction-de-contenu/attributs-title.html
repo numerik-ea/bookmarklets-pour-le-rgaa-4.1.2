@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test - Attributs title avec et sans Shadow DOM</title>
+    <link
+      rel="shortcut icon"
+      href="../../assets/images/favicon.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../../assets/css/styles.css" />
+  </head>
+
+  <body class="page-test">
+    <header role="banner">
+      <div class="container">
+        <a href="javascript:history.back()" class="back-link" id="back-link">
+          <span aria-hidden="true">← </span>Retour à la page précédente
+        </a>
+        <h1>Test - Attributs title avec et sans Shadow DOM</h1>
+      </div>
+    </header>
+
+    <main role="main" class="container">
+      <section class="test-page-section">
+        <div class="test-info">
+          <h2>Informations sur le test</h2>
+          <p>
+            Cette page est utilisée pour tester les bookmarklets d'accessibilité
+            RGAA 4.1.2.
+          </p>
+          <p>Nom du fichier : attributs-title.html</p>
+          <p>
+            Description du test : Cette page contient des éléments avec des
+            attributs title dans le DOM principal et dans des Shadow DOM pour
+            tester la détection des éléments avec attributs title.
+          </p>
+        </div>
+
+        <div class="test-content">
+          <h2>Contenu du test</h2>
+
+          <p>Cette page contient :</p>
+
+          <ul>
+            <li>
+              Des éléments avec et sans attributs title dans le DOM principal
+              (span, lien, image, SVG, bouton, abbr, input ; cas mixtes
+              lien+image)
+            </li>
+            <li>
+              Des Shadow DOM avec title sur l'hôte et/ou le contenu (hôte avec +
+              contenu avec, hôte sans + contenu sans, mixte, hôte sans + contenu
+              avec)
+            </li>
+            <li>
+              Des Shadow DOM imbriqués : niveau 1 avec / niveau 2 sans, et
+              niveau 1 sans / niveau 2 avec
+            </li>
+          </ul>
+
+          <h3>Éléments avec attributs title dans le DOM principal</h3>
+
+          <h4>Avec attribut title</h4>
+          <p>
+            <span title="Ceci est un titre d'info-bulle">Span avec title</span>
+          </p>
+          <p>
+            <a href="#" title="Ceci est un lien avec un titre"
+              >Lien avec title</a
+            >
+          </p>
+          <p>
+            <a href="#" title="Titre du lien contenant l'image">
+              <img
+                src="../../assets/images/sample-image.jpg"
+                alt="Image d'exemple"
+                title="Titre sur l'image"
+              />
+            </a>
+            (lien + image avec title chacun)
+          </p>
+          <p>
+            <a href="#" title="Titre du lien contenant le  SVG">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                title="Titre sur le SVG"
+              >
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="black"
+                  stroke-width="2"
+                  fill="#ccc"
+                />
+                <line
+                  x1="12"
+                  y1="8"
+                  x2="12"
+                  y2="12"
+                  stroke="black"
+                  stroke-width="2"
+                />
+                <line
+                  x1="12"
+                  y1="16"
+                  x2="12"
+                  y2="16.01"
+                  stroke="black"
+                  stroke-width="2"
+                />
+              </svg>
+            </a>
+            (lien + SVG avec title chacun)
+          </p>
+          <p><button title="Bouton avec title">Bouton avec title</button></p>
+          <p><abbr title="World Wide Web">WWW</abbr> avec title</p>
+          <p>
+            <input
+              type="text"
+              placeholder="Champ"
+              title="Champ texte avec title"
+            />
+          </p>
+
+          <h4>Sans attribut title</h4>
+          <p><span>Span sans title</span></p>
+          <p><a href="#">Lien sans title</a></p>
+          <p>
+            <a href="#">
+              <img
+                src="../../assets/images/sample-image.jpg"
+                alt="Image d'exemple"
+              />
+            </a>
+            (lien + image sans title)
+          </p>
+          <p>
+            <a href="#">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="black"
+                  stroke-width="2"
+                  fill="#ccc"
+                />
+                <line
+                  x1="12"
+                  y1="8"
+                  x2="12"
+                  y2="12"
+                  stroke="black"
+                  stroke-width="2"
+                />
+                <line
+                  x1="12"
+                  y1="16"
+                  x2="12"
+                  y2="16.01"
+                  stroke="black"
+                  stroke-width="2"
+                />
+              </svg>
+            </a>
+            (lien + SVG sans title)
+          </p>
+          <p><button type="button">Bouton sans title</button></p>
+          <p><abbr>RSS</abbr> sans title</p>
+          <p><input type="text" placeholder="Champ sans title" /></p>
+
+          <h4>Cas mixtes (avec et sans title sur éléments liés)</h4>
+          <p>
+            <a href="#" title="Lien avec title, image sans">
+              <img src="../../assets/images/sample-image.jpg" alt="Image" />
+            </a>
+            (lien avec title, image sans)
+          </p>
+          <p>
+            <a href="#">
+              <img
+                src="../../assets/images/sample-image.jpg"
+                alt="Image"
+                title="Image avec title, lien sans"
+              />
+            </a>
+            (lien sans title, image avec title)
+          </p>
+
+          <h3>Composants avec Shadow DOM</h3>
+          <p>
+            Les Shadow DOM ci-dessous reproduisent des variantes avec et sans
+            attributs title.
+          </p>
+          <div id="shadow-component-1" title="Hôte avec title"></div>
+          <div id="shadow-component-2"></div>
+          <div id="shadow-component-3" title="Hôte avec title"></div>
+          <div id="shadow-component-4"></div>
+          <div id="shadow-component-nested"></div>
+          <div id="shadow-component-nested-reverse"></div>
+        </div>
+      </section>
+    </main>
+    <footer role="contentinfo">
+      <div class="container">
+        <p>
+          © <span id="currentYear"></span> -
+          <a href="https://www.numerik-ea.fr">numerik-ea</a>
+          |
+          <a
+            href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2"
+          >
+            Contribuer à ce site
+          </a>
+        </p>
+      </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+    <script>
+      // Shadow DOM 1 : Hôte avec title, contenu avec title
+      (function () {
+        const host = document.getElementById('shadow-component-1');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+        <style>
+          .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+          h4 { margin-top: 0; }
+          .shadow-container p, .shadow-container a, .shadow-container button { margin: 5px 0; display: block; }
+        </style>
+        <div class="shadow-container">
+          <h4>Shadow DOM 1 - Tous avec title (hôte + contenu)</h4>
+          <p><span title="Span avec title dans Shadow DOM">Span avec title</span></p>
+          <a href="#" title="Lien avec title dans Shadow DOM">Lien avec title</a>
+          <button title="Bouton avec title dans Shadow DOM">Bouton avec title</button>
+          <abbr title="World Wide Web">WWW</abbr>
+        </div>
+      `;
+      })();
+
+      // Shadow DOM 2 : Hôte sans title, contenu sans title
+      (function () {
+        const host = document.getElementById('shadow-component-2');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+        <style>
+          .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+          h4 { margin-top: 0; }
+          .shadow-container p, .shadow-container a, .shadow-container button { margin: 5px 0; display: block; }
+        </style>
+        <div class="shadow-container">
+          <h4>Shadow DOM 2 - Tous sans title (hôte + contenu)</h4>
+          <p><span>Span sans title</span></p>
+          <a href="#">Lien sans title</a>
+          <button type="button">Bouton sans title</button>
+          <abbr>RSS</abbr>
+        </div>
+      `;
+      })();
+
+      // Shadow DOM 3 : Hôte avec title, contenu mixte (avec et sans title)
+      (function () {
+        const host = document.getElementById('shadow-component-3');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+        <style>
+          .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+          h4 { margin-top: 0; }
+          .shadow-container p, .shadow-container a, .shadow-container button { margin: 5px 0; display: block; }
+          .with-title { border-left: 3px solid green; padding-left: 5px; }
+          .without-title { border-left: 3px solid orange; padding-left: 5px; }
+        </style>
+        <div class="shadow-container">
+          <h4>Shadow DOM 3 - Contenu mixte (hôte avec title)</h4>
+          <p class="with-title"><span title="Span avec title">Span avec title</span></p>
+          <p class="without-title"><span>Span sans title</span></p>
+          <a href="#" title="Lien avec title" class="with-title">Lien avec title</a>
+          <a href="#" class="without-title">Lien sans title</a>
+          <button title="Bouton avec title" class="with-title">Bouton avec title</button>
+          <button type="button" class="without-title">Bouton sans title</button>
+        </div>
+      `;
+      })();
+
+      // Shadow DOM 4 : Hôte sans title, contenu avec title
+      (function () {
+        const host = document.getElementById('shadow-component-4');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+        <style>
+          .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+          h4 { margin-top: 0; }
+          .shadow-container p, .shadow-container a, .shadow-container button { margin: 5px 0; display: block; }
+        </style>
+        <div class="shadow-container">
+          <h4>Shadow DOM 4 - Hôte sans title, contenu avec title</h4>
+          <p><span title="Span avec title (hôte sans title)">Span avec title</span></p>
+          <a href="#" title="Lien avec title">Lien avec title</a>
+          <button title="Bouton avec title">Bouton avec title</button>
+        </div>
+      `;
+      })();
+
+      // Shadow DOM imbriqué : Niveau 1 avec title, niveau 2 sans title
+      (function () {
+        const host = document.getElementById('shadow-component-nested');
+        const shadowRoot1 = host.attachShadow({ mode: 'open' });
+        shadowRoot1.innerHTML = `
+        <style>
+          .container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+          h4 { margin-top: 0; }
+          .container p, .container a { margin: 5px 0; display: block; }
+        </style>
+        <div class="container">
+          <h4>Shadow DOM imbriqué niveau 1 - Avec title</h4>
+          <p><span title="Span niveau 1 avec title">Span avec title</span></p>
+          <a href="#" title="Lien niveau 1 avec title">Lien avec title</a>
+          <div id="nested-shadow-host"></div>
+        </div>
+      `;
+
+        const nestedHost = shadowRoot1.querySelector('#nested-shadow-host');
+        const shadowRoot2 = nestedHost.attachShadow({ mode: 'open' });
+        shadowRoot2.innerHTML = `
+        <style>
+          .nested-container { padding: 10px; margin: 10px 0; border: 1px solid #666; }
+          h5 { margin-top: 0; }
+          .nested-container p, .nested-container a { margin: 5px 0; display: block; }
+        </style>
+        <div class="nested-container">
+          <h5>Shadow DOM imbriqué niveau 2 - Sans title</h5>
+          <p><span>Span sans title (niveau 2)</span></p>
+          <a href="#">Lien sans title (niveau 2)</a>
+          <button type="button">Bouton sans title (niveau 2)</button>
+        </div>
+      `;
+      })();
+
+      // Shadow DOM imbriqué inverse : Niveau 1 sans title, niveau 2 avec title
+      (function () {
+        const host = document.getElementById('shadow-component-nested-reverse');
+        const shadowRoot1 = host.attachShadow({ mode: 'open' });
+        shadowRoot1.innerHTML = `
+        <style>
+          .container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+          h4 { margin-top: 0; }
+          .container p, .container a { margin: 5px 0; display: block; }
+        </style>
+        <div class="container">
+          <h4>Shadow DOM imbriqué niveau 1 - Sans title</h4>
+          <p><span>Span sans title (niveau 1)</span></p>
+          <a href="#">Lien sans title (niveau 1)</a>
+          <div id="nested-shadow-host-reverse"></div>
+        </div>
+      `;
+
+        const nestedHost = shadowRoot1.querySelector(
+          '#nested-shadow-host-reverse'
+        );
+        const shadowRoot2 = nestedHost.attachShadow({ mode: 'open' });
+        shadowRoot2.innerHTML = `
+        <style>
+          .nested-container { padding: 10px; margin: 10px 0; border: 1px solid #666; }
+          h5 { margin-top: 0; }
+          .nested-container p, .nested-container a { margin: 5px 0; display: block; }
+        </style>
+        <div class="nested-container">
+          <h5>Shadow DOM imbriqué niveau 2 - Avec title</h5>
+          <p><span title="Span niveau 2 avec title">Span avec title</span></p>
+          <a href="#" title="Lien niveau 2 avec title">Lien avec title</a>
+          <button title="Bouton niveau 2 avec title">Bouton avec title</button>
+        </div>
+      `;
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test - Tableaux avec et sans Shadow DOM</title>
+    <link
+      rel="shortcut icon"
+      href="../../assets/images/favicon.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../../assets/css/styles.css" />
+  </head>
+
+  <body class="page-test">
+    <header role="banner">
+      <div class="container">
+        <a href="javascript:history.back()" class="back-link" id="back-link">
+          <span aria-hidden="true">← </span>Retour à la page précédente
+        </a>
+        <h1>Test - Tableaux avec et sans Shadow DOM</h1>
+      </div>
+    </header>
+
+    <main role="main" class="container">
+      <section class="test-page-section">
+        <div class="test-info">
+          <h2>Informations sur le test</h2>
+          <p>
+            Cette page est utilisée pour tester les bookmarklets d'accessibilité
+            RGAA 4.1.2.
+          </p>
+          <p>Nom du fichier : table-elements.html</p>
+          <p>
+            Description du test : Cette page contient des éléments de tableau
+            (<code>&lt;table&gt;</code>, <code>&lt;thead&gt;</code>,
+            <code>&lt;tbody&gt;</code>, <code>&lt;tfoot&gt;</code>,
+            <code>&lt;tr&gt;</code>, <code>&lt;th&gt;</code>,
+            <code>&lt;td&gt;</code>) dans le DOM principal et dans des Shadow DOM
+            pour tester la détection des tableaux.
+          </p>
+        </div>
+
+        <div class="test-content">
+          <h2>Contenu du test</h2>
+
+          <p>Cette page contient :</p>
+
+          <ul>
+            <li>Un tableau complet avec <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, <code>&lt;tfoot&gt;</code></li>
+            <li>Un tableau simple sans <code>&lt;thead&gt;</code> / <code>&lt;tbody&gt;</code> / <code>&lt;tfoot&gt;</code></li>
+            <li>Un tableau de mise en forme (sans en-têtes)</li>
+            <li>Des tableaux dans des Shadow DOM</li>
+            <li>Des tableaux dans des Shadow DOM imbriqués</li>
+          </ul>
+
+          <h3>Tableaux dans le DOM principal</h3>
+
+          <h4>Tableau complet (thead, tbody, tfoot)</h4>
+          <table>
+            <caption>Liste des utilisateurs</caption>
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Rôle</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Dupont</td>
+                <td>Marie</td>
+                <td>Développeuse</td>
+              </tr>
+              <tr>
+                <td>Martin</td>
+                <td>Pierre</td>
+                <td>Designer</td>
+              </tr>
+              <tr>
+                <td>Durand</td>
+                <td>Sophie</td>
+                <td>Chef de projet</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="3">3 utilisateurs au total</td>
+              </tr>
+            </tfoot>
+          </table>
+
+          <h4>Tableau simple (sans thead / tbody / tfoot)</h4>
+          <table>
+            <caption>Horaires d'ouverture</caption>
+            <tr>
+              <th>Jour</th>
+              <th>Horaire</th>
+            </tr>
+            <tr>
+              <td>Lundi - Vendredi</td>
+              <td>9h - 18h</td>
+            </tr>
+            <tr>
+              <td>Samedi</td>
+              <td>10h - 16h</td>
+            </tr>
+          </table>
+
+          <h4>Tableau avec en-têtes de ligne et de colonne</h4>
+          <table>
+            <caption>Résultats trimestriels</caption>
+            <thead>
+              <tr>
+                <td></td>
+                <th scope="col">T1</th>
+                <th scope="col">T2</th>
+                <th scope="col">T3</th>
+                <th scope="col">T4</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Ventes</th>
+                <td>1 200</td>
+                <td>1 350</td>
+                <td>1 500</td>
+                <td>1 800</td>
+              </tr>
+              <tr>
+                <th scope="row">Dépenses</th>
+                <td>800</td>
+                <td>900</td>
+                <td>850</td>
+                <td>950</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4>Tableau de mise en forme (sans en-têtes)</h4>
+          <table>
+            <tr>
+              <td>Colonne 1</td>
+              <td>Colonne 2</td>
+              <td>Colonne 3</td>
+            </tr>
+            <tr>
+              <td>Donnée A</td>
+              <td>Donnée B</td>
+              <td>Donnée C</td>
+            </tr>
+          </table>
+
+          <h3>Composants avec Shadow DOM</h3>
+          <div id="shadow-component-1"></div>
+          <div id="shadow-component-2"></div>
+          <div id="shadow-component-nested"></div>
+        </div>
+      </section>
+    </main>
+    <footer role="contentinfo">
+      <div class="container">
+        <p>
+          © <span id="currentYear"></span> -
+          <a href="https://www.numerik-ea.fr">numerik-ea</a>
+          |
+          <a
+            href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2"
+          >
+            Contribuer à ce site
+          </a>
+        </p>
+      </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+    <script>
+      // Shadow DOM 1 : Tableau complet
+      (function () {
+        const host = document.getElementById('shadow-component-1');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+        <style>
+          .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+          h4 { margin-top: 0; }
+          table { border-collapse: collapse; width: 100%; }
+          th, td { border: 1px solid #ccc; padding: 6px 10px; text-align: left; }
+          thead { background-color: #f5f5f5; }
+        </style>
+        <div class="shadow-container">
+          <h4>Shadow DOM 1 - Tableau complet</h4>
+          <table>
+            <caption>Produits en stock</caption>
+            <thead>
+              <tr>
+                <th>Produit</th>
+                <th>Prix</th>
+                <th>Stock</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Clavier</td>
+                <td>45 &euro;</td>
+                <td>120</td>
+              </tr>
+              <tr>
+                <td>Souris</td>
+                <td>25 &euro;</td>
+                <td>85</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="3">2 produits</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      `;
+      })();
+
+      // Shadow DOM 2 : Tableau simple
+      (function () {
+        const host = document.getElementById('shadow-component-2');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+        <style>
+          .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+          h4 { margin-top: 0; }
+          table { border-collapse: collapse; width: 100%; }
+          th, td { border: 1px solid #ccc; padding: 6px 10px; text-align: left; }
+        </style>
+        <div class="shadow-container">
+          <h4>Shadow DOM 2 - Tableau de mise en forme</h4>
+          <table>
+            <tr>
+              <td>Cellule 1</td>
+              <td>Cellule 2</td>
+            </tr>
+            <tr>
+              <td>Cellule 3</td>
+              <td>Cellule 4</td>
+            </tr>
+          </table>
+        </div>
+      `;
+      })();
+
+      // Shadow DOM imbriqué
+      (function () {
+        const host = document.getElementById('shadow-component-nested');
+        const shadowRoot1 = host.attachShadow({ mode: 'open' });
+        shadowRoot1.innerHTML = `
+        <style>
+          .container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+          h4 { margin-top: 0; }
+          table { border-collapse: collapse; width: 100%; }
+          th, td { border: 1px solid #ccc; padding: 6px 10px; text-align: left; }
+          thead { background-color: #f5f5f5; }
+        </style>
+        <div class="container">
+          <h4>Shadow DOM imbriqué (niveau 1)</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>Ville</th>
+                <th>Population</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Paris</td>
+                <td>2 161 000</td>
+              </tr>
+              <tr>
+                <td>Lyon</td>
+                <td>522 000</td>
+              </tr>
+            </tbody>
+          </table>
+          <div id="nested-shadow-host"></div>
+        </div>
+      `;
+
+        // Shadow DOM de niveau 2
+        const nestedHost = shadowRoot1.querySelector('#nested-shadow-host');
+        const shadowRoot2 = nestedHost.attachShadow({ mode: 'open' });
+        shadowRoot2.innerHTML = `
+        <style>
+          .nested-container { padding: 10px; margin: 10px 0; border: 1px solid #666; }
+          h5 { margin-top: 0; }
+          table { border-collapse: collapse; width: 100%; }
+          th, td { border: 1px solid #ccc; padding: 6px 10px; text-align: left; }
+        </style>
+        <div class="nested-container">
+          <h5>Shadow DOM imbriqué (niveau 2)</h5>
+          <table>
+            <tr>
+              <th scope="row">Pays</th>
+              <td>France</td>
+            </tr>
+            <tr>
+              <th scope="row">Capitale</th>
+              <td>Paris</td>
+            </tr>
+          </table>
+        </div>
+      `;
+      })();
+    </script>
+  </body>
+</html>

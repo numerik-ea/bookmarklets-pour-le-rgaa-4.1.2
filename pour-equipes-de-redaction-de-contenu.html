@@ -61,6 +61,31 @@
     <ul class="bookmarklets-list">
         
             
+            <li id="attributs-title" data-last-updated="2026-02-17">
+                <div class="bookmarklet-container">
+                    <a href="#attributs-title" class="bookmarklet-anchor-link" aria-label="Lien vers ce bookmarklet">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                        </svg>
+                    </a>
+                    <span class="tooltip">Lien vers ce bookmarklet</span>
+                    <a href="javascript:(function checkTitleAttributes() { function getAllShadowRoots(root = document) { const shadowRoots = []; const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT); let node; while ((node = walker.nextNode())) { if (node.shadowRoot) { shadowRoots.push(node.shadowRoot); shadowRoots.push(...getAllShadowRoots(node.shadowRoot)); } } return shadowRoots; } function querySelectorAllInAllRoots(selector) { const allRoots = [document.body, ...getAllShadowRoots()]; const allElements = []; allRoots.forEach((root) => { const elements = Array.from(root.querySelectorAll(selector)); allElements.push(...elements); }); return allElements; } const titleElements = querySelectorAllInAllRoots('[title]'); const numberOfTitleElements = titleElements.length; if (numberOfTitleElements === 0) { alert('Pas d\'éléments avec attribut title sur la page.'); return; } let message = numberOfTitleElements + ' éléments avec attribut title sur la page'; if (numberOfTitleElements === 1) { message = message.replace('éléments', 'élément'); } alert(message + '.\nAppuyer sur OK pour voir les éléments mis en évidence.'); titleElements.forEach((element) => { element.style.border = '2px solid red'; const label = document.createElement('span'); const tagName = element.tagName.toLowerCase(); const titleValue = element.getAttribute('title') || ''; const maxLength = 40; const displayTitle = titleValue.length > maxLength ? titleValue.substring(0, maxLength) + '...' : titleValue; label.textContent = '<' + tagName + '> title=\x22' + displayTitle + '\x22'; label.style.backgroundColor = 'yellow'; label.style.color = 'black'; label.style.padding = '2px 5px'; label.style.fontSize = '12px'; label.style.fontWeight = 'bold'; label.style.zIndex = '10000'; label.style.pointerEvents = 'none'; label.style.display = 'inline-block'; label.style.verticalAlign = 'middle'; label.style.marginRight = '4px'; element.parentNode.insertBefore(label, element); }); })();" class="bookmarklet-link">
+                        Attributs title
+                    </a>
+                    <span class="tooltip">Cliquez-déposez le bookmarklet dans la barre des favoris</span>
+                    <button class="copy-button" onclick="copyBookmarklet(this)">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        <span class="tooltip">Copier le bookmarklet</span>
+                    </button>
+                </div>
+                <div class="last-updated">dernière mise à jour : 17 février 2026</div>
+            </li>
+        
+            
             <li id="citations" data-last-updated="2026-02-05">
                 <div class="bookmarklet-container">
                     <a href="#citations" class="bookmarklet-anchor-link" aria-label="Lien vers ce bookmarklet">
@@ -133,6 +158,31 @@
                     </button>
                 </div>
                 <div class="last-updated">dernière mise à jour : 07 avril 2025</div>
+            </li>
+        
+            
+            <li id="iframes" data-last-updated="2026-02-17">
+                <div class="bookmarklet-container">
+                    <a href="#iframes" class="bookmarklet-anchor-link" aria-label="Lien vers ce bookmarklet">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                        </svg>
+                    </a>
+                    <span class="tooltip">Lien vers ce bookmarklet</span>
+                    <a href="javascript:(function checkIframes() { function getAllShadowRoots(root = document) { const shadowRoots = []; const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT); let node; while ((node = walker.nextNode())) { if (node.shadowRoot) { shadowRoots.push(node.shadowRoot); shadowRoots.push(...getAllShadowRoots(node.shadowRoot)); } } return shadowRoots; } function querySelectorAllInAllRoots(selector) { const allRoots = [document.body, ...getAllShadowRoots()]; const allElements = []; allRoots.forEach((root) => { const elements = Array.from(root.querySelectorAll(selector)); allElements.push(...elements); }); return allElements; } const iframes = querySelectorAllInAllRoots('iframe'); const numberOfIframes = iframes.length; if (numberOfIframes === 0) { alert('Pas d\'iframes sur la page.'); return; } let message = numberOfIframes + ' iframes sur la page'; if (numberOfIframes === 1) { message = numberOfIframes + ' iframe sur la page'; } alert(message + '.\nAppuyer sur OK pour voir les iframes mises en évidence.'); iframes.forEach((iframe) => { iframe.style.border = '2px solid red'; const label = document.createElement('span'); label.textContent = '<iframe>'; label.style.backgroundColor = 'yellow'; label.style.color = 'black'; label.style.padding = '2px 5px'; label.style.fontSize = '12px'; label.style.fontWeight = 'bold'; label.style.zIndex = '10000'; label.style.pointerEvents = 'none'; label.style.display = 'inline-block'; label.style.verticalAlign = 'middle'; label.style.marginRight = '4px'; iframe.parentNode.insertBefore(label, iframe); }); })();" class="bookmarklet-link">
+                        Iframes
+                    </a>
+                    <span class="tooltip">Cliquez-déposez le bookmarklet dans la barre des favoris</span>
+                    <button class="copy-button" onclick="copyBookmarklet(this)">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        <span class="tooltip">Copier le bookmarklet</span>
+                    </button>
+                </div>
+                <div class="last-updated">dernière mise à jour : 17 février 2026</div>
             </li>
         
             
@@ -210,6 +260,31 @@
                 <div class="last-updated">dernière mise à jour : 11 avril 2025</div>
             </li>
         
+            
+            <li id="tableaux" data-last-updated="2026-02-17">
+                <div class="bookmarklet-container">
+                    <a href="#tableaux" class="bookmarklet-anchor-link" aria-label="Lien vers ce bookmarklet">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                        </svg>
+                    </a>
+                    <span class="tooltip">Lien vers ce bookmarklet</span>
+                    <a href="javascript:(function () { function getAllShadowRoots(root) { if (!root) root = document; var shadowRoots = []; var walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT); var node; while ((node = walker.nextNode())) { if (node.shadowRoot) { shadowRoots.push(node.shadowRoot); shadowRoots.push.apply(shadowRoots, getAllShadowRoots(node.shadowRoot)); } } return shadowRoots; } function querySelectorAllInAllRoots(selector) { var allRoots = [document.body].concat(getAllShadowRoots()); var allElements = []; allRoots.forEach(function (root) { var elements = Array.prototype.slice.call(root.querySelectorAll(selector)); allElements.push.apply(allElements, elements); }); return allElements; } querySelectorAllInAllRoots('.table-structure-view').forEach(function (el) { el.remove(); }); querySelectorAllInAllRoots('table[data-structure-hidden]').forEach(function (table) { table.style.display = ''; table.removeAttribute('data-structure-hidden'); }); var tables = querySelectorAllInAllRoots('table'); if (!tables.length) { alert('Aucun tableau trouvé sur la page.'); return; } alert(tables.length + ' tableau(x) trouvé(s) sur la page.'); var labelStyle = 'background-color:yellow;color:black;font-weight:bold;font-size:small;padding:1px 3px;font-family:sans-serif;speak:literal-punctuation;'; function createLabel(text) { var strong = document.createElement('strong'); strong.style.cssText = labelStyle; strong.textContent = text; return strong; } function createLine(indent) { var div = document.createElement('div'); div.style.paddingLeft = (indent * 20) + 'px'; div.style.minHeight = '20px'; div.style.lineHeight = '20px'; return div; } function addCellsLine(container, row, indent) { var line = createLine(indent); var cells = row.querySelectorAll(':scope > th, :scope > td'); cells.forEach(function (cell, idx) { var cellTag = cell.tagName.toLowerCase(); if (idx > 0) line.appendChild(document.createTextNode(' ')); line.appendChild(createLabel('<' + cellTag + '>')); line.appendChild(document.createTextNode(cell.textContent)); line.appendChild(createLabel('</' + cellTag + '>')); }); container.appendChild(line); } function addRows(container, section, indent) { var rows = section.querySelectorAll(':scope > tr'); rows.forEach(function (row) { var line = createLine(indent); line.appendChild(createLabel('<tr>')); container.appendChild(line); addCellsLine(container, row, indent + 1); var closeTr = createLine(indent); closeTr.appendChild(createLabel('</tr>')); container.appendChild(closeTr); }); } tables.forEach(function (table) { var container = document.createElement('div'); container.className = 'table-structure-view'; container.style.cssText = 'outline:2px solid green;padding:8px;margin:10px 0;font-family:sans-serif;font-size:small;background:white;'; var line = createLine(0); line.appendChild(createLabel('<table>')); container.appendChild(line); var caption = table.querySelector(':scope > caption'); if (caption) { line = createLine(1); line.appendChild(createLabel('<caption>')); line.appendChild(document.createTextNode(caption.textContent)); line.appendChild(createLabel('</caption>')); container.appendChild(line); } var children = table.children; for (var i = 0; i < children.length; i++) { var child = children[i]; var tag = child.tagName.toLowerCase(); if (tag === 'caption' || tag === 'colgroup') continue; if (tag === 'thead' || tag === 'tbody' || tag === 'tfoot') { line = createLine(1); line.appendChild(createLabel('<' + tag + '>')); container.appendChild(line); addRows(container, child, 2); line = createLine(1); line.appendChild(createLabel('</' + tag + '>')); container.appendChild(line); } else if (tag === 'tr') { line = createLine(1); line.appendChild(createLabel('<tr>')); container.appendChild(line); addCellsLine(container, child, 2); line = createLine(1); line.appendChild(createLabel('</tr>')); container.appendChild(line); } } line = createLine(0); line.appendChild(createLabel('</table>')); container.appendChild(line); table.parentNode.insertBefore(container, table); table.style.display = 'none'; table.setAttribute('data-structure-hidden', ''); }); })();" class="bookmarklet-link">
+                        Tableaux
+                    </a>
+                    <span class="tooltip">Cliquez-déposez le bookmarklet dans la barre des favoris</span>
+                    <button class="copy-button" onclick="copyBookmarklet(this)">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        <span class="tooltip">Copier le bookmarklet</span>
+                    </button>
+                </div>
+                <div class="last-updated">dernière mise à jour : 17 février 2026</div>
+            </li>
+        
     </ul>
 </section>
 
@@ -244,8 +319,398 @@
             
                 
                     <li>
+                        <a href="https://numerik-ea.github.io/bookmarklets-pour-le-rgaa-4.1.2/pages-de-test/equipes-de-redaction-de-contenu/attributs-title.html">
+                            Attributs title
+                        </a>
+                    </li>
+                 
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+        </ul>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+    <li>
+        <ul>
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    <li>
                         <a href="https://numerik-ea.github.io/bookmarklets-pour-le-rgaa-4.1.2/pages-de-test/equipes-de-redaction-de-contenu/citations.html">
                             Citations
+                        </a>
+                    </li>
+                 
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+        </ul>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+    <li>
+        <ul>
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    <li>
+                        <a href="https://numerik-ea.github.io/bookmarklets-pour-le-rgaa-4.1.2/pages-de-test/equipes-de-redaction-de-contenu/iframes.html">
+                            Iframes
+                        </a>
+                    </li>
+                 
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+        </ul>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+    <li>
+        <ul>
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    <li>
+                        <a href="https://numerik-ea.github.io/bookmarklets-pour-le-rgaa-4.1.2/pages-de-test/equipes-de-redaction-de-contenu/tableaux.html">
+                            Tableaux
                         </a>
                     </li>
                  
