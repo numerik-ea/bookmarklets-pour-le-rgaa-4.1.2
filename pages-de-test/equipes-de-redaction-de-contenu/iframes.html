@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test - Iframes avec et sans Shadow DOM</title>
+    <link
+      rel="shortcut icon"
+      href="../../assets/images/favicon.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../../assets/css/styles.css" />
+  </head>
+
+  <body class="page-test">
+    <header role="banner">
+      <div class="container">
+        <a href="javascript:history.back()" class="back-link" id="back-link">
+          <span aria-hidden="true">← </span>Retour à la page précédente
+        </a>
+        <h1>Test - Iframes avec et sans Shadow DOM</h1>
+      </div>
+    </header>
+
+    <main role="main" class="container">
+      <section class="test-page-section">
+        <div class="test-info">
+          <h2>Informations sur le test</h2>
+          <p>
+            Cette page est utilisée pour tester les bookmarklets d'accessibilité
+            RGAA 4.1.2.
+          </p>
+          <p>Nom du fichier : iframes.html</p>
+          <p>
+            Description du test : Cette page contient des éléments
+            <code>&lt;iframe&gt;</code> dans le DOM principal et dans des Shadow
+            DOM pour tester la détection des iframes.
+          </p>
+        </div>
+
+        <div class="test-content">
+          <h2>Contenu du test</h2>
+
+          <p>Cette page contient :</p>
+
+          <ul>
+            <li>
+              Des <code>&lt;iframe&gt;</code> dans le DOM principal
+            </li>
+            <li>Des iframes cachées (<code>hidden</code>, <code>display: none</code>, <code>aria-hidden</code>)</li>
+            <li>Des iframes dans des Shadow DOM</li>
+            <li>Des iframes dans des Shadow DOM imbriqués</li>
+          </ul>
+
+          <h3>Iframes dans le DOM principal</h3>
+
+          <p>
+            <iframe src="about:blank" width="300" height="100"></iframe>
+          </p>
+
+          <p>
+            <iframe src="about:blank" width="300" height="100"></iframe>
+          </p>
+
+          <p>
+            <iframe src="about:blank" width="400" height="200"></iframe>
+          </p>
+
+          <h3>Iframes cachées</h3>
+
+          <h4>Iframe avec attribut hidden</h4>
+          <p>
+            <iframe src="about:blank" width="300" height="100" hidden></iframe>
+            (iframe avec attribut <code>hidden</code>, non visible)
+          </p>
+
+          <h4>Iframe avec display: none</h4>
+          <p>
+            <iframe
+              src="about:blank"
+              width="300"
+              height="100"
+              style="display: none;"
+            ></iframe>
+            (iframe avec <code>display: none</code>, non visible)
+          </p>
+
+          <h4>Iframe avec aria-hidden="true"</h4>
+          <p>
+            <iframe
+              src="about:blank"
+              width="300"
+              height="100"
+              aria-hidden="true"
+            ></iframe>
+          </p>
+
+          <h3>Composants avec Shadow DOM</h3>
+          <div id="shadow-component-1"></div>
+          <div id="shadow-component-2"></div>
+          <div id="shadow-component-nested"></div>
+        </div>
+      </section>
+    </main>
+    <footer role="contentinfo">
+      <div class="container">
+        <p>
+          © <span id="currentYear"></span> -
+          <a href="https://www.numerik-ea.fr">numerik-ea</a>
+          |
+          <a
+            href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2"
+          >
+            Contribuer à ce site
+          </a>
+        </p>
+      </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+    <script>
+      // Shadow DOM 1 : Une iframe
+      (function () {
+        const host = document.getElementById('shadow-component-1');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+        <style>
+          .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+          h4 { margin-top: 0; }
+        </style>
+        <div class="shadow-container">
+          <h4>Shadow DOM 1 - Une iframe</h4>
+          <iframe src="about:blank" width="300" height="100"></iframe>
+        </div>
+      `;
+      })();
+
+      // Shadow DOM 2 : Plusieurs iframes
+      (function () {
+        const host = document.getElementById('shadow-component-2');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+        <style>
+          .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+          h4 { margin-top: 0; }
+          .iframe-wrapper { margin: 10px 0; }
+        </style>
+        <div class="shadow-container">
+          <h4>Shadow DOM 2 - Plusieurs iframes</h4>
+          <div class="iframe-wrapper">
+            <iframe src="about:blank" width="300" height="80"></iframe>
+          </div>
+          <div class="iframe-wrapper">
+            <iframe src="about:blank" width="300" height="80"></iframe>
+          </div>
+        </div>
+      `;
+      })();
+
+      // Shadow DOM imbriqué
+      (function () {
+        const host = document.getElementById('shadow-component-nested');
+        const shadowRoot1 = host.attachShadow({ mode: 'open' });
+        shadowRoot1.innerHTML = `
+        <style>
+          .container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+          h4 { margin-top: 0; }
+        </style>
+        <div class="container">
+          <h4>Shadow DOM imbriqué (niveau 1)</h4>
+          <iframe src="about:blank" width="300" height="80"></iframe>
+          <div id="nested-shadow-host"></div>
+        </div>
+      `;
+
+        // Shadow DOM de niveau 2
+        const nestedHost = shadowRoot1.querySelector('#nested-shadow-host');
+        const shadowRoot2 = nestedHost.attachShadow({ mode: 'open' });
+        shadowRoot2.innerHTML = `
+        <style>
+          .nested-container { padding: 10px; margin: 10px 0; border: 1px solid #666; }
+          h5 { margin-top: 0; }
+        </style>
+        <div class="nested-container">
+          <h5>Shadow DOM imbriqué (niveau 2)</h5>
+          <iframe src="about:blank" width="300" height="80"></iframe>
+        </div>
+      `;
+      })();
+    </script>
+  </body>
+</html>
