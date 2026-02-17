@@ -16,6 +16,8 @@ equipes-de-redaction-de-contenu:
     last-updated: 2025-04-07
   - name: paragraphes-vides
     last-updated: 2025-04-11
+  - name: tableaux
+    last-updated: 2026-02-17
 
 professionnels-en-accessibilite-numerique:
   - name: 1.2-detecter-svg-sans-aria-hidden-true
