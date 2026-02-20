@@ -1,4 +1,13 @@
 (function getEmptyParagraphs() {
+    // Reset: remove labels and restore original content from previous runs
+    document.querySelectorAll('[data-empty-paragraph-label]').forEach(label => {
+        label.remove();
+    });
+    document.querySelectorAll('[data-empty-paragraph]').forEach(p => {
+        p.style.border = '';
+        p.style.position = '';
+    });
+
     // Select all <p> elements in the document
     const paragraphs = document.querySelectorAll('p');
     const emptyParagraphs = [];
@@ -50,10 +59,12 @@
     alert(message + '.');
 
     emptyParagraphs.forEach(p => {
+        p.setAttribute('data-empty-paragraph', '');
         p.style.border = '2px solid red';
-        
+
         // Create a label element to show text
         const label = document.createElement('div');
+        label.setAttribute('data-empty-paragraph-label', '');
         label.textContent = 'paragraphe vide';
         label.style.position = 'absolute';
         label.style.top = '0';
@@ -65,15 +76,13 @@
         label.style.fontWeight = 'bold';
         label.style.zIndex = '10000';
         label.style.pointerEvents = 'none';
-        
+
         // Make sure the element has position relative for absolute positioning to work
         const computedStyle = window.getComputedStyle(p);
         if (computedStyle.position === 'static') {
             p.style.position = 'relative';
         }
-        
+
         p.appendChild(label);
     });
 })();
-
-
