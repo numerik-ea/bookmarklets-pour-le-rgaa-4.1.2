@@ -49,12 +49,7 @@
     const label = document.createElement('span');
     const tagName = element.tagName.toLowerCase();
     const titleValue = element.getAttribute('title') || '';
-    const maxLength = 40;
-    const displayTitle =
-      titleValue.length > maxLength
-        ? titleValue.substring(0, maxLength) + '...'
-        : titleValue;
-    label.textContent = '<' + tagName + '> title=\x22' + displayTitle + '\x22';
+    label.textContent = '<' + tagName + '> title=\x22' + titleValue + '\x22';
     label.style.backgroundColor = 'yellow';
     label.style.color = 'black';
     label.style.padding = '2px 5px';
