@@ -48,6 +48,8 @@ professionnels-en-accessibilite-numerique:
     last-updated: 2026-01-13
   - name: 8.9-texte-dans-balise-non-semantique
     last-updated: 2026-01-22
+  - name: 8.9-texte-dans-balise-non-semantique-(sans-display-none)
+    last-updated: 2026-03-06
   - name: 8.9-texte-dans-balise-non-semantique-sans-label
     last-updated: 2026-01-22
   - name: 9.2-test-presence-header-nav-main-footer
