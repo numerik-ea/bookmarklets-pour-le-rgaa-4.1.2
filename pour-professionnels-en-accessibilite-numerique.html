@@ -674,6 +674,38 @@
 
             
 
+            <li id="8.9-texte-dans-balise-non-semantique-(sans-display-none)" data-last-updated="2026-03-06">
+                <div class="bookmarklet-container">
+                    <a href="#8.9-texte-dans-balise-non-semantique-(sans-display-none)" class="bookmarklet-anchor-link" aria-label="Lien avec ancre vers le bookmarklet 8.9 - Texte dans balise non sémantique (sans display none)">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                        </svg>
+                    </a>
+                    <span class="tooltip">Lien avec ancre vers ce bookmarklet</span>
+                    <a href="javascript:(function showTextInNonSemanticTags() { function getAllShadowRoots(root = document) { const shadowRoots = []; const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT); let node; while ((node = walker.nextNode())) { if (node.shadowRoot) { shadowRoots.push(node.shadowRoot); shadowRoots.push(...getAllShadowRoots(node.shadowRoot)); } } return shadowRoots; } const allRoots = [document.body, ...getAllShadowRoots()]; const shadowRootCount = allRoots.length - 1; const textNodes = []; allRoots.forEach((root) => { const walker = document.createTreeWalker( root, NodeFilter.SHOW_TEXT, null, false ); let node; while ((node = walker.nextNode())) { textNodes.push(node); } }); const textNodesInNonSemanticTags = []; const semanticTags = [ 'P', 'LI', 'A', 'BUTTON', 'LABEL', 'OPTION', 'TEXTAREA', 'INPUT', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'FIGCAPTION', 'LEGEND', 'CAPTION', 'TD', 'TH', 'DT', 'DD', 'BLOCKQUOTE', 'Q', 'TIME', ]; const semanticRoles = { heading: ['1', '2', '3', '4', '5', '6'], }; const tagsToIgnore = [ 'SCRIPT', 'STYLE', 'META', 'LINK', 'NOSCRIPT', 'COMMENT', ]; function hasParentWithDisplayNone(element) { let current = element; let root = element.getRootNode(); while (current && current !== document.body && current !== document.documentElement) { if (window.getComputedStyle(current).display === 'none') { return true; } const nextParent = current.parentElement; if (!nextParent && root instanceof ShadowRoot) { const host = root.host; if (host) { current = host; root = host.getRootNode(); continue; } break; } current = nextParent; } return false; } function isNonSemanticTextNode(textNode) { if (textNode.textContent.trim() === '') return false; let parent = textNode.parentElement; let root = textNode.getRootNode(); while (parent) { if (semanticTags.includes(parent.tagName)) return false; if ( parent.tagName === 'SUMMARY' && parent.parentElement && parent.parentElement.tagName === 'DETAILS' ) return false; const role = parent.getAttribute && parent.getAttribute('role'); if (role === 'heading' && semanticRoles.heading.includes(parent.getAttribute('aria-level'))) return false; if (role === 'button') return false; if (tagsToIgnore.includes(parent.tagName)) return false; const nextParent = parent.parentElement; if (!nextParent && root instanceof ShadowRoot) { const host = root.host; if (host) { parent = host; root = host.getRootNode(); continue; } break; } parent = nextParent; } return !hasParentWithDisplayNone(textNode.parentElement); } textNodes.forEach((textNode) => { if (isNonSemanticTextNode(textNode)) { textNodesInNonSemanticTags.push(textNode); } }); const counttextNodesInNonSemanticTags = textNodesInNonSemanticTags.length; if (counttextNodesInNonSemanticTags === 0) { alert('Pas de texte dans des balises non sémantiques sans display: none.'); return; } const elementsInDocument = textNodesInNonSemanticTags.filter( (n) => !(n.getRootNode() instanceof ShadowRoot) ); const elementsInShadow = textNodesInNonSemanticTags.filter( (n) => n.getRootNode() instanceof ShadowRoot ); let message = counttextNodesInNonSemanticTags + ' textes dans des balises non sémantiques sans display: none'; if (counttextNodesInNonSemanticTags === 1) { message = message.replace( 'textes dans des balises non sémantiques', 'texte dans une balise non sémantique' ); } const locationParts = []; if (elementsInDocument.length > 0) { locationParts.push(`${elementsInDocument.length} dans le document`); } if (elementsInShadow.length > 0) { locationParts.push(`${elementsInShadow.length} dans shadow DOM`); } if (locationParts.length > 0) { message += ` (${locationParts.join(', ')})`; } if (shadowRootCount > 0) { message += `\n${shadowRootCount} shadow root(s) analysé(s).`; } alert(message + '.\nPlus de détails dans la console.'); console.clear(); console.log(message + ' :'); allRoots.forEach((root, index) => { const rootName = index === 0 ? 'Document principal' : `Shadow root ${index}`; const rootNodes = textNodesInNonSemanticTags.filter((n) => index === 0 ? !(n.getRootNode() instanceof ShadowRoot) : n.getRootNode() === root ); if (rootNodes.length > 0) { console.log(`\n${rootName}:`); rootNodes.forEach((textNode) => console.log(textNode)); } }); textNodesInNonSemanticTags.forEach((textNode) => { const parentElement = textNode.parentElement; if (!parentElement) return; parentElement.style.border = '2px solid red'; parentElement.style.paddingTop = '26px'; parentElement.style.display = 'block'; const label = document.createElement('div'); label.textContent = 'texte non sémantique'; label.style.position = 'absolute'; label.style.top = '0'; label.style.left = '0'; label.style.backgroundColor = 'yellow'; label.style.color = 'black'; label.style.padding = '2px 5px'; label.style.fontSize = '12px'; label.style.fontWeight = 'bold'; label.style.zIndex = '10000'; label.style.pointerEvents = 'none'; if (window.getComputedStyle(parentElement).position === 'static') { parentElement.style.position = 'relative'; } parentElement.appendChild(label); }); })();" class="bookmarklet-link">
+                        <span>8.9 - Texte dans balise non sémantique (sans display none)</span>
+                    </a>
+                    <span class="tooltip">Cliquez-déposez le bookmarklet dans la barre des favoris</span>
+                    <button class="copy-button" onclick="copyBookmarklet(this)">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        <span class="tooltip">Copier le bookmarklet</span>
+                    </button>
+                </div>
+                <p class="last-updated">dernière mise à jour : 06 mars 2026</p>
+            </li>
+        
+            
+
+            
+
+            
+
+            
+
             <li id="8.9-texte-dans-balise-non-semantique-sans-label" data-last-updated="2026-01-22">
                 <div class="bookmarklet-container">
                     <a href="#8.9-texte-dans-balise-non-semantique-sans-label" class="bookmarklet-anchor-link" aria-label="Lien avec ancre vers le bookmarklet 8.9 - Texte dans balise non sémantique sans label">
