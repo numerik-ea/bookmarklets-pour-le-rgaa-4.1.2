@@ -26,8 +26,8 @@ professionnels-en-accessibilite-numerique:
     last-updated: 2026-01-13
   - name: 1.X-lister-toutes-les-images-ayant-un-alt
     last-updated: 2026-01-13
-  - name: 1.X-verifier-images-non-contenues-dans-un-lien
-    last-updated: 2026-01-13
+  - name: 1.X-verifier-images-non-contenues-dans-un-lien-ou-bouton
+    last-updated: 2026-05-20
   - name: 2.X-check-iframes-et-frames
     last-updated: 2026-01-13
   - name: 5.X-test-presence-tableaux

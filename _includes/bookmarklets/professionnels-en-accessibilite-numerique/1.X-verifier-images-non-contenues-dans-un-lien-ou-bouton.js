@@ -1,18 +1,38 @@
 (function () {
-  function isLink(node) {
+  function isLinkOrButton(node) {
+    if (node.nodeType !== Node.ELEMENT_NODE) {
+      return false;
+    }
+
+    if (node.tagName === 'A' && node.hasAttribute('href')) {
+      return true;
+    }
+
+    if (node.tagName === 'BUTTON') {
+      return true;
+    }
+
     if (
-      node.nodeType === Node.ELEMENT_NODE &&
-      ((node.tagName === 'A' && node.hasAttribute('href')) ||
-        (node.hasAttribute('role') &&
-          node.getAttribute('role').toLowerCase() === 'link'))
+      node.tagName === 'INPUT' &&
+      node.hasAttribute('type') &&
+      ['button', 'submit', 'reset', 'image'].includes(
+        node.getAttribute('type').toLowerCase()
+      )
     ) {
       return true;
+    }
+
+    if (node.hasAttribute('role')) {
+      const role = node.getAttribute('role').toLowerCase();
+      if (role === 'link' || role === 'button') {
+        return true;
+      }
     }
 
     return false;
   }
 
-  function hasParentLink(element) {
+  function hasParentLinkOrButton(element) {
     let current = element;
 
     while (current) {
@@ -23,7 +43,7 @@
       if (!parent && root instanceof ShadowRoot) {
         const host = root.host;
         if (host) {
-          if (isLink(host)) {
+          if (isLinkOrButton(host)) {
             return true;
           }
           // Continue checking from the host element
@@ -37,7 +57,7 @@
         break;
       }
 
-      if (isLink(parent)) {
+      if (isLinkOrButton(parent)) {
         return true;
       }
 
@@ -69,7 +89,7 @@
     return shadowRoots;
   }
 
-  function getImagesNotInALink(parentElement) {
+  function getImagesNotInALinkOrButton(parentElement) {
     const imageSelectors = [
       `img`,
       `[role='img']`,
@@ -78,15 +98,15 @@
     ].join(',');
 
     const images = parentElement.querySelectorAll(imageSelectors);
-    const imagesNotInALink = [];
+    const imagesNotInALinkOrButton = [];
 
     // Process images from regular DOM
     images.forEach((image) => {
-      if (hasParentLink(image)) {
+      if (hasParentLinkOrButton(image)) {
         return;
       }
 
-      imagesNotInALink.push(image);
+      imagesNotInALinkOrButton.push(image);
     });
 
     // Process images from Shadow DOM
@@ -94,28 +114,28 @@
     shadowRoots.forEach((shadowRoot) => {
       const shadowImages = shadowRoot.querySelectorAll(imageSelectors);
       shadowImages.forEach((image) => {
-        if (hasParentLink(image)) {
+        if (hasParentLinkOrButton(image)) {
           return;
         }
 
-        imagesNotInALink.push(image);
+        imagesNotInALinkOrButton.push(image);
       });
     });
 
-    return imagesNotInALink;
+    return imagesNotInALinkOrButton;
   }
 
-  const imagesNotInALink = getImagesNotInALink(document.body);
-  const numberOfImagesNotInALink = imagesNotInALink.length;
+  const imagesNotInALinkOrButton = getImagesNotInALinkOrButton(document.body);
+  const numberOfImagesNotInALinkOrButton = imagesNotInALinkOrButton.length;
 
-  if (numberOfImagesNotInALink === 0) {
-    alert('Aucune image non contenue dans un lien.');
+  if (numberOfImagesNotInALinkOrButton === 0) {
+    alert('Aucune image non contenue dans un lien ou bouton.');
     return;
   }
 
-  let message = numberOfImagesNotInALink + ' images non contenues dans un lien';
+  let message = numberOfImagesNotInALinkOrButton + ' images non contenues dans un lien ou bouton';
 
-  if (numberOfImagesNotInALink === 1) {
+  if (numberOfImagesNotInALinkOrButton === 1) {
     message = message.replace('images', 'image');
   }
 
@@ -123,12 +143,12 @@
   console.clear();
   console.log(message + ' :');
 
-  imagesNotInALink.forEach((image) => {
+  imagesNotInALinkOrButton.forEach((image) => {
     image.style.border = '2px solid red';
 
     // Create a label element
     const label = document.createElement('div');
-    label.textContent = 'image non contenue dans un lien';
+    label.textContent = 'image non contenue dans un lien ou bouton';
     label.style.position = 'absolute';
     label.style.top = '0';
     label.style.left = '0';
