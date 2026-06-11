@@ -1,93 +1,71 @@
 (function () {
-  // Function to recursively get all shadow roots
-  function getAllShadowRoots(root = document) {
-    const shadowRoots = [];
-    const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT);
-    let node;
-    while ((node = walker.nextNode())) {
-      if (node.shadowRoot) {
-        shadowRoots.push(node.shadowRoot);
-        // Recursively get shadow roots within shadow roots
-        shadowRoots.push(...getAllShadowRoots(node.shadowRoot));
-      }
-    }
-    return shadowRoots;
+  const STYLE_ID = 'bookmarklet-detecter-pseudo-elements';
+
+  // Un second clic retire les bordures.
+  const existant = document.getElementById(STYLE_ID);
+  if (existant) {
+    existant.remove();
+    return;
   }
 
-  // Function to query selector all across all roots
-  function querySelectorAllInAllRoots(selector) {
-    const allRoots = [document, ...getAllShadowRoots()];
-    const allElements = [];
-    allRoots.forEach((root) => {
-      const elements = Array.from(root.querySelectorAll(selector));
-      allElements.push(...elements);
-    });
-    return allElements;
-  }
+  // Seuls les pseudo-éléments réellement générés affichent une bordure :
+  // les déclarations non rendues (éléments remplacés, masqués…) restent
+  // invisibles, donc aucun faux positif.
+  const style = document.createElement('style');
+  style.id = STYLE_ID;
+  style.textContent =
+    '*::before,\n*::after {\n  border: 3px purple dashed !important;\n}';
+  document.head.appendChild(style);
 
-  // Un pseudo-élément n'est généré que si sa propriété content a une valeur
-  // autre que none ou normal.
+  // Un pseudo-élément n'est généré que si content vaut autre chose que none
+  // ou normal.
   function hasGeneratedContent(value) {
     return value && value !== 'none' && value !== 'normal';
   }
 
-  // Le contenu est considéré vide quand il s'agit d'une chaîne de caractères
-  // vide ("" ou '').
-  function isEmptyContent(value) {
-    return value === '""' || value === "''";
+  // Éléments remplacés (img, input…) et de métadonnées (script, style…) qui ne
+  // génèrent jamais de pseudo-élément, même si une règle CSS le déclare.
+  const TAGS_SANS_PSEUDO = new Set([
+    'IMG', 'INPUT', 'TEXTAREA', 'SELECT', 'BR', 'HR', 'EMBED', 'OBJECT',
+    'IFRAME', 'VIDEO', 'AUDIO', 'CANVAS', 'PROGRESS', 'METER', 'AREA',
+    'SOURCE', 'TRACK', 'WBR', 'SCRIPT', 'STYLE', 'META', 'LINK', 'HEAD',
+    'TITLE', 'BASE', 'NOSCRIPT', 'TEMPLATE',
+  ]);
+
+  // On ne liste que les éléments réellement bordés par la règle ci-dessus :
+  // mêmes conditions de génération que le rendu CSS.
+  function peutGenererUnPseudoElement(el) {
+    if (TAGS_SANS_PSEUDO.has(el.tagName)) return false;
+    if (el.namespaceURI !== 'http://www.w3.org/1999/xhtml') return false;
+    if (el.getClientRects().length === 0) return false;
+    return true;
   }
 
-  function findPseudoElements() {
-    const allElements = querySelectorAllInAllRoots('*');
-    const results = [];
+  // La règle est injectée dans le document : on se limite à ce périmètre
+  // (le shadow DOM n'est pas affecté par ce <style>).
+  const resultats = [];
+  document.querySelectorAll('*').forEach((el) => {
+    if (!peutGenererUnPseudoElement(el)) return;
 
-    allElements.forEach((el) => {
-      ['::before', '::after'].forEach((pseudo) => {
-        const content = window
-          .getComputedStyle(el, pseudo)
-          .getPropertyValue('content');
+    ['::before', '::after'].forEach((pseudo) => {
+      const computed = window.getComputedStyle(el, pseudo);
+      if (computed.getPropertyValue('display') === 'none') return;
 
-        if (hasGeneratedContent(content)) {
-          results.push({
-            element: el,
-            pseudo: pseudo,
-            content: content,
-            empty: isEmptyContent(content),
-          });
-        }
-      });
+      const content = computed.getPropertyValue('content');
+      if (hasGeneratedContent(content)) {
+        resultats.push({ element: el, pseudo: pseudo, content: content });
+      }
     });
+  });
 
-    return results;
-  }
-
-  const results = findPseudoElements();
-
-  if (results.length === 0) {
-    alert('Aucun pseudo-élément ::before ou ::after avec une propriété content.');
-    return;
-  }
-
-  const emptyCount = results.filter((r) => r.empty).length;
-  const filledCount = results.length - emptyCount;
-
-  let message = `${results.length} pseudo-élément(s) ::before / ::after avec une propriété content`;
-  message += `\n- ${filledCount} avec un contenu rempli (bleu)`;
-  message += `\n- ${emptyCount} avec un contenu vide (orange)`;
-
-  alert(message + '.\nPlus de détails dans la console.');
   console.clear();
-  console.log(message + ' :');
-
-  results.forEach((result) => {
-    const { element, pseudo, content, empty } = result;
-
-    element.style.outline = empty ? '2px dashed #B45309' : '2px solid blue';
-    element.style.outlineOffset = '2px';
-
+  console.log(
+    `${resultats.length} pseudo-élément(s) ::before / ::after généré(s) et bordé(s) :`
+  );
+  resultats.forEach(({ element, pseudo, content }) => {
     console.log(
-      `%c${pseudo}%c content: ${content} ${empty ? '(vide)' : '(rempli)'}`,
-      `font-weight: bold; color: ${empty ? '#B45309' : 'blue'};`,
+      `%c${pseudo}%c content: ${content}`,
+      'font-weight: bold; color: purple;',
       'font-weight: normal;',
       element
     );
