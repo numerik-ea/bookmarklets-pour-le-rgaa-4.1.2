@@ -83,5 +83,5 @@ professionnels-en-accessibilite-numerique:
   - name: document.activeElement-(pour-firefox)
     last-updated: 2025-04-18
   - name: detecter-pseudo-elements-before-after
-    title: "Détecter pseudo éléments before after content"
+    title: "Détecter pseudo éléments before after"
     last-updated: 2026-06-11
