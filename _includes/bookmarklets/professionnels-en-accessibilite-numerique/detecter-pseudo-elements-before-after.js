@@ -14,7 +14,7 @@
   const style = document.createElement('style');
   style.id = STYLE_ID;
   style.textContent =
-    '*::before,\n*::after {\n  border: 3px purple dashed !important;\n}';
+    '*::before,\n*::after {\n  border: 2px red solid !important;\n}';
   document.head.appendChild(style);
 
   // Un pseudo-élément n'est généré que si content vaut autre chose que none
@@ -66,7 +66,7 @@
   resultats.forEach(({ element, pseudo, content }) => {
     console.log(
       `%c${pseudo}%c content: ${content}`,
-      'font-weight: bold; color: purple;',
+      'font-weight: bold; color: red;',
       'font-weight: normal;',
       element
     );
