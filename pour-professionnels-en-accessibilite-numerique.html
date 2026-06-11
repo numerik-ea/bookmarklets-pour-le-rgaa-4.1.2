@@ -305,9 +305,13 @@ layout: bookmarklets
         replace: "visibilite", "visibilité" |
         capitalize %}
 
+        {% if bookmarklet.title %}
+        {% assign bookmarklet_criteria_number_and_name = bookmarklet.title %}
+        {% else %}
         {% assign bookmarklet_criteria_number_and_name =
         bookmarklet_criteria_number | append: " - " | append: bookmarklet_name
         %}
+        {% endif %}
 
         <li id="{{ bookmarklet.name }}"
             data-last-updated="{{ bookmarklet.last-updated }}">
