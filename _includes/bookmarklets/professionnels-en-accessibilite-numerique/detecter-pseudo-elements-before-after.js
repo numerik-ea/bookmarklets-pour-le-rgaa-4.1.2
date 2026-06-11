@@ -58,10 +58,11 @@
     });
   });
 
+  const message = `${resultats.length} pseudo-élément(s) ::before / ::after généré(s) et bordé(s)`;
+  alert(message + '.\nPlus de détails dans la console.');
+
   console.clear();
-  console.log(
-    `${resultats.length} pseudo-élément(s) ::before / ::after généré(s) et bordé(s) :`
-  );
+  console.log(message + ' :');
   resultats.forEach(({ element, pseudo, content }) => {
     console.log(
       `%c${pseudo}%c content: ${content}`,
