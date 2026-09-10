@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test 10.5 - Vérifier déclarations CSS de couleurs de fond d'élément et de police</title>
+    <link rel="shortcut icon" href="../../assets/images/favicon.png" type="image/x-icon" />
+    <style>
+        /*
+         * Cette page n'utilise volontairement PAS la feuille de styles commune
+         * du site, et ni html ni body ne déclarent de couleur de fond ou de
+         * police. C'est indispensable : dès que body déclare la paire
+         * background-color + color, plus aucun échec 10.5.1 ou 10.5.3 n'est
+         * reproductible, puisque tout descendant hérite alors d'un fond.
+         * Le cas inverse est traité dans 10.5-test-body-avec-couleurs.html.
+         */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0 auto;
+            max-width: 60rem;
+            padding: 1rem 1.25rem 4rem;
+        }
+
+        /* Déclare la paire complète : n'apparaît dans aucun résultat */
+        code {
+            background-color: #f0f0f0;
+            color: #222222;
+            padding: 0 0.2em;
+        }
+
+        .cas {
+            border: 1px solid;
+            padding: 0.75rem 1rem;
+            margin: 1rem 0;
+        }
+
+        .cas-titre {
+            font-weight: bold;
+            margin: 0 0 0.5rem;
+        }
+
+        /* --- Cas 10.5.1 --- */
+
+        /* Échec : color déclarée, aucun background-color sur l'élément ni sur ses ancêtres */
+        .ko-1051 {
+            color: #767676;
+        }
+
+        /* Conforme : la paire est déclarée sur le même élément */
+        .ok-1051-meme-element {
+            color: #767676;
+            background-color: #ffffff;
+        }
+
+        /* Conforme : le fond est hérité d'un parent */
+        .ok-1051-parent {
+            background-color: #eeeeee;
+        }
+
+        .ok-1051-enfant {
+            color: #444444;
+        }
+
+        /* --- Cas 10.5.2 --- */
+
+        /* Échec : background-color déclaré, color laissée à la valeur par défaut */
+        .ko-1052 {
+            background-color: #ffdddd;
+        }
+
+        /* Conforme : la paire est déclarée sur le même élément */
+        .ok-1052-meme-element {
+            background-color: #ddffdd;
+            color: #003300;
+        }
+
+        /* Conforme : la couleur de police est héritée d'un parent */
+        .ok-1052-parent {
+            color: #202020;
+        }
+
+        .ok-1052-enfant {
+            background-color: #ffeecc;
+        }
+
+        /* --- Cas 10.5.3 --- */
+
+        /* Échec : image de fond, aucun background-color sur l'élément ni sur ses ancêtres */
+        .ko-1053 {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Crect width='40' height='40' fill='%23fdd835'/%3E%3C/svg%3E");
+        }
+
+        /* Conforme : image de fond accompagnée d'un background-color et d'une color */
+        .ok-1053 {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Crect width='40' height='40' fill='%23fdd835'/%3E%3C/svg%3E");
+            background-color: #fff8e1;
+            color: #5d4037;
+        }
+
+        /* --- Cas exclus de l'analyse --- */
+
+        .non-rendu-display {
+            display: none;
+        }
+
+        .non-rendu-visibility {
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+    <header role="banner">
+        <a href="javascript:history.back()" id="back-link">Retour à la page précédente</a>
+        <h1>Test 10.5 - Vérifier déclarations CSS de couleurs de fond d'élément et de police</h1>
+    </header>
+
+    <main role="main">
+        <section>
+            <h2>Informations sur le test</h2>
+            <p>Cette page est utilisée pour tester le bookmarklet 10.5 du RGAA 4.1.2.</p>
+            <p>Nom du fichier : 10.5-test.html</p>
+            <p>Ni <code>html</code> ni <code>body</code> ne déclarent de couleur de fond ou de police, ce qui permet de reproduire les trois types d'échec.</p>
+
+            <h3>Résultat attendu</h3>
+            <ul>
+                <li>1 élément en échec sur le test 10.5.1</li>
+                <li>1 élément en échec sur le test 10.5.2</li>
+                <li>1 élément en échec sur le test 10.5.3</li>
+            </ul>
+
+            <h3>Pièges qui ne doivent PAS être signalés</h3>
+            <ul>
+                <li>les fonds et couleurs par défaut du navigateur : <code>mark</code>, <code>button</code>, couleur de lien</li>
+                <li>un élément qui hérite de la couleur de lien par défaut sans qu'aucune déclaration ne l'ait posée</li>
+                <li>les éléments non rendus : <code>display:none</code> et <code>visibility:hidden</code></li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Test 10.5.1 - couleur de police sans couleur de fond</h2>
+
+            <div class="cas">
+                <p class="cas-titre">Échec attendu</p>
+                <p class="ko-1051">Ce paragraphe déclare une couleur de police et aucun de ses ancêtres ne déclare de couleur de fond.</p>
+            </div>
+
+            <div class="cas">
+                <p class="cas-titre">Conforme - paire déclarée sur le même élément</p>
+                <p class="ok-1051-meme-element">Ce paragraphe déclare une couleur de police et une couleur de fond.</p>
+            </div>
+
+            <div class="cas">
+                <p class="cas-titre">Conforme - couleur de fond héritée d'un parent</p>
+                <div class="ok-1051-parent">
+                    <p class="ok-1051-enfant">Ce paragraphe déclare une couleur de police et hérite d'une couleur de fond déclarée sur son parent.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Test 10.5.2 - couleur de fond sans couleur de police</h2>
+
+            <div class="cas">
+                <p class="cas-titre">Échec attendu</p>
+                <p class="ko-1052">Ce paragraphe déclare une couleur de fond et laisse la couleur de police à la valeur par défaut du navigateur.</p>
+            </div>
+
+            <div class="cas">
+                <p class="cas-titre">Conforme - paire déclarée sur le même élément</p>
+                <p class="ok-1052-meme-element">Ce paragraphe déclare une couleur de fond et une couleur de police.</p>
+            </div>
+
+            <div class="cas">
+                <p class="cas-titre">Conforme - couleur de police héritée d'un parent</p>
+                <div class="ok-1052-parent">
+                    <p class="ok-1052-enfant">Ce paragraphe déclare une couleur de fond et hérite d'une couleur de police déclarée sur son parent.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Test 10.5.3 - image de fond sans couleur de fond</h2>
+
+            <div class="cas">
+                <p class="cas-titre">Échec attendu</p>
+                <p class="ko-1053">Ce paragraphe déclare une image de fond et aucun de ses ancêtres ne déclare de couleur de fond.</p>
+            </div>
+
+            <div class="cas">
+                <p class="cas-titre">Conforme - image de fond accompagnée d'une couleur de fond</p>
+                <p class="ok-1053">Ce paragraphe déclare une image de fond, une couleur de fond et une couleur de police.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Pièges - aucun de ces éléments ne doit être signalé</h2>
+
+            <div class="cas">
+                <p class="cas-titre">Couleurs par défaut du navigateur</p>
+                <div>
+                    <mark>Texte surligné sans aucune déclaration d'auteur : le fond jaune vient du navigateur.</mark>
+                </div>
+                <div>
+                    <button type="button">Bouton sans aucune déclaration d'auteur</button>
+                </div>
+            </div>
+
+            <div class="cas">
+                <p class="cas-titre">Couleur de lien par défaut, y compris héritée</p>
+                <div>
+                    <a href="#back-link">Lien sans déclaration d'auteur <span>avec un span qui hérite du bleu par défaut</span></a>
+                </div>
+            </div>
+
+            <div class="cas">
+                <p class="cas-titre">Éléments non rendus</p>
+                <p class="ko-1051 non-rendu-display">Échec 10.5.1 masqué par display:none, ne doit pas être compté.</p>
+                <p class="ko-1052 non-rendu-visibility">Échec 10.5.2 masqué par visibility:hidden, ne doit pas être compté.</p>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

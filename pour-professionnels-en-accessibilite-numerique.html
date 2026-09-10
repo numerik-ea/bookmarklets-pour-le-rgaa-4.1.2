@@ -13,6 +13,32 @@ layout: bookmarklets
             <summary>Voir l'historique des modifications</summary>
             <div class="changelog">
                 <div class="changelog-entry">
+                    <h3>Version 2026.9.10 - 10 septembre 2026</h3>
+                    <ul>
+                        <li>Refonte du bookmarklet "10.5 - Vérifier
+                            déclarations CSS de couleurs de fond d'élément et de
+                            police" : il n'impose plus des couleurs à la balise
+                            &lt;html&gt;, méthode inopérante dès que
+                            &lt;body&gt; déclare son propre
+                            <code>background-color</code>, et applique désormais
+                            les méthodologies des tests 10.5.1, 10.5.2 et 10.5.3
+                            élément par élément, en tenant compte des
+                            déclarations héritées d'un parent</li>
+                        <li>10.5 - Les éléments en échec reçoivent la
+                            déclaration qui leur manque (fond bleu pour 10.5.1,
+                            police jaune pour 10.5.2, image de fond retirée pour
+                            10.5.3) et un contour de repérage ; la page n'est
+                            pas modifiée en l'absence d'échec</li>
+                        <li>10.5 - Les couleurs par défaut du navigateur
+                            (liens, &lt;mark&gt;, &lt;button&gt;...) ne sont plus
+                            confondues avec des déclarations d'auteur, et les
+                            éléments non rendus sont exclus de l'analyse</li>
+                        <li>Ajout des pages de test "10.5-test.html",
+                            "10.5-test-body-avec-couleurs.html" et
+                            "10.5-test-shadow-dom.html"</li>
+                    </ul>
+                </div>
+                <div class="changelog-entry">
                     <h3>Version 2026.8.5 - 5 août 2026</h3>
                     <ul>
                         <li>ATTENTION : L'utilisation des bookmarklets est à la

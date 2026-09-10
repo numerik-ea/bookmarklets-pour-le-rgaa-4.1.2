@@ -1,660 +1,467 @@
 (function () {
-  // Convert RGB/RGBA values to color names if possible
-  function getColorName(colorValue) {
-    if (!colorValue || colorValue === `transparent`) {
-      return colorValue;
-    }
+  // Couleurs de test appliquées aux éléments en échec
+  const TEST_BACKGROUND_COLOR = `blue`;
+  const TEST_TEXT_COLOR = `yellow`;
 
-    // If it's already a named color, return it
-    const namedColors = [
-      `black`,
-      `white`,
-      `red`,
-      `green`,
-      `blue`,
-      `yellow`,
-      `orange`,
-      `purple`,
-      `pink`,
-      `brown`,
-      `gray`,
-      `grey`,
-      `cyan`,
-      `magenta`,
-      `lime`,
-      `navy`,
-      `olive`,
-      `maroon`,
-      `teal`,
-      `aqua`,
-      `silver`,
-      `gold`,
-      `indigo`,
-      `violet`,
-      `coral`,
-      `salmon`,
-      `turquoise`,
-      `khaki`,
-      `plum`,
-      `orchid`,
-      `tan`,
-      `beige`,
-      `ivory`,
-      `lavender`,
-      `crimson`,
-      `azure`,
-      `bisque`,
-      `chocolate`,
-      `coral`,
-      `darkblue`,
-      `darkcyan`,
-      `darkgray`,
-      `darkgreen`,
-      `darkgrey`,
-      `darkkhaki`,
-      `darkmagenta`,
-      `darkolivegreen`,
-      `darkorange`,
-      `darkorchid`,
-      `darkred`,
-      `darksalmon`,
-      `darkseagreen`,
-      `darkslateblue`,
-      `darkslategray`,
-      `darkslategrey`,
-      `darkturquoise`,
-      `darkviolet`,
-      `deeppink`,
-      `deepskyblue`,
-      `dimgray`,
-      `dimgrey`,
-      `dodgerblue`,
-      `firebrick`,
-      `floralwhite`,
-      `forestgreen`,
-      `fuchsia`,
-      `gainsboro`,
-      `ghostwhite`,
-      `goldenrod`,
-      `greenyellow`,
-      `honeydew`,
-      `hotpink`,
-      `indianred`,
-      `lightblue`,
-      `lightcoral`,
-      `lightcyan`,
-      `lightgoldenrodyellow`,
-      `lightgray`,
-      `lightgreen`,
-      `lightgrey`,
-      `lightpink`,
-      `lightsalmon`,
-      `lightseagreen`,
-      `lightskyblue`,
-      `lightslategray`,
-      `lightslategrey`,
-      `lightsteelblue`,
-      `lightyellow`,
-      `limegreen`,
-      `linen`,
-      `mediumaquamarine`,
-      `mediumblue`,
-      `mediumorchid`,
-      `mediumpurple`,
-      `mediumseagreen`,
-      `mediumslateblue`,
-      `mediumspringgreen`,
-      `mediumturquoise`,
-      `mediumvioletred`,
-      `midnightblue`,
-      `mintcream`,
-      `mistyrose`,
-      `moccasin`,
-      `oldlace`,
-      `palegoldenrod`,
-      `palegreen`,
-      `paleturquoise`,
-      `palevioletred`,
-      `papayawhip`,
-      `peachpuff`,
-      `peru`,
-      `powderblue`,
-      `rosybrown`,
-      `royalblue`,
-      `saddlebrown`,
-      `sandybrown`,
-      `seagreen`,
-      `seashell`,
-      `sienna`,
-      `skyblue`,
-      `slateblue`,
-      `slategray`,
-      `slategrey`,
-      `snow`,
-      `springgreen`,
-      `steelblue`,
-      `thistle`,
-      `tomato`,
-      `wheat`,
-      `whitesmoke`,
-      `yellowgreen`,
-    ];
+  // Contours de repérage, une couleur par test
+  const OUTLINE_10_5_1 = `3px dashed red`;
+  const OUTLINE_10_5_2 = `3px dashed blue`;
+  const OUTLINE_10_5_3 = `3px dashed magenta`;
 
-    const lowerColor = colorValue.toLowerCase().trim();
-    if (namedColors.includes(lowerColor)) {
-      return lowerColor;
-    }
+  const HTML_NAMESPACE = document.documentElement.namespaceURI;
+  const EXCLUDED_TAGS = [
+    `SCRIPT`,
+    `STYLE`,
+    `NOSCRIPT`,
+    `TEMPLATE`,
+    `TITLE`,
+    `HEAD`,
+    `META`,
+    `LINK`,
+    `BASE`,
+  ];
 
-    // Try to convert RGB/RGBA to color name
-    try {
-      // Create a temporary element to parse the color
-      const tempDiv = document.createElement(`div`);
-      tempDiv.style.color = colorValue;
-      const computedColor = window.getComputedStyle(tempDiv).color;
-
-      // Parse RGB values - try direct match first if input is already RGB
-      let rgbMatch = colorValue.match(
-        /rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*[\d.]+)?\)/
-      );
-
-      // If not found, try from computed style
-      if (!rgbMatch) {
-        rgbMatch = computedColor.match(
-          /rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*[\d.]+)?\)/
-        );
+  // Récupère récursivement tous les shadow roots
+  function getAllShadowRoots(root = document) {
+    const shadowRoots = [];
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT);
+    let node;
+    while ((node = walker.nextNode())) {
+      if (node.shadowRoot) {
+        shadowRoots.push(node.shadowRoot);
+        shadowRoots.push(...getAllShadowRoots(node.shadowRoot));
       }
-
-      if (rgbMatch) {
-        const r = parseInt(rgbMatch[1]);
-        const g = parseInt(rgbMatch[2]);
-        const b = parseInt(rgbMatch[3]);
-
-        // Match against common color names
-        const colorMap = {
-          'rgb(0, 0, 0)': 'black',
-          'rgb(255, 255, 255)': 'white',
-          'rgb(255, 0, 0)': 'red',
-          'rgb(0, 255, 0)': 'lime',
-          'rgb(0, 0, 255)': 'blue',
-          'rgb(255, 255, 0)': 'yellow',
-          'rgb(255, 165, 0)': 'orange',
-          'rgb(128, 0, 128)': 'purple',
-          'rgb(255, 192, 203)': 'pink',
-          'rgb(165, 42, 42)': 'brown',
-          'rgb(128, 128, 128)': 'gray',
-          'rgb(0, 255, 255)': 'cyan',
-          'rgb(255, 0, 255)': 'magenta',
-          'rgb(0, 128, 0)': 'green',
-          'rgb(0, 0, 128)': 'navy',
-          'rgb(128, 128, 0)': 'olive',
-          'rgb(128, 0, 0)': 'maroon',
-          'rgb(0, 128, 128)': 'teal',
-        };
-
-        // Normalize the RGB key with consistent spacing
-        const rgbKey = `rgb(${r}, ${g}, ${b})`;
-        if (colorMap[rgbKey]) {
-          return colorMap[rgbKey];
-        }
-
-        // Try approximate matching for common colors
-        const tolerance = 10;
-        for (const [key, name] of Object.entries(colorMap)) {
-          const keyMatch = key.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
-          if (keyMatch) {
-            const keyR = parseInt(keyMatch[1]);
-            const keyG = parseInt(keyMatch[2]);
-            const keyB = parseInt(keyMatch[3]);
-            if (
-              Math.abs(r - keyR) <= tolerance &&
-              Math.abs(g - keyG) <= tolerance &&
-              Math.abs(b - keyB) <= tolerance
-            ) {
-              return name;
-            }
-          }
-        }
-      }
-    } catch (e) {
-      // If conversion fails, return original value
     }
-
-    return colorValue;
+    return shadowRoots;
   }
 
-  // Check if CSS rules with !important exist for html element
-  function hasImportantRule(property) {
-    const htmlElement = document.documentElement;
-    const stylesheets = Array.from(document.styleSheets);
-
-    for (let stylesheet of stylesheets) {
-      try {
-        const rules = Array.from(stylesheet.cssRules || []);
-        for (let rule of rules) {
-          // Check if rule targets html element
-          if (
-            rule.selectorText &&
-            (rule.selectorText.toLowerCase() === `html` ||
-              rule.selectorText.toLowerCase() === `:root` ||
-              htmlElement.matches(rule.selectorText))
-          ) {
-            const style = rule.style;
-            if (style && style.getPropertyValue(property)) {
-              // Check if the property has !important
-              const priority = style.getPropertyPriority(property);
-              if (priority === `important`) {
-                return true;
-              }
-            }
-          }
-        }
-      } catch (e) {
-        // Skip stylesheets that can't be accessed (CORS)
-        continue;
-      }
-    }
-    return false;
+  function querySelectorAllInAllRoots(selector) {
+    const allRoots = [document, ...getAllShadowRoots()];
+    const allElements = [];
+    allRoots.forEach((root) => {
+      allElements.push(...Array.from(root.querySelectorAll(selector)));
+    });
+    return allElements;
   }
 
-  function addColorsToHtml() {
-    const htmlElement = document.documentElement;
-
-    // Check if colors are already defined (inline styles or CSS)
-    const computedStyle = window.getComputedStyle(htmlElement);
-
-    // Check for !important rules
-    const hasImportantBackgroundColor = hasImportantRule(`background-color`);
-    const hasImportantColor = hasImportantRule(`color`);
-
-    // Check inline styles first
-    const inlineBg = htmlElement.style.backgroundColor;
-    const inlineColor = htmlElement.style.color;
-    const hasInlineBackgroundColor = inlineBg && inlineBg.trim() !== ``;
-    const hasInlineTextColor = inlineColor && inlineColor.trim() !== ``;
-
-    // Determine existing colors
-    let existingBackgroundColor = null;
-    let existingTextColor = null;
-    let hasImportantBg = false;
-    let hasImportantText = false;
-
-    if (hasInlineBackgroundColor) {
-      existingBackgroundColor = inlineBg;
-      // Check if inline style is being overridden by !important
-      const computedBg = computedStyle.backgroundColor;
-      if (hasImportantBackgroundColor && computedBg !== inlineBg) {
-        hasImportantBg = true;
-        // If overridden, use the computed value instead
-        existingBackgroundColor = computedBg;
-      }
-    } else {
-      const computedBg = computedStyle.backgroundColor;
-      // Check if it's not transparent (default for html)
-      if (
-        computedBg &&
-        computedBg !== `transparent` &&
-        computedBg !== `rgba(0, 0, 0, 0)`
-      ) {
-        existingBackgroundColor = computedBg;
-        hasImportantBg = hasImportantBackgroundColor;
-      }
+  // Remonte au parent en traversant les frontières de shadow DOM
+  function getParentElement(element) {
+    const parent = element.parentNode;
+    if (!parent) {
+      return null;
     }
-
-    if (hasInlineTextColor) {
-      existingTextColor = inlineColor;
-      // Check if inline style is being overridden by !important
-      const computedColor = computedStyle.color;
-      if (hasImportantColor && computedColor !== inlineColor) {
-        hasImportantText = true;
-        // If overridden, use the computed value instead
-        existingTextColor = computedColor;
-      }
-    } else {
-      // Check computed style from CSS (not inline)
-      const computedColor = computedStyle.color;
-      // Check if it's not black (common default)
-      if (
-        computedColor &&
-        computedColor !== `rgb(0, 0, 0)` &&
-        computedColor !== `rgba(0, 0, 0, 1)` &&
-        computedColor !== `#000000` &&
-        computedColor !== `black`
-      ) {
-        existingTextColor = computedColor;
-        hasImportantText = hasImportantColor;
-      }
+    if (parent.nodeType === Node.ELEMENT_NODE) {
+      return parent;
     }
-
-    // Determine which colors can be added (only those not already defined)
-    const canAddBackground = !existingBackgroundColor;
-    const canAddText = !existingTextColor;
-
-    // If both colors are already defined, skip
-    if (!canAddBackground && !canAddText) {
-      return {
-        htmlElement,
-        backgroundColor: existingBackgroundColor || `non définie`,
-        textColor: existingTextColor || `non définie`,
-        skipped: true,
-        hasImportantBg: hasImportantBg,
-        hasImportantText: hasImportantText,
-      };
+    if (parent.nodeType === Node.DOCUMENT_FRAGMENT_NODE && parent.host) {
+      return parent.host;
     }
+    return null;
+  }
 
-    let backgroundColor = null;
-    let textColor = null;
-    let addBackground = false;
-    let addText = false;
+  // Un élément est susceptible de contenir du texte s'il a au moins
+  // un noeud texte enfant direct non vide
+  function hasDirectText(element) {
+    return Array.from(element.childNodes).some(
+      (node) =>
+        node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== ``
+    );
+  }
 
-    if (canAddBackground && canAddText) {
-      // Both can be added - prompt both directly
-      const bgPrompt = prompt(
-        `Entrez la couleur de fond de la balise <html> :\n(ex : #f0f8ff, lightblue, rgb(240,248,255))`,
-        `blue`
-      );
-      if (bgPrompt === null) {
-        // User cancelled
-        return {
-          htmlElement,
-          backgroundColor: null,
-          textColor: null,
-          skipped: true,
-          cancelled: true,
-        };
+  // Les éléments non rendus sont exclus de l'analyse
+  function isRendered(element) {
+    if (typeof element.checkVisibility === `function`) {
+      return element.checkVisibility({
+        visibilityProperty: true,
+        checkVisibilityCSS: true,
+      });
+    }
+    // La valeur calculée de visibility est héritée : tester l'élément suffit
+    const style = window.getComputedStyle(element);
+    if (style.visibility === `hidden` || style.visibility === `collapse`) {
+      return false;
+    }
+    // display n'est pas hérité : remonter la chaîne des ancêtres
+    let node = element;
+    while (node) {
+      if (window.getComputedStyle(node).display === `none`) {
+        return false;
       }
-      addBackground = true;
-      backgroundColor = bgPrompt || `blue`;
-
-      const textPrompt = prompt(
-        `Entrez la couleur de police de la balise <html> :\n(ex : #2c3e50, darkblue, rgb(44,62,80))`,
-        `yellow`
-      );
-      if (textPrompt === null) {
-        // User cancelled
-        return {
-          htmlElement,
-          backgroundColor: null,
-          textColor: null,
-          skipped: true,
-          cancelled: true,
-        };
-      }
-      addText = true;
-      textColor = textPrompt || `yellow`;
-    } else if (canAddBackground) {
-      // Only background can be added - show message about text color
-      const textColorName = getColorName(existingTextColor);
-      const bgPrompt = prompt(
-        `La couleur de police de la balise <html> est déjà définie :\n${textColorName}\n\nEntrez la couleur de fond de la balise <html> :\n(ex : #f0f8ff, lightblue, rgb(240,248,255))`,
-        `blue`
-      );
-      if (bgPrompt === null) {
-        // User cancelled
-        return {
-          htmlElement,
-          backgroundColor: null,
-          textColor: null,
-          skipped: true,
-          cancelled: true,
-        };
-      }
-      addBackground = true;
-      backgroundColor = bgPrompt || `blue`;
-    } else if (canAddText) {
-      // Only text can be added - show message about background color
-      const bgColorName = getColorName(existingBackgroundColor);
-      const textPrompt = prompt(
-        `La couleur de fond de la balise <html> est déjà définie :\n${bgColorName}\n\nEntrez la couleur de police de la balise <html> :\n(ex : #2c3e50, darkblue, rgb(44,62,80))`,
-        `yellow`
-      );
-      if (textPrompt === null) {
-        // User cancelled
-        return {
-          htmlElement,
-          backgroundColor: null,
-          textColor: null,
-          skipped: true,
-          cancelled: true,
-        };
-      }
-      addText = true;
-      textColor = textPrompt || `yellow`;
+      node = getParentElement(node);
     }
+    return true;
+  }
 
-    // If user cancelled or invalid choice, exit
-    if (!addBackground && !addText) {
-      return {
-        htmlElement,
-        backgroundColor: null,
-        textColor: null,
-        skipped: true,
-        cancelled: true,
-      };
+  // Décompose une valeur calculée de couleur en composantes rgba
+  function parseColor(value) {
+    if (!value) {
+      return null;
     }
-
-    // Check for !important rules before applying (re-check in case styles changed)
-    const hasImportantBgCheck = hasImportantRule(`background-color`);
-    const hasImportantTextCheck = hasImportantRule(`color`);
-
-    // Apply colors to HTML element
-    if (addBackground) {
-      htmlElement.style.backgroundColor = backgroundColor;
+    const normalized = value.trim().toLowerCase();
+    if (normalized === `transparent`) {
+      return { r: 0, g: 0, b: 0, a: 0 };
     }
-    if (addText) {
-      htmlElement.style.color = textColor;
+    const match = normalized.match(/^rgba?\(([^)]+)\)$/);
+    if (!match) {
+      return null;
     }
-
-    // Verify if styles were actually applied (might be overridden by !important)
-    const computedStyleAfter = window.getComputedStyle(htmlElement);
-    const appliedBg = addBackground ? computedStyleAfter.backgroundColor : null;
-    const appliedColor = addText ? computedStyleAfter.color : null;
-    const bgWasOverridden =
-      addBackground && hasImportantBgCheck && appliedBg !== backgroundColor;
-    const colorWasOverridden =
-      addText && hasImportantTextCheck && appliedColor !== textColor;
-
+    const parts = match[1]
+      .split(/[,\s\/]+/)
+      .filter((part) => part !== ``)
+      .map((part) => parseFloat(part));
+    if (parts.length < 3) {
+      return null;
+    }
     return {
-      htmlElement,
-      backgroundColor: addBackground
-        ? backgroundColor
-        : existingBackgroundColor || null,
-      textColor: addText ? textColor : existingTextColor || null,
-      skipped: false,
-      hasImportantBg: hasImportantBgCheck,
-      hasImportantText: hasImportantTextCheck,
-      bgWasOverridden: bgWasOverridden,
-      colorWasOverridden: colorWasOverridden,
-      appliedBg: appliedBg,
-      appliedColor: appliedColor,
-      addBackground: addBackground,
-      addText: addText,
-      existingBackgroundColor: existingBackgroundColor,
-      existingTextColor: existingTextColor,
+      r: parts[0],
+      g: parts[1],
+      b: parts[2],
+      a: parts.length > 3 ? parts[3] : 1,
     };
   }
 
-  // Apply colors to HTML element
-  const result = addColorsToHtml();
-  const {
-    htmlElement,
-    backgroundColor,
-    textColor,
-    skipped,
-    hasImportantBg,
-    hasImportantText,
-    bgWasOverridden,
-    colorWasOverridden,
-    appliedBg,
-    appliedColor,
-    cancelled,
-    addBackground,
-    addText,
-    existingBackgroundColor,
-    existingTextColor,
-  } = result;
+  function getAlpha(value) {
+    const color = parseColor(value);
+    return color === null ? 1 : color.a;
+  }
 
-  if (cancelled) {
-    // User cancelled the operation
+  function isSameColor(firstValue, secondValue) {
+    const first = parseColor(firstValue);
+    const second = parseColor(secondValue);
+    if (first === null || second === null) {
+      return firstValue === secondValue;
+    }
+    return (
+      first.r === second.r &&
+      first.g === second.g &&
+      first.b === second.b &&
+      first.a === second.a
+    );
+  }
+
+  // Les couleurs par défaut du navigateur sont lues dans une iframe vierge,
+  // afin de ne pas coder en dur des valeurs propres à un navigateur.
+  // Certaines balises ont une couleur de police et/ou de fond par défaut
+  // qui ne constitue pas une déclaration CSS d'auteur : mark, button, input...
+  function createDefaultColorResolver() {
+    const cache = {};
+    let iframe = null;
+    let probeDocument = null;
+
+    try {
+      iframe = document.createElement(`iframe`);
+      iframe.setAttribute(`aria-hidden`, `true`);
+      iframe.setAttribute(`tabindex`, `-1`);
+      iframe.style.cssText = `position:absolute;top:0;left:0;width:0;height:0;border:0;visibility:hidden;`;
+      (document.body || document.documentElement).appendChild(iframe);
+      probeDocument = iframe.contentDocument;
+      if (probeDocument && probeDocument.documentElement) {
+        // Reproduire le color-scheme de la page pour obtenir les bonnes valeurs par défaut
+        const colorScheme = window.getComputedStyle(
+          document.documentElement
+        ).colorScheme;
+        if (colorScheme) {
+          probeDocument.documentElement.style.colorScheme = colorScheme;
+        }
+      }
+    } catch (error) {
+      probeDocument = null;
+    }
+
+    function fallbackDefaults(isLink) {
+      return {
+        color: isLink ? `rgb(0, 0, 238)` : `rgb(0, 0, 0)`,
+        backgroundColor: `rgba(0, 0, 0, 0)`,
+      };
+    }
+
+    function get(element) {
+      const tagName = element.tagName.toLowerCase();
+      const isLink = tagName === `a` && element.hasAttribute(`href`);
+      const type = element.getAttribute(`type`);
+      let key = tagName;
+      if (isLink) {
+        key = `a[href]`;
+      } else if (type) {
+        key = tagName + `[type=` + type.toLowerCase() + `]`;
+      }
+      if (Object.prototype.hasOwnProperty.call(cache, key)) {
+        return cache[key];
+      }
+
+      let defaults = fallbackDefaults(isLink);
+      if (probeDocument && probeDocument.body) {
+        try {
+          const probe = probeDocument.createElement(tagName);
+          if (isLink) {
+            probe.setAttribute(`href`, `#`);
+          }
+          if (type) {
+            probe.setAttribute(`type`, type);
+          }
+          probe.appendChild(probeDocument.createTextNode(`a`));
+          probeDocument.body.appendChild(probe);
+          const probeStyle = iframe.contentWindow.getComputedStyle(probe);
+          defaults = {
+            color: probeStyle.color,
+            backgroundColor: probeStyle.backgroundColor,
+          };
+          probeDocument.body.removeChild(probe);
+        } catch (error) {
+          defaults = fallbackDefaults(isLink);
+        }
+      }
+      cache[key] = defaults;
+      return defaults;
+    }
+
+    function destroy() {
+      if (iframe && iframe.parentNode) {
+        iframe.parentNode.removeChild(iframe);
+      }
+    }
+
+    return { get: get, destroy: destroy };
+  }
+
+  const defaultColors = createDefaultColorResolver();
+
+  // La couleur de police vient-elle d'une déclaration d'auteur, sur l'élément
+  // lui-même ou héritée d'un parent ?
+  // color étant une propriété héritée, comparer la valeur calculée à la valeur
+  // par défaut de la balise ne suffit pas : un span placé dans un lien hérite
+  // du bleu par défaut du navigateur sans qu'aucune déclaration ne l'ait posé.
+  // On remonte donc la chaîne pour trouver l'élément qui a réellement changé la
+  // couleur, et on vérifie que ce changement n'est pas celui du navigateur.
+  const authorTextColorCache = new WeakMap();
+
+  function hasDeclaredTextColor(element) {
+    const chain = [];
+    let node = element;
+    let inheritedResult = null;
+
+    while (node) {
+      if (authorTextColorCache.has(node)) {
+        inheritedResult = authorTextColorCache.get(node);
+        break;
+      }
+      chain.push(node);
+      node = getParentElement(node);
+    }
+
+    for (let index = chain.length - 1; index >= 0; index--) {
+      const current = chain[index];
+      const computedColor = window.getComputedStyle(current).color;
+      const parent = getParentElement(current);
+      let result;
+
+      if (!parent) {
+        result = !isSameColor(computedColor, defaultColors.get(current).color);
+      } else if (
+        isSameColor(computedColor, window.getComputedStyle(parent).color)
+      ) {
+        // Valeur héritée telle quelle : l'origine est celle du parent
+        result = inheritedResult === null ? false : inheritedResult;
+      } else {
+        // L'élément change la couleur : déclaration d'auteur, sauf si la valeur
+        // est exactement celle que le navigateur applique à cette balise
+        result = !isSameColor(computedColor, defaultColors.get(current).color);
+      }
+
+      authorTextColorCache.set(current, result);
+      inheritedResult = result;
+    }
+
+    return inheritedResult === null ? false : inheritedResult;
+  }
+
+  // La couleur de fond est-elle déclarée, hors couleur de fond par défaut du navigateur ?
+  function hasDeclaredBackgroundColor(element) {
+    const computedBackgroundColor =
+      window.getComputedStyle(element).backgroundColor;
+    if (getAlpha(computedBackgroundColor) === 0) {
+      return false;
+    }
+    return !isSameColor(
+      computedBackgroundColor,
+      defaultColors.get(element).backgroundColor
+    );
+  }
+
+  // Une couleur de fond opaque est-elle présente sur l'élément ou un de ses ancêtres ?
+  function findBackgroundColorSource(element) {
+    let node = element;
+    while (node) {
+      if (getAlpha(window.getComputedStyle(node).backgroundColor) > 0) {
+        return node;
+      }
+      node = getParentElement(node);
+    }
+    return null;
+  }
+
+  function hasBackgroundImage(element) {
+    const backgroundImage = window.getComputedStyle(element).backgroundImage;
+    return Boolean(backgroundImage) && backgroundImage.includes(`url(`);
+  }
+
+  // Phase 1 : analyse, sans aucune modification de la page
+  const analysedElements = querySelectorAllInAllRoots(`*`).filter(
+    (element) =>
+      element.namespaceURI === HTML_NAMESPACE &&
+      !EXCLUDED_TAGS.includes(element.tagName) &&
+      hasDirectText(element) &&
+      isRendered(element)
+  );
+
+  const failures1051 = [];
+  const failures1052 = [];
+  const failures1053 = [];
+
+  analysedElements.forEach((element) => {
+    const style = window.getComputedStyle(element);
+    const declaredTextColor = hasDeclaredTextColor(element);
+    const declaredBackgroundColor = hasDeclaredBackgroundColor(element);
+    const backgroundColorSource = findBackgroundColorSource(element);
+
+    // 10.5.1 : couleur de police déclarée sans couleur de fond, même héritée d'un parent
+    if (declaredTextColor && backgroundColorSource === null) {
+      failures1051.push({
+        element: element,
+        details:
+          `color : ` +
+          style.color +
+          ` / aucun background-color sur l'élément ni sur ses ancêtres`,
+      });
+    }
+
+    // 10.5.2 : couleur de fond déclarée sans couleur de police
+    if (declaredBackgroundColor && !declaredTextColor) {
+      failures1052.push({
+        element: element,
+        details:
+          `background-color : ` +
+          style.backgroundColor +
+          ` / color à la valeur par défaut du navigateur (` +
+          style.color +
+          `)`,
+      });
+    }
+
+    // 10.5.3 : image de fond sans couleur de fond, même héritée d'un parent
+    if (hasBackgroundImage(element) && backgroundColorSource === null) {
+      failures1053.push({
+        element: element,
+        details:
+          `background-image : ` +
+          style.backgroundImage +
+          ` / aucun background-color sur l'élément ni sur ses ancêtres`,
+      });
+    }
+  });
+
+  defaultColors.destroy();
+
+  function countMessage(count, testLabel) {
+    if (count === 0) {
+      return `Aucun élément en échec sur le test ` + testLabel;
+    }
+    if (count === 1) {
+      return `1 élément en échec sur le test ` + testLabel;
+    }
+    return count + ` éléments en échec sur le test ` + testLabel;
+  }
+
+  const analysedMessage =
+    analysedElements.length +
+    (analysedElements.length === 1
+      ? ` élément susceptible de contenir du texte analysé`
+      : ` éléments susceptibles de contenir du texte analysés`) +
+    ` (les éléments non rendus, display:none et visibility:hidden, sont exclus)`;
+
+  const total = failures1051.length + failures1052.length + failures1053.length;
+
+  console.clear();
+
+  if (total === 0) {
+    const message = `Aucun élément en échec sur les tests 10.5.1, 10.5.2 et 10.5.3.`;
+    console.log(message);
+    console.log(analysedMessage + `.`);
+    alert(message + `\n\n` + analysedMessage + `.`);
     return;
   }
 
-  if (skipped) {
-    const hasBg = backgroundColor && backgroundColor !== `non définie`;
-    const hasText = textColor && textColor !== `non définie`;
-    let message = ``;
-    if (hasBg && hasText) {
-      message = `Les couleurs sont déjà définies sur la balise HTML`;
-    } else if (hasBg) {
-      message = `La couleur de fond est déjà définie sur la balise HTML`;
-    } else if (hasText) {
-      message = `La couleur de police est déjà définie sur la balise HTML`;
-    }
-    let importantWarning = ``;
-    if (hasImportantBg || hasImportantText) {
-      importantWarning = `\n⚠️ Attention : Des règles CSS avec !important sont présentes`;
-      if (hasImportantBg) {
-        importantWarning += `\n  - background-color avec !important`;
-      }
-      if (hasImportantText) {
-        importantWarning += `\n  - color avec !important`;
-      }
-    }
-    let alertMessage = message + `.`;
-    if (hasBg) {
-      const bgName = getColorName(backgroundColor);
-      alertMessage += `\nCouleur de fond : ` + bgName;
-    }
-    if (hasText) {
-      const textName = getColorName(textColor);
-      alertMessage += `\nCouleur de police : ` + textName;
-    }
-    alert(
-      alertMessage + importantWarning + `\nPlus de détails dans la console.`
+  // Phase 2 : application des couleurs de test sur les éléments en échec
+  failures1051.forEach((failure) => {
+    failure.element.style.setProperty(
+      `background-color`,
+      TEST_BACKGROUND_COLOR,
+      `important`
     );
-    console.clear();
-    console.log(message + ` :`);
-    console.log(`Élément HTML :`, htmlElement);
-    if (hasBg) {
-      const bgName = getColorName(backgroundColor);
-      console.log(`Couleur de fond existante : ` + bgName);
-    }
-    if (hasText) {
-      const textName = getColorName(textColor);
-      console.log(`Couleur de police existante : ` + textName);
-    }
-    if (hasImportantBg || hasImportantText) {
-      console.warn(`⚠️ Règles CSS avec !important détectées :`);
-      if (hasImportantBg) {
-        console.warn(`  - background-color avec !important`);
-      }
-      if (hasImportantText) {
-        console.warn(`  - color avec !important`);
-      }
-    }
-  } else {
-    // Build message based on what was added
-    let message = ``;
-    if (addBackground && addText) {
-      message = `Couleurs de fond et de police ajoutées à la balise HTML`;
-    } else if (addBackground) {
-      message = `Couleur de fond ajoutée à la balise HTML`;
-    } else if (addText) {
-      message = `Couleur de police ajoutée à la balise HTML`;
-    }
+    failure.element.style.setProperty(`outline`, OUTLINE_10_5_1, `important`);
+    failure.element.style.setProperty(`outline-offset`, `2px`, `important`);
+  });
 
-    let importantWarning = ``;
-    if (bgWasOverridden || colorWasOverridden) {
-      importantWarning = `\n⚠️ Attention : Les styles n'ont pas pu être appliqués à cause de règles CSS avec !important`;
-      if (bgWasOverridden) {
-        const appliedBgName = getColorName(appliedBg);
-        const bgName = getColorName(backgroundColor);
-        importantWarning +=
-          `\n  - background-color : ` +
-          appliedBgName +
-          ` (au lieu de ` +
-          bgName +
-          `)`;
-      }
-      if (colorWasOverridden) {
-        const appliedColorName = getColorName(appliedColor);
-        const textName = getColorName(textColor);
-        importantWarning +=
-          `\n  - color : ` +
-          appliedColorName +
-          ` (au lieu de ` +
-          textName +
-          `)`;
-      }
-    } else if (hasImportantBg || hasImportantText) {
-      importantWarning = `\n⚠️ Des règles CSS avec !important sont présentes mais n'ont pas empêché l'application`;
-    }
+  failures1052.forEach((failure) => {
+    failure.element.style.setProperty(`color`, TEST_TEXT_COLOR, `important`);
+    failure.element.style.setProperty(`outline`, OUTLINE_10_5_2, `important`);
+    failure.element.style.setProperty(`outline-offset`, `2px`, `important`);
+  });
 
-    // Build alert message
-    let alertMessage = message + `.`;
-    if (existingBackgroundColor) {
-      const bgName = getColorName(existingBackgroundColor);
-      alertMessage += `\nCouleur de fond existante : ` + bgName;
-    }
-    if (addBackground) {
-      const bgName = getColorName(backgroundColor);
-      alertMessage += `\nCouleur de fond ajoutée : ` + bgName;
-    }
-    if (existingTextColor) {
-      const textName = getColorName(existingTextColor);
-      alertMessage += `\nCouleur de police existante : ` + textName;
-    }
-    if (addText) {
-      const textName = getColorName(textColor);
-      alertMessage += `\nCouleur de police ajoutée : ` + textName;
-    }
-    alertMessage += importantWarning + `\nPlus de détails dans la console.`;
+  failures1053.forEach((failure) => {
+    failure.element.style.setProperty(`background-image`, `none`, `important`);
+    failure.element.style.setProperty(`outline`, OUTLINE_10_5_3, `important`);
+    failure.element.style.setProperty(`outline-offset`, `2px`, `important`);
+  });
 
-    alert(alertMessage);
-    console.clear();
-    console.log(message + ` :`);
-    console.log(`Élément HTML modifié :`, htmlElement);
-    if (existingBackgroundColor) {
-      const bgName = getColorName(existingBackgroundColor);
-      console.log(`Couleur de fond existante : ` + bgName);
+  function logFailures(failures, testLabel, reason) {
+    if (failures.length === 0) {
+      console.log(countMessage(failures.length, testLabel) + `.`);
+      return;
     }
-    if (addBackground) {
-      const bgName = getColorName(backgroundColor);
-      console.log(`Couleur de fond appliquée : ` + bgName);
-    }
-    if (existingTextColor) {
-      const textName = getColorName(existingTextColor);
-      console.log(`Couleur de police existante : ` + textName);
-    }
-    if (addText) {
-      const textName = getColorName(textColor);
-      console.log(`Couleur de police appliquée : ` + textName);
-    }
-    if (bgWasOverridden || colorWasOverridden) {
-      console.warn(
-        `⚠️ Les styles n'ont pas pu être appliqués à cause de règles CSS avec !important :`
-      );
-      if (bgWasOverridden) {
-        const appliedBgName = getColorName(appliedBg);
-        const bgName = getColorName(backgroundColor);
-        console.warn(
-          `  - background-color : ` +
-            appliedBgName +
-            ` (au lieu de ` +
-            bgName +
-            `)`
-        );
-      }
-      if (colorWasOverridden) {
-        const appliedColorName = getColorName(appliedColor);
-        const textName = getColorName(textColor);
-        console.warn(
-          `  - color : ` + appliedColorName + ` (au lieu de ` + textName + `)`
-        );
-      }
-    } else if (hasImportantBg || hasImportantText) {
-      console.warn(
-        `⚠️ Des règles CSS avec !important sont présentes mais n'ont pas empêché l'application`
-      );
-    }
+    console.log(
+      countMessage(failures.length, testLabel) + ` (` + reason + `) :`
+    );
+    failures.forEach((failure) => {
+      console.log(failure.element, failure.details);
+    });
   }
+
+  logFailures(
+    failures1051,
+    `10.5.1`,
+    `couleur de police déclarée sans couleur de fond`
+  );
+  logFailures(
+    failures1052,
+    `10.5.2`,
+    `couleur de fond déclarée sans couleur de police`
+  );
+  logFailures(failures1053, `10.5.3`, `image de fond sans couleur de fond`);
+  console.log(analysedMessage + `.`);
+
+  let legend = ``;
+  if (failures1051.length > 0) {
+    legend +=
+      `\n - 10.5.1 : contour rouge, fond forcé en ` + TEST_BACKGROUND_COLOR;
+  }
+  if (failures1052.length > 0) {
+    legend += `\n - 10.5.2 : contour bleu, police forcée en ` + TEST_TEXT_COLOR;
+  }
+  if (failures1053.length > 0) {
+    legend += `\n - 10.5.3 : contour magenta, image de fond retirée`;
+  }
+
+  alert(
+    countMessage(failures1051.length, `10.5.1`) +
+      `.\n` +
+      countMessage(failures1052.length, `10.5.2`) +
+      `.\n` +
+      countMessage(failures1053.length, `10.5.3`) +
+      `.\n\nLes éléments en échec sont modifiés :` +
+      legend +
+      `\n\n` +
+      analysedMessage +
+      `.\n\nPlus de détails dans la console.`
+  );
 })();

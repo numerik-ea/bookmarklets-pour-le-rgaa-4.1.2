@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test 10.5 - body déclarant la paire couleur de fond et couleur de police</title>
+    <link rel="shortcut icon" href="../../assets/images/favicon.png" type="image/x-icon" />
+    <style>
+        /*
+         * Cette page reproduit la situation rencontrée sur la très grande
+         * majorité des sites, dont www.monetico.com : body déclare à la fois
+         * background-color et color, et html/body sont en height:100%.
+         *
+         * Conséquence attendue : les mêmes classes que dans 10.5-test.html
+         * deviennent toutes conformes, puisque les specs des tests 10.5.1,
+         * 10.5.2 et 10.5.3 acceptent une déclaration « au moins, héritée d'un
+         * parent ». Le bookmarklet doit donc ne signaler aucun échec et ne
+         * modifier aucune couleur de la page.
+         */
+        html,
+        body,
+        main {
+            height: 100%;
+        }
+
+        body {
+            background: #ffffff;
+            color: #262628;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0 auto;
+            max-width: 60rem;
+            padding: 1rem 1.25rem 4rem;
+        }
+
+        code {
+            background-color: #f0f0f0;
+            color: #222222;
+            padding: 0 0.2em;
+        }
+
+        .cas {
+            border: 1px solid;
+            padding: 0.75rem 1rem;
+            margin: 1rem 0;
+        }
+
+        .cas-titre {
+            font-weight: bold;
+            margin: 0 0 0.5rem;
+        }
+
+        /* Conforme ici : le fond est hérité de body */
+        .ko-1051 {
+            color: #767676;
+        }
+
+        /* Conforme ici : la couleur de police est héritée de body */
+        .ko-1052 {
+            background-color: #ffdddd;
+        }
+
+        /* Conforme ici : le background-color est hérité de body */
+        .ko-1053 {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Crect width='40' height='40' fill='%23fdd835'/%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body>
+    <header role="banner">
+        <a href="javascript:history.back()" id="back-link">Retour à la page précédente</a>
+        <h1>Test 10.5 - body déclarant la paire couleur de fond et couleur de police</h1>
+    </header>
+
+    <main role="main">
+        <section>
+            <h2>Informations sur le test</h2>
+            <p>Cette page est utilisée pour tester le bookmarklet 10.5 du RGAA 4.1.2.</p>
+            <p>Nom du fichier : 10.5-test-body-avec-couleurs.html</p>
+            <p><code>body</code> déclare <code>background: #ffffff</code> et <code>color: #262628</code>, et <code>html</code>, <code>body</code> et <code>main</code> sont en <code>height: 100%</code>, comme sur www.monetico.com.</p>
+
+            <h3>Résultat attendu</h3>
+            <ul>
+                <li>Aucun élément en échec sur le test 10.5.1</li>
+                <li>Aucun élément en échec sur le test 10.5.2</li>
+                <li>Aucun élément en échec sur le test 10.5.3</li>
+                <li>Aucune couleur de la page modifiée par le bookmarklet</li>
+            </ul>
+
+            <p>Les trois classes ci-dessous sont exactement celles qui échouent dans <code>10.5-test.html</code>. Elles deviennent conformes ici parce que les trois tests acceptent une déclaration « au moins, héritée d'un parent », et que <code>body</code> fournit cette déclaration à toute la page.</p>
+        </section>
+
+        <section>
+            <h2>Cas repris de 10.5-test.html</h2>
+
+            <div class="cas">
+                <p class="cas-titre">Couleur de police déclarée, fond hérité de body</p>
+                <p class="ko-1051">Ce paragraphe déclare une couleur de police. Le test 10.5.1 est validé grâce au background-color de body.</p>
+            </div>
+
+            <div class="cas">
+                <p class="cas-titre">Couleur de fond déclarée, couleur de police héritée de body</p>
+                <p class="ko-1052">Ce paragraphe déclare une couleur de fond. Le test 10.5.2 est validé grâce à la color de body.</p>
+            </div>
+
+            <div class="cas">
+                <p class="cas-titre">Image de fond, couleur de fond héritée de body</p>
+                <p class="ko-1053">Ce paragraphe déclare une image de fond. Le test 10.5.3 est validé grâce au background-color de body.</p>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
