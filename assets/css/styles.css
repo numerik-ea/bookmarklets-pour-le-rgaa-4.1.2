@@ -329,7 +329,27 @@ section {
   font-size: 0.875rem;
   font-weight: bold;
   margin-top: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.test-pages-list {
+  margin: 0;
+  padding-left: 0.75rem;
+  border-left: 2px solid var(--border-color);
+}
+
+/* Neutralise les marges de la règle générique li, qui s'applique aussi aux
+   li imbriqués et créait un écart d'1rem entre chaque page de test */
+li .test-pages-list li {
   margin-bottom: 0;
+  padding: 0.15rem 0;
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+
+.test-pages-list a:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
 }
 
 li {
