@@ -324,18 +324,53 @@ section {
 }
 
 /* Test Pages Section */
-.test-pages-title {
-  color: var(--primary-color);
-  font-size: 0.875rem;
-  font-weight: bold;
+/* Bouton discret : il ne doit pas primer sur le nom du bookmarklet ni sur sa
+   date, qui sont l'information principale de la carte */
+.test-pages-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: none;
+  border: none;
+  padding: 0;
+  color: #595959;
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: normal;
+  text-align: left;
+  cursor: pointer;
   margin-top: 0.75rem;
   margin-bottom: 0.25rem;
+}
+
+.test-pages-toggle:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
+.test-pages-toggle:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+.test-pages-toggle .arrow {
+  display: inline-block;
+  font-size: 0.7rem;
+  transition: transform 0.3s ease;
+}
+
+.test-pages-toggle[aria-expanded='true'] .arrow {
+  transform: rotate(180deg);
 }
 
 .test-pages-list {
   margin: 0;
   padding-left: 0.75rem;
   border-left: 2px solid var(--border-color);
+}
+
+.test-pages-list[hidden] {
+  display: none;
 }
 
 /* Neutralise les marges de la règle générique li, qui s'applique aussi aux

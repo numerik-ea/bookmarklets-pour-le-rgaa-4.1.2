@@ -404,10 +404,18 @@ layout: bookmarklets
                 replace: "October", "octobre" | replace: "November", "novembre"
                 | replace: "December", "décembre" }}</p>
             {% if bookmarklet.test-pages %}
-            <p class="test-pages-title"
-                id="pages-de-test-{{ bookmarklet.name }}">Pages de test</p>
+            <button type="button" class="test-pages-toggle"
+                id="pages-de-test-toggle-{{ bookmarklet.name }}"
+                aria-expanded="false"
+                aria-controls="pages-de-test-{{ bookmarklet.name }}"
+                aria-label="Pages de test pour le bookmarklet {{ bookmarklet_criteria_number_and_name }}">
+                Pages de test
+                <span class="arrow" aria-hidden="true">▼</span>
+            </button>
             <ul class="test-pages-list"
-                aria-labelledby="pages-de-test-{{ bookmarklet.name }}">
+                id="pages-de-test-{{ bookmarklet.name }}"
+                aria-labelledby="pages-de-test-toggle-{{ bookmarklet.name }}"
+                hidden>
                 {% for test_page in bookmarklet.test-pages %}
                 <li>
                     <a

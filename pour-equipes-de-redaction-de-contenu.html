@@ -22,6 +22,7 @@ layout: bookmarklets
             {% capture current_file_content %}
                 {% include_relative _includes/bookmarklets/equipes-de-redaction-de-contenu/{{ bookmarklet.name }}-bookmarklet.js %}
             {% endcapture %}
+            {% assign bookmarklet_label = bookmarklet.name | replace: "-", " " | replace: "br", "&lt;br&gt;" | capitalize %}
             <li id="{{ bookmarklet.name }}" data-last-updated="{{ bookmarklet.last-updated }}">
                 <div class="bookmarklet-container">
                     <a href="#{{ bookmarklet.name }}" class="bookmarklet-anchor-link" aria-label="Lien vers ce bookmarklet">
@@ -32,7 +33,7 @@ layout: bookmarklets
                     </a>
                     <span class="tooltip">Lien vers ce bookmarklet</span>
                     <a href="{{ current_file_content | strip }}" class="bookmarklet-link">
-                        {{ bookmarklet.name | replace: "-", " " | replace: "br", "&lt;br&gt;" | capitalize }}
+                        {{ bookmarklet_label }}
                     </a>
                     <span class="tooltip">Cliquez-déposez le bookmarklet dans la barre des favoris</span>
                     <button class="copy-button" onclick="copyBookmarklet(this)">
@@ -45,8 +46,15 @@ layout: bookmarklets
                 </div>
                 <div class="last-updated">dernière mise à jour : {{ bookmarklet.last-updated | date: "%d %B %Y" | replace: "January", "janvier" | replace: "February", "février" | replace: "March", "mars" | replace: "April", "avril" | replace: "May", "mai" | replace: "June", "juin" | replace: "July", "juillet" | replace: "August", "août" | replace: "September", "septembre" | replace: "October", "octobre" | replace: "November", "novembre" | replace: "December", "décembre" }}</div>
                 {% if bookmarklet.test-pages %}
-                    <p class="test-pages-title" id="pages-de-test-{{ bookmarklet.name }}">Pages de test</p>
-                    <ul class="test-pages-list" aria-labelledby="pages-de-test-{{ bookmarklet.name }}">
+                    <button type="button" class="test-pages-toggle"
+                        id="pages-de-test-toggle-{{ bookmarklet.name }}"
+                        aria-expanded="false"
+                        aria-controls="pages-de-test-{{ bookmarklet.name }}"
+                        aria-label="Pages de test pour le bookmarklet {{ bookmarklet_label }}">
+                        Pages de test
+                        <span class="arrow" aria-hidden="true">▼</span>
+                    </button>
+                    <ul class="test-pages-list" id="pages-de-test-{{ bookmarklet.name }}" aria-labelledby="pages-de-test-toggle-{{ bookmarklet.name }}" hidden>
                         {% for test_page in bookmarklet.test-pages %}
                             <li>
                                 <a href="{{ site.baseurl }}pages-de-test/equipes-de-redaction-de-contenu/{{ test_page.file }}">{{ test_page.label }}</a>
