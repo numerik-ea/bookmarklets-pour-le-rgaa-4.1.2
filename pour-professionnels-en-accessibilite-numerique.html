@@ -399,6 +399,17 @@ layout: bookmarklets
                 replace: "August", "août" | replace: "September", "septembre" |
                 replace: "October", "octobre" | replace: "November", "novembre"
                 | replace: "December", "décembre" }}</p>
+            {% if bookmarklet.test-pages %}
+            <ul class="test-pages-list">
+                {% for test_page in bookmarklet.test-pages %}
+                <li>
+                    <a
+                        href="{{ site.baseurl }}pages-de-test/professionnels-en-accessibilite-numerique/{{ test_page.file }}">{{
+                        test_page.label }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
         </li>
         {% endfor %}
     </ul>
