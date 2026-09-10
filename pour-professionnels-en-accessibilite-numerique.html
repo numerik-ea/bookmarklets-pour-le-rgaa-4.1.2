@@ -36,6 +36,10 @@ layout: bookmarklets
                         <li>Ajout des pages de test "10.5-test.html",
                             "10.5-test-body-avec-couleurs.html" et
                             "10.5-test-shadow-dom.html"</li>
+                        <li>Les pages de test ne sont plus regroupées dans une
+                            section en bas de page : chaque bookmarklet affiche
+                            désormais ses propres pages de test juste en dessous
+                            de lui</li>
                     </ul>
                 </div>
                 <div class="changelog-entry">
@@ -400,7 +404,10 @@ layout: bookmarklets
                 replace: "October", "octobre" | replace: "November", "novembre"
                 | replace: "December", "décembre" }}</p>
             {% if bookmarklet.test-pages %}
-            <ul class="test-pages-list">
+            <p class="test-pages-title"
+                id="pages-de-test-{{ bookmarklet.name }}">Pages de test</p>
+            <ul class="test-pages-list"
+                aria-labelledby="pages-de-test-{{ bookmarklet.name }}">
                 {% for test_page in bookmarklet.test-pages %}
                 <li>
                     <a
@@ -414,70 +421,3 @@ layout: bookmarklets
         {% endfor %}
     </ul>
 </section>
-
-{% assign has_test_pages = 0 %}
-{% for test in site.data.tests_metadata.professionnel-en-accessibilite-numerique
-%}
-{% assign found = false %}
-
-{% for file in site.static_files %}
-{% assign exclude_11x = false %}
-{% if test.name == "1.X" and file.path contains "11.X" %}
-{% assign exclude_11x = true %}
-{% endif %}
-{% if file.path contains test.name and exclude_11x == false and file.extname ==
-".html" %}
-{% assign found = true %}
-
-{% if has_test_pages == 0 %}
-{% assign has_test_pages = 1 %}
-{% endif %}
-{% endif %}
-{% endfor %}
-
-{% if found and has_test_pages == 1 %}
-<section>
-    <h2>Pages de test</h2>
-    {% assign has_test_pages = 2 %}
-    <ul>
-        {% endif %}
-
-        {% if found %}
-        <li>
-            <strong>{{ test.title }}</strong>
-            <ul>
-                {% for file in site.static_files %}
-                {% assign exclude_11x = false %}
-                {% if test.name == "1.X" and file.path contains "11.X" %}
-                {% assign exclude_11x = true %}
-                {% endif %}
-                {%
-                if file.path contains
-                "professionnels-en-accessibilite-numerique"
-                and file.path contains test.name
-                and exclude_11x == false
-                and file.extname == ".html"
-                %}
-
-                <li>
-                    <a href="{{ file.path | absolute_url }}">
-                        {{ file.name | split: "-" | slice: 1, 999 |
-                        join: "-" |
-                        replace: "-", " " |
-                        replace: ".html", "" |
-                        replace: "semantique", "sémantique" |
-                        capitalize
-                        }}
-                    </a>
-                </li>
-                {% endif %}
-                {% endfor %}
-            </ul>
-        </li>
-        {% endif %}
-        {% endfor %}
-
-        {% if found and has_test_pages == 2 %}
-    </ul>
-</section>
-{% endif %}

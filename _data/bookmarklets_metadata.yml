@@ -1,15 +1,26 @@
 # Noms des bookmarklets par répertoire et par ordre alphabétique
+# La clé test-pages est optionnelle : chaque entrée pointe vers un fichier de
+# pages-de-test/<répertoire>/ et son libellé reprend le <title> de la page.
 equipes-de-redaction-de-contenu:
   - name: attributs-title
     last-updated: 2026-03-06
+    test-pages:
+      - file: attributs-title.html
+        label: "Test - Attributs title avec et sans Shadow DOM"
   - name: citations
     last-updated: 2026-02-05
+    test-pages:
+      - file: citations.html
+        label: "Test - Citations avec et sans Shadow DOM"
   - name: double-br
     last-updated: 2025-04-07
   - name: headings
     last-updated: 2025-04-07
   - name: iframes
     last-updated: 2026-02-17
+    test-pages:
+      - file: iframes.html
+        label: "Test - Iframes avec et sans Shadow DOM"
   - name: images
     last-updated: 2025-04-15
   - name: listes
@@ -18,69 +29,197 @@ equipes-de-redaction-de-contenu:
     last-updated: 2026-02-20
   - name: tableaux
     last-updated: 2026-02-17
+    test-pages:
+      - file: tableaux.html
+        label: "Test - Tableaux avec et sans Shadow DOM"
 
 professionnels-en-accessibilite-numerique:
   - name: 1.2-detecter-svg-sans-aria-hidden-true
     last-updated: 2026-01-13
+    test-pages:
+      - file: 1.2-test-shadow-dom.html
+        label: "Test 1.2 - Détecter les SVG sans aria-hidden=&quot;true&quot; avec Shadow DOM"
   - name: 1.X-lister-images-avec-un-alt-non-vide
     last-updated: 2026-01-13
+    test-pages:
+      - file: 1.X-lister-images-avec-un-alt-non-vide-test-shadow-dom.html
+        label: "Test 1.X - Lister les images avec un alt non vide (Shadow DOM)"
   - name: 1.X-lister-toutes-les-images-ayant-un-alt
     last-updated: 2026-01-13
+    test-pages:
+      - file: 1.X-lister-toutes-les-images-ayant-un-alt-test-shadow-dom.html
+        label: "Test 1.X - Lister toutes les images ayant un alt (Shadow DOM)"
   - name: 1.X-verifier-images-non-contenues-dans-un-lien-ou-bouton
     last-updated: 2026-05-20
+    test-pages:
+      - file: 1.X-verifier-images-non-contenues-dans-un-lien-test.html
+        label: "Test 1.X - Vérifier images non contenues dans un lien"
+      - file: 1.X-verifier-images-non-contenues-dans-un-lien-test-shadow-dom.html
+        label: "Test 1.X - Vérifier images non contenues dans un lien (Shadow DOM)"
   - name: 2.X-check-iframes-et-frames
     last-updated: 2026-01-13
+    test-pages:
+      - file: 2.X-test-0-iframes.html
+        label: "Test 2.X - Aucun iframe"
+      - file: 2.X-test-1-iframe-avec-titre.html
+        label: "Test 2.X - 1 iframe avec un titre"
+      - file: 2.X-test-1-iframe-sans-titre.html
+        label: "Test 2.X - 1 iframe sans titre"
+      - file: 2.X-test-2-iframes-avec-titre.html
+        label: "Test 2.X - 2 iframes avec un titre"
+      - file: 2.X-test-2-iframes-sans-titre.html
+        label: "Test 2.X - 2 iframes sans titre"
+      - file: 2.X-test-2-iframes-1-avec-titre-1-sans-titre.html
+        label: "Test 2.X - 1 iframe avec un titre et 1 iframe sans titre"
+      - file: 2.X-test-3-iframes-1-avec-titre-2-sans-titre.html
+        label: "Test 2.X - 1 iframe avec un titre et 2 iframes sans titre"
+      - file: 2.X-test-3-iframes-2-avec-titre-1-sans-titre.html
+        label: "Test 2.X - 2 iframes avec un titre et 1 iframe sans titre"
+      - file: 2.X-test-4-iframes-2-avec-titre-2-sans-titre.html
+        label: "Test 2.X - 2 iframes avec un titre et 2 iframes sans titre"
+      - file: 2.X-test-shadow-dom.html
+        label: "Test 2.X - Test iframes et frames avec Shadow DOM"
   - name: 5.X-test-presence-tableaux
     last-updated: 2026-01-13
+    test-pages:
+      - file: 5.X-test-shadow-dom.html
+        label: "Test 5.X - Test présence tableaux avec Shadow DOM"
   - name: 6.1-voir-les-noms-accessibles-des-liens
     last-updated: 2026-01-12
+    test-pages:
+      - file: 6.X-test.html
+        label: "Test 6.X - Liens"
+      - file: 6.X-test-shadow-dom.html
+        label: "Test 6.X - Liens avec Shadow DOM"
   - name: 6.2-test-presence-de-liens-sans-nom-accessible
     last-updated: 2026-01-13
+    test-pages:
+      - file: 6.X-test.html
+        label: "Test 6.X - Liens"
+      - file: 6.X-test-shadow-dom.html
+        label: "Test 6.X - Liens avec Shadow DOM"
   - name: 7.1-lister-les-liens-sans-href
     last-updated: 2026-01-13
+    test-pages:
+      - file: 7.1-test-liens-sans-href.html
+        label: "Test 7.1 - Lister les liens sans href"
+      - file: 7.1-test-liens-sans-href-shadow-dom.html
+        label: "Test 7.1 - Lister les liens sans href avec Shadow DOM"
   - name: 8.3_8.4-detecter-la-langue-par-defaut
     last-updated: 2025-06-06
+    test-pages:
+      - file: 8.3_8.4-test-0-html-sans-lang.html
+        label: "Test 8.3 &amp; 8.4 - html[lang] === null"
+      - file: 8.3_8.4-test-1-html-avec-lang.html
+        label: "Test 8.3 &amp; 8.4 - html[lang] === &quot;fr&quot;"
   - name: 8.7_8.8-lister-les-attributs-lang
     last-updated: 2026-01-13
+    test-pages:
+      - file: 8.7_8.8-test-0-attributs-lang.html
+        label: "Test 8.7 &amp; 8.8 - html[lang] === null"
+      - file: 8.7_8.8-test-1-html-avec-lang.html
+        label: "Test 8.7 &amp; 8.8 - html[lang] === &quot;fr&quot;"
+      - file: 8.7_8.8-test-avec-attributs-lang.html
+        label: "Test 8.7 &amp; 8.8 - avec attributs lang"
+      - file: 8.7_8.8-test-shadow-dom.html
+        label: "Test 8.7 &amp; 8.8 - Attributs lang avec Shadow DOM"
   - name: 8.9-double-br
     last-updated: 2026-01-13
+    test-pages:
+      - file: 8.9-test-double-br.html
+        label: "Test 8.9 - Double &lt;br&gt;"
+      - file: 8.9-test-double-br-shadow-dom.html
+        label: "Test 8.9 - Double &lt;br&gt; avec Shadow DOM"
   - name: 8.9-paragraphes-vides
     last-updated: 2026-01-13
+    test-pages:
+      - file: 8.9-test-paragraphes-vides.html
+        label: "Test 8.9 - Paragraphes vides"
+      - file: 8.9-test-paragraphes-vides-shadow-dom.html
+        label: "Test 8.9 - Paragraphes vides avec Shadow DOM"
   - name: 8.9-texte-dans-balise-non-semantique
     last-updated: 2026-06-03
+    test-pages:
+      - file: 8.9-test-texte-dans-balises-non-semantiques.html
+        label: "Test 8.9 - Texte dans des balises non sémantiques"
+      - file: 8.9-test-texte-dans-balises-non-semantiques-shadow-dom.html
+        label: "Test 8.9 - Texte dans des balises non sémantiques avec Shadow DOM"
   - name: 8.9-texte-dans-balise-non-semantique-(sans-display-none)
     last-updated: 2026-06-03
+    test-pages:
+      - file: 8.9-test-texte-dans-balises-non-semantiques.html
+        label: "Test 8.9 - Texte dans des balises non sémantiques"
+      - file: 8.9-test-texte-dans-balises-non-semantiques-shadow-dom.html
+        label: "Test 8.9 - Texte dans des balises non sémantiques avec Shadow DOM"
   - name: 8.9-texte-dans-balise-non-semantique-sans-label
     last-updated: 2026-06-03
+    test-pages:
+      - file: 8.9-test-texte-dans-balises-non-semantiques.html
+        label: "Test 8.9 - Texte dans des balises non sémantiques"
+      - file: 8.9-test-texte-dans-balises-non-semantiques-shadow-dom.html
+        label: "Test 8.9 - Texte dans des balises non sémantiques avec Shadow DOM"
   - name: 9.2-test-presence-header-nav-main-footer
     last-updated: 2026-01-13
+    test-pages:
+      - file: 9.2-test-shadow-dom.html
+        label: "Test 9.2 - Test présence header, nav, main, footer avec Shadow DOM"
   - name: 9.3-identifier-les-listes
     last-updated: 2026-01-13
+    test-pages:
+      - file: 9.3-test-shadow-dom.html
+        label: "Test 9.3 - Identifier les listes avec Shadow DOM"
   - name: 9.4-test-presence-elements-de-citations
     last-updated: 2026-01-13
+    test-pages:
+      - file: 9.4-test-shadow-dom.html
+        label: "Test 9.4 - Test présence éléments de citations avec Shadow DOM"
   - name: 10.1-test-presence-balises-et-attributs-de-presentation
     last-updated: 2026-01-13
+    test-pages:
+      - file: 10.1-test.html
+        label: "Test 10.1 - Test présence balises et attributs de présentation de l'information"
+      - file: 10.1-test-shadow-dom.html
+        label: "Test 10.1 - Test présence balises et attributs de présentation avec Shadow DOM"
   - name: 10.1-test-presence-balises-et-attributs-de-presentation-seulement-CSS-TOGGLE
     last-updated: 2026-01-13
+    test-pages:
+      - file: 10.1-test.html
+        label: "Test 10.1 - Test présence balises et attributs de présentation de l'information"
+      - file: 10.1-test-shadow-dom.html
+        label: "Test 10.1 - Test présence balises et attributs de présentation avec Shadow DOM"
   - name: 10.2-trouver-les-images-en-background-image
     last-updated: 2026-01-13
+    test-pages:
+      - file: 10.2-test-shadow-dom.html
+        label: "Test 10.2 - Trouver les images en background-image avec Shadow DOM"
   - name: 10.5-verifier-declarations-css-de-couleurs-de-fond-d-element-et-de-police
     last-updated: 2026-09-10
     test-pages:
       - file: 10.5-test.html
-        label: "Page de test 10.5"
+        label: "Test 10.5 - Vérifier déclarations CSS de couleurs de fond d'élément et de police"
       - file: 10.5-test-body-avec-couleurs.html
-        label: "Page de test 10.5 - body déclarant fond et police"
+        label: "Test 10.5 - body déclarant la paire couleur de fond et couleur de police"
       - file: 10.5-test-shadow-dom.html
-        label: "Page de test 10.5 - shadow DOM"
+        label: "Test 10.5 - shadow DOM"
   - name: 10.8-lister-les-elements-caches-et-mettre-en-avant-les-aria-hidden-true
     last-updated: 2026-01-13
+    test-pages:
+      - file: 10.8-test.html
+        label: "Test 10.8 - Éléments cachés"
+      - file: 10.8-test-shadow-dom.html
+        label: "Test 10.8 - Lister les éléments cachés avec Shadow DOM"
   - name: 10.12-espacement-des-caracteres-TOGGLE
     last-updated: 2025-10-28
   - name: 11.X-test-presence-formulaires
     last-updated: 2026-01-13
+    test-pages:
+      - file: 11.X-test-shadow-dom.html
+        label: "Test 11.X - Test présence formulaires avec Shadow DOM"
   - name: 12.6-verifier-les-landmarks
     last-updated: 2026-01-13
+    test-pages:
+      - file: 12.6-test-shadow-dom.html
+        label: "Test 12.6 - Vérifier les landmarks avec Shadow DOM"
   - name: 12.8-visibilite-focus-TOGGLE
     last-updated: 2025-10-28
   - name: OpenRGAA-ouvrir-tous-les-tests-du-rgaa-4.1.2
