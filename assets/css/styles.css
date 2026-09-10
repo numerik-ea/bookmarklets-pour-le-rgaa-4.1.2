@@ -191,52 +191,61 @@ section {
   margin-bottom: 2rem;
 }
 
-.changelog-summary details {
-  background-color: white;
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-}
-
-.changelog-summary details:focus-within,
-.changelog-summary details:focus-visible,
-.changelog-summary details:focus {
-  outline: 2px solid var(--primary-color);
-  outline-offset: 2px;
-}
-
-.changelog-summary summary {
+/* Le fond blanc et l'ombre portaient sur le <details> : ils sont désormais
+   répartis entre le bouton et le panneau, qui sont frères */
+.changelog-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
   padding: 0.75rem 1rem;
   background-color: var(--primary-color);
   color: white;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
   font-family: Arial;
   font-weight: 400;
   font-size: 0.85rem;
+  text-align: left;
   transition: background-color 0.2s ease;
-  list-style: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.changelog-summary summary:hover {
+.changelog-toggle:hover {
   background-color: var(--secondary-color);
 }
 
-.changelog-summary summary::-webkit-details-marker {
-  display: none;
+.changelog-toggle:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
 }
 
-.changelog-summary summary::after {
-  content: '▼';
-  margin-left: 0.5rem;
+/* Le panneau ouvert se rattache visuellement au bouton */
+.changelog-toggle[aria-expanded='true'] {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.changelog-toggle .arrow {
+  margin-left: auto;
+  display: inline-block;
   transition: transform 0.2s ease;
 }
 
-.changelog-summary details[open] summary::after {
-  content: '▲';
+.changelog-toggle[aria-expanded='true'] .arrow {
+  transform: rotate(180deg);
 }
 
 .changelog {
   padding: 1rem;
+  background-color: white;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.changelog[hidden] {
+  display: none;
 }
 
 .changelog-entry {
@@ -296,7 +305,7 @@ section {
     margin-top: 0.5rem;
   }
 
-  .changelog-summary summary {
+  .changelog-toggle {
     font-size: 0.8rem;
     padding: 0.5rem 0.75rem;
   }
@@ -324,18 +333,53 @@ section {
 }
 
 /* Test Pages Section */
-.test-pages-title {
-  color: var(--primary-color);
-  font-size: 0.875rem;
-  font-weight: bold;
+/* Bouton discret : il ne doit pas primer sur le nom du bookmarklet ni sur sa
+   date, qui sont l'information principale de la carte */
+.test-pages-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: none;
+  border: none;
+  padding: 0;
+  color: #595959;
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: normal;
+  text-align: left;
+  cursor: pointer;
   margin-top: 0.75rem;
   margin-bottom: 0.25rem;
+}
+
+.test-pages-toggle:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
+.test-pages-toggle:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+.test-pages-toggle .arrow {
+  display: inline-block;
+  font-size: 0.7rem;
+  transition: transform 0.3s ease;
+}
+
+.test-pages-toggle[aria-expanded='true'] .arrow {
+  transform: rotate(180deg);
 }
 
 .test-pages-list {
   margin: 0;
   padding-left: 0.75rem;
   border-left: 2px solid var(--border-color);
+}
+
+.test-pages-list[hidden] {
+  display: none;
 }
 
 /* Neutralise les marges de la règle générique li, qui s'applique aussi aux

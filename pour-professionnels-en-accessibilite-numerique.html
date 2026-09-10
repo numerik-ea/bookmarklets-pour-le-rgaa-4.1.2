@@ -50,293 +50,295 @@
 
     <!-- Changelog Section -->
     <div class="changelog-summary">
-        <details>
-            <summary>Voir l'historique des modifications</summary>
-            <div class="changelog">
-                <div class="changelog-entry">
-                    <h3>Version 2026.9.10 - 10 septembre 2026</h3>
-                    <ul>
-                        <li>Refonte du bookmarklet "10.5 - Vérifier
-                            déclarations CSS de couleurs de fond d'élément et de
-                            police" : il n'impose plus des couleurs à la balise
-                            &lt;html&gt;, méthode inopérante dès que
-                            &lt;body&gt; déclare son propre
-                            <code>background-color</code>, et applique désormais
-                            les méthodologies des tests 10.5.1, 10.5.2 et 10.5.3
-                            élément par élément, en tenant compte des
-                            déclarations héritées d'un parent</li>
-                        <li>10.5 - Les éléments en échec reçoivent la
-                            déclaration qui leur manque (fond bleu pour 10.5.1,
-                            police jaune pour 10.5.2, image de fond retirée pour
-                            10.5.3) et un contour de repérage ; la page n'est
-                            pas modifiée en l'absence d'échec</li>
-                        <li>10.5 - Les couleurs par défaut du navigateur
-                            (liens, &lt;mark&gt;, &lt;button&gt;...) ne sont plus
-                            confondues avec des déclarations d'auteur, et les
-                            éléments non rendus sont exclus de l'analyse</li>
-                        <li>Ajout des pages de test "10.5-test.html",
-                            "10.5-test-body-avec-couleurs.html" et
-                            "10.5-test-shadow-dom.html"</li>
-                        <li>Les pages de test ne sont plus regroupées dans une
-                            section en bas de page : chaque bookmarklet affiche
-                            désormais ses propres pages de test juste en dessous
-                            de lui</li>
-                    </ul>
-                </div>
-                <div class="changelog-entry">
-                    <h3>Version 2026.8.5 - 5 août 2026</h3>
-                    <ul>
-                        <li>ATTENTION : L'utilisation des bookmarklets est à la
-                            responsabilité des utilisateurs. Il ne faut pas se
-                            contenter de ce que dit un bookmarklet / un outil
-                            automatique pour valider ou non le critère.
-                            De manière générale, il est important de faire la
-                            différence entre ce que fait un outil/un test automatique
-                            et l'éventuelle validation d'un critère.
-                        </li>
-                    </ul>
-                </div>
-                <div class="changelog-entry">
-                    <h3>Version 2026.6.11 - 11 juin 2026</h3>
-                    <ul>
-                        <li>Détection des pseudo-éléments ::before et
-                            ::after ayant une propriété CSS content (vide ou
-                            remplie) avec support du shadow DOM</li>
-                    </ul>
-                </div>
-                <div class="changelog-entry">
-                    <h3>Version 2026.6.3 - 3 juin 2026</h3>
-                    <ul>
-                        <li>8.9 - Vérification des textes dans des balises non
-                            sémantiques sans label, ajout de address en tant que
-                            balise sémantique</li>
-                    </ul>
-                </div>
-                <div class="changelog-entry">
-                    <h3>Version 2026.5.20 - 20 mai 2026</h3>
-                    <ul>
-                        <li>1.X - Vérification des images non contenues dans un
-                            lien ou bouton avec support du shadow DOM</li>
-                    </ul>
-                </div>
-                <div class="changelog-entry">
-                    <h3>Version 2026.1.22 - 22 janvier 2026</h3>
-                    <ul>
-                        <li>8.9 - &lt;summary&gt; dans &lt;details&gt; est
-                            sémantique</li>
-                        <li>Ajout de la gestion de touche Echap pour masquer les
-                            tooltips</li>
-                    </ul>
-                </div>
-                <div class="changelog-entry">
-                    <h3>Version 2026.1.13 - 13 janvier 2026</h3>
-                    <ul>
-                        <li>1.2 - Détection des SVG sans aria-hidden="true" avec
-                            support du shadow DOM et ajout de la vérification
-                            des parents cachés avec aria-hidden="true". Ajout
-                            d'un compteur du nombre total de SVG, du nombre de
-                            SVG sans aria-hidden="true" et du nombre de SVG avec
-                            aria-hidden="false".</li>
-                        <li>1.X - Vérification des images non contenues dans un
-                            lien avec support du shadow DOM</li>
-                        <li>1.X - Lister les images avec un alt non vide avec
-                            support du shadow DOM</li>
-                        <li>1.X - Lister toutes les images ayant un alt avec
-                            support du shadow DOM</li>
-                        <li>2.X - Vérification des iframes et frames avec
-                            support du shadow DOM</li>
-                        <li>5.X - Vérification des tableaux avec support du
-                            shadow DOM</li>
-                        <li>6.2 - Vérification des liens sans nom accessible
-                            avec support du shadow DOM</li>
-                        <li>7.1 - Vérification des liens sans href avec support
-                            du shadow DOM</li>
-                        <li>8.7 & 8.8 - Vérification des attributs lang avec
-                            support du shadow DOM</li>
-                        <li>8.9 - Vérification des doubles &lt;br&gt; avec
-                            support du shadow DOM</li>
-                        <li>8.9 - Vérification des paragraphes vides avec
-                            support du shadow DOM</li>
-                        <li>8.9 - Vérification des textes dans des balises non
-                            sémantiques avec support du shadow DOM</li>
-                        <li>8.9 - Vérification des textes dans des balises non
-                            sémantiques sans label avec support du shadow DOM
-                        </li>
-                        <li>9.2 - Vérification des balises
-                            header/nav/main/footer avec support du shadow DOM
-                        </li>
-                        <li>9.3 - Vérification des listes avec support du shadow
-                            DOM</li>
-                        <li>9.4 - Vérification des éléments de citation avec
-                            support du shadow DOM</li>
-                        <li>10.1 - Vérification des balises et attributs de
-                            présentation avec support du shadow DOM</li>
-                        <li>10.1 - Vérification des balises et attributs de
-                            présentation avec support du shadow DOM (seulement
-                            CSS TOGGLE)</li>
-                        <li>10.2 - Vérification des images en background image
-                            avec support du shadow DOM</li>
-                        <li>10.8 - Lister les éléments cachés avec support du
-                            shadow DOM</li>
-                        <li>11.X - Vérification des formulaires avec support du
-                            shadow DOM</li>
-                        <li>12.6 - Vérification des landmarks avec support du
-                            shadow DOM</li>
-                    </ul>
-                </div>
-                <div class="changelog-entry">
-                    <h3>Version 2026.1.12 - 12 janvier 2026</h3>
-                    <ul>
-                        <li>Mise à jour des bookmarklets 6.1 et 6.2 pour
-                            détecter les liens dans les Shadow DOM, améliorant
-                            la couverture des vérifications de nom accessible.
-                        </li>
-                        <li>6.1 - Ajout du sélecteur 'body' par défaut dans
-                            l'invite pour l'élément parent</li>
-                    </ul>
-                </div>
-                <div class="changelog-entry">
-                    <h3>Version 2026.1.5 - 5 janvier 2026</h3>
-                    <ul>
-                        <li>Mise à jour du bookmarklet "10.5 - Vérifier
-                            déclarations CSS de couleurs de fond d'élément et de
-                            police" avec prise en compte des règles CSS avec
-                            !important, des messages d'erreur plus explicites et
-                            la possibilité de modifier les couleurs de la balise
-                            &lt;html&gt; dans le cas où elles ne sont pas déjà
-                            définies</li>
-                    </ul>
-                </div>
-                <div class="changelog-entry">
-                    <h3>Version 2025.10.28 - 28 octobre 2025</h3>
-                    <ul>
-                        <li>Ajout des bookmarklets "10.1 - Test présence balises
-                            et attributs de présentation de l'information - CSS
-                            uniquement [TOGGLE]" et "10.12 - Espacement des
-                            caractères - TOGGLE" et "12.8 - Visibilité du focus
-                            - TOGGLE"</li>
-                    </ul>
-                </div>
-                <div class="changelog-entry">
-                    <h3>Version 2025.9.25 - 25 septembre 2025</h3>
-                    <ul>
-                        <li>Mise à jour du bookmarklet "10.1 - Test présence
-                            balises et attributs de présentation de
-                            l'information" avec prise en compte de la balise
-                            &lt;source&gt;</li>
-                    </ul>
-                </div>
-
-                <div class="changelog-entry">
-                    <h3>Version 2025.9.3 - 3 septembre 2025</h3>
-                    <ul>
-                        <li>Mise à jour des bookmarklets "8.9 - Texte dans une
-                            balise non sémantique" et "8.9 - Texte dans une
-                            balise non sémantique sans label" avec prise en
-                            compte de la balise &lt;time&gt;</li>
-                    </ul>
-                </div>
-
-                <div class="changelog-entry">
-                    <h3>Version 2025.8.21 - 21 août 2025</h3>
-                    <ul>
-                        <li>Ajout du bookmarklet "8.9 - Texte dans une balise
-                            non sémantique sans label"</li>
-                    </ul>
-                </div>
-
-                <div class="changelog-entry">
-                    <h3>Version 2025.8.20 - 20 août 2025</h3>
-                    <ul>
-                        <li>Ajout du bookmarklet "1.2 - Détecter les éléments
-                            SVG sans aria-hidden='true'"</li>
-                    </ul>
-                </div>
-
-                <div class="changelog-entry">
-                    <h3>Version 2025.8.13 - 13 août 2025</h3>
-                    <ul>
-                        <li>Ajout du bookmarklet "10.1 - Test présence balises
-                            et attributs de présentation de l'information"</li>
-                    </ul>
-                </div>
-
-                <div class="changelog-entry">
-                    <h3>Version 2025.8.12 - 12 août 2025</h3>
-                    <ul>
-                        <li>Ajout du bookmarklet "11.X - Test présence
-                            formulaires"</li>
-                    </ul>
-                </div>
-
-                <div class="changelog-entry">
-                    <h3>Version 2025.8.6 - 6 août 2025</h3>
-                    <ul>
-                        <li>Ajout de l'information des parents cachés dans la
-                            console pour le bookmarklet 8.9 : Texte inclus dans
-                            une balise non sémantique</li>
-                        <li>Ajout du bookmarklet "aria-live mettre à off"</li>
-                    </ul>
-                </div>
-
-                <div class="changelog-entry">
-                    <h3>Version 2025.8.4 - 4 août 2025</h3>
-                    <ul>
-                        <li>Ajout de l'information des parents cachés dans la
-                            console pour le bookmarklet 8.9 : Double br</li>
-                    </ul>
-                </div>
-
-                <div class="changelog-entry">
-                    <h3>Version 2025.8.1 - 1er août 2025</h3>
-                    <ul>
-                        <li>Ajout du bookmarklet "10.5 - Vérifier déclarations
-                            CSS de couleurs de fond d'élément et de police"
-                            suite à l'arrêt du support de la fonctionnalité de
-                            changement de couleur et de fond dans la
-                            configuration de Firefox</li>
-                    </ul>
-                </div>
-
-                <div class="changelog-entry">
-                    <h3>Version 2025.7.21 - 21 juillet 2025</h3>
-                    <ul>
-                        <li>Ajout du check role="button" pour le bookmarklet
-                            "8.9 - Texte inclus dans une balise non sémantique"
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="changelog-entry">
-                    <h3>Version 2025.6.25 - 25 juin 2025</h3>
-                    <ul>
-                        <li>Meilleur formatage des messages du bookmarklet "12.6
-                            - Vérifier les landmarks"</li>
-                    </ul>
-                </div>
-
-                <div class="changelog-entry">
-                    <h3>Version 2025.6.18 - 18 juin 2025</h3>
-                    <ul>
-                        <li>Ajout du check role="heading" et aria-level="x" où x
-                            est le niveau de titre pour le bookmarklet "8.9 -
-                            Texte inclus dans une balise non sémantique"</li>
-                    </ul>
-                </div>
-
-                <div class="changelog-entry">
-                    <h3>Version 2025.6.6 - 6 juin 2025</h3>
-                    <ul>
-                        <li>Ajout des tests de langue :
-                            <br>
-                            8.3 & 8.4 - Détecter la langue par défaut
-                            <br>
-                            8.7 & 8.8 - Lister les attributs lang
-                        </li>
-                    </ul>
-                </div>
+        <button type="button" class="changelog-toggle" id="changelog-toggle"
+            aria-expanded="false" aria-controls="changelog">
+            Voir l'historique des modifications
+            <span class="arrow" aria-hidden="true">▼</span>
+        </button>
+        <div class="changelog" id="changelog" hidden>
+            <div class="changelog-entry">
+                <h3>Version 2026.9.10 - 10 septembre 2026</h3>
+                <ul>
+                    <li>Refonte du bookmarklet "10.5 - Vérifier
+                        déclarations CSS de couleurs de fond d'élément et de
+                        police" : il n'impose plus des couleurs à la balise
+                        &lt;html&gt;, méthode inopérante dès que
+                        &lt;body&gt; déclare son propre
+                        <code>background-color</code>, et applique désormais
+                        les méthodologies des tests 10.5.1, 10.5.2 et 10.5.3
+                        élément par élément, en tenant compte des
+                        déclarations héritées d'un parent</li>
+                    <li>10.5 - Les éléments en échec reçoivent la
+                        déclaration qui leur manque (fond bleu pour 10.5.1,
+                        police jaune pour 10.5.2, image de fond retirée pour
+                        10.5.3) et un contour de repérage ; la page n'est
+                        pas modifiée en l'absence d'échec</li>
+                    <li>10.5 - Les couleurs par défaut du navigateur
+                        (liens, &lt;mark&gt;, &lt;button&gt;...) ne sont plus
+                        confondues avec des déclarations d'auteur, et les
+                        éléments non rendus sont exclus de l'analyse</li>
+                    <li>Ajout des pages de test "10.5-test.html",
+                        "10.5-test-body-avec-couleurs.html" et
+                        "10.5-test-shadow-dom.html"</li>
+                    <li>Les pages de test ne sont plus regroupées dans une
+                        section en bas de page : chaque bookmarklet affiche
+                        désormais ses propres pages de test juste en dessous
+                        de lui</li>
+                </ul>
             </div>
-        </details>
+            <div class="changelog-entry">
+                <h3>Version 2026.8.5 - 5 août 2026</h3>
+                <ul>
+                    <li>ATTENTION : L'utilisation des bookmarklets est à la
+                        responsabilité des utilisateurs. Il ne faut pas se
+                        contenter de ce que dit un bookmarklet / un outil
+                        automatique pour valider ou non le critère.
+                        De manière générale, il est important de faire la
+                        différence entre ce que fait un outil/un test automatique
+                        et l'éventuelle validation d'un critère.
+                    </li>
+                </ul>
+            </div>
+            <div class="changelog-entry">
+                <h3>Version 2026.6.11 - 11 juin 2026</h3>
+                <ul>
+                    <li>Détection des pseudo-éléments ::before et
+                        ::after ayant une propriété CSS content (vide ou
+                        remplie) avec support du shadow DOM</li>
+                </ul>
+            </div>
+            <div class="changelog-entry">
+                <h3>Version 2026.6.3 - 3 juin 2026</h3>
+                <ul>
+                    <li>8.9 - Vérification des textes dans des balises non
+                        sémantiques sans label, ajout de address en tant que
+                        balise sémantique</li>
+                </ul>
+            </div>
+            <div class="changelog-entry">
+                <h3>Version 2026.5.20 - 20 mai 2026</h3>
+                <ul>
+                    <li>1.X - Vérification des images non contenues dans un
+                        lien ou bouton avec support du shadow DOM</li>
+                </ul>
+            </div>
+            <div class="changelog-entry">
+                <h3>Version 2026.1.22 - 22 janvier 2026</h3>
+                <ul>
+                    <li>8.9 - &lt;summary&gt; dans &lt;details&gt; est
+                        sémantique</li>
+                    <li>Ajout de la gestion de touche Echap pour masquer les
+                        tooltips</li>
+                </ul>
+            </div>
+            <div class="changelog-entry">
+                <h3>Version 2026.1.13 - 13 janvier 2026</h3>
+                <ul>
+                    <li>1.2 - Détection des SVG sans aria-hidden="true" avec
+                        support du shadow DOM et ajout de la vérification
+                        des parents cachés avec aria-hidden="true". Ajout
+                        d'un compteur du nombre total de SVG, du nombre de
+                        SVG sans aria-hidden="true" et du nombre de SVG avec
+                        aria-hidden="false".</li>
+                    <li>1.X - Vérification des images non contenues dans un
+                        lien avec support du shadow DOM</li>
+                    <li>1.X - Lister les images avec un alt non vide avec
+                        support du shadow DOM</li>
+                    <li>1.X - Lister toutes les images ayant un alt avec
+                        support du shadow DOM</li>
+                    <li>2.X - Vérification des iframes et frames avec
+                        support du shadow DOM</li>
+                    <li>5.X - Vérification des tableaux avec support du
+                        shadow DOM</li>
+                    <li>6.2 - Vérification des liens sans nom accessible
+                        avec support du shadow DOM</li>
+                    <li>7.1 - Vérification des liens sans href avec support
+                        du shadow DOM</li>
+                    <li>8.7 & 8.8 - Vérification des attributs lang avec
+                        support du shadow DOM</li>
+                    <li>8.9 - Vérification des doubles &lt;br&gt; avec
+                        support du shadow DOM</li>
+                    <li>8.9 - Vérification des paragraphes vides avec
+                        support du shadow DOM</li>
+                    <li>8.9 - Vérification des textes dans des balises non
+                        sémantiques avec support du shadow DOM</li>
+                    <li>8.9 - Vérification des textes dans des balises non
+                        sémantiques sans label avec support du shadow DOM
+                    </li>
+                    <li>9.2 - Vérification des balises
+                        header/nav/main/footer avec support du shadow DOM
+                    </li>
+                    <li>9.3 - Vérification des listes avec support du shadow
+                        DOM</li>
+                    <li>9.4 - Vérification des éléments de citation avec
+                        support du shadow DOM</li>
+                    <li>10.1 - Vérification des balises et attributs de
+                        présentation avec support du shadow DOM</li>
+                    <li>10.1 - Vérification des balises et attributs de
+                        présentation avec support du shadow DOM (seulement
+                        CSS TOGGLE)</li>
+                    <li>10.2 - Vérification des images en background image
+                        avec support du shadow DOM</li>
+                    <li>10.8 - Lister les éléments cachés avec support du
+                        shadow DOM</li>
+                    <li>11.X - Vérification des formulaires avec support du
+                        shadow DOM</li>
+                    <li>12.6 - Vérification des landmarks avec support du
+                        shadow DOM</li>
+                </ul>
+            </div>
+            <div class="changelog-entry">
+                <h3>Version 2026.1.12 - 12 janvier 2026</h3>
+                <ul>
+                    <li>Mise à jour des bookmarklets 6.1 et 6.2 pour
+                        détecter les liens dans les Shadow DOM, améliorant
+                        la couverture des vérifications de nom accessible.
+                    </li>
+                    <li>6.1 - Ajout du sélecteur 'body' par défaut dans
+                        l'invite pour l'élément parent</li>
+                </ul>
+            </div>
+            <div class="changelog-entry">
+                <h3>Version 2026.1.5 - 5 janvier 2026</h3>
+                <ul>
+                    <li>Mise à jour du bookmarklet "10.5 - Vérifier
+                        déclarations CSS de couleurs de fond d'élément et de
+                        police" avec prise en compte des règles CSS avec
+                        !important, des messages d'erreur plus explicites et
+                        la possibilité de modifier les couleurs de la balise
+                        &lt;html&gt; dans le cas où elles ne sont pas déjà
+                        définies</li>
+                </ul>
+            </div>
+            <div class="changelog-entry">
+                <h3>Version 2025.10.28 - 28 octobre 2025</h3>
+                <ul>
+                    <li>Ajout des bookmarklets "10.1 - Test présence balises
+                        et attributs de présentation de l'information - CSS
+                        uniquement [TOGGLE]" et "10.12 - Espacement des
+                        caractères - TOGGLE" et "12.8 - Visibilité du focus
+                        - TOGGLE"</li>
+                </ul>
+            </div>
+            <div class="changelog-entry">
+                <h3>Version 2025.9.25 - 25 septembre 2025</h3>
+                <ul>
+                    <li>Mise à jour du bookmarklet "10.1 - Test présence
+                        balises et attributs de présentation de
+                        l'information" avec prise en compte de la balise
+                        &lt;source&gt;</li>
+                </ul>
+            </div>
+
+            <div class="changelog-entry">
+                <h3>Version 2025.9.3 - 3 septembre 2025</h3>
+                <ul>
+                    <li>Mise à jour des bookmarklets "8.9 - Texte dans une
+                        balise non sémantique" et "8.9 - Texte dans une
+                        balise non sémantique sans label" avec prise en
+                        compte de la balise &lt;time&gt;</li>
+                </ul>
+            </div>
+
+            <div class="changelog-entry">
+                <h3>Version 2025.8.21 - 21 août 2025</h3>
+                <ul>
+                    <li>Ajout du bookmarklet "8.9 - Texte dans une balise
+                        non sémantique sans label"</li>
+                </ul>
+            </div>
+
+            <div class="changelog-entry">
+                <h3>Version 2025.8.20 - 20 août 2025</h3>
+                <ul>
+                    <li>Ajout du bookmarklet "1.2 - Détecter les éléments
+                        SVG sans aria-hidden='true'"</li>
+                </ul>
+            </div>
+
+            <div class="changelog-entry">
+                <h3>Version 2025.8.13 - 13 août 2025</h3>
+                <ul>
+                    <li>Ajout du bookmarklet "10.1 - Test présence balises
+                        et attributs de présentation de l'information"</li>
+                </ul>
+            </div>
+
+            <div class="changelog-entry">
+                <h3>Version 2025.8.12 - 12 août 2025</h3>
+                <ul>
+                    <li>Ajout du bookmarklet "11.X - Test présence
+                        formulaires"</li>
+                </ul>
+            </div>
+
+            <div class="changelog-entry">
+                <h3>Version 2025.8.6 - 6 août 2025</h3>
+                <ul>
+                    <li>Ajout de l'information des parents cachés dans la
+                        console pour le bookmarklet 8.9 : Texte inclus dans
+                        une balise non sémantique</li>
+                    <li>Ajout du bookmarklet "aria-live mettre à off"</li>
+                </ul>
+            </div>
+
+            <div class="changelog-entry">
+                <h3>Version 2025.8.4 - 4 août 2025</h3>
+                <ul>
+                    <li>Ajout de l'information des parents cachés dans la
+                        console pour le bookmarklet 8.9 : Double br</li>
+                </ul>
+            </div>
+
+            <div class="changelog-entry">
+                <h3>Version 2025.8.1 - 1er août 2025</h3>
+                <ul>
+                    <li>Ajout du bookmarklet "10.5 - Vérifier déclarations
+                        CSS de couleurs de fond d'élément et de police"
+                        suite à l'arrêt du support de la fonctionnalité de
+                        changement de couleur et de fond dans la
+                        configuration de Firefox</li>
+                </ul>
+            </div>
+
+            <div class="changelog-entry">
+                <h3>Version 2025.7.21 - 21 juillet 2025</h3>
+                <ul>
+                    <li>Ajout du check role="button" pour le bookmarklet
+                        "8.9 - Texte inclus dans une balise non sémantique"
+                    </li>
+                </ul>
+            </div>
+
+            <div class="changelog-entry">
+                <h3>Version 2025.6.25 - 25 juin 2025</h3>
+                <ul>
+                    <li>Meilleur formatage des messages du bookmarklet "12.6
+                        - Vérifier les landmarks"</li>
+                </ul>
+            </div>
+
+            <div class="changelog-entry">
+                <h3>Version 2025.6.18 - 18 juin 2025</h3>
+                <ul>
+                    <li>Ajout du check role="heading" et aria-level="x" où x
+                        est le niveau de titre pour le bookmarklet "8.9 -
+                        Texte inclus dans une balise non sémantique"</li>
+                </ul>
+            </div>
+
+            <div class="changelog-entry">
+                <h3>Version 2025.6.6 - 6 juin 2025</h3>
+                <ul>
+                    <li>Ajout des tests de langue :
+                        <br>
+                        8.3 & 8.4 - Détecter la langue par défaut
+                        <br>
+                        8.7 & 8.8 - Lister les attributs lang
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 
     <!-- Sort Dropdown -->
@@ -403,10 +405,18 @@
             </div>
             <p class="last-updated">dernière mise à jour : 13 janvier 2026</p>
             
-            <p class="test-pages-title"
-                id="pages-de-test-1.2-detecter-svg-sans-aria-hidden-true">Pages de test</p>
+            <button type="button" class="test-pages-toggle"
+                id="pages-de-test-toggle-1.2-detecter-svg-sans-aria-hidden-true"
+                aria-expanded="false"
+                aria-controls="pages-de-test-1.2-detecter-svg-sans-aria-hidden-true"
+                aria-label="Pages de test pour le bookmarklet 1.2 - Détecter svg sans aria-hidden=&quot;true&quot;">
+                Pages de test
+                <span class="arrow" aria-hidden="true">▼</span>
+            </button>
             <ul class="test-pages-list"
-                aria-labelledby="pages-de-test-1.2-detecter-svg-sans-aria-hidden-true">
+                id="pages-de-test-1.2-detecter-svg-sans-aria-hidden-true"
+                aria-labelledby="pages-de-test-toggle-1.2-detecter-svg-sans-aria-hidden-true"
+                hidden>
                 
                 <li>
                     <a
@@ -465,10 +475,18 @@
             </div>
             <p class="last-updated">dernière mise à jour : 13 janvier 2026</p>
             
-            <p class="test-pages-title"
-                id="pages-de-test-1.X-lister-images-avec-un-alt-non-vide">Pages de test</p>
+            <button type="button" class="test-pages-toggle"
+                id="pages-de-test-toggle-1.X-lister-images-avec-un-alt-non-vide"
+                aria-expanded="false"
+                aria-controls="pages-de-test-1.X-lister-images-avec-un-alt-non-vide"
+                aria-label="Pages de test pour le bookmarklet 1.X - Lister images avec un alt non vide">
+                Pages de test
+                <span class="arrow" aria-hidden="true">▼</span>
+            </button>
             <ul class="test-pages-list"
-                aria-labelledby="pages-de-test-1.X-lister-images-avec-un-alt-non-vide">
+                id="pages-de-test-1.X-lister-images-avec-un-alt-non-vide"
+                aria-labelledby="pages-de-test-toggle-1.X-lister-images-avec-un-alt-non-vide"
+                hidden>
                 
                 <li>
                     <a
@@ -527,10 +545,18 @@
             </div>
             <p class="last-updated">dernière mise à jour : 13 janvier 2026</p>
             
-            <p class="test-pages-title"
-                id="pages-de-test-1.X-lister-toutes-les-images-ayant-un-alt">Pages de test</p>
+            <button type="button" class="test-pages-toggle"
+                id="pages-de-test-toggle-1.X-lister-toutes-les-images-ayant-un-alt"
+                aria-expanded="false"
+                aria-controls="pages-de-test-1.X-lister-toutes-les-images-ayant-un-alt"
+                aria-label="Pages de test pour le bookmarklet 1.X - Lister toutes les images ayant un alt">
+                Pages de test
+                <span class="arrow" aria-hidden="true">▼</span>
+            </button>
             <ul class="test-pages-list"
-                aria-labelledby="pages-de-test-1.X-lister-toutes-les-images-ayant-un-alt">
+                id="pages-de-test-1.X-lister-toutes-les-images-ayant-un-alt"
+                aria-labelledby="pages-de-test-toggle-1.X-lister-toutes-les-images-ayant-un-alt"
+                hidden>
                 
                 <li>
                     <a
@@ -589,10 +615,18 @@
             </div>
             <p class="last-updated">dernière mise à jour : 20 mai 2026</p>
             
-            <p class="test-pages-title"
-                id="pages-de-test-1.X-verifier-images-non-contenues-dans-un-lien-ou-bouton">Pages de test</p>
+            <button type="button" class="test-pages-toggle"
+                id="pages-de-test-toggle-1.X-verifier-images-non-contenues-dans-un-lien-ou-bouton"
+                aria-expanded="false"
+                aria-controls="pages-de-test-1.X-verifier-images-non-contenues-dans-un-lien-ou-bouton"
+                aria-label="Pages de test pour le bookmarklet 1.X - Vérifier images non contenues dans un lien ou bouton">
+                Pages de test
+                <span class="arrow" aria-hidden="true">▼</span>
+            </button>
             <ul class="test-pages-list"
-                aria-labelledby="pages-de-test-1.X-verifier-images-non-contenues-dans-un-lien-ou-bouton">
+                id="pages-de-test-1.X-verifier-images-non-contenues-dans-un-lien-ou-bouton"
+                aria-labelledby="pages-de-test-toggle-1.X-verifier-images-non-contenues-dans-un-lien-ou-bouton"
+                hidden>
                 
                 <li>
                     <a
@@ -656,10 +690,18 @@
             </div>
             <p class="last-updated">dernière mise à jour : 13 janvier 2026</p>
             
-            <p class="test-pages-title"
-                id="pages-de-test-2.X-check-iframes-et-frames">Pages de test</p>
+            <button type="button" class="test-pages-toggle"
+                id="pages-de-test-toggle-2.X-check-iframes-et-frames"
+                aria-expanded="false"
+                aria-controls="pages-de-test-2.X-check-iframes-et-frames"
+                aria-label="Pages de test pour le bookmarklet 2.X - Check iframes et frames">
+                Pages de test
+                <span class="arrow" aria-hidden="true">▼</span>
+            </button>
             <ul class="test-pages-list"
-                aria-labelledby="pages-de-test-2.X-check-iframes-et-frames">
+                id="pages-de-test-2.X-check-iframes-et-frames"
+                aria-labelledby="pages-de-test-toggle-2.X-check-iframes-et-frames"
+                hidden>
                 
                 <li>
                     <a
@@ -763,10 +805,18 @@
             </div>
             <p class="last-updated">dernière mise à jour : 13 janvier 2026</p>
             
-            <p class="test-pages-title"
-                id="pages-de-test-5.X-test-presence-tableaux">Pages de test</p>
+            <button type="button" class="test-pages-toggle"
+                id="pages-de-test-toggle-5.X-test-presence-tableaux"
+                aria-expanded="false"
+                aria-controls="pages-de-test-5.X-test-presence-tableaux"
+                aria-label="Pages de test pour le bookmarklet 5.X - Test présence tableaux">
+                Pages de test
+                <span class="arrow" aria-hidden="true">▼</span>
+            </button>
             <ul class="test-pages-list"
-                aria-labelledby="pages-de-test-5.X-test-presence-tableaux">
+                id="pages-de-test-5.X-test-presence-tableaux"
+                aria-labelledby="pages-de-test-toggle-5.X-test-presence-tableaux"
+                hidden>
                 
                 <li>
                     <a
@@ -825,10 +875,18 @@
             </div>
             <p class="last-updated">dernière mise à jour : 12 janvier 2026</p>
             
-            <p class="test-pages-title"
-                id="pages-de-test-6.1-voir-les-noms-accessibles-des-liens">Pages de test</p>
+            <button type="button" class="test-pages-toggle"
+                id="pages-de-test-toggle-6.1-voir-les-noms-accessibles-des-liens"
+                aria-expanded="false"
+                aria-controls="pages-de-test-6.1-voir-les-noms-accessibles-des-liens"
+                aria-label="Pages de test pour le bookmarklet 6.1 - Voir les noms accessibles des liens">
+                Pages de test
+                <span class="arrow" aria-hidden="true">▼</span>
+            </button>
             <ul class="test-pages-list"
-                aria-labelledby="pages-de-test-6.1-voir-les-noms-accessibles-des-liens">
+                id="pages-de-test-6.1-voir-les-noms-accessibles-des-liens"
+                aria-labelledby="pages-de-test-toggle-6.1-voir-les-noms-accessibles-des-liens"
+                hidden>
                 
                 <li>
                     <a
@@ -892,10 +950,18 @@
             </div>
             <p class="last-updated">dernière mise à jour : 13 janvier 2026</p>
             
-            <p class="test-pages-title"
-                id="pages-de-test-6.2-test-presence-de-liens-sans-nom-accessible">Pages de test</p>
+            <button type="button" class="test-pages-toggle"
+                id="pages-de-test-toggle-6.2-test-presence-de-liens-sans-nom-accessible"
+                aria-expanded="false"
+                aria-controls="pages-de-test-6.2-test-presence-de-liens-sans-nom-accessible"
+                aria-label="Pages de test pour le bookmarklet 6.2 - Test présence de liens sans nom accessible">
+                Pages de test
+                <span class="arrow" aria-hidden="true">▼</span>
+            </button>
             <ul class="test-pages-list"
-                aria-labelledby="pages-de-test-6.2-test-presence-de-liens-sans-nom-accessible">
+                id="pages-de-test-6.2-test-presence-de-liens-sans-nom-accessible"
+                aria-labelledby="pages-de-test-toggle-6.2-test-presence-de-liens-sans-nom-accessible"
+                hidden>
                 
                 <li>
                     <a
@@ -959,10 +1025,18 @@
             </div>
             <p class="last-updated">dernière mise à jour : 13 janvier 2026</p>
             
-            <p class="test-pages-title"
-                id="pages-de-test-7.1-lister-les-liens-sans-href">Pages de test</p>
+            <button type="button" class="test-pages-toggle"
+                id="pages-de-test-toggle-7.1-lister-les-liens-sans-href"
+                aria-expanded="false"
+                aria-controls="pages-de-test-7.1-lister-les-liens-sans-href"
+                aria-label="Pages de test pour le bookmarklet 7.1 - Lister les liens sans href">
+                Pages de test
+                <span class="arrow" aria-hidden="true">▼</span>
+            </button>
             <ul class="test-pages-list"
-                aria-labelledby="pages-de-test-7.1-lister-les-liens-sans-href">
+                id="pages-de-test-7.1-lister-les-liens-sans-href"
+                aria-labelledby="pages-de-test-toggle-7.1-lister-les-liens-sans-href"
+                hidden>
                 
                 <li>
                     <a
@@ -1026,10 +1100,18 @@
             </div>
             <p class="last-updated">dernière mise à jour : 06 juin 2025</p>
             
-            <p class="test-pages-title"
-                id="pages-de-test-8.3_8.4-detecter-la-langue-par-defaut">Pages de test</p>
+            <button type="button" class="test-pages-toggle"
+                id="pages-de-test-toggle-8.3_8.4-detecter-la-langue-par-defaut"
+                aria-expanded="false"
+                aria-controls="pages-de-test-8.3_8.4-detecter-la-langue-par-defaut"
+                aria-label="Pages de test pour le bookmarklet 8.3_8.4 - Détecter la langue par défaut">
+                Pages de test
+                <span class="arrow" aria-hidden="true">▼</span>
+            </button>
             <ul class="test-pages-list"
-                aria-labelledby="pages-de-test-8.3_8.4-detecter-la-langue-par-defaut">
+                id="pages-de-test-8.3_8.4-detecter-la-langue-par-defaut"
+                aria-labelledby="pages-de-test-toggle-8.3_8.4-detecter-la-langue-par-defaut"
+                hidden>
                 
                 <li>
                     <a
@@ -1093,10 +1175,18 @@
             </div>
             <p class="last-updated">dernière mise à jour : 13 janvier 2026</p>
             
-            <p class="test-pages-title"
-                id="pages-de-test-8.7_8.8-lister-les-attributs-lang">Pages de test</p>
+            <button type="button" class="test-pages-toggle"
+                id="pages-de-test-toggle-8.7_8.8-lister-les-attributs-lang"
+                aria-expanded="false"
+                aria-controls="pages-de-test-8.7_8.8-lister-les-attributs-lang"
+                aria-label="Pages de test pour le bookmarklet 8.7_8.8 - Lister les attributs lang">
+                Pages de test
+                <span class="arrow" aria-hidden="true">▼</span>
+            </button>
             <ul class="test-pages-list"
-                aria-labelledby="pages-de-test-8.7_8.8-lister-les-attributs-lang">
+                id="pages-de-test-8.7_8.8-lister-les-attributs-lang"
+                aria-labelledby="pages-de-test-toggle-8.7_8.8-lister-les-attributs-lang"
+                hidden>
                 
                 <li>
                     <a
@@ -1170,10 +1260,18 @@
             </div>
             <p class="last-updated">dernière mise à jour : 13 janvier 2026</p>
             
-            <p class="test-pages-title"
-                id="pages-de-test-8.9-double-br">Pages de test</p>
+            <button type="button" class="test-pages-toggle"
+                id="pages-de-test-toggle-8.9-double-br"
+                aria-expanded="false"
+                aria-controls="pages-de-test-8.9-double-br"
+                aria-label="Pages de test pour le bookmarklet 8.9 - Double &lt;br&gt;">
+                Pages de test
+                <span class="arrow" aria-hidden="true">▼</span>
+            </button>
             <ul class="test-pages-list"
-                aria-labelledby="pages-de-test-8.9-double-br">
+                id="pages-de-test-8.9-double-br"
+                aria-labelledby="pages-de-test-toggle-8.9-double-br"
+                hidden>
                 
                 <li>
                     <a
@@ -1237,10 +1335,18 @@
             </div>
             <p class="last-updated">dernière mise à jour : 13 janvier 2026</p>
             
-            <p class="test-pages-title"
-                id="pages-de-test-8.9-paragraphes-vides">Pages de test</p>
+            <button type="button" class="test-pages-toggle"
+                id="pages-de-test-toggle-8.9-paragraphes-vides"
+                aria-expanded="false"
+                aria-controls="pages-de-test-8.9-paragraphes-vides"
+                aria-label="Pages de test pour le bookmarklet 8.9 - Paragraphes vides">
+                Pages de test
+                <span class="arrow" aria-hidden="true">▼</span>
+            </button>
             <ul class="test-pages-list"
-                aria-labelledby="pages-de-test-8.9-paragraphes-vides">
+                id="pages-de-test-8.9-paragraphes-vides"
+                aria-labelledby="pages-de-test-toggle-8.9-paragraphes-vides"
+                hidden>
                 
                 <li>
                     <a
@@ -1304,10 +1410,18 @@
             </div>
             <p class="last-updated">dernière mise à jour : 03 juin 2026</p>
             
-            <p class="test-pages-title"
-                id="pages-de-test-8.9-texte-dans-balise-non-semantique">Pages de test</p>
+            <button type="button" class="test-pages-toggle"
+                id="pages-de-test-toggle-8.9-texte-dans-balise-non-semantique"
+                aria-expanded="false"
+                aria-controls="pages-de-test-8.9-texte-dans-balise-non-semantique"
+                aria-label="Pages de test pour le bookmarklet 8.9 - Texte dans balise non sémantique">
+                Pages de test
+                <span class="arrow" aria-hidden="true">▼</span>
+            </button>
             <ul class="test-pages-list"
-                aria-labelledby="pages-de-test-8.9-texte-dans-balise-non-semantique">
+                id="pages-de-test-8.9-texte-dans-balise-non-semantique"
+                aria-labelledby="pages-de-test-toggle-8.9-texte-dans-balise-non-semantique"
+                hidden>
                 
                 <li>
                     <a
@@ -1371,10 +1485,18 @@
             </div>
             <p class="last-updated">dernière mise à jour : 03 juin 2026</p>
             
-            <p class="test-pages-title"
-                id="pages-de-test-8.9-texte-dans-balise-non-semantique-(sans-display-none)">Pages de test</p>
+            <button type="button" class="test-pages-toggle"
+                id="pages-de-test-toggle-8.9-texte-dans-balise-non-semantique-(sans-display-none)"
+                aria-expanded="false"
+                aria-controls="pages-de-test-8.9-texte-dans-balise-non-semantique-(sans-display-none)"
+                aria-label="Pages de test pour le bookmarklet 8.9 - Texte dans balise non sémantique (sans display none)">
+                Pages de test
+                <span class="arrow" aria-hidden="true">▼</span>
+            </button>
             <ul class="test-pages-list"
-                aria-labelledby="pages-de-test-8.9-texte-dans-balise-non-semantique-(sans-display-none)">
+                id="pages-de-test-8.9-texte-dans-balise-non-semantique-(sans-display-none)"
+                aria-labelledby="pages-de-test-toggle-8.9-texte-dans-balise-non-semantique-(sans-display-none)"
+                hidden>
                 
                 <li>
                     <a
@@ -1438,10 +1560,18 @@
             </div>
             <p class="last-updated">dernière mise à jour : 03 juin 2026</p>
             
-            <p class="test-pages-title"
-                id="pages-de-test-8.9-texte-dans-balise-non-semantique-sans-label">Pages de test</p>
+            <button type="button" class="test-pages-toggle"
+                id="pages-de-test-toggle-8.9-texte-dans-balise-non-semantique-sans-label"
+                aria-expanded="false"
+                aria-controls="pages-de-test-8.9-texte-dans-balise-non-semantique-sans-label"
+                aria-label="Pages de test pour le bookmarklet 8.9 - Texte dans balise non sémantique sans label">
+                Pages de test
+                <span class="arrow" aria-hidden="true">▼</span>
+            </button>
             <ul class="test-pages-list"
-                aria-labelledby="pages-de-test-8.9-texte-dans-balise-non-semantique-sans-label">
+                id="pages-de-test-8.9-texte-dans-balise-non-semantique-sans-label"
+                aria-labelledby="pages-de-test-toggle-8.9-texte-dans-balise-non-semantique-sans-label"
+                hidden>
                 
                 <li>
                     <a
@@ -1505,10 +1635,18 @@
             </div>
             <p class="last-updated">dernière mise à jour : 13 janvier 2026</p>
             
-            <p class="test-pages-title"
-                id="pages-de-test-9.2-test-presence-header-nav-main-footer">Pages de test</p>
+            <button type="button" class="test-pages-toggle"
+                id="pages-de-test-toggle-9.2-test-presence-header-nav-main-footer"
+                aria-expanded="false"
+                aria-controls="pages-de-test-9.2-test-presence-header-nav-main-footer"
+                aria-label="Pages de test pour le bookmarklet 9.2 - Test présence header, nav, main, footer">
+                Pages de test
+                <span class="arrow" aria-hidden="true">▼</span>
+            </button>
             <ul class="test-pages-list"
-                aria-labelledby="pages-de-test-9.2-test-presence-header-nav-main-footer">
+                id="pages-de-test-9.2-test-presence-header-nav-main-footer"
+                aria-labelledby="pages-de-test-toggle-9.2-test-presence-header-nav-main-footer"
+                hidden>
                 
                 <li>
                     <a
@@ -1567,10 +1705,18 @@
             </div>
             <p class="last-updated">dernière mise à jour : 13 janvier 2026</p>
             
-            <p class="test-pages-title"
-                id="pages-de-test-9.3-identifier-les-listes">Pages de test</p>
+            <button type="button" class="test-pages-toggle"
+                id="pages-de-test-toggle-9.3-identifier-les-listes"
+                aria-expanded="false"
+                aria-controls="pages-de-test-9.3-identifier-les-listes"
+                aria-label="Pages de test pour le bookmarklet 9.3 - Identifier les listes">
+                Pages de test
+                <span class="arrow" aria-hidden="true">▼</span>
+            </button>
             <ul class="test-pages-list"
-                aria-labelledby="pages-de-test-9.3-identifier-les-listes">
+                id="pages-de-test-9.3-identifier-les-listes"
+                aria-labelledby="pages-de-test-toggle-9.3-identifier-les-listes"
+                hidden>
                 
                 <li>
                     <a
@@ -1629,10 +1775,18 @@
             </div>
             <p class="last-updated">dernière mise à jour : 13 janvier 2026</p>
             
-            <p class="test-pages-title"
-                id="pages-de-test-9.4-test-presence-elements-de-citations">Pages de test</p>
+            <button type="button" class="test-pages-toggle"
+                id="pages-de-test-toggle-9.4-test-presence-elements-de-citations"
+                aria-expanded="false"
+                aria-controls="pages-de-test-9.4-test-presence-elements-de-citations"
+                aria-label="Pages de test pour le bookmarklet 9.4 - Test présence éléments de citations">
+                Pages de test
+                <span class="arrow" aria-hidden="true">▼</span>
+            </button>
             <ul class="test-pages-list"
-                aria-labelledby="pages-de-test-9.4-test-presence-elements-de-citations">
+                id="pages-de-test-9.4-test-presence-elements-de-citations"
+                aria-labelledby="pages-de-test-toggle-9.4-test-presence-elements-de-citations"
+                hidden>
                 
                 <li>
                     <a
@@ -1691,10 +1845,18 @@
             </div>
             <p class="last-updated">dernière mise à jour : 13 janvier 2026</p>
             
-            <p class="test-pages-title"
-                id="pages-de-test-10.1-test-presence-balises-et-attributs-de-presentation">Pages de test</p>
+            <button type="button" class="test-pages-toggle"
+                id="pages-de-test-toggle-10.1-test-presence-balises-et-attributs-de-presentation"
+                aria-expanded="false"
+                aria-controls="pages-de-test-10.1-test-presence-balises-et-attributs-de-presentation"
+                aria-label="Pages de test pour le bookmarklet 10.1 - Test présence balises et attributs de présentation">
+                Pages de test
+                <span class="arrow" aria-hidden="true">▼</span>
+            </button>
             <ul class="test-pages-list"
-                aria-labelledby="pages-de-test-10.1-test-presence-balises-et-attributs-de-presentation">
+                id="pages-de-test-10.1-test-presence-balises-et-attributs-de-presentation"
+                aria-labelledby="pages-de-test-toggle-10.1-test-presence-balises-et-attributs-de-presentation"
+                hidden>
                 
                 <li>
                     <a
@@ -1758,10 +1920,18 @@
             </div>
             <p class="last-updated">dernière mise à jour : 13 janvier 2026</p>
             
-            <p class="test-pages-title"
-                id="pages-de-test-10.1-test-presence-balises-et-attributs-de-presentation-seulement-CSS-TOGGLE">Pages de test</p>
+            <button type="button" class="test-pages-toggle"
+                id="pages-de-test-toggle-10.1-test-presence-balises-et-attributs-de-presentation-seulement-CSS-TOGGLE"
+                aria-expanded="false"
+                aria-controls="pages-de-test-10.1-test-presence-balises-et-attributs-de-presentation-seulement-CSS-TOGGLE"
+                aria-label="Pages de test pour le bookmarklet 10.1 - Test présence balises et attributs de présentation seulement css toggle">
+                Pages de test
+                <span class="arrow" aria-hidden="true">▼</span>
+            </button>
             <ul class="test-pages-list"
-                aria-labelledby="pages-de-test-10.1-test-presence-balises-et-attributs-de-presentation-seulement-CSS-TOGGLE">
+                id="pages-de-test-10.1-test-presence-balises-et-attributs-de-presentation-seulement-CSS-TOGGLE"
+                aria-labelledby="pages-de-test-toggle-10.1-test-presence-balises-et-attributs-de-presentation-seulement-CSS-TOGGLE"
+                hidden>
                 
                 <li>
                     <a
@@ -1825,10 +1995,18 @@
             </div>
             <p class="last-updated">dernière mise à jour : 13 janvier 2026</p>
             
-            <p class="test-pages-title"
-                id="pages-de-test-10.2-trouver-les-images-en-background-image">Pages de test</p>
+            <button type="button" class="test-pages-toggle"
+                id="pages-de-test-toggle-10.2-trouver-les-images-en-background-image"
+                aria-expanded="false"
+                aria-controls="pages-de-test-10.2-trouver-les-images-en-background-image"
+                aria-label="Pages de test pour le bookmarklet 10.2 - Trouver les images en background image">
+                Pages de test
+                <span class="arrow" aria-hidden="true">▼</span>
+            </button>
             <ul class="test-pages-list"
-                aria-labelledby="pages-de-test-10.2-trouver-les-images-en-background-image">
+                id="pages-de-test-10.2-trouver-les-images-en-background-image"
+                aria-labelledby="pages-de-test-toggle-10.2-trouver-les-images-en-background-image"
+                hidden>
                 
                 <li>
                     <a
@@ -1887,10 +2065,18 @@
             </div>
             <p class="last-updated">dernière mise à jour : 10 septembre 2026</p>
             
-            <p class="test-pages-title"
-                id="pages-de-test-10.5-verifier-declarations-css-de-couleurs-de-fond-d-element-et-de-police">Pages de test</p>
+            <button type="button" class="test-pages-toggle"
+                id="pages-de-test-toggle-10.5-verifier-declarations-css-de-couleurs-de-fond-d-element-et-de-police"
+                aria-expanded="false"
+                aria-controls="pages-de-test-10.5-verifier-declarations-css-de-couleurs-de-fond-d-element-et-de-police"
+                aria-label="Pages de test pour le bookmarklet 10.5 - Vérifier déclarations css de couleurs de fond d'élément et de police">
+                Pages de test
+                <span class="arrow" aria-hidden="true">▼</span>
+            </button>
             <ul class="test-pages-list"
-                aria-labelledby="pages-de-test-10.5-verifier-declarations-css-de-couleurs-de-fond-d-element-et-de-police">
+                id="pages-de-test-10.5-verifier-declarations-css-de-couleurs-de-fond-d-element-et-de-police"
+                aria-labelledby="pages-de-test-toggle-10.5-verifier-declarations-css-de-couleurs-de-fond-d-element-et-de-police"
+                hidden>
                 
                 <li>
                     <a
@@ -1959,10 +2145,18 @@
             </div>
             <p class="last-updated">dernière mise à jour : 13 janvier 2026</p>
             
-            <p class="test-pages-title"
-                id="pages-de-test-10.8-lister-les-elements-caches-et-mettre-en-avant-les-aria-hidden-true">Pages de test</p>
+            <button type="button" class="test-pages-toggle"
+                id="pages-de-test-toggle-10.8-lister-les-elements-caches-et-mettre-en-avant-les-aria-hidden-true"
+                aria-expanded="false"
+                aria-controls="pages-de-test-10.8-lister-les-elements-caches-et-mettre-en-avant-les-aria-hidden-true"
+                aria-label="Pages de test pour le bookmarklet 10.8 - Lister les éléments cachés et mettre en avant les aria-hidden=&quot;true&quot;">
+                Pages de test
+                <span class="arrow" aria-hidden="true">▼</span>
+            </button>
             <ul class="test-pages-list"
-                aria-labelledby="pages-de-test-10.8-lister-les-elements-caches-et-mettre-en-avant-les-aria-hidden-true">
+                id="pages-de-test-10.8-lister-les-elements-caches-et-mettre-en-avant-les-aria-hidden-true"
+                aria-labelledby="pages-de-test-toggle-10.8-lister-les-elements-caches-et-mettre-en-avant-les-aria-hidden-true"
+                hidden>
                 
                 <li>
                     <a
@@ -2076,10 +2270,18 @@
             </div>
             <p class="last-updated">dernière mise à jour : 13 janvier 2026</p>
             
-            <p class="test-pages-title"
-                id="pages-de-test-11.X-test-presence-formulaires">Pages de test</p>
+            <button type="button" class="test-pages-toggle"
+                id="pages-de-test-toggle-11.X-test-presence-formulaires"
+                aria-expanded="false"
+                aria-controls="pages-de-test-11.X-test-presence-formulaires"
+                aria-label="Pages de test pour le bookmarklet 11.X - Test présence formulaires">
+                Pages de test
+                <span class="arrow" aria-hidden="true">▼</span>
+            </button>
             <ul class="test-pages-list"
-                aria-labelledby="pages-de-test-11.X-test-presence-formulaires">
+                id="pages-de-test-11.X-test-presence-formulaires"
+                aria-labelledby="pages-de-test-toggle-11.X-test-presence-formulaires"
+                hidden>
                 
                 <li>
                     <a
@@ -2138,10 +2340,18 @@
             </div>
             <p class="last-updated">dernière mise à jour : 13 janvier 2026</p>
             
-            <p class="test-pages-title"
-                id="pages-de-test-12.6-verifier-les-landmarks">Pages de test</p>
+            <button type="button" class="test-pages-toggle"
+                id="pages-de-test-toggle-12.6-verifier-les-landmarks"
+                aria-expanded="false"
+                aria-controls="pages-de-test-12.6-verifier-les-landmarks"
+                aria-label="Pages de test pour le bookmarklet 12.6 - Vérifier les landmarks">
+                Pages de test
+                <span class="arrow" aria-hidden="true">▼</span>
+            </button>
             <ul class="test-pages-list"
-                aria-labelledby="pages-de-test-12.6-verifier-les-landmarks">
+                id="pages-de-test-12.6-verifier-les-landmarks"
+                aria-labelledby="pages-de-test-toggle-12.6-verifier-les-landmarks"
+                hidden>
                 
                 <li>
                     <a
@@ -2422,6 +2632,7 @@
 </footer>
     <script src="/bookmarklets-pour-le-rgaa-4.1.2/assets/js/copy-bookmarklet.js"></script>
     <script src="/bookmarklets-pour-le-rgaa-4.1.2/assets/js/sort-bookmarklets.js"></script>
+    <script src="/bookmarklets-pour-le-rgaa-4.1.2/assets/js/toggle-test-pages.js"></script>
     <script>
         document.querySelector('.toggle-button').addEventListener('click', function () {
             const steps = document.getElementById('installation-steps');
@@ -2430,6 +2641,20 @@
             steps.classList.toggle('visible');
             this.setAttribute('aria-expanded', !isExpanded);
         });
+
+        // Historique des modifications : présent uniquement sur les pages qui
+        // en déclarent un
+        const changelogToggle = document.querySelector('.changelog-toggle');
+
+        if (changelogToggle) {
+            changelogToggle.addEventListener('click', function () {
+                const changelog = document.getElementById(this.getAttribute('aria-controls'));
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+
+                this.setAttribute('aria-expanded', String(!isExpanded));
+                changelog.hidden = isExpanded;
+            });
+        }
 
         function hideTooltips() {
             document.body.classList.add('tooltips-hidden');
