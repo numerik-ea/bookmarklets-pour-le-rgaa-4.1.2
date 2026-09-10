@@ -323,6 +323,15 @@ section {
   font-style: italic;
 }
 
+/* Test Pages Section */
+.test-pages-title {
+  color: var(--primary-color);
+  font-size: 0.875rem;
+  font-weight: bold;
+  margin-top: 0.75rem;
+  margin-bottom: 0;
+}
+
 li {
   margin-bottom: 1rem;
   padding: 1rem;
