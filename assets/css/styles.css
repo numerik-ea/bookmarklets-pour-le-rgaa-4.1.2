@@ -8,6 +8,22 @@
   --border-color: #e2e8f0;
 }
 
+/* Masque à l'écran sans retirer de l'arbre d'accessibilité.
+   Ni display:none ni visibility:hidden ne conviennent : ils empêcheraient la
+   restitution du contenu par les technologies d'assistance. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* Base Styles */
 html {
   overflow-x: hidden;

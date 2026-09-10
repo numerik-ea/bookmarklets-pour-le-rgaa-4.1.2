@@ -1,6 +1,22 @@
 {% include header.html %}
 
 <body class="page-{{ page.layout }}">
+    <!-- Régions live des messages destinés aux technologies d'assistance.
+         Il y en a deux, utilisées en alternance : un lecteur d'écran ne
+         restitue que ce qui CHANGE dans une région live, donc réécrire le même
+         message au même endroit n'est plus annoncé dès la deuxième activation
+         du bouton de copie. En alternant, et en vidant la région qui ne sert
+         pas, celle où l'on écrit passe toujours de vide au message.
+         Elles doivent être présentes dans le DOM dès le chargement : une
+         région insérée en même temps que son texte n'est pas annoncée.
+         role="status" implique déjà aria-live="polite" ; les deux sont
+         déclarés car certaines combinaisons TA/navigateur ne s'appuient que
+         sur l'un des deux. -->
+    <div class="visually-hidden" data-live-region role="status"
+        aria-live="polite"></div>
+    <div class="visually-hidden" data-live-region role="status"
+        aria-live="polite"></div>
+
     <header role="banner">
         <div class="container">
             <a href="{{ site.baseurl }}" class="back-link">
