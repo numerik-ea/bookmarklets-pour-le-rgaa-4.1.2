@@ -54,6 +54,32 @@
             <summary>Voir l'historique des modifications</summary>
             <div class="changelog">
                 <div class="changelog-entry">
+                    <h3>Version 2026.9.10 - 10 septembre 2026</h3>
+                    <ul>
+                        <li>Refonte du bookmarklet "10.5 - Vérifier
+                            déclarations CSS de couleurs de fond d'élément et de
+                            police" : il n'impose plus des couleurs à la balise
+                            &lt;html&gt;, méthode inopérante dès que
+                            &lt;body&gt; déclare son propre
+                            <code>background-color</code>, et applique désormais
+                            les méthodologies des tests 10.5.1, 10.5.2 et 10.5.3
+                            élément par élément, en tenant compte des
+                            déclarations héritées d'un parent</li>
+                        <li>10.5 - Les éléments en échec reçoivent la
+                            déclaration qui leur manque (fond bleu pour 10.5.1,
+                            police jaune pour 10.5.2, image de fond retirée pour
+                            10.5.3) et un contour de repérage ; la page n'est
+                            pas modifiée en l'absence d'échec</li>
+                        <li>10.5 - Les couleurs par défaut du navigateur
+                            (liens, &lt;mark&gt;, &lt;button&gt;...) ne sont plus
+                            confondues avec des déclarations d'auteur, et les
+                            éléments non rendus sont exclus de l'analyse</li>
+                        <li>Ajout des pages de test "10.5-test.html",
+                            "10.5-test-body-avec-couleurs.html" et
+                            "10.5-test-shadow-dom.html"</li>
+                    </ul>
+                </div>
+                <div class="changelog-entry">
                     <h3>Version 2026.8.5 - 5 août 2026</h3>
                     <ul>
                         <li>ATTENTION : L'utilisation des bookmarklets est à la
@@ -1412,7 +1438,7 @@
         
 
         <li id="10.5-verifier-declarations-css-de-couleurs-de-fond-d-element-et-de-police"
-            data-last-updated="2026-01-05">
+            data-last-updated="2026-09-10">
             <div class="bookmarklet-container">
                 <a href="#10.5-verifier-declarations-css-de-couleurs-de-fond-d-element-et-de-police"
                     class="bookmarklet-anchor-link"
@@ -1430,7 +1456,7 @@
                     </svg>
                 </a>
                 <span class="tooltip">Lien avec ancre vers ce bookmarklet</span>
-                <a href="javascript:(function () { function getColorName(colorValue) { if (!colorValue || colorValue === `transparent`) { return colorValue; } const namedColors = [ `black`, `white`, `red`, `green`, `blue`, `yellow`, `orange`, `purple`, `pink`, `brown`, `gray`, `grey`, `cyan`, `magenta`, `lime`, `navy`, `olive`, `maroon`, `teal`, `aqua`, `silver`, `gold`, `indigo`, `violet`, `coral`, `salmon`, `turquoise`, `khaki`, `plum`, `orchid`, `tan`, `beige`, `ivory`, `lavender`, `crimson`, `azure`, `bisque`, `chocolate`, `coral`, `darkblue`, `darkcyan`, `darkgray`, `darkgreen`, `darkgrey`, `darkkhaki`, `darkmagenta`, `darkolivegreen`, `darkorange`, `darkorchid`, `darkred`, `darksalmon`, `darkseagreen`, `darkslateblue`, `darkslategray`, `darkslategrey`, `darkturquoise`, `darkviolet`, `deeppink`, `deepskyblue`, `dimgray`, `dimgrey`, `dodgerblue`, `firebrick`, `floralwhite`, `forestgreen`, `fuchsia`, `gainsboro`, `ghostwhite`, `goldenrod`, `greenyellow`, `honeydew`, `hotpink`, `indianred`, `lightblue`, `lightcoral`, `lightcyan`, `lightgoldenrodyellow`, `lightgray`, `lightgreen`, `lightgrey`, `lightpink`, `lightsalmon`, `lightseagreen`, `lightskyblue`, `lightslategray`, `lightslategrey`, `lightsteelblue`, `lightyellow`, `limegreen`, `linen`, `mediumaquamarine`, `mediumblue`, `mediumorchid`, `mediumpurple`, `mediumseagreen`, `mediumslateblue`, `mediumspringgreen`, `mediumturquoise`, `mediumvioletred`, `midnightblue`, `mintcream`, `mistyrose`, `moccasin`, `oldlace`, `palegoldenrod`, `palegreen`, `paleturquoise`, `palevioletred`, `papayawhip`, `peachpuff`, `peru`, `powderblue`, `rosybrown`, `royalblue`, `saddlebrown`, `sandybrown`, `seagreen`, `seashell`, `sienna`, `skyblue`, `slateblue`, `slategray`, `slategrey`, `snow`, `springgreen`, `steelblue`, `thistle`, `tomato`, `wheat`, `whitesmoke`, `yellowgreen`, ]; const lowerColor = colorValue.toLowerCase().trim(); if (namedColors.includes(lowerColor)) { return lowerColor; } try { const tempDiv = document.createElement(`div`); tempDiv.style.color = colorValue; const computedColor = window.getComputedStyle(tempDiv).color; let rgbMatch = colorValue.match( /rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*[\d.]+)?\)/ ); if (!rgbMatch) { rgbMatch = computedColor.match( /rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*[\d.]+)?\)/ ); } if (rgbMatch) { const r = parseInt(rgbMatch[1]); const g = parseInt(rgbMatch[2]); const b = parseInt(rgbMatch[3]); const colorMap = { 'rgb(0, 0, 0)': 'black', 'rgb(255, 255, 255)': 'white', 'rgb(255, 0, 0)': 'red', 'rgb(0, 255, 0)': 'lime', 'rgb(0, 0, 255)': 'blue', 'rgb(255, 255, 0)': 'yellow', 'rgb(255, 165, 0)': 'orange', 'rgb(128, 0, 128)': 'purple', 'rgb(255, 192, 203)': 'pink', 'rgb(165, 42, 42)': 'brown', 'rgb(128, 128, 128)': 'gray', 'rgb(0, 255, 255)': 'cyan', 'rgb(255, 0, 255)': 'magenta', 'rgb(0, 128, 0)': 'green', 'rgb(0, 0, 128)': 'navy', 'rgb(128, 128, 0)': 'olive', 'rgb(128, 0, 0)': 'maroon', 'rgb(0, 128, 128)': 'teal', }; const rgbKey = `rgb(${r}, ${g}, ${b})`; if (colorMap[rgbKey]) { return colorMap[rgbKey]; } const tolerance = 10; for (const [key, name] of Object.entries(colorMap)) { const keyMatch = key.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/); if (keyMatch) { const keyR = parseInt(keyMatch[1]); const keyG = parseInt(keyMatch[2]); const keyB = parseInt(keyMatch[3]); if ( Math.abs(r - keyR) <= tolerance && Math.abs(g - keyG) <= tolerance && Math.abs(b - keyB) <= tolerance ) { return name; } } } } } catch (e) { } return colorValue; } function hasImportantRule(property) { const htmlElement = document.documentElement; const stylesheets = Array.from(document.styleSheets); for (let stylesheet of stylesheets) { try { const rules = Array.from(stylesheet.cssRules || []); for (let rule of rules) { if ( rule.selectorText && (rule.selectorText.toLowerCase() === `html` || rule.selectorText.toLowerCase() === `:root` || htmlElement.matches(rule.selectorText)) ) { const style = rule.style; if (style && style.getPropertyValue(property)) { const priority = style.getPropertyPriority(property); if (priority === `important`) { return true; } } } } } catch (e) { continue; } } return false; } function addColorsToHtml() { const htmlElement = document.documentElement; const computedStyle = window.getComputedStyle(htmlElement); const hasImportantBackgroundColor = hasImportantRule(`background-color`); const hasImportantColor = hasImportantRule(`color`); const inlineBg = htmlElement.style.backgroundColor; const inlineColor = htmlElement.style.color; const hasInlineBackgroundColor = inlineBg && inlineBg.trim() !== ``; const hasInlineTextColor = inlineColor && inlineColor.trim() !== ``; let existingBackgroundColor = null; let existingTextColor = null; let hasImportantBg = false; let hasImportantText = false; if (hasInlineBackgroundColor) { existingBackgroundColor = inlineBg; const computedBg = computedStyle.backgroundColor; if (hasImportantBackgroundColor && computedBg !== inlineBg) { hasImportantBg = true; existingBackgroundColor = computedBg; } } else { const computedBg = computedStyle.backgroundColor; if ( computedBg && computedBg !== `transparent` && computedBg !== `rgba(0, 0, 0, 0)` ) { existingBackgroundColor = computedBg; hasImportantBg = hasImportantBackgroundColor; } } if (hasInlineTextColor) { existingTextColor = inlineColor; const computedColor = computedStyle.color; if (hasImportantColor && computedColor !== inlineColor) { hasImportantText = true; existingTextColor = computedColor; } } else { const computedColor = computedStyle.color; if ( computedColor && computedColor !== `rgb(0, 0, 0)` && computedColor !== `rgba(0, 0, 0, 1)` && computedColor !== `#000000` && computedColor !== `black` ) { existingTextColor = computedColor; hasImportantText = hasImportantColor; } } const canAddBackground = !existingBackgroundColor; const canAddText = !existingTextColor; if (!canAddBackground && !canAddText) { return { htmlElement, backgroundColor: existingBackgroundColor || `non définie`, textColor: existingTextColor || `non définie`, skipped: true, hasImportantBg: hasImportantBg, hasImportantText: hasImportantText, }; } let backgroundColor = null; let textColor = null; let addBackground = false; let addText = false; if (canAddBackground && canAddText) { const bgPrompt = prompt( `Entrez la couleur de fond de la balise <html> :\n(ex : #f0f8ff, lightblue, rgb(240,248,255))`, `blue` ); if (bgPrompt === null) { return { htmlElement, backgroundColor: null, textColor: null, skipped: true, cancelled: true, }; } addBackground = true; backgroundColor = bgPrompt || `blue`; const textPrompt = prompt( `Entrez la couleur de police de la balise <html> :\n(ex : #2c3e50, darkblue, rgb(44,62,80))`, `yellow` ); if (textPrompt === null) { return { htmlElement, backgroundColor: null, textColor: null, skipped: true, cancelled: true, }; } addText = true; textColor = textPrompt || `yellow`; } else if (canAddBackground) { const textColorName = getColorName(existingTextColor); const bgPrompt = prompt( `La couleur de police de la balise <html> est déjà définie :\n${textColorName}\n\nEntrez la couleur de fond de la balise <html> :\n(ex : #f0f8ff, lightblue, rgb(240,248,255))`, `blue` ); if (bgPrompt === null) { return { htmlElement, backgroundColor: null, textColor: null, skipped: true, cancelled: true, }; } addBackground = true; backgroundColor = bgPrompt || `blue`; } else if (canAddText) { const bgColorName = getColorName(existingBackgroundColor); const textPrompt = prompt( `La couleur de fond de la balise <html> est déjà définie :\n${bgColorName}\n\nEntrez la couleur de police de la balise <html> :\n(ex : #2c3e50, darkblue, rgb(44,62,80))`, `yellow` ); if (textPrompt === null) { return { htmlElement, backgroundColor: null, textColor: null, skipped: true, cancelled: true, }; } addText = true; textColor = textPrompt || `yellow`; } if (!addBackground && !addText) { return { htmlElement, backgroundColor: null, textColor: null, skipped: true, cancelled: true, }; } const hasImportantBgCheck = hasImportantRule(`background-color`); const hasImportantTextCheck = hasImportantRule(`color`); if (addBackground) { htmlElement.style.backgroundColor = backgroundColor; } if (addText) { htmlElement.style.color = textColor; } const computedStyleAfter = window.getComputedStyle(htmlElement); const appliedBg = addBackground ? computedStyleAfter.backgroundColor : null; const appliedColor = addText ? computedStyleAfter.color : null; const bgWasOverridden = addBackground && hasImportantBgCheck && appliedBg !== backgroundColor; const colorWasOverridden = addText && hasImportantTextCheck && appliedColor !== textColor; return { htmlElement, backgroundColor: addBackground ? backgroundColor : existingBackgroundColor || null, textColor: addText ? textColor : existingTextColor || null, skipped: false, hasImportantBg: hasImportantBgCheck, hasImportantText: hasImportantTextCheck, bgWasOverridden: bgWasOverridden, colorWasOverridden: colorWasOverridden, appliedBg: appliedBg, appliedColor: appliedColor, addBackground: addBackground, addText: addText, existingBackgroundColor: existingBackgroundColor, existingTextColor: existingTextColor, }; } const result = addColorsToHtml(); const { htmlElement, backgroundColor, textColor, skipped, hasImportantBg, hasImportantText, bgWasOverridden, colorWasOverridden, appliedBg, appliedColor, cancelled, addBackground, addText, existingBackgroundColor, existingTextColor, } = result; if (cancelled) { return; } if (skipped) { const hasBg = backgroundColor && backgroundColor !== `non définie`; const hasText = textColor && textColor !== `non définie`; let message = ``; if (hasBg && hasText) { message = `Les couleurs sont déjà définies sur la balise HTML`; } else if (hasBg) { message = `La couleur de fond est déjà définie sur la balise HTML`; } else if (hasText) { message = `La couleur de police est déjà définie sur la balise HTML`; } let importantWarning = ``; if (hasImportantBg || hasImportantText) { importantWarning = `\n⚠️ Attention : Des règles CSS avec !important sont présentes`; if (hasImportantBg) { importantWarning += `\n - background-color avec !important`; } if (hasImportantText) { importantWarning += `\n - color avec !important`; } } let alertMessage = message + `.`; if (hasBg) { const bgName = getColorName(backgroundColor); alertMessage += `\nCouleur de fond : ` + bgName; } if (hasText) { const textName = getColorName(textColor); alertMessage += `\nCouleur de police : ` + textName; } alert( alertMessage + importantWarning + `\nPlus de détails dans la console.` ); console.clear(); console.log(message + ` :`); console.log(`Élément HTML :`, htmlElement); if (hasBg) { const bgName = getColorName(backgroundColor); console.log(`Couleur de fond existante : ` + bgName); } if (hasText) { const textName = getColorName(textColor); console.log(`Couleur de police existante : ` + textName); } if (hasImportantBg || hasImportantText) { console.warn(`⚠️ Règles CSS avec !important détectées :`); if (hasImportantBg) { console.warn(` - background-color avec !important`); } if (hasImportantText) { console.warn(` - color avec !important`); } } } else { let message = ``; if (addBackground && addText) { message = `Couleurs de fond et de police ajoutées à la balise HTML`; } else if (addBackground) { message = `Couleur de fond ajoutée à la balise HTML`; } else if (addText) { message = `Couleur de police ajoutée à la balise HTML`; } let importantWarning = ``; if (bgWasOverridden || colorWasOverridden) { importantWarning = `\n⚠️ Attention : Les styles n'ont pas pu être appliqués à cause de règles CSS avec !important`; if (bgWasOverridden) { const appliedBgName = getColorName(appliedBg); const bgName = getColorName(backgroundColor); importantWarning += `\n - background-color : ` + appliedBgName + ` (au lieu de ` + bgName + `)`; } if (colorWasOverridden) { const appliedColorName = getColorName(appliedColor); const textName = getColorName(textColor); importantWarning += `\n - color : ` + appliedColorName + ` (au lieu de ` + textName + `)`; } } else if (hasImportantBg || hasImportantText) { importantWarning = `\n⚠️ Des règles CSS avec !important sont présentes mais n'ont pas empêché l'application`; } let alertMessage = message + `.`; if (existingBackgroundColor) { const bgName = getColorName(existingBackgroundColor); alertMessage += `\nCouleur de fond existante : ` + bgName; } if (addBackground) { const bgName = getColorName(backgroundColor); alertMessage += `\nCouleur de fond ajoutée : ` + bgName; } if (existingTextColor) { const textName = getColorName(existingTextColor); alertMessage += `\nCouleur de police existante : ` + textName; } if (addText) { const textName = getColorName(textColor); alertMessage += `\nCouleur de police ajoutée : ` + textName; } alertMessage += importantWarning + `\nPlus de détails dans la console.`; alert(alertMessage); console.clear(); console.log(message + ` :`); console.log(`Élément HTML modifié :`, htmlElement); if (existingBackgroundColor) { const bgName = getColorName(existingBackgroundColor); console.log(`Couleur de fond existante : ` + bgName); } if (addBackground) { const bgName = getColorName(backgroundColor); console.log(`Couleur de fond appliquée : ` + bgName); } if (existingTextColor) { const textName = getColorName(existingTextColor); console.log(`Couleur de police existante : ` + textName); } if (addText) { const textName = getColorName(textColor); console.log(`Couleur de police appliquée : ` + textName); } if (bgWasOverridden || colorWasOverridden) { console.warn( `⚠️ Les styles n'ont pas pu être appliqués à cause de règles CSS avec !important :` ); if (bgWasOverridden) { const appliedBgName = getColorName(appliedBg); const bgName = getColorName(backgroundColor); console.warn( ` - background-color : ` + appliedBgName + ` (au lieu de ` + bgName + `)` ); } if (colorWasOverridden) { const appliedColorName = getColorName(appliedColor); const textName = getColorName(textColor); console.warn( ` - color : ` + appliedColorName + ` (au lieu de ` + textName + `)` ); } } else if (hasImportantBg || hasImportantText) { console.warn( `⚠️ Des règles CSS avec !important sont présentes mais n'ont pas empêché l'application` ); } } })();" class="bookmarklet-link">
+                <a href="javascript:(function () { const TEST_BACKGROUND_COLOR = `blue`; const TEST_TEXT_COLOR = `yellow`; const OUTLINE_10_5_1 = `3px dashed red`; const OUTLINE_10_5_2 = `3px dashed blue`; const OUTLINE_10_5_3 = `3px dashed magenta`; const HTML_NAMESPACE = document.documentElement.namespaceURI; const EXCLUDED_TAGS = [ `SCRIPT`, `STYLE`, `NOSCRIPT`, `TEMPLATE`, `TITLE`, `HEAD`, `META`, `LINK`, `BASE`, ]; function getAllShadowRoots(root = document) { const shadowRoots = []; const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT); let node; while ((node = walker.nextNode())) { if (node.shadowRoot) { shadowRoots.push(node.shadowRoot); shadowRoots.push(...getAllShadowRoots(node.shadowRoot)); } } return shadowRoots; } function querySelectorAllInAllRoots(selector) { const allRoots = [document, ...getAllShadowRoots()]; const allElements = []; allRoots.forEach((root) => { allElements.push(...Array.from(root.querySelectorAll(selector))); }); return allElements; } function getParentElement(element) { const parent = element.parentNode; if (!parent) { return null; } if (parent.nodeType === Node.ELEMENT_NODE) { return parent; } if (parent.nodeType === Node.DOCUMENT_FRAGMENT_NODE && parent.host) { return parent.host; } return null; } function hasDirectText(element) { return Array.from(element.childNodes).some( (node) => node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== `` ); } function isRendered(element) { if (typeof element.checkVisibility === `function`) { return element.checkVisibility({ visibilityProperty: true, checkVisibilityCSS: true, }); } const style = window.getComputedStyle(element); if (style.visibility === `hidden` || style.visibility === `collapse`) { return false; } let node = element; while (node) { if (window.getComputedStyle(node).display === `none`) { return false; } node = getParentElement(node); } return true; } function parseColor(value) { if (!value) { return null; } const normalized = value.trim().toLowerCase(); if (normalized === `transparent`) { return { r: 0, g: 0, b: 0, a: 0 }; } const match = normalized.match(/^rgba?\(([^)]+)\)$/); if (!match) { return null; } const parts = match[1] .split(/[,\s\/]+/) .filter((part) => part !== ``) .map((part) => parseFloat(part)); if (parts.length < 3) { return null; } return { r: parts[0], g: parts[1], b: parts[2], a: parts.length > 3 ? parts[3] : 1, }; } function getAlpha(value) { const color = parseColor(value); return color === null ? 1 : color.a; } function isSameColor(firstValue, secondValue) { const first = parseColor(firstValue); const second = parseColor(secondValue); if (first === null || second === null) { return firstValue === secondValue; } return ( first.r === second.r && first.g === second.g && first.b === second.b && first.a === second.a ); } function createDefaultColorResolver() { const cache = {}; let iframe = null; let probeDocument = null; try { iframe = document.createElement(`iframe`); iframe.setAttribute(`aria-hidden`, `true`); iframe.setAttribute(`tabindex`, `-1`); iframe.style.cssText = `position:absolute;top:0;left:0;width:0;height:0;border:0;visibility:hidden;`; (document.body || document.documentElement).appendChild(iframe); probeDocument = iframe.contentDocument; if (probeDocument && probeDocument.documentElement) { const colorScheme = window.getComputedStyle( document.documentElement ).colorScheme; if (colorScheme) { probeDocument.documentElement.style.colorScheme = colorScheme; } } } catch (error) { probeDocument = null; } function fallbackDefaults(isLink) { return { color: isLink ? `rgb(0, 0, 238)` : `rgb(0, 0, 0)`, backgroundColor: `rgba(0, 0, 0, 0)`, }; } function get(element) { const tagName = element.tagName.toLowerCase(); const isLink = tagName === `a` && element.hasAttribute(`href`); const type = element.getAttribute(`type`); let key = tagName; if (isLink) { key = `a[href]`; } else if (type) { key = tagName + `[type=` + type.toLowerCase() + `]`; } if (Object.prototype.hasOwnProperty.call(cache, key)) { return cache[key]; } let defaults = fallbackDefaults(isLink); if (probeDocument && probeDocument.body) { try { const probe = probeDocument.createElement(tagName); if (isLink) { probe.setAttribute(`href`, `#`); } if (type) { probe.setAttribute(`type`, type); } probe.appendChild(probeDocument.createTextNode(`a`)); probeDocument.body.appendChild(probe); const probeStyle = iframe.contentWindow.getComputedStyle(probe); defaults = { color: probeStyle.color, backgroundColor: probeStyle.backgroundColor, }; probeDocument.body.removeChild(probe); } catch (error) { defaults = fallbackDefaults(isLink); } } cache[key] = defaults; return defaults; } function destroy() { if (iframe && iframe.parentNode) { iframe.parentNode.removeChild(iframe); } } return { get: get, destroy: destroy }; } const defaultColors = createDefaultColorResolver(); const authorTextColorCache = new WeakMap(); function hasDeclaredTextColor(element) { const chain = []; let node = element; let inheritedResult = null; while (node) { if (authorTextColorCache.has(node)) { inheritedResult = authorTextColorCache.get(node); break; } chain.push(node); node = getParentElement(node); } for (let index = chain.length - 1; index >= 0; index--) { const current = chain[index]; const computedColor = window.getComputedStyle(current).color; const parent = getParentElement(current); let result; if (!parent) { result = !isSameColor(computedColor, defaultColors.get(current).color); } else if ( isSameColor(computedColor, window.getComputedStyle(parent).color) ) { result = inheritedResult === null ? false : inheritedResult; } else { result = !isSameColor(computedColor, defaultColors.get(current).color); } authorTextColorCache.set(current, result); inheritedResult = result; } return inheritedResult === null ? false : inheritedResult; } function hasDeclaredBackgroundColor(element) { const computedBackgroundColor = window.getComputedStyle(element).backgroundColor; if (getAlpha(computedBackgroundColor) === 0) { return false; } return !isSameColor( computedBackgroundColor, defaultColors.get(element).backgroundColor ); } function findBackgroundColorSource(element) { let node = element; while (node) { if (getAlpha(window.getComputedStyle(node).backgroundColor) > 0) { return node; } node = getParentElement(node); } return null; } function hasBackgroundImage(element) { const backgroundImage = window.getComputedStyle(element).backgroundImage; return Boolean(backgroundImage) && backgroundImage.includes(`url(`); } const analysedElements = querySelectorAllInAllRoots(`*`).filter( (element) => element.namespaceURI === HTML_NAMESPACE && !EXCLUDED_TAGS.includes(element.tagName) && hasDirectText(element) && isRendered(element) ); const failures1051 = []; const failures1052 = []; const failures1053 = []; analysedElements.forEach((element) => { const style = window.getComputedStyle(element); const declaredTextColor = hasDeclaredTextColor(element); const declaredBackgroundColor = hasDeclaredBackgroundColor(element); const backgroundColorSource = findBackgroundColorSource(element); if (declaredTextColor && backgroundColorSource === null) { failures1051.push({ element: element, details: `color : ` + style.color + ` / aucun background-color sur l'élément ni sur ses ancêtres`, }); } if (declaredBackgroundColor && !declaredTextColor) { failures1052.push({ element: element, details: `background-color : ` + style.backgroundColor + ` / color à la valeur par défaut du navigateur (` + style.color + `)`, }); } if (hasBackgroundImage(element) && backgroundColorSource === null) { failures1053.push({ element: element, details: `background-image : ` + style.backgroundImage + ` / aucun background-color sur l'élément ni sur ses ancêtres`, }); } }); defaultColors.destroy(); function countMessage(count, testLabel) { if (count === 0) { return `Aucun élément en échec sur le test ` + testLabel; } if (count === 1) { return `1 élément en échec sur le test ` + testLabel; } return count + ` éléments en échec sur le test ` + testLabel; } const analysedMessage = analysedElements.length + (analysedElements.length === 1 ? ` élément susceptible de contenir du texte analysé` : ` éléments susceptibles de contenir du texte analysés`) + ` (les éléments non rendus, display:none et visibility:hidden, sont exclus)`; const total = failures1051.length + failures1052.length + failures1053.length; console.clear(); if (total === 0) { const message = `Aucun élément en échec sur les tests 10.5.1, 10.5.2 et 10.5.3.`; console.log(message); console.log(analysedMessage + `.`); alert(message + `\n\n` + analysedMessage + `.`); return; } failures1051.forEach((failure) => { failure.element.style.setProperty( `background-color`, TEST_BACKGROUND_COLOR, `important` ); failure.element.style.setProperty(`outline`, OUTLINE_10_5_1, `important`); failure.element.style.setProperty(`outline-offset`, `2px`, `important`); }); failures1052.forEach((failure) => { failure.element.style.setProperty(`color`, TEST_TEXT_COLOR, `important`); failure.element.style.setProperty(`outline`, OUTLINE_10_5_2, `important`); failure.element.style.setProperty(`outline-offset`, `2px`, `important`); }); failures1053.forEach((failure) => { failure.element.style.setProperty(`background-image`, `none`, `important`); failure.element.style.setProperty(`outline`, OUTLINE_10_5_3, `important`); failure.element.style.setProperty(`outline-offset`, `2px`, `important`); }); function logFailures(failures, testLabel, reason) { if (failures.length === 0) { console.log(countMessage(failures.length, testLabel) + `.`); return; } console.log( countMessage(failures.length, testLabel) + ` (` + reason + `) :` ); failures.forEach((failure) => { console.log(failure.element, failure.details); }); } logFailures( failures1051, `10.5.1`, `couleur de police déclarée sans couleur de fond` ); logFailures( failures1052, `10.5.2`, `couleur de fond déclarée sans couleur de police` ); logFailures(failures1053, `10.5.3`, `image de fond sans couleur de fond`); console.log(analysedMessage + `.`); let legend = ``; if (failures1051.length > 0) { legend += `\n - 10.5.1 : contour rouge, fond forcé en ` + TEST_BACKGROUND_COLOR; } if (failures1052.length > 0) { legend += `\n - 10.5.2 : contour bleu, police forcée en ` + TEST_TEXT_COLOR; } if (failures1053.length > 0) { legend += `\n - 10.5.3 : contour magenta, image de fond retirée`; } alert( countMessage(failures1051.length, `10.5.1`) + `.\n` + countMessage(failures1052.length, `10.5.2`) + `.\n` + countMessage(failures1053.length, `10.5.3`) + `.\n\nLes éléments en échec sont modifiés :` + legend + `\n\n` + analysedMessage + `.\n\nPlus de détails dans la console.` ); })();" class="bookmarklet-link">
                     <span>10.5 - Vérifier déclarations css de couleurs de fond d'élément et de police</span>
                 </a>
                 <span class="tooltip">Cliquez-déposez le bookmarklet dans la
@@ -1449,7 +1475,7 @@
                     <span class="tooltip">Copier le bookmarklet</span>
                 </button>
             </div>
-            <p class="last-updated">dernière mise à jour : 05 janvier 2026</p>
+            <p class="last-updated">dernière mise à jour : 10 septembre 2026</p>
         </li>
         
         
@@ -2158,6 +2184,18 @@
                 
                 
                 
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
             </ul>
         </li>
         
@@ -2396,6 +2434,18 @@
                 
                 
                 
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
             </ul>
         </li>
         
@@ -2410,6 +2460,18 @@
         <li>
             <strong>2. Cadres</strong>
             <ul>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 
                 
                 
@@ -2843,6 +2905,18 @@
                 
                 
                 
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
 
                 <li>
                     <a href="https://numerik-ea.github.io/bookmarklets-pour-le-rgaa-4.1.2/pages-de-test/professionnels-en-accessibilite-numerique/5.X-test-shadow-dom.html">
@@ -2949,6 +3023,18 @@
         <li>
             <strong>6. Liens</strong>
             <ul>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 
                 
                 
@@ -3338,6 +3424,18 @@
                 
                 
                 
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
 
                 <li>
                     <a href="https://numerik-ea.github.io/bookmarklets-pour-le-rgaa-4.1.2/pages-de-test/professionnels-en-accessibilite-numerique/7.1-test-liens-sans-href-shadow-dom.html">
@@ -3439,6 +3537,18 @@
         <li>
             <strong>8.3 & 8.4 Dans chaque page web, la langue est-elle définie ?</strong>
             <ul>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 
                 
                 
@@ -3844,6 +3954,18 @@
                 
                 
                 
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
 
                 <li>
                     <a href="https://numerik-ea.github.io/bookmarklets-pour-le-rgaa-4.1.2/pages-de-test/professionnels-en-accessibilite-numerique/8.7_8.8-test-0-attributs-lang.html">
@@ -3943,6 +4065,18 @@
         <li>
             <strong>8.9 Dans chaque page web, les balises ne doivent pas être utilisées uniquement à des fins de présentation. Cette règle est-elle respectée ?</strong>
             <ul>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 
                 
                 
@@ -4416,6 +4550,18 @@
                 
                 
                 
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
 
                 <li>
                     <a href="https://numerik-ea.github.io/bookmarklets-pour-le-rgaa-4.1.2/pages-de-test/professionnels-en-accessibilite-numerique/9.2-test-shadow-dom.html">
@@ -4658,6 +4804,18 @@
                 
                 
                 
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
 
                 <li>
                     <a href="https://numerik-ea.github.io/bookmarklets-pour-le-rgaa-4.1.2/pages-de-test/professionnels-en-accessibilite-numerique/9.3-test-shadow-dom.html">
@@ -4692,6 +4850,18 @@
         <li>
             <strong>9.4 Dans chaque page web, les éléments de citation sont-ils correctement identifiés ?</strong>
             <ul>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 
                 
                 
@@ -5161,6 +5331,18 @@
                 
                 
                 
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
             </ul>
         </li>
         
@@ -5399,6 +5581,18 @@
                 
                 
                 
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
             </ul>
         </li>
         
@@ -5413,6 +5607,18 @@
         <li>
             <strong>10.8 Pour chaque page web, les contenus cachés ont-ils vocation à être ignorés par les technologies d'assistance ?</strong>
             <ul>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 
                 
                 
@@ -5742,6 +5948,18 @@
                 
                 
                 
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
 
                 <li>
                     <a href="https://numerik-ea.github.io/bookmarklets-pour-le-rgaa-4.1.2/pages-de-test/professionnels-en-accessibilite-numerique/11.X-test-shadow-dom.html">
@@ -5896,6 +6114,18 @@
         <li>
             <strong>12.6 Dans chaque page web, les landmarks sont-ils utilisés correctement ?</strong>
             <ul>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 
                 
                 
