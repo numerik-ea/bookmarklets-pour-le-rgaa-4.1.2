@@ -9,293 +9,295 @@ layout: bookmarklets
 
     <!-- Changelog Section -->
     <div class="changelog-summary">
-        <details>
-            <summary>Voir l'historique des modifications</summary>
-            <div class="changelog">
-                <div class="changelog-entry">
-                    <h3>Version 2026.9.10 - 10 septembre 2026</h3>
-                    <ul>
-                        <li>Refonte du bookmarklet "10.5 - Vérifier
-                            déclarations CSS de couleurs de fond d'élément et de
-                            police" : il n'impose plus des couleurs à la balise
-                            &lt;html&gt;, méthode inopérante dès que
-                            &lt;body&gt; déclare son propre
-                            <code>background-color</code>, et applique désormais
-                            les méthodologies des tests 10.5.1, 10.5.2 et 10.5.3
-                            élément par élément, en tenant compte des
-                            déclarations héritées d'un parent</li>
-                        <li>10.5 - Les éléments en échec reçoivent la
-                            déclaration qui leur manque (fond bleu pour 10.5.1,
-                            police jaune pour 10.5.2, image de fond retirée pour
-                            10.5.3) et un contour de repérage ; la page n'est
-                            pas modifiée en l'absence d'échec</li>
-                        <li>10.5 - Les couleurs par défaut du navigateur
-                            (liens, &lt;mark&gt;, &lt;button&gt;...) ne sont plus
-                            confondues avec des déclarations d'auteur, et les
-                            éléments non rendus sont exclus de l'analyse</li>
-                        <li>Ajout des pages de test "10.5-test.html",
-                            "10.5-test-body-avec-couleurs.html" et
-                            "10.5-test-shadow-dom.html"</li>
-                        <li>Les pages de test ne sont plus regroupées dans une
-                            section en bas de page : chaque bookmarklet affiche
-                            désormais ses propres pages de test juste en dessous
-                            de lui</li>
-                    </ul>
-                </div>
-                <div class="changelog-entry">
-                    <h3>Version 2026.8.5 - 5 août 2026</h3>
-                    <ul>
-                        <li>ATTENTION : L'utilisation des bookmarklets est à la
-                            responsabilité des utilisateurs. Il ne faut pas se
-                            contenter de ce que dit un bookmarklet / un outil
-                            automatique pour valider ou non le critère.
-                            De manière générale, il est important de faire la
-                            différence entre ce que fait un outil/un test automatique
-                            et l'éventuelle validation d'un critère.
-                        </li>
-                    </ul>
-                </div>
-                <div class="changelog-entry">
-                    <h3>Version 2026.6.11 - 11 juin 2026</h3>
-                    <ul>
-                        <li>Détection des pseudo-éléments ::before et
-                            ::after ayant une propriété CSS content (vide ou
-                            remplie) avec support du shadow DOM</li>
-                    </ul>
-                </div>
-                <div class="changelog-entry">
-                    <h3>Version 2026.6.3 - 3 juin 2026</h3>
-                    <ul>
-                        <li>8.9 - Vérification des textes dans des balises non
-                            sémantiques sans label, ajout de address en tant que
-                            balise sémantique</li>
-                    </ul>
-                </div>
-                <div class="changelog-entry">
-                    <h3>Version 2026.5.20 - 20 mai 2026</h3>
-                    <ul>
-                        <li>1.X - Vérification des images non contenues dans un
-                            lien ou bouton avec support du shadow DOM</li>
-                    </ul>
-                </div>
-                <div class="changelog-entry">
-                    <h3>Version 2026.1.22 - 22 janvier 2026</h3>
-                    <ul>
-                        <li>8.9 - &lt;summary&gt; dans &lt;details&gt; est
-                            sémantique</li>
-                        <li>Ajout de la gestion de touche Echap pour masquer les
-                            tooltips</li>
-                    </ul>
-                </div>
-                <div class="changelog-entry">
-                    <h3>Version 2026.1.13 - 13 janvier 2026</h3>
-                    <ul>
-                        <li>1.2 - Détection des SVG sans aria-hidden="true" avec
-                            support du shadow DOM et ajout de la vérification
-                            des parents cachés avec aria-hidden="true". Ajout
-                            d'un compteur du nombre total de SVG, du nombre de
-                            SVG sans aria-hidden="true" et du nombre de SVG avec
-                            aria-hidden="false".</li>
-                        <li>1.X - Vérification des images non contenues dans un
-                            lien avec support du shadow DOM</li>
-                        <li>1.X - Lister les images avec un alt non vide avec
-                            support du shadow DOM</li>
-                        <li>1.X - Lister toutes les images ayant un alt avec
-                            support du shadow DOM</li>
-                        <li>2.X - Vérification des iframes et frames avec
-                            support du shadow DOM</li>
-                        <li>5.X - Vérification des tableaux avec support du
-                            shadow DOM</li>
-                        <li>6.2 - Vérification des liens sans nom accessible
-                            avec support du shadow DOM</li>
-                        <li>7.1 - Vérification des liens sans href avec support
-                            du shadow DOM</li>
-                        <li>8.7 & 8.8 - Vérification des attributs lang avec
-                            support du shadow DOM</li>
-                        <li>8.9 - Vérification des doubles &lt;br&gt; avec
-                            support du shadow DOM</li>
-                        <li>8.9 - Vérification des paragraphes vides avec
-                            support du shadow DOM</li>
-                        <li>8.9 - Vérification des textes dans des balises non
-                            sémantiques avec support du shadow DOM</li>
-                        <li>8.9 - Vérification des textes dans des balises non
-                            sémantiques sans label avec support du shadow DOM
-                        </li>
-                        <li>9.2 - Vérification des balises
-                            header/nav/main/footer avec support du shadow DOM
-                        </li>
-                        <li>9.3 - Vérification des listes avec support du shadow
-                            DOM</li>
-                        <li>9.4 - Vérification des éléments de citation avec
-                            support du shadow DOM</li>
-                        <li>10.1 - Vérification des balises et attributs de
-                            présentation avec support du shadow DOM</li>
-                        <li>10.1 - Vérification des balises et attributs de
-                            présentation avec support du shadow DOM (seulement
-                            CSS TOGGLE)</li>
-                        <li>10.2 - Vérification des images en background image
-                            avec support du shadow DOM</li>
-                        <li>10.8 - Lister les éléments cachés avec support du
-                            shadow DOM</li>
-                        <li>11.X - Vérification des formulaires avec support du
-                            shadow DOM</li>
-                        <li>12.6 - Vérification des landmarks avec support du
-                            shadow DOM</li>
-                    </ul>
-                </div>
-                <div class="changelog-entry">
-                    <h3>Version 2026.1.12 - 12 janvier 2026</h3>
-                    <ul>
-                        <li>Mise à jour des bookmarklets 6.1 et 6.2 pour
-                            détecter les liens dans les Shadow DOM, améliorant
-                            la couverture des vérifications de nom accessible.
-                        </li>
-                        <li>6.1 - Ajout du sélecteur 'body' par défaut dans
-                            l'invite pour l'élément parent</li>
-                    </ul>
-                </div>
-                <div class="changelog-entry">
-                    <h3>Version 2026.1.5 - 5 janvier 2026</h3>
-                    <ul>
-                        <li>Mise à jour du bookmarklet "10.5 - Vérifier
-                            déclarations CSS de couleurs de fond d'élément et de
-                            police" avec prise en compte des règles CSS avec
-                            !important, des messages d'erreur plus explicites et
-                            la possibilité de modifier les couleurs de la balise
-                            &lt;html&gt; dans le cas où elles ne sont pas déjà
-                            définies</li>
-                    </ul>
-                </div>
-                <div class="changelog-entry">
-                    <h3>Version 2025.10.28 - 28 octobre 2025</h3>
-                    <ul>
-                        <li>Ajout des bookmarklets "10.1 - Test présence balises
-                            et attributs de présentation de l'information - CSS
-                            uniquement [TOGGLE]" et "10.12 - Espacement des
-                            caractères - TOGGLE" et "12.8 - Visibilité du focus
-                            - TOGGLE"</li>
-                    </ul>
-                </div>
-                <div class="changelog-entry">
-                    <h3>Version 2025.9.25 - 25 septembre 2025</h3>
-                    <ul>
-                        <li>Mise à jour du bookmarklet "10.1 - Test présence
-                            balises et attributs de présentation de
-                            l'information" avec prise en compte de la balise
-                            &lt;source&gt;</li>
-                    </ul>
-                </div>
-
-                <div class="changelog-entry">
-                    <h3>Version 2025.9.3 - 3 septembre 2025</h3>
-                    <ul>
-                        <li>Mise à jour des bookmarklets "8.9 - Texte dans une
-                            balise non sémantique" et "8.9 - Texte dans une
-                            balise non sémantique sans label" avec prise en
-                            compte de la balise &lt;time&gt;</li>
-                    </ul>
-                </div>
-
-                <div class="changelog-entry">
-                    <h3>Version 2025.8.21 - 21 août 2025</h3>
-                    <ul>
-                        <li>Ajout du bookmarklet "8.9 - Texte dans une balise
-                            non sémantique sans label"</li>
-                    </ul>
-                </div>
-
-                <div class="changelog-entry">
-                    <h3>Version 2025.8.20 - 20 août 2025</h3>
-                    <ul>
-                        <li>Ajout du bookmarklet "1.2 - Détecter les éléments
-                            SVG sans aria-hidden='true'"</li>
-                    </ul>
-                </div>
-
-                <div class="changelog-entry">
-                    <h3>Version 2025.8.13 - 13 août 2025</h3>
-                    <ul>
-                        <li>Ajout du bookmarklet "10.1 - Test présence balises
-                            et attributs de présentation de l'information"</li>
-                    </ul>
-                </div>
-
-                <div class="changelog-entry">
-                    <h3>Version 2025.8.12 - 12 août 2025</h3>
-                    <ul>
-                        <li>Ajout du bookmarklet "11.X - Test présence
-                            formulaires"</li>
-                    </ul>
-                </div>
-
-                <div class="changelog-entry">
-                    <h3>Version 2025.8.6 - 6 août 2025</h3>
-                    <ul>
-                        <li>Ajout de l'information des parents cachés dans la
-                            console pour le bookmarklet 8.9 : Texte inclus dans
-                            une balise non sémantique</li>
-                        <li>Ajout du bookmarklet "aria-live mettre à off"</li>
-                    </ul>
-                </div>
-
-                <div class="changelog-entry">
-                    <h3>Version 2025.8.4 - 4 août 2025</h3>
-                    <ul>
-                        <li>Ajout de l'information des parents cachés dans la
-                            console pour le bookmarklet 8.9 : Double br</li>
-                    </ul>
-                </div>
-
-                <div class="changelog-entry">
-                    <h3>Version 2025.8.1 - 1er août 2025</h3>
-                    <ul>
-                        <li>Ajout du bookmarklet "10.5 - Vérifier déclarations
-                            CSS de couleurs de fond d'élément et de police"
-                            suite à l'arrêt du support de la fonctionnalité de
-                            changement de couleur et de fond dans la
-                            configuration de Firefox</li>
-                    </ul>
-                </div>
-
-                <div class="changelog-entry">
-                    <h3>Version 2025.7.21 - 21 juillet 2025</h3>
-                    <ul>
-                        <li>Ajout du check role="button" pour le bookmarklet
-                            "8.9 - Texte inclus dans une balise non sémantique"
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="changelog-entry">
-                    <h3>Version 2025.6.25 - 25 juin 2025</h3>
-                    <ul>
-                        <li>Meilleur formatage des messages du bookmarklet "12.6
-                            - Vérifier les landmarks"</li>
-                    </ul>
-                </div>
-
-                <div class="changelog-entry">
-                    <h3>Version 2025.6.18 - 18 juin 2025</h3>
-                    <ul>
-                        <li>Ajout du check role="heading" et aria-level="x" où x
-                            est le niveau de titre pour le bookmarklet "8.9 -
-                            Texte inclus dans une balise non sémantique"</li>
-                    </ul>
-                </div>
-
-                <div class="changelog-entry">
-                    <h3>Version 2025.6.6 - 6 juin 2025</h3>
-                    <ul>
-                        <li>Ajout des tests de langue :
-                            <br>
-                            8.3 & 8.4 - Détecter la langue par défaut
-                            <br>
-                            8.7 & 8.8 - Lister les attributs lang
-                        </li>
-                    </ul>
-                </div>
+        <button type="button" class="changelog-toggle" id="changelog-toggle"
+            aria-expanded="false" aria-controls="changelog">
+            Voir l'historique des modifications
+            <span class="arrow" aria-hidden="true">▼</span>
+        </button>
+        <div class="changelog" id="changelog" hidden>
+            <div class="changelog-entry">
+                <h3>Version 2026.9.10 - 10 septembre 2026</h3>
+                <ul>
+                    <li>Refonte du bookmarklet "10.5 - Vérifier
+                        déclarations CSS de couleurs de fond d'élément et de
+                        police" : il n'impose plus des couleurs à la balise
+                        &lt;html&gt;, méthode inopérante dès que
+                        &lt;body&gt; déclare son propre
+                        <code>background-color</code>, et applique désormais
+                        les méthodologies des tests 10.5.1, 10.5.2 et 10.5.3
+                        élément par élément, en tenant compte des
+                        déclarations héritées d'un parent</li>
+                    <li>10.5 - Les éléments en échec reçoivent la
+                        déclaration qui leur manque (fond bleu pour 10.5.1,
+                        police jaune pour 10.5.2, image de fond retirée pour
+                        10.5.3) et un contour de repérage ; la page n'est
+                        pas modifiée en l'absence d'échec</li>
+                    <li>10.5 - Les couleurs par défaut du navigateur
+                        (liens, &lt;mark&gt;, &lt;button&gt;...) ne sont plus
+                        confondues avec des déclarations d'auteur, et les
+                        éléments non rendus sont exclus de l'analyse</li>
+                    <li>Ajout des pages de test "10.5-test.html",
+                        "10.5-test-body-avec-couleurs.html" et
+                        "10.5-test-shadow-dom.html"</li>
+                    <li>Les pages de test ne sont plus regroupées dans une
+                        section en bas de page : chaque bookmarklet affiche
+                        désormais ses propres pages de test juste en dessous
+                        de lui</li>
+                </ul>
             </div>
-        </details>
+            <div class="changelog-entry">
+                <h3>Version 2026.8.5 - 5 août 2026</h3>
+                <ul>
+                    <li>ATTENTION : L'utilisation des bookmarklets est à la
+                        responsabilité des utilisateurs. Il ne faut pas se
+                        contenter de ce que dit un bookmarklet / un outil
+                        automatique pour valider ou non le critère.
+                        De manière générale, il est important de faire la
+                        différence entre ce que fait un outil/un test automatique
+                        et l'éventuelle validation d'un critère.
+                    </li>
+                </ul>
+            </div>
+            <div class="changelog-entry">
+                <h3>Version 2026.6.11 - 11 juin 2026</h3>
+                <ul>
+                    <li>Détection des pseudo-éléments ::before et
+                        ::after ayant une propriété CSS content (vide ou
+                        remplie) avec support du shadow DOM</li>
+                </ul>
+            </div>
+            <div class="changelog-entry">
+                <h3>Version 2026.6.3 - 3 juin 2026</h3>
+                <ul>
+                    <li>8.9 - Vérification des textes dans des balises non
+                        sémantiques sans label, ajout de address en tant que
+                        balise sémantique</li>
+                </ul>
+            </div>
+            <div class="changelog-entry">
+                <h3>Version 2026.5.20 - 20 mai 2026</h3>
+                <ul>
+                    <li>1.X - Vérification des images non contenues dans un
+                        lien ou bouton avec support du shadow DOM</li>
+                </ul>
+            </div>
+            <div class="changelog-entry">
+                <h3>Version 2026.1.22 - 22 janvier 2026</h3>
+                <ul>
+                    <li>8.9 - &lt;summary&gt; dans &lt;details&gt; est
+                        sémantique</li>
+                    <li>Ajout de la gestion de touche Echap pour masquer les
+                        tooltips</li>
+                </ul>
+            </div>
+            <div class="changelog-entry">
+                <h3>Version 2026.1.13 - 13 janvier 2026</h3>
+                <ul>
+                    <li>1.2 - Détection des SVG sans aria-hidden="true" avec
+                        support du shadow DOM et ajout de la vérification
+                        des parents cachés avec aria-hidden="true". Ajout
+                        d'un compteur du nombre total de SVG, du nombre de
+                        SVG sans aria-hidden="true" et du nombre de SVG avec
+                        aria-hidden="false".</li>
+                    <li>1.X - Vérification des images non contenues dans un
+                        lien avec support du shadow DOM</li>
+                    <li>1.X - Lister les images avec un alt non vide avec
+                        support du shadow DOM</li>
+                    <li>1.X - Lister toutes les images ayant un alt avec
+                        support du shadow DOM</li>
+                    <li>2.X - Vérification des iframes et frames avec
+                        support du shadow DOM</li>
+                    <li>5.X - Vérification des tableaux avec support du
+                        shadow DOM</li>
+                    <li>6.2 - Vérification des liens sans nom accessible
+                        avec support du shadow DOM</li>
+                    <li>7.1 - Vérification des liens sans href avec support
+                        du shadow DOM</li>
+                    <li>8.7 & 8.8 - Vérification des attributs lang avec
+                        support du shadow DOM</li>
+                    <li>8.9 - Vérification des doubles &lt;br&gt; avec
+                        support du shadow DOM</li>
+                    <li>8.9 - Vérification des paragraphes vides avec
+                        support du shadow DOM</li>
+                    <li>8.9 - Vérification des textes dans des balises non
+                        sémantiques avec support du shadow DOM</li>
+                    <li>8.9 - Vérification des textes dans des balises non
+                        sémantiques sans label avec support du shadow DOM
+                    </li>
+                    <li>9.2 - Vérification des balises
+                        header/nav/main/footer avec support du shadow DOM
+                    </li>
+                    <li>9.3 - Vérification des listes avec support du shadow
+                        DOM</li>
+                    <li>9.4 - Vérification des éléments de citation avec
+                        support du shadow DOM</li>
+                    <li>10.1 - Vérification des balises et attributs de
+                        présentation avec support du shadow DOM</li>
+                    <li>10.1 - Vérification des balises et attributs de
+                        présentation avec support du shadow DOM (seulement
+                        CSS TOGGLE)</li>
+                    <li>10.2 - Vérification des images en background image
+                        avec support du shadow DOM</li>
+                    <li>10.8 - Lister les éléments cachés avec support du
+                        shadow DOM</li>
+                    <li>11.X - Vérification des formulaires avec support du
+                        shadow DOM</li>
+                    <li>12.6 - Vérification des landmarks avec support du
+                        shadow DOM</li>
+                </ul>
+            </div>
+            <div class="changelog-entry">
+                <h3>Version 2026.1.12 - 12 janvier 2026</h3>
+                <ul>
+                    <li>Mise à jour des bookmarklets 6.1 et 6.2 pour
+                        détecter les liens dans les Shadow DOM, améliorant
+                        la couverture des vérifications de nom accessible.
+                    </li>
+                    <li>6.1 - Ajout du sélecteur 'body' par défaut dans
+                        l'invite pour l'élément parent</li>
+                </ul>
+            </div>
+            <div class="changelog-entry">
+                <h3>Version 2026.1.5 - 5 janvier 2026</h3>
+                <ul>
+                    <li>Mise à jour du bookmarklet "10.5 - Vérifier
+                        déclarations CSS de couleurs de fond d'élément et de
+                        police" avec prise en compte des règles CSS avec
+                        !important, des messages d'erreur plus explicites et
+                        la possibilité de modifier les couleurs de la balise
+                        &lt;html&gt; dans le cas où elles ne sont pas déjà
+                        définies</li>
+                </ul>
+            </div>
+            <div class="changelog-entry">
+                <h3>Version 2025.10.28 - 28 octobre 2025</h3>
+                <ul>
+                    <li>Ajout des bookmarklets "10.1 - Test présence balises
+                        et attributs de présentation de l'information - CSS
+                        uniquement [TOGGLE]" et "10.12 - Espacement des
+                        caractères - TOGGLE" et "12.8 - Visibilité du focus
+                        - TOGGLE"</li>
+                </ul>
+            </div>
+            <div class="changelog-entry">
+                <h3>Version 2025.9.25 - 25 septembre 2025</h3>
+                <ul>
+                    <li>Mise à jour du bookmarklet "10.1 - Test présence
+                        balises et attributs de présentation de
+                        l'information" avec prise en compte de la balise
+                        &lt;source&gt;</li>
+                </ul>
+            </div>
+
+            <div class="changelog-entry">
+                <h3>Version 2025.9.3 - 3 septembre 2025</h3>
+                <ul>
+                    <li>Mise à jour des bookmarklets "8.9 - Texte dans une
+                        balise non sémantique" et "8.9 - Texte dans une
+                        balise non sémantique sans label" avec prise en
+                        compte de la balise &lt;time&gt;</li>
+                </ul>
+            </div>
+
+            <div class="changelog-entry">
+                <h3>Version 2025.8.21 - 21 août 2025</h3>
+                <ul>
+                    <li>Ajout du bookmarklet "8.9 - Texte dans une balise
+                        non sémantique sans label"</li>
+                </ul>
+            </div>
+
+            <div class="changelog-entry">
+                <h3>Version 2025.8.20 - 20 août 2025</h3>
+                <ul>
+                    <li>Ajout du bookmarklet "1.2 - Détecter les éléments
+                        SVG sans aria-hidden='true'"</li>
+                </ul>
+            </div>
+
+            <div class="changelog-entry">
+                <h3>Version 2025.8.13 - 13 août 2025</h3>
+                <ul>
+                    <li>Ajout du bookmarklet "10.1 - Test présence balises
+                        et attributs de présentation de l'information"</li>
+                </ul>
+            </div>
+
+            <div class="changelog-entry">
+                <h3>Version 2025.8.12 - 12 août 2025</h3>
+                <ul>
+                    <li>Ajout du bookmarklet "11.X - Test présence
+                        formulaires"</li>
+                </ul>
+            </div>
+
+            <div class="changelog-entry">
+                <h3>Version 2025.8.6 - 6 août 2025</h3>
+                <ul>
+                    <li>Ajout de l'information des parents cachés dans la
+                        console pour le bookmarklet 8.9 : Texte inclus dans
+                        une balise non sémantique</li>
+                    <li>Ajout du bookmarklet "aria-live mettre à off"</li>
+                </ul>
+            </div>
+
+            <div class="changelog-entry">
+                <h3>Version 2025.8.4 - 4 août 2025</h3>
+                <ul>
+                    <li>Ajout de l'information des parents cachés dans la
+                        console pour le bookmarklet 8.9 : Double br</li>
+                </ul>
+            </div>
+
+            <div class="changelog-entry">
+                <h3>Version 2025.8.1 - 1er août 2025</h3>
+                <ul>
+                    <li>Ajout du bookmarklet "10.5 - Vérifier déclarations
+                        CSS de couleurs de fond d'élément et de police"
+                        suite à l'arrêt du support de la fonctionnalité de
+                        changement de couleur et de fond dans la
+                        configuration de Firefox</li>
+                </ul>
+            </div>
+
+            <div class="changelog-entry">
+                <h3>Version 2025.7.21 - 21 juillet 2025</h3>
+                <ul>
+                    <li>Ajout du check role="button" pour le bookmarklet
+                        "8.9 - Texte inclus dans une balise non sémantique"
+                    </li>
+                </ul>
+            </div>
+
+            <div class="changelog-entry">
+                <h3>Version 2025.6.25 - 25 juin 2025</h3>
+                <ul>
+                    <li>Meilleur formatage des messages du bookmarklet "12.6
+                        - Vérifier les landmarks"</li>
+                </ul>
+            </div>
+
+            <div class="changelog-entry">
+                <h3>Version 2025.6.18 - 18 juin 2025</h3>
+                <ul>
+                    <li>Ajout du check role="heading" et aria-level="x" où x
+                        est le niveau de titre pour le bookmarklet "8.9 -
+                        Texte inclus dans une balise non sémantique"</li>
+                </ul>
+            </div>
+
+            <div class="changelog-entry">
+                <h3>Version 2025.6.6 - 6 juin 2025</h3>
+                <ul>
+                    <li>Ajout des tests de langue :
+                        <br>
+                        8.3 & 8.4 - Détecter la langue par défaut
+                        <br>
+                        8.7 & 8.8 - Lister les attributs lang
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 
     <!-- Sort Dropdown -->

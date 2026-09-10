@@ -45,6 +45,20 @@
             this.setAttribute('aria-expanded', !isExpanded);
         });
 
+        // Historique des modifications : présent uniquement sur les pages qui
+        // en déclarent un
+        const changelogToggle = document.querySelector('.changelog-toggle');
+
+        if (changelogToggle) {
+            changelogToggle.addEventListener('click', function () {
+                const changelog = document.getElementById(this.getAttribute('aria-controls'));
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+
+                this.setAttribute('aria-expanded', String(!isExpanded));
+                changelog.hidden = isExpanded;
+            });
+        }
+
         function hideTooltips() {
             document.body.classList.add('tooltips-hidden');
             document.querySelectorAll('.tooltip.show').forEach((tooltip) => {
