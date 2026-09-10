@@ -16,6 +16,22 @@
 </head>
 
 <body class="page-bookmarklets">
+    <!-- Régions live des messages destinés aux technologies d'assistance.
+         Il y en a deux, utilisées en alternance : un lecteur d'écran ne
+         restitue que ce qui CHANGE dans une région live, donc réécrire le même
+         message au même endroit n'est plus annoncé dès la deuxième activation
+         du bouton de copie. En alternant, et en vidant la région qui ne sert
+         pas, celle où l'on écrit passe toujours de vide au message.
+         Elles doivent être présentes dans le DOM dès le chargement : une
+         région insérée en même temps que son texte n'est pas annoncée.
+         role="status" implique déjà aria-live="polite" ; les deux sont
+         déclarés car certaines combinaisons TA/navigateur ne s'appuient que
+         sur l'un des deux. -->
+    <div class="visually-hidden" data-live-region role="status"
+        aria-live="polite"></div>
+    <div class="visually-hidden" data-live-region role="status"
+        aria-live="polite"></div>
+
     <header role="banner">
         <div class="container">
             <a href="/bookmarklets-pour-le-rgaa-4.1.2/" class="back-link">
@@ -75,12 +91,12 @@
                         Attributs title
                     </a>
                     <span class="tooltip">Cliquez-déposez le bookmarklet dans la barre des favoris</span>
-                    <button class="copy-button" onclick="copyBookmarklet(this)">
+                    <button class="copy-button" onclick="copyBookmarklet(this)" aria-label="Copier le code du bookmarklet Attributs title dans le presse-papiers">
                         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                         </svg>
-                        <span class="tooltip">Copier le bookmarklet</span>
+                        <span class="tooltip">Copier le code du bookmarklet dans le presse-papiers</span>
                     </button>
                 </div>
                 <div class="last-updated">dernière mise à jour : 06 mars 2026</div>
@@ -118,12 +134,12 @@
                         Citations
                     </a>
                     <span class="tooltip">Cliquez-déposez le bookmarklet dans la barre des favoris</span>
-                    <button class="copy-button" onclick="copyBookmarklet(this)">
+                    <button class="copy-button" onclick="copyBookmarklet(this)" aria-label="Copier le code du bookmarklet Citations dans le presse-papiers">
                         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                         </svg>
-                        <span class="tooltip">Copier le bookmarklet</span>
+                        <span class="tooltip">Copier le code du bookmarklet dans le presse-papiers</span>
                     </button>
                 </div>
                 <div class="last-updated">dernière mise à jour : 05 février 2026</div>
@@ -161,12 +177,12 @@
                         Double &lt;br&gt;
                     </a>
                     <span class="tooltip">Cliquez-déposez le bookmarklet dans la barre des favoris</span>
-                    <button class="copy-button" onclick="copyBookmarklet(this)">
+                    <button class="copy-button" onclick="copyBookmarklet(this)" aria-label="Copier le code du bookmarklet Double &lt;br&gt; dans le presse-papiers">
                         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                         </svg>
-                        <span class="tooltip">Copier le bookmarklet</span>
+                        <span class="tooltip">Copier le code du bookmarklet dans le presse-papiers</span>
                     </button>
                 </div>
                 <div class="last-updated">dernière mise à jour : 07 avril 2025</div>
@@ -188,12 +204,12 @@
                         Headings
                     </a>
                     <span class="tooltip">Cliquez-déposez le bookmarklet dans la barre des favoris</span>
-                    <button class="copy-button" onclick="copyBookmarklet(this)">
+                    <button class="copy-button" onclick="copyBookmarklet(this)" aria-label="Copier le code du bookmarklet Headings dans le presse-papiers">
                         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                         </svg>
-                        <span class="tooltip">Copier le bookmarklet</span>
+                        <span class="tooltip">Copier le code du bookmarklet dans le presse-papiers</span>
                     </button>
                 </div>
                 <div class="last-updated">dernière mise à jour : 07 avril 2025</div>
@@ -215,12 +231,12 @@
                         Iframes
                     </a>
                     <span class="tooltip">Cliquez-déposez le bookmarklet dans la barre des favoris</span>
-                    <button class="copy-button" onclick="copyBookmarklet(this)">
+                    <button class="copy-button" onclick="copyBookmarklet(this)" aria-label="Copier le code du bookmarklet Iframes dans le presse-papiers">
                         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                         </svg>
-                        <span class="tooltip">Copier le bookmarklet</span>
+                        <span class="tooltip">Copier le code du bookmarklet dans le presse-papiers</span>
                     </button>
                 </div>
                 <div class="last-updated">dernière mise à jour : 17 février 2026</div>
@@ -258,12 +274,12 @@
                         Images
                     </a>
                     <span class="tooltip">Cliquez-déposez le bookmarklet dans la barre des favoris</span>
-                    <button class="copy-button" onclick="copyBookmarklet(this)">
+                    <button class="copy-button" onclick="copyBookmarklet(this)" aria-label="Copier le code du bookmarklet Images dans le presse-papiers">
                         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                         </svg>
-                        <span class="tooltip">Copier le bookmarklet</span>
+                        <span class="tooltip">Copier le code du bookmarklet dans le presse-papiers</span>
                     </button>
                 </div>
                 <div class="last-updated">dernière mise à jour : 15 avril 2025</div>
@@ -285,12 +301,12 @@
                         Listes
                     </a>
                     <span class="tooltip">Cliquez-déposez le bookmarklet dans la barre des favoris</span>
-                    <button class="copy-button" onclick="copyBookmarklet(this)">
+                    <button class="copy-button" onclick="copyBookmarklet(this)" aria-label="Copier le code du bookmarklet Listes dans le presse-papiers">
                         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                         </svg>
-                        <span class="tooltip">Copier le bookmarklet</span>
+                        <span class="tooltip">Copier le code du bookmarklet dans le presse-papiers</span>
                     </button>
                 </div>
                 <div class="last-updated">dernière mise à jour : 07 avril 2025</div>
@@ -312,12 +328,12 @@
                         Paragraphes vides
                     </a>
                     <span class="tooltip">Cliquez-déposez le bookmarklet dans la barre des favoris</span>
-                    <button class="copy-button" onclick="copyBookmarklet(this)">
+                    <button class="copy-button" onclick="copyBookmarklet(this)" aria-label="Copier le code du bookmarklet Paragraphes vides dans le presse-papiers">
                         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                         </svg>
-                        <span class="tooltip">Copier le bookmarklet</span>
+                        <span class="tooltip">Copier le code du bookmarklet dans le presse-papiers</span>
                     </button>
                 </div>
                 <div class="last-updated">dernière mise à jour : 20 février 2026</div>
@@ -339,12 +355,12 @@
                         Tableaux
                     </a>
                     <span class="tooltip">Cliquez-déposez le bookmarklet dans la barre des favoris</span>
-                    <button class="copy-button" onclick="copyBookmarklet(this)">
+                    <button class="copy-button" onclick="copyBookmarklet(this)" aria-label="Copier le code du bookmarklet Tableaux dans le presse-papiers">
                         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                         </svg>
-                        <span class="tooltip">Copier le bookmarklet</span>
+                        <span class="tooltip">Copier le code du bookmarklet dans le presse-papiers</span>
                     </button>
                 </div>
                 <div class="last-updated">dernière mise à jour : 17 février 2026</div>
