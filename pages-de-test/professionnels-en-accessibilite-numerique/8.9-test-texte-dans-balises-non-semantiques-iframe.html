@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test 8.9 - Texte dans des balises non sémantiques avec iframes</title>
+    <link
+      rel="shortcut icon"
+      href="../../assets/images/favicon.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../../assets/css/styles.css" />
+    <style>
+      iframe {
+        display: block;
+        width: 100%;
+        height: 160px;
+        margin: 10px 0;
+        border: 1px solid #999;
+      }
+    </style>
+  </head>
+  <body class="page-test">
+    <header role="banner">
+      <div class="container">
+        <a href="javascript:history.back()" class="back-link" id="back-link">
+          <span aria-hidden="true">← </span>Retour à la page précédente
+        </a>
+        <h1>Test 8.9 - Texte dans des balises non sémantiques avec iframes</h1>
+      </div>
+    </header>
+
+    <main role="main" class="container">
+      <section class="test-page-section">
+        <div class="test-info">
+          <h2>Informations sur le test</h2>
+          <p>
+            Cette page est utilisée pour tester les bookmarklets d'accessibilité
+            RGAA 4.1.2.
+          </p>
+          <p>
+            Nom du fichier :
+            8.9-test-texte-dans-balises-non-semantiques-iframe.html
+          </p>
+          <p>
+            Description du test : Cette page contient du texte dans des balises
+            non sémantiques dans le DOM principal et dans des iframes (simple,
+            imbriquée, dans un Shadow DOM, dans un parent caché) pour tester les
+            critères d'accessibilité RGAA 4.1.2 concernant les contenus textuels
+            dans des balises non sémantiques.
+          </p>
+        </div>
+
+        <div class="test-content">
+          <h2>Contenu du test</h2>
+
+          <p>Cette page contient :</p>
+          <ul>
+            <li>
+              Du texte dans une balise non sémantique dans le DOM principal (1)
+            </li>
+            <li>Du texte dans des balises non sémantiques dans une iframe (2)</li>
+            <li>
+              Du texte dans des balises non sémantiques dans une iframe
+              imbriquée dans une iframe (1 + 1)
+            </li>
+            <li>
+              Du texte dans une balise non sémantique dans une iframe placée
+              dans un Shadow DOM (1)
+            </li>
+            <li>
+              Du texte dans une balise non sémantique dans une iframe dont le
+              parent est caché (1, signalé dans la console avec le parent
+              caché)
+            </li>
+            <li>
+              Une iframe d'origine différente, qui ne peut pas être analysée
+            </li>
+            <li>
+              Du texte dans des balises sémantiques (ne doit pas être détecté)
+            </li>
+          </ul>
+          <p>
+            Résultat attendu : 7 textes dans des balises non sémantiques (1 dans
+            le document, 6 dans les iframes), 1 shadow root analysé, 5 iframes
+            analysées, 1 iframe non analysable.
+          </p>
+
+          <h3>Texte dans une balise non sémantique dans le DOM principal</h3>
+
+          <span>Texte dans un span dans le document principal</span>
+
+          <h3>Texte dans des balises sémantiques (ne doit pas être détecté)</h3>
+
+          <p>Texte dans un paragraphe</p>
+          <ul>
+            <li>Texte dans une liste</li>
+          </ul>
+
+          <h3>Iframe simple</h3>
+
+          <iframe
+            title="Iframe simple"
+            srcdoc="<!DOCTYPE html><html lang='fr'><body><p>Texte dans un paragraphe dans une iframe</p><span>Texte dans un span dans une iframe</span><div>Texte dans un div dans une iframe</div><div role='button'>Texte dans un div avec role=button dans une iframe</div></body></html>"
+          ></iframe>
+
+          <h3>Iframe imbriquée dans une iframe</h3>
+
+          <div id="nested-iframe-host"></div>
+
+          <h3>Iframe dans un Shadow DOM</h3>
+
+          <div id="shadow-iframe-host"></div>
+
+          <h3>Iframe dans un parent caché (display: none)</h3>
+
+          <p>L'iframe ci-dessous est dans un div en display: none.</p>
+          <div style="display: none">
+            <iframe
+              title="Iframe dans un parent caché"
+              srcdoc="<!DOCTYPE html><html lang='fr'><body><span>Texte dans un span dans une iframe cachée</span></body></html>"
+            ></iframe>
+          </div>
+
+          <h3>Iframe d'origine différente (non analysable)</h3>
+
+          <iframe
+            title="Iframe d'origine différente"
+            src="https://example.com/"
+          ></iframe>
+        </div>
+      </section>
+    </main>
+    <footer role="contentinfo">
+      <div class="container">
+        <p>
+          © <span id="currentYear"></span> -
+          <a href="https://www.numerik-ea.fr">numerik-ea</a>
+          |
+          <a
+            href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2"
+          >
+            Contribuer à ce site
+          </a>
+        </p>
+      </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+    <script>
+      // Iframe imbriquée : une iframe contenant elle-même une iframe
+      (function () {
+        const host = document.getElementById('nested-iframe-host');
+        const iframe = document.createElement('iframe');
+        iframe.title = 'Iframe de niveau 1';
+        iframe.srcdoc = `<!DOCTYPE html>
+          <html lang="fr">
+            <body>
+              <p>Texte dans un paragraphe dans l'iframe de niveau 1</p>
+              <span>Texte dans un span dans l'iframe de niveau 1</span>
+              <iframe
+                title="Iframe de niveau 2"
+                style="display: block; width: 100%; height: 60px; margin: 10px 0; border: 1px solid #999;"
+                srcdoc="<!DOCTYPE html><html lang='fr'><body><span>Texte dans un span dans l'iframe de niveau 2</span></body></html>"
+              ></iframe>
+            </body>
+          </html>`;
+        host.appendChild(iframe);
+      })();
+
+      // Iframe dans un Shadow DOM
+      (function () {
+        const host = document.getElementById('shadow-iframe-host');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+          <style>
+            .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+            h4 { margin-top: 0; }
+            iframe { display: block; width: 100%; height: 100px; border: 1px solid #999; }
+          </style>
+          <div class="shadow-container">
+            <h4>Shadow DOM contenant une iframe</h4>
+            <iframe
+              title="Iframe dans un Shadow DOM"
+              srcdoc="<!DOCTYPE html><html lang='fr'><body><span>Texte dans un span dans une iframe dans un Shadow DOM</span></body></html>"
+            ></iframe>
+          </div>
+        `;
+      })();
+    </script>
+  </body>
+</html>

@@ -1,40 +1,4 @@
 (function showTextInNonSemanticTags() {
-  // Function to recursively get all shadow roots
-  function getAllShadowRoots(root = document) {
-    const shadowRoots = [];
-    const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT);
-    let node;
-    while ((node = walker.nextNode())) {
-      if (node.shadowRoot) {
-        shadowRoots.push(node.shadowRoot);
-        // Recursively get shadow roots within shadow roots
-        shadowRoots.push(...getAllShadowRoots(node.shadowRoot));
-      }
-    }
-    return shadowRoots;
-  }
-
-  // Get all roots (document.body + shadow roots)
-  const allRoots = [document.body, ...getAllShadowRoots()];
-  const shadowRootCount = allRoots.length - 1;
-
-  // Select all text nodes in all roots
-  const textNodes = [];
-  allRoots.forEach((root) => {
-    const walker = document.createTreeWalker(
-      root,
-      NodeFilter.SHOW_TEXT,
-      null,
-      false
-    );
-
-    let node;
-    while ((node = walker.nextNode())) {
-      textNodes.push(node);
-    }
-  });
-
-  const textNodesInNonSemanticTags = [];
   const semanticTags = [
     'P',
     'LI',
@@ -74,25 +38,121 @@
     'COMMENT',
   ];
 
-  // Iterate over the selected text nodes
-  textNodes.forEach((textNode) => {
-    let content = textNode.textContent;
-    content = content.trim();
-
-    if (content === '') {
-      return; // Skip empty text nodes
+  // Returns the parent element, crossing shadow DOM boundaries (shadow root -> host)
+  function getParentElement(node) {
+    const parent = node.parentNode;
+    if (!parent) {
+      return null;
     }
+    if (parent.nodeType === Node.ELEMENT_NODE) {
+      return parent;
+    }
+    if (parent.nodeType === Node.DOCUMENT_FRAGMENT_NODE && parent.host) {
+      return parent.host;
+    }
+    return null;
+  }
 
-    // Check if the text node is within a semantic element
+  // Window owning the node (differs from the main window for nodes inside iframes)
+  function getWindow(node) {
+    return (node.ownerDocument && node.ownerDocument.defaultView) || window;
+  }
+
+  // Function to recursively get all shadow roots
+  function getAllShadowRoots(root) {
+    const shadowRoots = [];
+    const walker = root.ownerDocument.createTreeWalker(
+      root,
+      NodeFilter.SHOW_ELEMENT
+    );
+    let node;
+    while ((node = walker.nextNode())) {
+      if (node.shadowRoot) {
+        shadowRoots.push(node.shadowRoot);
+        // Recursively get shadow roots within shadow roots
+        shadowRoots.push(...getAllShadowRoots(node.shadowRoot));
+      }
+    }
+    return shadowRoots;
+  }
+
+  function getTextNodes(root) {
+    const textNodes = [];
+    const walker = root.ownerDocument.createTreeWalker(
+      root,
+      NodeFilter.SHOW_TEXT
+    );
+    let node;
+    while ((node = walker.nextNode())) {
+      textNodes.push(node);
+    }
+    return textNodes;
+  }
+
+  // Roots to analyse: document body, shadow roots, then the documents of the
+  // accessible (same-origin) iframes and frames, recursively
+  const roots = []; // { node, name, location: 'document' | 'shadow' | 'iframe' }
+  const inaccessibleIframes = [];
+  let shadowRootCount = 0;
+  let iframeCount = 0;
+
+  function collectRoots(doc, docName) {
+    const isMainDocument = doc === document;
+    const docRoots = [
+      {
+        node: doc.body,
+        name: docName,
+        location: isMainDocument ? 'document' : 'iframe',
+      },
+    ];
+
+    getAllShadowRoots(doc.body).forEach((shadowRoot) => {
+      shadowRootCount++;
+      docRoots.push({
+        node: shadowRoot,
+        name: isMainDocument
+          ? `Shadow root ${shadowRootCount}`
+          : `${docName} > Shadow root ${shadowRootCount}`,
+        location: isMainDocument ? 'shadow' : 'iframe',
+      });
+    });
+
+    roots.push(...docRoots);
+
+    docRoots.forEach(({ node }) => {
+      node.querySelectorAll('iframe, frame').forEach((frame) => {
+        let frameDocument = null;
+        try {
+          frameDocument = frame.contentDocument;
+        } catch (error) {
+          frameDocument = null;
+        }
+
+        // contentDocument is null for cross-origin iframes
+        if (!frameDocument || !frameDocument.body) {
+          inaccessibleIframes.push(frame);
+          return;
+        }
+
+        iframeCount++;
+        const title = frame.getAttribute('title');
+        collectRoots(
+          frameDocument,
+          `Iframe ${iframeCount}` + (title ? ` "${title}"` : '')
+        );
+      });
+    });
+  }
+
+  collectRoots(document, 'Document principal');
+
+  // Check if the text node is within a semantic element (or an ignored tag)
+  function isInNonSemanticTag(textNode) {
     let parent = textNode.parentElement;
-    let isInSemanticElement = false;
-    let isInIgnoredTag = false;
-    let root = textNode.getRootNode();
 
     while (parent) {
       if (semanticTags.includes(parent.tagName)) {
-        isInSemanticElement = true;
-        break;
+        return false;
       }
 
       // <summary> dans <details> est sémantique
@@ -101,126 +161,80 @@
         parent.parentElement &&
         parent.parentElement.tagName === 'DETAILS'
       ) {
-        isInSemanticElement = true;
-        break;
+        return false;
       }
 
       // Check for semantic role="heading" and valid aria-level
-      const role = parent.getAttribute && parent.getAttribute('role');
+      const role = parent.getAttribute('role');
 
-      if (role === 'heading') {
-        const ariaLevel = parent.getAttribute('aria-level');
-
-        if (semanticRoles.heading.includes(ariaLevel)) {
-          isInSemanticElement = true;
-          break;
-        }
+      if (
+        role === 'heading' &&
+        semanticRoles.heading.includes(parent.getAttribute('aria-level'))
+      ) {
+        return false;
       }
 
       if (role === 'button') {
-        isInSemanticElement = true;
-        break;
+        return false;
       }
 
       if (tagsToIgnore.includes(parent.tagName)) {
-        isInIgnoredTag = true;
-        break;
+        return false;
       }
 
-      // Check if we're crossing a shadow boundary
-      const nextParent = parent.parentElement;
-      if (!nextParent && root instanceof ShadowRoot) {
-        const host = root.host;
-        if (host) {
-          parent = host;
-          root = host.getRootNode();
-          continue;
-        }
-        break;
-      }
-
-      parent = nextParent;
+      parent = getParentElement(parent);
     }
 
-    if (!isInSemanticElement && !isInIgnoredTag) {
-      textNodesInNonSemanticTags.push(textNode);
-    }
-  });
+    return true;
+  }
 
+  const results = roots.map((root) => ({
+    ...root,
+    textNodes: getTextNodes(root.node).filter(
+      (textNode) =>
+        textNode.textContent.trim() !== '' && isInNonSemanticTag(textNode)
+    ),
+  }));
+
+  const textNodesInNonSemanticTags = results.flatMap(
+    (result) => result.textNodes
+  );
   const counttextNodesInNonSemanticTags = textNodesInNonSemanticTags.length;
 
-  if (counttextNodesInNonSemanticTags === 0) {
-    alert('Pas de texte dans des balises non sémantiques.');
-    return;
+  // Summary of what has been analysed
+  const analysisParts = [];
+  if (shadowRootCount > 0) {
+    analysisParts.push(`${shadowRootCount} shadow root(s) analysé(s).`);
   }
-
-  // Count elements in document vs shadow DOM
-  const elementsInDocument = [];
-  const docTextNodes = [];
-  const docWalker = document.createTreeWalker(
-    document.body,
-    NodeFilter.SHOW_TEXT,
-    null,
-    false
-  );
-  let docNode;
-  while ((docNode = docWalker.nextNode())) {
-    docTextNodes.push(docNode);
+  if (iframeCount > 0) {
+    analysisParts.push(`${iframeCount} iframe(s) analysée(s).`);
   }
+  if (inaccessibleIframes.length > 0) {
+    analysisParts.push(
+      `${inaccessibleIframes.length} iframe(s) non analysable(s) (origine différente).`
+    );
+  }
+  const analysisSummary =
+    analysisParts.length > 0 ? '\n' + analysisParts.join('\n') : '';
 
-  docTextNodes.forEach((textNode) => {
-    let content = textNode.textContent.trim();
-    if (content === '') {
+  function logInaccessibleIframes() {
+    if (inaccessibleIframes.length === 0) {
       return;
     }
+    console.log(
+      '\n⚠️ Iframe(s) non analysable(s) (origine différente) :'
+    );
+    inaccessibleIframes.forEach((frame) => console.log(frame));
+  }
 
-    let parent = textNode.parentElement;
-    let isInSemanticElement = false;
-    let isInIgnoredTag = false;
-
-    while (parent) {
-      if (semanticTags.includes(parent.tagName)) {
-        isInSemanticElement = true;
-        break;
-      }
-
-      // <summary> dans <details> est sémantique
-      if (
-        parent.tagName === 'SUMMARY' &&
-        parent.parentElement &&
-        parent.parentElement.tagName === 'DETAILS'
-      ) {
-        isInSemanticElement = true;
-        break;
-      }
-
-      const role = parent.getAttribute && parent.getAttribute('role');
-      if (role === 'heading') {
-        const ariaLevel = parent.getAttribute('aria-level');
-        if (semanticRoles.heading.includes(ariaLevel)) {
-          isInSemanticElement = true;
-          break;
-        }
-      }
-      if (role === 'button') {
-        isInSemanticElement = true;
-        break;
-      }
-      if (tagsToIgnore.includes(parent.tagName)) {
-        isInIgnoredTag = true;
-        break;
-      }
-      parent = parent.parentElement;
+  if (counttextNodesInNonSemanticTags === 0) {
+    alert('Pas de texte dans des balises non sémantiques.' + analysisSummary);
+    if (inaccessibleIframes.length > 0) {
+      console.clear();
+      logInaccessibleIframes();
     }
-
-    if (!isInSemanticElement && !isInIgnoredTag) {
-      elementsInDocument.push(textNode);
-    }
-  });
-
-  const elementsInShadow = textNodesInNonSemanticTags.filter(
-    (el) => !elementsInDocument.includes(el)
-  );
+    return;
+  }
 
   let message =
     counttextNodesInNonSemanticTags +
@@ -234,125 +248,65 @@
   }
 
   // Add location information
+  const countByLocation = { document: 0, shadow: 0, iframe: 0 };
+  results.forEach((result) => {
+    countByLocation[result.location] += result.textNodes.length;
+  });
+
   const locationParts = [];
-  if (elementsInDocument.length > 0) {
-    locationParts.push(`${elementsInDocument.length} dans le document`);
+  if (countByLocation.document > 0) {
+    locationParts.push(`${countByLocation.document} dans le document`);
   }
-  if (elementsInShadow.length > 0) {
-    locationParts.push(`${elementsInShadow.length} dans shadow DOM`);
+  if (countByLocation.shadow > 0) {
+    locationParts.push(`${countByLocation.shadow} dans shadow DOM`);
+  }
+  if (countByLocation.iframe > 0) {
+    locationParts.push(`${countByLocation.iframe} dans les iframes`);
   }
   if (locationParts.length > 0) {
     message += ` (${locationParts.join(', ')})`;
   }
 
-  if (shadowRootCount > 0) {
-    message += `\n${shadowRootCount} shadow root(s) analysé(s).`;
-  }
+  message += '.' + analysisSummary;
 
-  alert(message + '.\nPlus de détails dans la console.');
+  alert(message + '\nPlus de détails dans la console.');
   console.clear();
-  console.log(message + ' :');
+  console.log(message);
 
   // Log all found text nodes from all roots
-  allRoots.forEach((root, index) => {
-    const rootName =
-      index === 0 ? 'Document principal' : `Shadow root ${index}`;
-    const rootTextNodes = [];
-    const rootWalker = document.createTreeWalker(
-      root,
-      NodeFilter.SHOW_TEXT,
-      null,
-      false
-    );
-    let rootNode;
-    while ((rootNode = rootWalker.nextNode())) {
-      rootTextNodes.push(rootNode);
-    }
-
-    const rootTextNodesInNonSemanticTags = [];
-
-    rootTextNodes.forEach((textNode) => {
-      let content = textNode.textContent.trim();
-      if (content === '') {
-        return;
-      }
-
-      let parent = textNode.parentElement;
-      let isInSemanticElement = false;
-      let isInIgnoredTag = false;
-      let nodeRoot = textNode.getRootNode();
-
-      while (parent) {
-        if (semanticTags.includes(parent.tagName)) {
-          isInSemanticElement = true;
-          break;
-        }
-
-        // <summary> dans <details> est sémantique
-        if (
-          parent.tagName === 'SUMMARY' &&
-          parent.parentElement &&
-          parent.parentElement.tagName === 'DETAILS'
-        ) {
-          isInSemanticElement = true;
-          break;
-        }
-
-        const role = parent.getAttribute && parent.getAttribute('role');
-        if (role === 'heading') {
-          const ariaLevel = parent.getAttribute('aria-level');
-          if (semanticRoles.heading.includes(ariaLevel)) {
-            isInSemanticElement = true;
-            break;
-          }
-        }
-        if (role === 'button') {
-          isInSemanticElement = true;
-          break;
-        }
-        if (tagsToIgnore.includes(parent.tagName)) {
-          isInIgnoredTag = true;
-          break;
-        }
-
-        const nextParent = parent.parentElement;
-        if (!nextParent && nodeRoot instanceof ShadowRoot) {
-          const host = nodeRoot.host;
-          if (host) {
-            parent = host;
-            nodeRoot = host.getRootNode();
-            continue;
-          }
-          break;
-        }
-        parent = nextParent;
-      }
-
-      if (!isInSemanticElement && !isInIgnoredTag) {
-        rootTextNodesInNonSemanticTags.push(textNode);
-      }
-    });
-
-    if (rootTextNodesInNonSemanticTags.length > 0) {
-      console.log(`\n${rootName}:`);
-      rootTextNodesInNonSemanticTags.forEach((textNode) =>
-        console.log(textNode)
-      );
+  results.forEach((result) => {
+    if (result.textNodes.length > 0) {
+      console.log(`\n${result.name}:`);
+      result.textNodes.forEach((textNode) => console.log(textNode));
     }
   });
 
+  logInaccessibleIframes();
+
   // Function to check if an element or its parents are hidden
+  // (crosses shadow DOM boundaries and goes up through the <iframe> elements)
   function checkForHiddenParents(element) {
     const hiddenParents = [];
     let currentElement = element;
-    let root = element.getRootNode();
 
-    while (
-      currentElement &&
-      currentElement !== document.body &&
-      currentElement !== document.documentElement
-    ) {
-      const computedStyle = window.getComputedStyle(currentElement);
+    while (currentElement) {
+      const doc = currentElement.ownerDocument;
+
+      if (
+        currentElement === doc.body ||
+        currentElement === doc.documentElement
+      ) {
+        // Top of this document: continue with the <iframe> element in the parent document
+        try {
+          currentElement = doc.defaultView && doc.defaultView.frameElement;
+        } catch (error) {
+          currentElement = null;
+        }
+        continue;
+      }
+
+      const computedStyle =
+        getWindow(currentElement).getComputedStyle(currentElement);
       const isHidden =
         computedStyle.display === 'none' ||
         computedStyle.visibility === 'hidden' ||
@@ -367,19 +321,7 @@
         });
       }
 
-      // Check if we're crossing a shadow boundary
-      let parent = currentElement.parentElement;
-      if (!parent && root instanceof ShadowRoot) {
-        const host = root.host;
-        if (host) {
-          currentElement = host;
-          root = host.getRootNode();
-          continue;
-        }
-        break;
-      }
-
-      currentElement = parent;
+      currentElement = getParentElement(currentElement);
     }
 
     return hiddenParents;
@@ -410,8 +352,8 @@
       parentElement.style.paddingTop = '26px';
       parentElement.style.display = 'block';
 
-      // Create a label element to show text
-      const label = document.createElement('div');
+      // Create a label element (in the element's own document) to show text
+      const label = parentElement.ownerDocument.createElement('div');
       label.textContent = 'texte non sémantique';
       label.style.position = 'absolute';
       label.style.top = '0';
@@ -425,7 +367,8 @@
       label.style.pointerEvents = 'none';
 
       // Make sure the element has position relative for absolute positioning to work
-      const computedStyle = window.getComputedStyle(parentElement);
+      const computedStyle =
+        getWindow(parentElement).getComputedStyle(parentElement);
 
       if (computedStyle.position === 'static') {
         parentElement.style.position = 'relative';

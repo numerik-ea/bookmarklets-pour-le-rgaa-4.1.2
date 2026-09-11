@@ -138,12 +138,14 @@ professionnels-en-accessibilite-numerique:
       - file: 8.9-test-paragraphes-vides-shadow-dom.html
         label: "Test 8.9 - Paragraphes vides avec Shadow DOM"
   - name: 8.9-texte-dans-balise-non-semantique
-    last-updated: 2026-06-03
+    last-updated: 2026-09-11
     test-pages:
       - file: 8.9-test-texte-dans-balises-non-semantiques.html
         label: "Test 8.9 - Texte dans des balises non sémantiques"
       - file: 8.9-test-texte-dans-balises-non-semantiques-shadow-dom.html
         label: "Test 8.9 - Texte dans des balises non sémantiques avec Shadow DOM"
+      - file: 8.9-test-texte-dans-balises-non-semantiques-iframe.html
+        label: "Test 8.9 - Texte dans des balises non sémantiques avec iframes"
   - name: 8.9-texte-dans-balise-non-semantique-(sans-display-none)
     last-updated: 2026-06-03
     test-pages:
