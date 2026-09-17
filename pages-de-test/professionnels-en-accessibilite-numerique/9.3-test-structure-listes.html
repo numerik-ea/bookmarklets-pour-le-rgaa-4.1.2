@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test 9.3 - Structure des listes avec anomalies</title>
+    <link rel="shortcut icon" href="../../assets/images/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+</head>
+<body class="page-test">
+    <header role="banner">
+        <div class="container">
+            <a href="javascript:history.back()" class="back-link" id="back-link">
+                <span aria-hidden="true">← </span>Retour à la page précédente
+            </a>
+            <h1>Test 9.3 - Structure des listes avec anomalies</h1>
+        </div>
+    </header>
+
+    <main role="main" class="container">
+        <section class="test-page-section">
+            <div class="test-info">
+                <h2>Informations sur le test</h2>
+                <p>Cette page est utilisée pour tester les bookmarklets d'accessibilité RGAA 4.1.2.</p>
+                <p>Nom du fichier : 9.3-test-structure-listes.html</p>
+                <p>Description du test : Cette page contient des listes dont la structure est incorrecte (enfants directs autres que des <code>&lt;li&gt;</code>, listes imbriquées directement dans une liste, <code>&lt;li&gt;</code> hors liste) afin de tester le bookmarklet "9.3 - Vérifier la structure des listes".</p>
+                <p>Résultat attendu dans la console : les listes correctes sont signalées par un ✅, chaque anomalie est signalée par un ❌ et le total des anomalies est affiché en fin d'audit.</p>
+            </div>
+
+            <div class="test-content">
+                <h2>Contenu du test</h2>
+
+                <h3>1. Liste correcte (aucune anomalie attendue)</h3>
+
+                <ul>
+                    <li>Premier élément de liste non ordonnée</li>
+                    <li>Deuxième élément de liste non ordonnée</li>
+                    <li>Troisième élément de liste non ordonnée</li>
+                </ul>
+
+                <h3>2. Liste correcte avec une liste imbriquée dans un &lt;li&gt; (aucune anomalie attendue)</h3>
+
+                <ol>
+                    <li>Première étape</li>
+                    <li>Deuxième étape
+                        <ul>
+                            <li>Sous-étape a</li>
+                            <li>Sous-étape b</li>
+                        </ul>
+                    </li>
+                    <li>Troisième étape</li>
+                </ol>
+
+                <h3>3. Liste avec des enfants directs qui ne sont pas des &lt;li&gt; (anomalie attendue)</h3>
+
+                <ul>
+                    <li>Élément de liste valide</li>
+                    <div>Un &lt;div&gt; placé directement dans la liste</div>
+                    <p>Un &lt;p&gt; placé directement dans la liste</p>
+                    <li>Autre élément de liste valide</li>
+                </ul>
+
+                <h3>4. Liste avec un &lt;span&gt; et un &lt;a&gt; comme enfants directs (anomalie attendue)</h3>
+
+                <ol>
+                    <span>Un &lt;span&gt; placé directement dans la liste</span>
+                    <li>Élément de liste valide</li>
+                    <a href="#">Un lien placé directement dans la liste</a>
+                </ol>
+
+                <h3>5. Liste imbriquée directement dans une liste (anomalies attendues)</h3>
+
+                <ul>
+                    <li>Élément de liste valide</li>
+                    <ul>
+                        <li>Liste imbriquée directement dans la liste parente</li>
+                        <li>Elle devrait être placée dans un &lt;li&gt;</li>
+                    </ul>
+                    <li>Autre élément de liste valide</li>
+                </ul>
+
+                <h3>6. Liste ordonnée imbriquée directement dans une liste non ordonnée (anomalies attendues)</h3>
+
+                <ul>
+                    <li>Élément de liste valide</li>
+                    <ol>
+                        <li>Première étape imbriquée</li>
+                        <li>Deuxième étape imbriquée</li>
+                    </ol>
+                </ul>
+
+                <h3>7. Éléments &lt;li&gt; hors de toute liste (anomalie attendue)</h3>
+
+                <div>
+                    <li>Un &lt;li&gt; enfant direct d'un &lt;div&gt;</li>
+                    <li>Un autre &lt;li&gt; enfant direct d'un &lt;div&gt;</li>
+                </div>
+
+                <h3>8. Navigation avec une liste correcte (aucune anomalie attendue)</h3>
+
+                <nav aria-label="Navigation de test">
+                    <ul>
+                        <li><a href="#test1">Lien de navigation 1</a></li>
+                        <li><a href="#test2">Lien de navigation 2</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </section>
+    </main>
+    <footer role="contentinfo">
+        <div class="container">
+            <p>
+                © <span id="currentYear"></span> - <a href="https://www.numerik-ea.fr">numerik-ea</a>
+                |
+                <a href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2">
+                    Contribuer à ce site
+                </a>
+            </p>
+        </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+</body>
+</html>

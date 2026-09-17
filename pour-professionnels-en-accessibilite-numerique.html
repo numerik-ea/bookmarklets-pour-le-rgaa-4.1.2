@@ -16,6 +16,33 @@ layout: bookmarklets
         </button>
         <div class="changelog" id="changelog" hidden>
             <div class="changelog-entry">
+                <h3>Version 2026.9.17 - 17 septembre 2026</h3>
+                <ul>
+                    <li>Ajout du bookmarklet "9.3 - Vérifier la structure
+                        des listes" : il contrôle dans la console que chaque
+                        &lt;ul&gt; / &lt;ol&gt; n'a que des &lt;li&gt; comme
+                        enfants directs, qu'aucune liste n'est imbriquée
+                        directement dans une autre liste (elle doit être
+                        placée dans un &lt;li&gt;) et qu'aucun &lt;li&gt;
+                        n'est situé hors d'une &lt;ul&gt; ou d'une
+                        &lt;ol&gt; ; le nombre d'anomalies est résumé dans
+                        une alerte qui renvoie vers la console, où le détail
+                        est affiché après nettoyage de celle-ci</li>
+                    <li>9.3 - La vérification de la structure des listes
+                        analyse le document principal, les shadow DOM (y
+                        compris imbriqués) et les iframes et frames de même
+                        origine (y compris imbriquées et celles placées dans
+                        un shadow DOM) ; les iframes d'origine différente,
+                        non analysables, sont comptées et listées dans la
+                        console</li>
+                    <li>Ajout des pages de test
+                        "9.3-test-structure-listes.html",
+                        "9.3-test-structure-listes-conforme.html",
+                        "9.3-test-structure-listes-shadow-dom.html" et
+                        "9.3-test-structure-listes-iframe.html"</li>
+                </ul>
+            </div>
+            <div class="changelog-entry">
                 <h3>Version 2026.9.11 - 11 septembre 2026</h3>
                 <ul>
                     <li>8.9 - Vérification des textes dans des balises non

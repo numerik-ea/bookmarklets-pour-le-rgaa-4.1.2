@@ -170,6 +170,18 @@ professionnels-en-accessibilite-numerique:
     test-pages:
       - file: 9.3-test-shadow-dom.html
         label: "Test 9.3 - Identifier les listes avec Shadow DOM"
+  - name: 9.3-verifier-structure-listes
+    title: "9.3 - Vérifier la structure des listes"
+    last-updated: 2026-09-17
+    test-pages:
+      - file: 9.3-test-structure-listes.html
+        label: "Test 9.3 - Structure des listes avec anomalies"
+      - file: 9.3-test-structure-listes-conforme.html
+        label: "Test 9.3 - Structure des listes conforme"
+      - file: 9.3-test-structure-listes-shadow-dom.html
+        label: "Test 9.3 - Structure des listes avec Shadow DOM"
+      - file: 9.3-test-structure-listes-iframe.html
+        label: "Test 9.3 - Structure des listes avec iframes"
   - name: 9.4-test-presence-elements-de-citations
     last-updated: 2026-01-13
     test-pages:
