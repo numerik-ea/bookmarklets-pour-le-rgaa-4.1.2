@@ -19,15 +19,29 @@ layout: bookmarklets
                 <h3>Version 2026.9.17 - 17 septembre 2026</h3>
                 <ul>
                     <li>Ajout du bookmarklet "9.3 - Vérifier la structure
-                        des listes" : il contrôle dans la console que chaque
-                        &lt;ul&gt; / &lt;ol&gt; n'a que des &lt;li&gt; comme
-                        enfants directs, qu'aucune liste n'est imbriquée
-                        directement dans une autre liste (elle doit être
-                        placée dans un &lt;li&gt;) et qu'aucun &lt;li&gt;
-                        n'est situé hors d'une &lt;ul&gt; ou d'une
-                        &lt;ol&gt; ; le nombre d'anomalies est résumé dans
-                        une alerte qui renvoie vers la console, où le détail
-                        est affiché après nettoyage de celle-ci</li>
+                        des listes", qui couvre les trois tests du critère :
+                        les listes non ordonnées et ordonnées (9.3.1 et
+                        9.3.2), en HTML &lt;ul&gt; / &lt;ol&gt; / &lt;li&gt;
+                        comme en ARIA role=list / role=listitem, et les
+                        listes de description (9.3.3) &lt;dl&gt; /
+                        &lt;dt&gt; / &lt;dd&gt;</li>
+                    <li>9.3 - Contrôles effectués : enfants directs
+                        interdits dans une liste, liste imbriquée directement
+                        dans une autre liste (elle doit être placée dans un
+                        &lt;li&gt;), &lt;li&gt; et role=listitem situés hors
+                        d'une liste, enfants directs d'une &lt;dl&gt; autres
+                        que &lt;dt&gt;, &lt;dd&gt; ou &lt;div&gt; de groupe,
+                        &lt;dt&gt; sans &lt;dd&gt;, &lt;dd&gt; sans
+                        &lt;dt&gt;, &lt;dl&gt; vide et &lt;dt&gt; / &lt;dd&gt;
+                        situés hors d'une &lt;dl&gt;</li>
+                    <li>9.3 - Les &lt;ul&gt; / &lt;ol&gt; dont un role
+                        remplace la sémantique de liste (role=tablist,
+                        role=menu, role=listbox, role=presentation...) sont
+                        signalés comme étant à vérifier manuellement, sans
+                        être comptés comme des anomalies</li>
+                    <li>9.3 - Le nombre d'anomalies est résumé dans une
+                        alerte qui renvoie vers la console, où le détail est
+                        affiché après nettoyage de celle-ci</li>
                     <li>9.3 - La vérification de la structure des listes
                         analyse le document principal, les shadow DOM (y
                         compris imbriqués) et les iframes et frames de même

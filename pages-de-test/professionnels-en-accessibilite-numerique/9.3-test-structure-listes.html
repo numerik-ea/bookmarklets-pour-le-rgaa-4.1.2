@@ -23,8 +23,8 @@
                 <h2>Informations sur le test</h2>
                 <p>Cette page est utilisée pour tester les bookmarklets d'accessibilité RGAA 4.1.2.</p>
                 <p>Nom du fichier : 9.3-test-structure-listes.html</p>
-                <p>Description du test : Cette page contient des listes dont la structure est incorrecte (enfants directs autres que des <code>&lt;li&gt;</code>, listes imbriquées directement dans une liste, <code>&lt;li&gt;</code> hors liste) afin de tester le bookmarklet "9.3 - Vérifier la structure des listes".</p>
-                <p>Résultat attendu dans la console : les listes correctes sont signalées par un ✅, chaque anomalie est signalée par un ❌ et le total des anomalies est affiché en fin d'audit.</p>
+                <p>Description du test : Cette page contient des listes dont la structure est incorrecte, pour les trois tests du critère 9.3 : listes non ordonnées et ordonnées (9.3.1 et 9.3.2, en HTML <code>&lt;ul&gt;</code>/<code>&lt;ol&gt;</code> et en ARIA <code>role=list</code>/<code>role=listitem</code>) et listes de description (9.3.3, <code>&lt;dl&gt;</code>/<code>&lt;dt&gt;</code>/<code>&lt;dd&gt;</code>).</p>
+                <p>Résultat attendu dans la console : les listes correctes sont signalées par un ✅, chaque anomalie est signalée par un ❌, les points à vérifier manuellement par un ⚠️, et le total des anomalies est affiché en fin d'audit. Cette page produit 14 anomalies sur 18 listes analysées, plus 1 liste dont la sémantique est remplacée par un role (à vérifier manuellement).</p>
             </div>
 
             <div class="test-content">
@@ -104,6 +104,93 @@
                         <li><a href="#test2">Lien de navigation 2</a></li>
                     </ul>
                 </nav>
+
+                <h3>9. Liste ARIA correcte (aucune anomalie attendue)</h3>
+
+                <div role="list">
+                    <div role="listitem">Premier élément de liste ARIA</div>
+                    <div role="listitem">Deuxième élément de liste ARIA</div>
+                </div>
+
+                <h3>10. Liste ARIA avec des enfants directs sans role=listitem (anomalie attendue)</h3>
+
+                <div role="list">
+                    <div role="listitem">Élément de liste ARIA valide</div>
+                    <div>Un div sans role=listitem</div>
+                    <p>Un paragraphe sans role=listitem</p>
+                </div>
+
+                <h3>11. Éléments role=listitem hors d'un role=list (anomalie attendue)</h3>
+
+                <div>
+                    <div role="listitem">Un role=listitem sans parent role=list</div>
+                    <div role="listitem">Un autre role=listitem sans parent role=list</div>
+                </div>
+
+                <h3>12. Liste dont la sémantique est remplacée par un role (à vérifier manuellement)</h3>
+
+                <ul role="tablist">
+                    <li role="tab" tabindex="0">Onglet 1</li>
+                    <li role="tab" tabindex="-1">Onglet 2</li>
+                </ul>
+
+                <h3>13. Liste de description correcte (aucune anomalie attendue)</h3>
+
+                <dl>
+                    <dt>Premier terme</dt>
+                    <dd>Définition du premier terme</dd>
+                    <dt>Deuxième terme</dt>
+                    <dd>Première définition du deuxième terme</dd>
+                    <dd>Seconde définition du deuxième terme</dd>
+                </dl>
+
+                <h3>14. Liste de description correcte avec des groupes &lt;div&gt; (aucune anomalie attendue)</h3>
+
+                <dl>
+                    <div>
+                        <dt>Terme du premier groupe</dt>
+                        <dd>Définition du premier groupe</dd>
+                    </div>
+                    <div>
+                        <dt>Terme du second groupe</dt>
+                        <dd>Définition du second groupe</dd>
+                    </div>
+                </dl>
+
+                <h3>15. Liste de description avec un enfant direct non autorisé (anomalie attendue)</h3>
+
+                <dl>
+                    <p>Un paragraphe placé directement dans la liste de description</p>
+                    <dt>Terme</dt>
+                    <dd>Définition</dd>
+                </dl>
+
+                <h3>16. Liste de description avec un &lt;dt&gt; sans &lt;dd&gt; (anomalie attendue)</h3>
+
+                <dl>
+                    <dt>Terme avec définition</dt>
+                    <dd>Définition</dd>
+                    <dt>Terme sans définition</dt>
+                </dl>
+
+                <h3>17. Liste de description avec un &lt;dd&gt; sans &lt;dt&gt; (anomalie attendue)</h3>
+
+                <dl>
+                    <dd>Définition sans terme</dd>
+                    <dt>Terme</dt>
+                    <dd>Définition du terme</dd>
+                </dl>
+
+                <h3>18. Liste de description vide (anomalie attendue)</h3>
+
+                <dl></dl>
+
+                <h3>19. &lt;dt&gt; et &lt;dd&gt; hors d'une liste de description (anomalie attendue)</h3>
+
+                <div>
+                    <dt>Un dt enfant direct d'un div</dt>
+                    <dd>Un dd enfant direct d'un div</dd>
+                </div>
             </div>
         </section>
     </main>
