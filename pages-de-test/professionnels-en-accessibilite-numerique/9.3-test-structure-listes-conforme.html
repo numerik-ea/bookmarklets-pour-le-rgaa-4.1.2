@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test 9.3 - Structure des listes conforme</title>
+    <link rel="shortcut icon" href="../../assets/images/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+</head>
+<body class="page-test">
+    <header role="banner">
+        <div class="container">
+            <a href="javascript:history.back()" class="back-link" id="back-link">
+                <span aria-hidden="true">← </span>Retour à la page précédente
+            </a>
+            <h1>Test 9.3 - Structure des listes conforme</h1>
+        </div>
+    </header>
+
+    <main role="main" class="container">
+        <section class="test-page-section">
+            <div class="test-info">
+                <h2>Informations sur le test</h2>
+                <p>Cette page est utilisée pour tester les bookmarklets d'accessibilité RGAA 4.1.2.</p>
+                <p>Nom du fichier : 9.3-test-structure-listes-conforme.html</p>
+                <p>Description du test : Toutes les listes de cette page ont une structure correcte, pour les trois tests du critère 9.3 : listes HTML <code>&lt;ul&gt;</code>/<code>&lt;ol&gt;</code>, listes ARIA <code>role=list</code>/<code>role=listitem</code> et listes de description <code>&lt;dl&gt;</code>/<code>&lt;dt&gt;</code>/<code>&lt;dd&gt;</code>, afin de vérifier le cas sans anomalie du bookmarklet "9.3 - Vérifier la structure des listes".</p>
+                <p>Résultat attendu dans la console : un ✅ pour chaque liste et le message "Aucune anomalie de structure détectée dans les listes.".</p>
+            </div>
+
+            <div class="test-content">
+                <h2>Contenu du test</h2>
+
+                <h3>1. Liste non ordonnée simple</h3>
+
+                <ul>
+                    <li>Premier élément de liste non ordonnée</li>
+                    <li>Deuxième élément de liste non ordonnée</li>
+                    <li>Troisième élément de liste non ordonnée</li>
+                </ul>
+
+                <h3>2. Liste ordonnée simple</h3>
+
+                <ol>
+                    <li>Première étape</li>
+                    <li>Deuxième étape</li>
+                    <li>Troisième étape</li>
+                </ol>
+
+                <h3>3. Liste imbriquée correctement dans un &lt;li&gt;</h3>
+
+                <ul>
+                    <li>Élément de premier niveau</li>
+                    <li>Élément de premier niveau contenant une sous-liste
+                        <ul>
+                            <li>Élément de deuxième niveau</li>
+                            <li>Élément de deuxième niveau contenant une sous-liste
+                                <ol>
+                                    <li>Élément de troisième niveau</li>
+                                    <li>Autre élément de troisième niveau</li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>Autre élément de premier niveau</li>
+                </ul>
+
+                <h3>4. Liste dont les &lt;li&gt; contiennent d'autres balises</h3>
+
+                <ul>
+                    <li><strong>Un élément en gras</strong></li>
+                    <li><a href="#test1">Un élément contenant un lien</a></li>
+                    <li>
+                        <div>Un élément contenant un &lt;div&gt;</div>
+                    </li>
+                </ul>
+
+                <h3>5. Navigation avec une liste correcte</h3>
+
+                <nav aria-label="Navigation de test">
+                    <ul>
+                        <li><a href="#test1">Lien de navigation 1</a></li>
+                        <li><a href="#test2">Lien de navigation 2</a></li>
+                    </ul>
+                </nav>
+
+                <h3>6. Liste ARIA (role=list / role=listitem)</h3>
+
+                <div role="list">
+                    <div role="listitem">Premier élément de liste ARIA</div>
+                    <div role="listitem">Deuxième élément de liste ARIA</div>
+                    <div role="listitem">Troisième élément de liste ARIA</div>
+                </div>
+
+                <h3>7. Liste HTML avec des role=listitem explicites</h3>
+
+                <ul role="list">
+                    <li role="listitem">Premier élément</li>
+                    <li role="listitem">Deuxième élément</li>
+                </ul>
+
+                <h3>8. Liste de description simple</h3>
+
+                <dl>
+                    <dt>Premier terme</dt>
+                    <dd>Définition du premier terme</dd>
+                    <dt>Deuxième terme</dt>
+                    <dd>Première définition du deuxième terme</dd>
+                    <dd>Seconde définition du deuxième terme</dd>
+                </dl>
+
+                <h3>9. Liste de description avec des groupes &lt;div&gt;</h3>
+
+                <dl>
+                    <div>
+                        <dt>Terme du premier groupe</dt>
+                        <dd>Définition du premier groupe</dd>
+                    </div>
+                    <div>
+                        <dt>Terme du second groupe</dt>
+                        <dt>Autre terme du second groupe</dt>
+                        <dd>Définition commune aux deux termes</dd>
+                    </div>
+                </dl>
+            </div>
+        </section>
+    </main>
+    <footer role="contentinfo">
+        <div class="container">
+            <p>
+                © <span id="currentYear"></span> - <a href="https://www.numerik-ea.fr">numerik-ea</a>
+                |
+                <a href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2">
+                    Contribuer à ce site
+                </a>
+            </p>
+        </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+</body>
+</html>

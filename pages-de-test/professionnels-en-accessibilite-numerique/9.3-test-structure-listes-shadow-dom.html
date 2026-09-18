@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test 9.3 - Structure des listes avec Shadow DOM</title>
+    <link
+      rel="shortcut icon"
+      href="../../assets/images/favicon.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../../assets/css/styles.css" />
+  </head>
+  <body class="page-test">
+    <header role="banner">
+      <div class="container">
+        <a href="javascript:history.back()" class="back-link" id="back-link">
+          <span aria-hidden="true">← </span>Retour à la page précédente
+        </a>
+        <h1>Test 9.3 - Structure des listes avec Shadow DOM</h1>
+      </div>
+    </header>
+
+    <main role="main" class="container">
+      <section class="test-page-section">
+        <div class="test-info">
+          <h2>Informations sur le test</h2>
+          <p>
+            Cette page est utilisée pour tester les bookmarklets
+            d'accessibilité RGAA 4.1.2.
+          </p>
+          <p>
+            Nom du fichier : 9.3-test-structure-listes-shadow-dom.html
+          </p>
+          <p>
+            Description du test : cette page contient des listes correctes et
+            incorrectes dans le DOM principal, dans des Shadow DOM et dans des
+            Shadow DOM imbriqués, afin de vérifier que le bookmarklet "9.3 -
+            Vérifier la structure des listes" traverse bien les Shadow DOM.
+          </p>
+          <p>
+            Résultat attendu dans la console : 5 shadow roots analysés, une
+            anomalie d'enfants directs non-&lt;li&gt; dans le Shadow root 1,
+            deux anomalies (enfant direct + liste imbriquée) dans le Shadow
+            root 2, une anomalie de &lt;li&gt; mal rattachés dans le Shadow
+            root 3 et une anomalie d'enfants directs non-&lt;li&gt; dans le
+            Shadow root 5 (Shadow DOM imbriqué de niveau 2), soit 5 anomalies
+            au total.
+          </p>
+        </div>
+
+        <div class="test-content">
+          <h2>Contenu du test</h2>
+
+          <h3>Liste correcte dans le DOM principal</h3>
+
+          <ul>
+            <li>Premier élément de liste non ordonnée</li>
+            <li>Deuxième élément de liste non ordonnée</li>
+          </ul>
+
+          <h3>Shadow DOM 1 - Enfants directs qui ne sont pas des &lt;li&gt;</h3>
+
+          <div id="shadow-component-1"></div>
+
+          <h3>Shadow DOM 2 - Liste imbriquée directement dans une liste</h3>
+
+          <div id="shadow-component-2"></div>
+
+          <h3>Shadow DOM 3 - &lt;li&gt; hors de toute liste</h3>
+
+          <div id="shadow-component-3"></div>
+
+          <h3>Shadow DOM imbriqué - Liste incorrecte au niveau 2</h3>
+
+          <div id="shadow-component-nested"></div>
+        </div>
+      </section>
+    </main>
+    <footer role="contentinfo">
+      <div class="container">
+        <p>
+          © <span id="currentYear"></span> -
+          <a href="https://www.numerik-ea.fr">numerik-ea</a>
+          |
+          <a
+            href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2"
+          >
+            Contribuer à ce site
+          </a>
+        </p>
+      </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+    <script>
+      // Shadow DOM 1 : liste avec des enfants directs qui ne sont pas des <li>
+      (function () {
+        const host = document.getElementById('shadow-component-1');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+          <style>
+            .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+            h4 { margin-top: 0; }
+          </style>
+          <div class="shadow-container">
+            <h4>Shadow DOM 1 - Enfants directs incorrects</h4>
+            <ul>
+              <li>Élément de liste valide</li>
+              <div>Un div placé directement dans la liste</div>
+              <p>Un paragraphe placé directement dans la liste</p>
+            </ul>
+          </div>
+        `;
+      })();
+
+      // Shadow DOM 2 : liste imbriquée directement dans une autre liste
+      (function () {
+        const host = document.getElementById('shadow-component-2');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+          <style>
+            .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+            h4 { margin-top: 0; }
+          </style>
+          <div class="shadow-container">
+            <h4>Shadow DOM 2 - Liste imbriquée incorrectement</h4>
+            <ol>
+              <li>Première étape</li>
+              <ol>
+                <li>Sous-étape imbriquée directement dans la liste parente</li>
+              </ol>
+            </ol>
+          </div>
+        `;
+      })();
+
+      // Shadow DOM 3 : <li> hors de toute liste et liste correcte
+      (function () {
+        const host = document.getElementById('shadow-component-3');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+          <style>
+            .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+            h4 { margin-top: 0; }
+          </style>
+          <div class="shadow-container">
+            <h4>Shadow DOM 3 - &lt;li&gt; hors liste et liste correcte</h4>
+            <ul>
+              <li>Élément de liste valide</li>
+              <li>Autre élément de liste valide</li>
+            </ul>
+            <div>
+              <li>Un li enfant direct d'un div</li>
+            </div>
+          </div>
+        `;
+      })();
+
+      // Shadow DOM imbriqué : liste correcte au niveau 1, liste incorrecte au niveau 2
+      (function () {
+        const host = document.getElementById('shadow-component-nested');
+        const shadowRoot1 = host.attachShadow({ mode: 'open' });
+        shadowRoot1.innerHTML = `
+          <style>
+            .container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+            h4 { margin-top: 0; }
+          </style>
+          <div class="container">
+            <h4>Shadow DOM imbriqué (niveau 1) - Liste correcte</h4>
+            <ul>
+              <li>Élément niveau 1 - Item 1</li>
+              <li>Élément niveau 1 - Item 2</li>
+            </ul>
+            <div id="nested-shadow-host"></div>
+          </div>
+        `;
+
+        const nestedHost = shadowRoot1.querySelector('#nested-shadow-host');
+        const shadowRoot2 = nestedHost.attachShadow({ mode: 'open' });
+        shadowRoot2.innerHTML = `
+          <style>
+            .nested-container { padding: 10px; margin: 10px 0; border: 1px solid #666; }
+            h5 { margin-top: 0; }
+          </style>
+          <div class="nested-container">
+            <h5>Shadow DOM imbriqué (niveau 2) - Enfants directs incorrects</h5>
+            <ol>
+              <li>Élément niveau 2 - Étape 1</li>
+              <span>Un span placé directement dans la liste</span>
+            </ol>
+          </div>
+        `;
+      })();
+    </script>
+  </body>
+</html>

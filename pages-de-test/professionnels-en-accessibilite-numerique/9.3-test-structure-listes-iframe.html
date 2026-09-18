@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test 9.3 - Structure des listes avec iframes</title>
+    <link
+      rel="shortcut icon"
+      href="../../assets/images/favicon.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../../assets/css/styles.css" />
+    <style>
+      iframe {
+        display: block;
+        width: 100%;
+        height: 160px;
+        margin: 10px 0;
+        border: 1px solid #999;
+      }
+    </style>
+  </head>
+  <body class="page-test">
+    <header role="banner">
+      <div class="container">
+        <a href="javascript:history.back()" class="back-link" id="back-link">
+          <span aria-hidden="true">← </span>Retour à la page précédente
+        </a>
+        <h1>Test 9.3 - Structure des listes avec iframes</h1>
+      </div>
+    </header>
+
+    <main role="main" class="container">
+      <section class="test-page-section">
+        <div class="test-info">
+          <h2>Informations sur le test</h2>
+          <p>
+            Cette page est utilisée pour tester les bookmarklets
+            d'accessibilité RGAA 4.1.2.
+          </p>
+          <p>Nom du fichier : 9.3-test-structure-listes-iframe.html</p>
+          <p>
+            Description du test : cette page contient des listes correctes et
+            incorrectes dans le DOM principal et dans des iframes (simple,
+            imbriquée dans une iframe, placée dans un Shadow DOM), ainsi
+            qu'une iframe d'origine différente non analysable, afin de
+            vérifier que le bookmarklet "9.3 - Vérifier la structure des
+            listes" analyse bien le contenu des iframes de même origine.
+          </p>
+          <p>
+            Résultat attendu dans la console : 4 iframes analysées, 1 shadow
+            root analysé, 1 iframe non analysable (origine différente) et les
+            anomalies détectées dans chaque iframe (enfants directs
+            non-&lt;li&gt;, liste imbriquée directement dans une liste,
+            &lt;li&gt; hors liste).
+          </p>
+        </div>
+
+        <div class="test-content">
+          <h2>Contenu du test</h2>
+
+          <h3>Liste correcte dans le DOM principal</h3>
+
+          <ul>
+            <li>Premier élément de liste non ordonnée</li>
+            <li>Deuxième élément de liste non ordonnée</li>
+          </ul>
+
+          <h3>Iframe simple - enfants directs incorrects</h3>
+
+          <iframe
+            title="Iframe simple"
+            srcdoc="<!DOCTYPE html><html lang='fr'><body><ul><li>Élément de liste valide</li><div>Un div placé directement dans la liste</div></ul><ol><li>Première étape</li><li>Deuxième étape</li></ol></body></html>"
+          ></iframe>
+
+          <h3>Iframe imbriquée dans une iframe</h3>
+
+          <div id="nested-iframe-host"></div>
+
+          <h3>Iframe dans un Shadow DOM</h3>
+
+          <div id="shadow-iframe-host"></div>
+
+          <h3>Iframe d'origine différente (non analysable)</h3>
+
+          <iframe
+            title="Iframe d'origine différente"
+            src="https://example.com/"
+          ></iframe>
+        </div>
+      </section>
+    </main>
+    <footer role="contentinfo">
+      <div class="container">
+        <p>
+          © <span id="currentYear"></span> -
+          <a href="https://www.numerik-ea.fr">numerik-ea</a>
+          |
+          <a
+            href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2"
+          >
+            Contribuer à ce site
+          </a>
+        </p>
+      </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+    <script>
+      // Iframe imbriquée : une iframe contenant elle-même une iframe
+      (function () {
+        const host = document.getElementById('nested-iframe-host');
+        const iframe = document.createElement('iframe');
+        iframe.title = 'Iframe de niveau 1';
+        iframe.srcdoc = `<!DOCTYPE html>
+          <html lang="fr">
+            <body>
+              <p>Liste imbriquée directement dans une liste :</p>
+              <ul>
+                <li>Élément de liste valide</li>
+                <ul>
+                  <li>Liste imbriquée directement dans la liste parente</li>
+                </ul>
+              </ul>
+              <iframe
+                title="Iframe de niveau 2"
+                style="display: block; width: 100%; height: 80px; margin: 10px 0; border: 1px solid #999;"
+                srcdoc="<!DOCTYPE html><html lang='fr'><body><p>Des li hors liste :</p><div><li>Un li enfant direct d un div</li></div></body></html>"
+              ></iframe>
+            </body>
+          </html>`;
+        host.appendChild(iframe);
+      })();
+
+      // Iframe dans un Shadow DOM
+      (function () {
+        const host = document.getElementById('shadow-iframe-host');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+          <style>
+            .shadow-container { padding: 10px; margin: 10px 0; border: 1px solid #999; }
+            h4 { margin-top: 0; }
+            iframe { display: block; width: 100%; height: 120px; border: 1px solid #999; }
+          </style>
+          <div class="shadow-container">
+            <h4>Shadow DOM contenant une iframe</h4>
+            <iframe
+              title="Iframe dans un Shadow DOM"
+              srcdoc="<!DOCTYPE html><html lang='fr'><body><ol><li>Première étape</li><span>Un span placé directement dans la liste</span></ol></body></html>"
+            ></iframe>
+          </div>
+        `;
+      })();
+    </script>
+  </body>
+</html>
