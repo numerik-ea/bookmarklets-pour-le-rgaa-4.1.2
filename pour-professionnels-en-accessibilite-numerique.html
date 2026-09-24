@@ -16,6 +16,50 @@ layout: bookmarklets
         </button>
         <div class="changelog" id="changelog" hidden>
             <div class="changelog-entry">
+                <h3>Version 2026.9.24 - 24 septembre 2026</h3>
+                <ul>
+                    <li>Ajout du bookmarklet "9.1 - Lister les titres", qui
+                        liste les titres de la page, en HTML &lt;h1&gt; à
+                        &lt;h6&gt; comme en ARIA role=heading</li>
+                    <li>9.1 - Les titres sont restitués dans l'ordre du
+                        document, celui dans lequel la hiérarchie se vérifie,
+                        et non regroupés par niveau</li>
+                    <li>9.1 - Le niveau retenu est celui de l'attribut
+                        aria-level lorsqu'il est présent et valide, sinon
+                        celui de la balise &lt;hN&gt; ; un role=heading sans
+                        aria-level vaut le niveau 2, sa valeur par
+                        défaut</li>
+                    <li>9.1 - Les titres sont affichés dans une alerte sous
+                        la forme "H&lt;niveau&gt; : texte du titre"</li>
+                    <li>9.1 - La console affiche l'arbre des titres, à la
+                        manière de l'extension HeadingsMap : un cran
+                        d'indentation par niveau et, sur chaque ligne,
+                        l'objet DOM correspondant, cliquable pour atteindre
+                        l'élément dans l'inspecteur</li>
+                    <li>9.1 - La console est vidée au lancement, avant
+                        tout affichage et y compris sur une page sans titre,
+                        pour que l'arbre d'un lancement précédent ne
+                        subsiste pas</li>
+                    <li>9.1 - Au lancement, le bookmarklet demande s'il
+                        faut signaler les ruptures de hiérarchie : un
+                        premier titre qui n'est pas un H1, et tout niveau
+                        sauté vers le bas (H2 suivi d'un H4, par exemple).
+                        Revenir à un niveau supérieur n'est jamais
+                        signalé</li>
+                    <li>9.1 - Ces avertissements sont désactivés par
+                        défaut, annuler la question revenant à s'en passer :
+                        un saut de niveau n'est pas en soi une
+                        non-conformité, le critère 9.1 demandant une
+                        hiérarchie logique et non une suite de niveaux
+                        contigus. Ce sont des points à examiner, pas des
+                        échecs</li>
+                    <li>Ajout des pages de test
+                        "9.1-test-lister-les-titres.html",
+                        "9.1-test-lister-les-titres-sans-h1-initial.html" et
+                        "9.1-test-lister-les-titres-sans-titre.html"</li>
+                </ul>
+            </div>
+            <div class="changelog-entry">
                 <h3>Version 2026.9.17 - 17 septembre 2026</h3>
                 <ul>
                     <li>Ajout du bookmarklet "9.3 - Vérifier la structure

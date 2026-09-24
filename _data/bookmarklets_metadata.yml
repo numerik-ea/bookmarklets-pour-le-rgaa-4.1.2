@@ -160,6 +160,16 @@ professionnels-en-accessibilite-numerique:
         label: "Test 8.9 - Texte dans des balises non sémantiques"
       - file: 8.9-test-texte-dans-balises-non-semantiques-shadow-dom.html
         label: "Test 8.9 - Texte dans des balises non sémantiques avec Shadow DOM"
+  - name: 9.1-lister-les-titres
+    title: "9.1 - Lister les titres"
+    last-updated: 2026-09-24
+    test-pages:
+      - file: 9.1-test-lister-les-titres.html
+        label: "Test 9.1 - Lister les titres"
+      - file: 9.1-test-lister-les-titres-sans-h1-initial.html
+        label: "Test 9.1 - Page dont le premier titre n'est pas un H1"
+      - file: 9.1-test-lister-les-titres-sans-titre.html
+        label: "Test 9.1 - Page sans aucun titre"
   - name: 9.2-test-presence-header-nav-main-footer
     last-updated: 2026-01-13
     test-pages:

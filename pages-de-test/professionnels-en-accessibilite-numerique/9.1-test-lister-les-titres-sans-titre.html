@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test 9.1 - Page sans aucun titre</title>
+    <link rel="shortcut icon" href="../../assets/images/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+</head>
+<body class="page-test">
+    <header role="banner">
+        <div class="container">
+            <a href="javascript:history.back()" class="back-link" id="back-link">
+                <span aria-hidden="true">← </span>Retour à la page précédente
+            </a>
+            <p style="font-size: 2.5rem; font-weight: bold; margin: 0.67em 0;">Test 9.1 - Page sans aucun titre</p>
+        </div>
+    </header>
+
+    <main role="main" class="container">
+        <section class="test-page-section">
+            <div class="test-info">
+                <p><strong>Informations sur le test</strong></p>
+                <p>Cette page est utilisée pour tester les bookmarklets d'accessibilité RGAA 4.1.2.</p>
+                <p>Nom du fichier : 9.1-test-lister-les-titres-sans-titre.html</p>
+                <p>Description du test : cette page ne contient aucun titre, ni HTML (<code>&lt;h1&gt;</code> à <code>&lt;h6&gt;</code>) ni ARIA (<code>role="heading"</code>). Y compris dans son propre gabarit : c'est pourquoi les intitulés de cette page sont des paragraphes en gras et non des titres, contrairement aux autres pages de test.</p>
+                <p>Résultat attendu : une alerte affichant « Aucun titre trouvé sur cette page. », et une console vidée puis laissée vide. Le nettoyage a lieu même sans titre, pour que l'arbre d'un lancement précédent ne subsiste pas et ne soit pas pris pour celui de cette page. La question sur l'affichage des avertissements de hiérarchie ne doit pas être posée : elle n'intervient qu'une fois au moins un titre trouvé.</p>
+            </div>
+
+            <div class="test-content">
+                <p><strong>Contenu du test</strong></p>
+
+                <p>Ce contenu est volontairement structuré sans aucun titre, alors qu'il en aurait besoin : c'est exactement la situation que le critère 9.1 cherche à détecter.</p>
+
+                <p><strong>Premier sujet, introduit par un paragraphe en gras</strong></p>
+                <p>Un paragraphe mis en gras n'est pas un titre : il n'a ni la sémantique, ni le niveau, ni la restitution d'un titre pour les technologies d'assistance.</p>
+
+                <p><span style="font-size: 1.6rem; font-weight: bold;">Deuxième sujet, introduit par du texte agrandi en CSS</span></p>
+                <p>Un texte agrandi et mis en gras par CSS ressemble visuellement à un titre, mais n'en est pas un.</p>
+
+                <p><span style="font-size: 1.6rem; font-weight: bold;">Troisième sujet, introduit par un span sans role</span></p>
+                <p>Un <code>&lt;span&gt;</code> sans <code>role="heading"</code> ne doit pas être remonté par le bookmarklet.</p>
+
+                <div aria-level="3">Quatrième sujet, dans un div portant un aria-level sans role</div>
+                <p>Un <code>aria-level</code> sans <code>role="heading"</code> ne crée pas un titre : ce div ne doit pas être remonté.</p>
+            </div>
+        </section>
+    </main>
+    <footer role="contentinfo">
+        <div class="container">
+            <p>
+                © <span id="currentYear"></span> - <a href="https://www.numerik-ea.fr">numerik-ea</a>
+                |
+                <a href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2">
+                    Contribuer à ce site
+                </a>
+            </p>
+        </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+</body>
+</html>
