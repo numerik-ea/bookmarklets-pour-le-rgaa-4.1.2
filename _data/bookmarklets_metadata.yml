@@ -216,9 +216,14 @@ professionnels-en-accessibilite-numerique:
     test-pages:
       - file: 10.2-test-shadow-dom.html
         label: "Test 10.2 - Trouver les images en background-image avec Shadow DOM"
-  - name: 10.2_10.3-desactiver-css
-    title: "10.2 &amp; 10.3 - Désactiver CSS"
+  - name: 10.2_10.3-desactiver-css-TOGGLE
+    title: "10.2 &amp; 10.3 - Désactiver CSS TOGGLE"
     last-updated: 2026-09-24
+    test-pages:
+      - file: 10.2_10.3-test-desactiver-css.html
+        label: "Test 10.2 &amp; 10.3 - Information transmise uniquement par les CSS"
+      - file: 10.2_10.3-test-desactiver-css-shadow-dom-et-iframes.html
+        label: "Test 10.2 &amp; 10.3 - Désactiver CSS avec Shadow DOM et iframes"
   - name: 10.5-verifier-declarations-css-de-couleurs-de-fond-d-element-et-de-police
     last-updated: 2026-09-10
     test-pages:

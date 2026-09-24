@@ -1,1 +1,0 @@
-javascript:(function disableCss() { console.clear(); Array.from(document.styleSheets).forEach((style) => { const node = style.ownerNode; node.parentNode.removeChild(node); }); document.querySelectorAll('[style]').forEach((el) => { el.removeAttribute('style'); }); alert('Les feuilles de styles CSS ont été désactivées'); })();

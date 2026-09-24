@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test 10.2 &amp; 10.3 - Désactiver CSS avec Shadow DOM et iframes</title>
+    <link
+      rel="shortcut icon"
+      href="../../assets/images/favicon.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../../assets/css/styles.css" />
+    <style>
+      iframe {
+        display: block;
+        width: 100%;
+        height: 120px;
+        margin: 10px 0;
+        border: 1px solid #999;
+      }
+
+      .temoin-css {
+        padding: 10px;
+        border: 3px solid #b00020;
+        color: #b00020;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body class="page-test">
+    <header role="banner">
+      <div class="container">
+        <a href="javascript:history.back()" class="back-link" id="back-link">
+          <span aria-hidden="true">← </span>Retour à la page précédente
+        </a>
+        <h1>Test 10.2 &amp; 10.3 - Désactiver CSS avec Shadow DOM et iframes</h1>
+      </div>
+    </header>
+
+    <main role="main" class="container">
+      <section class="test-page-section">
+        <div class="test-info">
+          <h2>Informations sur le test</h2>
+          <p>
+            Cette page est utilisée pour tester les bookmarklets
+            d'accessibilité RGAA 4.1.2.
+          </p>
+          <p>
+            Nom du fichier :
+            10.2_10.3-test-desactiver-css-shadow-dom-et-iframes.html
+          </p>
+          <p>
+            Description du test : chaque contexte de la page (document
+            principal, Shadow DOM, Shadow DOM imbriqué, feuille adoptée,
+            iframes de même origine, iframe dans un Shadow DOM, iframe
+            imbriquée) contient un témoin rouge et encadré par ses propres
+            styles, afin de vérifier que le bookmarklet "10.2 &amp; 10.3 -
+            Désactiver CSS TOGGLE" désactive les styles de tous ces contextes,
+            puis les rétablit lorsqu'il est relancé.
+          </p>
+          <p>
+            Résultat attendu sans CSS : aucun témoin n'est plus rouge ni
+            encadré, sauf dans le Shadow DOM fermé et dans l'iframe d'origine
+            différente, que le bookmarklet ne peut pas atteindre.
+          </p>
+          <p>
+            Résultat attendu dans la console : 4 shadow roots traités (le
+            Shadow DOM fermé n'est pas compté), 4 iframes traitées, 1 iframe
+            non traitable (origine différente), et au total 9 feuilles de
+            styles, 1 feuille adoptée et 3 attributs style désactivés. Au second lancement, les mêmes quantités sont
+            réactivées.
+          </p>
+        </div>
+
+        <div class="test-content">
+          <h2>Contenu du test</h2>
+
+          <p class="temoin-css">Témoin du document principal</p>
+
+          <p style="color: #b00020; border: 3px solid #b00020; padding: 10px">
+            Témoin du document principal (attribut style)
+          </p>
+
+          <h3>Shadow DOM avec &lt;style&gt; et Shadow DOM imbriqué</h3>
+
+          <div id="shadow-host"></div>
+
+          <h3>Shadow DOM avec feuille adoptée (adoptedStyleSheets)</h3>
+
+          <div id="adopted-host"></div>
+
+          <h3>Shadow DOM fermé (non traitable)</h3>
+
+          <div id="closed-host"></div>
+
+          <h3>Iframe de même origine</h3>
+
+          <iframe
+            title="Iframe simple"
+            srcdoc="<!DOCTYPE html><html lang='fr'><head><style>p { padding: 10px; border: 3px solid #b00020; color: #b00020; font-weight: bold; }</style></head><body><p>Témoin de l'iframe simple</p><p style='background: #ffe0e0'>Témoin de l'iframe simple (attribut style)</p></body></html>"
+          ></iframe>
+
+          <h3>Iframe imbriquée dans une iframe</h3>
+
+          <div id="nested-iframe-host"></div>
+
+          <h3>Iframe dans un Shadow DOM</h3>
+
+          <div id="shadow-iframe-host"></div>
+
+          <h3>Iframe d'origine différente (non traitable)</h3>
+
+          <iframe
+            title="Iframe d'origine différente"
+            src="https://example.com/"
+          ></iframe>
+        </div>
+      </section>
+    </main>
+    <footer role="contentinfo">
+      <div class="container">
+        <p>
+          © <span id="currentYear"></span> -
+          <a href="https://www.numerik-ea.fr">numerik-ea</a>
+          |
+          <a
+            href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2"
+          >
+            Contribuer à ce site
+          </a>
+        </p>
+      </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+    <script>
+      const TEMOIN_CSS =
+        '.temoin { padding: 10px; border: 3px solid #b00020; color: #b00020; font-weight: bold; }';
+
+      // Shadow DOM avec <style>, contenant un Shadow DOM imbriqué
+      (function () {
+        const host = document.getElementById('shadow-host');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+          <style>${TEMOIN_CSS}</style>
+          <p class="temoin">Témoin du Shadow DOM</p>
+          <div id="nested-shadow-host"></div>
+        `;
+
+        const nestedShadowRoot = shadowRoot
+          .getElementById('nested-shadow-host')
+          .attachShadow({ mode: 'open' });
+        nestedShadowRoot.innerHTML = `
+          <style>${TEMOIN_CSS}</style>
+          <p class="temoin">Témoin du Shadow DOM imbriqué</p>
+        `;
+      })();
+
+      // Shadow DOM stylé uniquement par une feuille adoptée
+      (function () {
+        const host = document.getElementById('adopted-host');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        const sheet = new CSSStyleSheet();
+        sheet.replaceSync(TEMOIN_CSS);
+        shadowRoot.adoptedStyleSheets = [sheet];
+        shadowRoot.innerHTML = `
+          <p class="temoin">Témoin du Shadow DOM à feuille adoptée</p>
+        `;
+      })();
+
+      // Shadow DOM fermé : inaccessible depuis l'extérieur
+      (function () {
+        const host = document.getElementById('closed-host');
+        const shadowRoot = host.attachShadow({ mode: 'closed' });
+        shadowRoot.innerHTML = `
+          <style>${TEMOIN_CSS}</style>
+          <p class="temoin">Témoin du Shadow DOM fermé : il reste rouge et encadré</p>
+        `;
+      })();
+
+      // Iframe imbriquée : une iframe contenant elle-même une iframe
+      (function () {
+        const host = document.getElementById('nested-iframe-host');
+        const iframe = document.createElement('iframe');
+        iframe.title = 'Iframe de niveau 1';
+        iframe.style.height = '220px';
+        iframe.srcdoc = `<!DOCTYPE html>
+          <html lang="fr">
+            <head><style>${TEMOIN_CSS} iframe { width: 100%; height: 90px; }</style></head>
+            <body>
+              <p class="temoin">Témoin de l'iframe de niveau 1</p>
+              <iframe
+                title="Iframe de niveau 2"
+                srcdoc="<!DOCTYPE html><html lang='fr'><head><style>${TEMOIN_CSS}</style></head><body><p class='temoin'>Témoin de l'iframe de niveau 2</p></body></html>"
+              ></iframe>
+            </body>
+          </html>`;
+        host.appendChild(iframe);
+      })();
+
+      // Iframe dans un Shadow DOM
+      (function () {
+        const host = document.getElementById('shadow-iframe-host');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+          <style>iframe { display: block; width: 100%; height: 100px; border: 1px solid #999; }</style>
+          <iframe
+            title="Iframe dans un Shadow DOM"
+            srcdoc="<!DOCTYPE html><html lang='fr'><head><style>${TEMOIN_CSS}</style></head><body><p class='temoin'>Témoin de l'iframe dans un Shadow DOM</p></body></html>"
+          ></iframe>
+        `;
+      })();
+    </script>
+  </body>
+</html>
