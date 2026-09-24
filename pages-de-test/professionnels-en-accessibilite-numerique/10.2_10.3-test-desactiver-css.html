@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test 10.2 &amp; 10.3 - Désactiver CSS</title>
+    <link
+      rel="shortcut icon"
+      href="../../assets/images/favicon.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../../assets/css/styles.css" />
+    <style>
+      /* 10.2 - Information portée uniquement par du contenu généré */
+      .obligatoire::after {
+        content: ' (champ obligatoire)';
+        color: #b00020;
+        font-weight: bold;
+      }
+
+      .prix-barre::before {
+        content: 'Promotion : ';
+        font-weight: bold;
+      }
+
+      /* 10.3 - Ordre visuel différent de l'ordre du code */
+      .etapes {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        padding: 0;
+        list-style: none;
+      }
+
+      .etape-1 {
+        order: 1;
+      }
+
+      .etape-2 {
+        order: 2;
+      }
+
+      .etape-3 {
+        order: 3;
+      }
+
+      .colonnes {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+        gap: 20px;
+      }
+
+      .colonnes > div {
+        padding: 10px;
+        border: 1px solid #999;
+      }
+
+      /* 10.3 - Contenu masqué par les CSS, qui réapparaît sans CSS */
+      .masque {
+        display: none;
+      }
+
+      .temoin-css {
+        padding: 10px;
+        border: 3px solid #b00020;
+        color: #b00020;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body class="page-test">
+    <header role="banner">
+      <div class="container">
+        <a href="javascript:history.back()" class="back-link" id="back-link">
+          <span aria-hidden="true">← </span>Retour à la page précédente
+        </a>
+        <h1>Test 10.2 &amp; 10.3 - Désactiver CSS</h1>
+      </div>
+    </header>
+
+    <main role="main" class="container">
+      <section class="test-page-section">
+        <div class="test-info">
+          <h2>Informations sur le test</h2>
+          <p>
+            Cette page est utilisée pour tester les bookmarklets
+            d'accessibilité RGAA 4.1.2.
+          </p>
+          <p>Nom du fichier : 10.2_10.3-test-desactiver-css.html</p>
+          <p>
+            Description du test : cette page transmet une partie de son
+            information uniquement par les CSS (contenu généré, ordre visuel,
+            contenu masqué), dans des feuilles de styles comme dans des
+            attributs style, afin de vérifier que le bookmarklet "10.2 &amp;
+            10.3 - Désactiver CSS TOGGLE" fait apparaître ces défauts, puis
+            rétablit la page à l'identique lorsqu'il est relancé.
+          </p>
+          <p>
+            Résultat attendu sans CSS : les mentions « (champ obligatoire) »
+            et « Promotion : » disparaissent (échec 10.2) ; les étapes et les
+            colonnes s'affichent dans l'ordre du code, qui n'est pas l'ordre
+            visuel, et le texte masqué réapparaît (échec 10.3) ; le témoin
+            n'est plus ni rouge ni encadré.
+          </p>
+          <p>
+            Résultat attendu dans la console : 2 feuilles de styles et 4
+            attributs style désactivés dans le document principal. Au second
+            lancement, les mêmes quantités sont réactivées.
+          </p>
+        </div>
+
+        <div class="test-content">
+          <h2>Contenu du test</h2>
+
+          <p class="temoin-css">
+            Témoin : si ce texte est rouge et encadré, les styles du document
+            sont actifs.
+          </p>
+
+          <h3>10.2 - Information portée par du contenu généré</h3>
+
+          <p>
+            <label for="nom" class="obligatoire">Nom</label>
+            <input type="text" id="nom" name="nom" />
+          </p>
+
+          <p class="prix-barre">
+            <del>49 €</del> 29 €
+          </p>
+
+          <h3>10.3 - Ordre visuel différent de l'ordre du code</h3>
+
+          <p>Étapes de la commande, affichées de 1 à 3 :</p>
+
+          <ol class="etapes">
+            <li class="etape-3">Étape 3 : payer</li>
+            <li class="etape-1">Étape 1 : choisir un article</li>
+            <li class="etape-2">Étape 2 : saisir l'adresse</li>
+          </ol>
+
+          <p>Colonnes affichées de gauche à droite : A, B, C :</p>
+
+          <div class="colonnes">
+            <div>C</div>
+            <div>B</div>
+            <div>A</div>
+          </div>
+
+          <h3>10.3 - Positionnement par attribut style</h3>
+
+          <div style="position: relative; height: 3em">
+            <span style="position: absolute; top: 1.5em; left: 0"
+              >Second en lecture visuelle</span
+            >
+            <span style="position: absolute; top: 0; left: 0"
+              >Premier en lecture visuelle</span
+            >
+          </div>
+
+          <h3>10.3 - Contenu masqué par les CSS</h3>
+
+          <p>Ce paragraphe est visible avec ou sans CSS.</p>
+          <p class="masque">
+            Texte masqué par une feuille de styles : il ne doit apparaître
+            qu'une fois les CSS désactivés.
+          </p>
+          <p style="display: none">
+            Texte masqué par un attribut style : il ne doit apparaître qu'une
+            fois les CSS désactivés.
+          </p>
+        </div>
+      </section>
+    </main>
+    <footer role="contentinfo">
+      <div class="container">
+        <p>
+          © <span id="currentYear"></span> -
+          <a href="https://www.numerik-ea.fr">numerik-ea</a>
+          |
+          <a
+            href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2"
+          >
+            Contribuer à ce site
+          </a>
+        </p>
+      </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+  </body>
+</html>
