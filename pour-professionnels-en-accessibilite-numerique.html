@@ -73,6 +73,59 @@
         </button>
         <div class="changelog" id="changelog" hidden>
             <div class="changelog-entry">
+                <h3>Version 2026.9.24 - 24 septembre 2026</h3>
+                <ul>
+                    <li>Ajout du bookmarklet "10.2 &amp; 10.3 - Désactiver
+                        CSS", qui retire du document les feuilles de styles
+                        (&lt;link&gt; et &lt;style&gt;) puis les attributs
+                        style, pour vérifier que le contenu porteur
+                        d'information reste présent (10.2) et
+                        compréhensible (10.3) sans CSS</li>
+                    <li>10.2 &amp; 10.3 - La désactivation n'est pas
+                        réversible : recharger la page rétablit les
+                        styles</li>
+                    <li>Ajout du bookmarklet "9.1 - Lister les titres", qui
+                        liste les titres de la page, en HTML &lt;h1&gt; à
+                        &lt;h6&gt; comme en ARIA role=heading</li>
+                    <li>9.1 - Les titres sont restitués dans l'ordre du
+                        document, celui dans lequel la hiérarchie se vérifie,
+                        et non regroupés par niveau</li>
+                    <li>9.1 - Le niveau retenu est celui de l'attribut
+                        aria-level lorsqu'il est présent et valide, sinon
+                        celui de la balise &lt;hN&gt; ; un role=heading sans
+                        aria-level vaut le niveau 2, sa valeur par
+                        défaut</li>
+                    <li>9.1 - Les titres sont affichés dans une alerte sous
+                        la forme "H&lt;niveau&gt; : texte du titre"</li>
+                    <li>9.1 - La console affiche l'arbre des titres, à la
+                        manière de l'extension HeadingsMap : un cran
+                        d'indentation par niveau et, sur chaque ligne,
+                        l'objet DOM correspondant, cliquable pour atteindre
+                        l'élément dans l'inspecteur</li>
+                    <li>9.1 - La console est vidée au lancement, avant
+                        tout affichage et y compris sur une page sans titre,
+                        pour que l'arbre d'un lancement précédent ne
+                        subsiste pas</li>
+                    <li>9.1 - Au lancement, le bookmarklet demande s'il
+                        faut signaler les ruptures de hiérarchie : un
+                        premier titre qui n'est pas un H1, et tout niveau
+                        sauté vers le bas (H2 suivi d'un H4, par exemple).
+                        Revenir à un niveau supérieur n'est jamais
+                        signalé</li>
+                    <li>9.1 - Ces avertissements sont désactivés par
+                        défaut, annuler la question revenant à s'en passer :
+                        un saut de niveau n'est pas en soi une
+                        non-conformité, le critère 9.1 demandant une
+                        hiérarchie logique et non une suite de niveaux
+                        contigus. Ce sont des points à examiner, pas des
+                        échecs</li>
+                    <li>Ajout des pages de test
+                        "9.1-test-lister-les-titres.html",
+                        "9.1-test-lister-les-titres-sans-h1-initial.html" et
+                        "9.1-test-lister-les-titres-sans-titre.html"</li>
+                </ul>
+            </div>
+            <div class="changelog-entry">
                 <h3>Version 2026.9.17 - 17 septembre 2026</h3>
                 <ul>
                     <li>Ajout du bookmarklet "9.3 - Vérifier la structure
@@ -1687,6 +1740,87 @@
 
         
 
+        <li id="9.1-lister-les-titres"
+            data-last-updated="2026-09-24">
+            <div class="bookmarklet-container">
+                <a href="#9.1-lister-les-titres"
+                    class="bookmarklet-anchor-link"
+                    aria-label="Lien avec ancre vers le bookmarklet 9.1 - Lister les titres">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71">
+                        </path>
+                        <path
+                            d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71">
+                        </path>
+                    </svg>
+                </a>
+                <span class="tooltip">Lien avec ancre vers ce bookmarklet</span>
+                <a href="javascript:(function listHeadings() { console.clear(); function getHeadingLevel(element) { const ariaLevel = parseInt(element.getAttribute('aria-level'), 10); if (ariaLevel > 0) { return ariaLevel; } if (/^H[1-6]$/.test(element.tagName)) { return parseInt(element.tagName.substring(1), 10); } return 2; } const allHeadings = Array.from( document.querySelectorAll('h1,h2,h3,h4,h5,h6,[role=heading]') ).map((element) => ({ level: getHeadingLevel(element), element })); if (!allHeadings.length) { alert('Aucun titre trouvé sur cette page.'); return; } const showWarnings = confirm( 'Afficher les avertissements de hiérarchie dans l’arbre des titres ?' + '\n\nOK : signaler les sauts de niveau et un premier titre qui n’est ' + 'pas un H1.' + '\nAnnuler : afficher l’arbre seul (comportement par défaut).' + '\n\nCes avertissements sont des points à examiner, pas des ' + 'non-conformités : le critère 9.1 demande une hiérarchie logique, ' + 'qui peut sauter un niveau sans cesser de l’être.' ); const list = allHeadings .map((h) => `H${h.level}: ${h.element.textContent.trim()}`) .join('\n'); alert(list); console.group(`Arbre des titres (${allHeadings.length})`); let previousLevel = 0; allHeadings.forEach((h, index) => { const indent = ' '.repeat(3 * (h.level - 1)); let warning = ''; if (showWarnings) { if (index === 0 && h.level !== 1) { warning = ' ⚠️ le premier titre de la page n’est pas un H1'; } else if (h.level > previousLevel + 1) { warning = ` ⚠️ saut de niveau (H${previousLevel} → H${h.level})`; } } console.log( `${indent}H${h.level} ${h.element.textContent.trim()}${warning}`, h.element ); previousLevel = h.level; }); console.groupEnd(); })();" class="bookmarklet-link">
+                    <span>9.1 - Lister les titres</span>
+                </a>
+                <span class="tooltip">Cliquez-déposez le bookmarklet dans la
+                    barre des favoris</span>
+                <button class="copy-button" onclick="copyBookmarklet(this)"
+                    aria-label="Copier le code du bookmarklet 9.1 - Lister les titres dans le presse-papiers">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2">
+                        </rect>
+                        <path
+                            d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
+                        </path>
+                    </svg>
+                    <span class="tooltip">Copier le code du bookmarklet dans le presse-papiers</span>
+                </button>
+            </div>
+            <p class="last-updated">dernière mise à jour : 24 septembre 2026</p>
+            
+            <button type="button" class="test-pages-toggle"
+                id="pages-de-test-toggle-9.1-lister-les-titres"
+                aria-expanded="false"
+                aria-controls="pages-de-test-9.1-lister-les-titres"
+                aria-label="Pages de test pour le bookmarklet 9.1 - Lister les titres">
+                Pages de test
+                <span class="arrow" aria-hidden="true">▼</span>
+            </button>
+            <ul class="test-pages-list"
+                id="pages-de-test-9.1-lister-les-titres"
+                aria-labelledby="pages-de-test-toggle-9.1-lister-les-titres"
+                hidden>
+                
+                <li>
+                    <a
+                        href="/bookmarklets-pour-le-rgaa-4.1.2/pages-de-test/professionnels-en-accessibilite-numerique/9.1-test-lister-les-titres.html">Test 9.1 - Lister les titres</a>
+                </li>
+                
+                <li>
+                    <a
+                        href="/bookmarklets-pour-le-rgaa-4.1.2/pages-de-test/professionnels-en-accessibilite-numerique/9.1-test-lister-les-titres-sans-h1-initial.html">Test 9.1 - Page dont le premier titre n'est pas un H1</a>
+                </li>
+                
+                <li>
+                    <a
+                        href="/bookmarklets-pour-le-rgaa-4.1.2/pages-de-test/professionnels-en-accessibilite-numerique/9.1-test-lister-les-titres-sans-titre.html">Test 9.1 - Page sans aucun titre</a>
+                </li>
+                
+            </ul>
+            
+        </li>
+        
+        
+
+        
+
+        
+
+        
+
         <li id="9.2-test-presence-header-nav-main-footer"
             data-last-updated="2026-01-13">
             <div class="bookmarklet-container">
@@ -2198,6 +2332,57 @@
                 </li>
                 
             </ul>
+            
+        </li>
+        
+        
+
+        
+
+        
+
+        
+
+        <li id="10.2_10.3-desactiver-css"
+            data-last-updated="2026-09-24">
+            <div class="bookmarklet-container">
+                <a href="#10.2_10.3-desactiver-css"
+                    class="bookmarklet-anchor-link"
+                    aria-label="Lien avec ancre vers le bookmarklet 10.2 &amp; 10.3 - Désactiver CSS">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71">
+                        </path>
+                        <path
+                            d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71">
+                        </path>
+                    </svg>
+                </a>
+                <span class="tooltip">Lien avec ancre vers ce bookmarklet</span>
+                <a href="javascript:(function disableCss() { console.clear(); Array.from(document.styleSheets).forEach((style) => { const node = style.ownerNode; node.parentNode.removeChild(node); }); document.querySelectorAll('[style]').forEach((el) => { el.removeAttribute('style'); }); alert('Les feuilles de styles CSS ont été désactivées'); })();" class="bookmarklet-link">
+                    <span>10.2 &amp; 10.3 - Désactiver CSS</span>
+                </a>
+                <span class="tooltip">Cliquez-déposez le bookmarklet dans la
+                    barre des favoris</span>
+                <button class="copy-button" onclick="copyBookmarklet(this)"
+                    aria-label="Copier le code du bookmarklet 10.2 &amp; 10.3 - Désactiver CSS dans le presse-papiers">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2">
+                        </rect>
+                        <path
+                            d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1">
+                        </path>
+                    </svg>
+                    <span class="tooltip">Copier le code du bookmarklet dans le presse-papiers</span>
+                </button>
+            </div>
+            <p class="last-updated">dernière mise à jour : 24 septembre 2026</p>
             
         </li>
         

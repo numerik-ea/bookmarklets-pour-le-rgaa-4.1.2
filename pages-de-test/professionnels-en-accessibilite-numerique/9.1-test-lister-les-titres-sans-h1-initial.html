@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test 9.1 - Page dont le premier titre n'est pas un H1</title>
+    <link rel="shortcut icon" href="../../assets/images/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+</head>
+<body class="page-test">
+    <header role="banner">
+        <div class="container">
+            <a href="javascript:history.back()" class="back-link" id="back-link">
+                <span aria-hidden="true">← </span>Retour à la page précédente
+            </a>
+            <h2>Test 9.1 - Page dont le premier titre n'est pas un H1</h2>
+        </div>
+    </header>
+
+    <main role="main" class="container">
+        <section class="test-page-section">
+            <div class="test-info">
+                <h2>Informations sur le test</h2>
+                <p>Cette page est utilisée pour tester les bookmarklets d'accessibilité RGAA 4.1.2.</p>
+                <p>Nom du fichier : 9.1-test-lister-les-titres-sans-h1-initial.html</p>
+                <p>Description du test : le premier titre de cette page est un <code>&lt;h2&gt;</code>, et son unique <code>&lt;h1&gt;</code> n'arrive qu'en fin de page. Elle vérifie que l'arbre des titres signale le premier titre lorsqu'il n'est pas un H1, et qu'il ne signale pas à tort un retour à un niveau supérieur.</p>
+                <p>Au lancement, le bookmarklet vide la console, puis demande s'il faut afficher les avertissements de hiérarchie. Cette page vérifie les deux réponses. L'arbre attendu doit être le seul contenu de la console à l'issue du lancement.</p>
+                <p>Résultat attendu dans la console en répondant « Annuler », le comportement par défaut : un arbre de 5 titres, sans aucun avertissement.</p>
+                <pre id="arbre-sans-avertissements">
+   H2 Test 9.1 - Page dont le premier titre n'est pas un H1
+   H2 Informations sur le test
+   H2 Contenu du test
+      H3 Premier sous-titre de la page
+H1 Titre de niveau 1 placé en fin de page</pre>
+                <p>Résultat attendu en répondant « OK » : le même arbre, avec un seul avertissement, sur le premier titre.</p>
+                <pre id="arbre-avec-avertissements">
+   H2 Test 9.1 - Page dont le premier titre n'est pas un H1 ⚠️ le premier titre de la page n’est pas un H1
+   H2 Informations sur le test
+   H2 Contenu du test
+      H3 Premier sous-titre de la page
+H1 Titre de niveau 1 placé en fin de page</pre>
+                <p>Le dernier titre, un H1 placé après un H3, ne doit pas être signalé : revenir à un niveau supérieur ne rompt pas la hiérarchie, seul un niveau sauté vers le bas le fait.</p>
+            </div>
+
+            <div class="test-content">
+                <h2>Contenu du test</h2>
+
+                <h3>Premier sous-titre de la page</h3>
+                <p>La page démarre sa hiérarchie à H2 : aucun H1 n'a encore été rencontré à ce stade du document.</p>
+
+                <h1>Titre de niveau 1 placé en fin de page</h1>
+                <p>Ce H1 arrive après un H3. Le passage de H3 à H1 est une remontée dans la hiérarchie, pas un saut de niveau.</p>
+            </div>
+        </section>
+    </main>
+    <footer role="contentinfo">
+        <div class="container">
+            <p>
+                © <span id="currentYear"></span> - <a href="https://www.numerik-ea.fr">numerik-ea</a>
+                |
+                <a href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2">
+                    Contribuer à ce site
+                </a>
+            </p>
+        </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test 9.1 - Lister les titres</title>
+    <link rel="shortcut icon" href="../../assets/images/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+</head>
+<body class="page-test">
+    <header role="banner">
+        <div class="container">
+            <a href="javascript:history.back()" class="back-link" id="back-link">
+                <span aria-hidden="true">← </span>Retour à la page précédente
+            </a>
+            <h1>Test 9.1 - Lister les titres</h1>
+        </div>
+    </header>
+
+    <main role="main" class="container">
+        <section class="test-page-section">
+            <div class="test-info">
+                <h2>Informations sur le test</h2>
+                <p>Cette page est utilisée pour tester les bookmarklets d'accessibilité RGAA 4.1.2.</p>
+                <p>Nom du fichier : 9.1-test-lister-les-titres.html</p>
+                <p>Description du test : cette page contient des titres HTML (<code>&lt;h1&gt;</code> à <code>&lt;h6&gt;</code>) et des titres ARIA (<code>role=heading</code>, avec et sans <code>aria-level</code>), volontairement placés dans un ordre de document qui ne suit pas l'ordre des niveaux. Elle vérifie que le bookmarklet restitue les titres dans l'ordre du document et qu'il calcule le bon niveau dans chaque cas.</p>
+                <p>Les intitulés numérotant les cas de test ne sont volontairement pas des titres : ce sont des paragraphes en gras, pour que la liste produite par le bookmarklet ne contienne que les titres réellement testés.</p>
+                <p>Résultat attendu dans l'alerte : 13 titres, dans cet ordre exact (ordre du document, et non ordre des niveaux) :</p>
+                <ol>
+                    <li>H1: Test 9.1 - Lister les titres</li>
+                    <li>H2: Informations sur le test</li>
+                    <li>H2: Contenu du test</li>
+                    <li>H4: Titre h4 placé avant un h3</li>
+                    <li>H3: Titre h3 placé après un h4</li>
+                    <li>H5: Titre ARIA de niveau 5</li>
+                    <li>H2: Titre ARIA sur un div, sans aria-level</li>
+                    <li>H2: Titre ARIA sur un span, sans aria-level</li>
+                    <li>H6: Titre h2 dont aria-level vaut 6</li>
+                    <li>H1: Titre h6 avec role=heading et aria-level=1</li>
+                    <li>H2: Titre avec des espaces superflues et une balise imbriquée</li>
+                    <li>H3: Titre h3 dont aria-level vaut 0</li>
+                    <li>H2: Titre ARIA dont aria-level n'est pas un nombre</li>
+                </ol>
+                <p>Au lancement, le bookmarklet vide la console, puis demande s'il faut afficher les avertissements de hiérarchie. Cette page vérifie les deux réponses. L'arbre attendu doit être le seul contenu de la console à l'issue du lancement.</p>
+                <p>Résultat attendu dans la console en répondant « Annuler », le comportement par défaut : l'arbre seul, indenté d'un cran par niveau, chaque ligne étant accompagnée de l'objet DOM correspondant.</p>
+                <pre id="arbre-sans-avertissements">
+H1 Test 9.1 - Lister les titres
+   H2 Informations sur le test
+   H2 Contenu du test
+         H4 Titre h4 placé avant un h3
+      H3 Titre h3 placé après un h4
+            H5 Titre ARIA de niveau 5
+   H2 Titre ARIA sur un div, sans aria-level
+   H2 Titre ARIA sur un span, sans aria-level
+               H6 Titre h2 dont aria-level vaut 6
+H1 Titre h6 avec role=heading et aria-level=1
+   H2 Titre avec des espaces superflues et une balise imbriquée
+      H3 Titre h3 dont aria-level vaut 0
+   H2 Titre ARIA dont aria-level n'est pas un nombre</pre>
+                <p>Résultat attendu en répondant « OK » : le même arbre, avec trois sauts de niveau signalés.</p>
+                <pre id="arbre-avec-avertissements">
+H1 Test 9.1 - Lister les titres
+   H2 Informations sur le test
+   H2 Contenu du test
+         H4 Titre h4 placé avant un h3 ⚠️ saut de niveau (H2 → H4)
+      H3 Titre h3 placé après un h4
+            H5 Titre ARIA de niveau 5 ⚠️ saut de niveau (H3 → H5)
+   H2 Titre ARIA sur un div, sans aria-level
+   H2 Titre ARIA sur un span, sans aria-level
+               H6 Titre h2 dont aria-level vaut 6 ⚠️ saut de niveau (H2 → H6)
+H1 Titre h6 avec role=heading et aria-level=1
+   H2 Titre avec des espaces superflues et une balise imbriquée
+      H3 Titre h3 dont aria-level vaut 0
+   H2 Titre ARIA dont aria-level n'est pas un nombre</pre>
+                <p>Le premier titre de la page étant un H1, l'avertissement sur le premier titre ne doit pas apparaître ici : il est vérifié par la page de test "9.1-test-lister-les-titres-sans-h1-initial.html".</p>
+            </div>
+
+            <div class="test-content">
+                <h2>Contenu du test</h2>
+
+                <p><strong>1. Titres HTML dans un ordre de document qui ne suit pas l'ordre des niveaux</strong></p>
+
+                <h4>Titre h4 placé avant un h3</h4>
+                <p>Ces deux titres vérifient que la liste n'est pas triée par niveau : le h4 doit être restitué avant le h3.</p>
+                <h3>Titre h3 placé après un h4</h3>
+
+                <p><strong>2. Titre ARIA avec un aria-level</strong></p>
+
+                <div role="heading" aria-level="5">Titre ARIA de niveau 5</div>
+                <p>Un <code>&lt;div role="heading" aria-level="5"&gt;</code> doit être restitué en H5.</p>
+
+                <p><strong>3. Titres ARIA sans aria-level (niveau 2 par défaut)</strong></p>
+
+                <div role="heading">Titre ARIA sur un div, sans aria-level</div>
+                <span role="heading">Titre ARIA sur un span, sans aria-level</span>
+                <p>Un <code>role="heading"</code> sans <code>aria-level</code> vaut le niveau 2 : ces deux titres doivent être restitués en H2.</p>
+
+                <p><strong>4. aria-level qui surcharge le niveau de la balise</strong></p>
+
+                <h2 aria-level="6">Titre h2 dont aria-level vaut 6</h2>
+                <h6 role="heading" aria-level="1">Titre h6 avec role=heading et aria-level=1</h6>
+                <p><code>aria-level</code> est une propriété prise en charge par le role heading : elle prime sur le chiffre de la balise.</p>
+
+                <p><strong>5. Titre dont le texte contient des espaces superflues et une balise imbriquée</strong></p>
+
+                <h2>
+                    <span>Titre avec des espaces superflues et une balise imbriquée</span>
+                </h2>
+                <p>Le texte restitué doit être débarrassé des espaces de début et de fin.</p>
+
+                <p><strong>6. aria-level dont la valeur est invalide (repli sur la balise, puis sur le niveau 2)</strong></p>
+
+                <h3 aria-level="0">Titre h3 dont aria-level vaut 0</h3>
+                <div role="heading" aria-level="abc">Titre ARIA dont aria-level n'est pas un nombre</div>
+                <p><code>aria-level</code> doit valoir au moins 1 : une valeur invalide est ignorée, le niveau retombe sur celui de la balise (H3 pour le h3) puis sur le niveau 2 par défaut (pour le div).</p>
+            </div>
+        </section>
+    </main>
+    <footer role="contentinfo">
+        <div class="container">
+            <p>
+                © <span id="currentYear"></span> - <a href="https://www.numerik-ea.fr">numerik-ea</a>
+                |
+                <a href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2">
+                    Contribuer à ce site
+                </a>
+            </p>
+        </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+</body>
+</html>
