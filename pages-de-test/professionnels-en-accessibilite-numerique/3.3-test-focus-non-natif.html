@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test 3.3 - Éléments avec un focus non natif</title>
+    <link
+      rel="shortcut icon"
+      href="../../assets/images/favicon.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../../assets/css/styles.css" />
+    <style>
+      .test-content a,
+      .test-content button,
+      .test-content input,
+      [tabindex] {
+        margin: 4px 0;
+      }
+
+      /* 1. Outline personnalisé, de faible contraste */
+      .focus-outline:focus {
+        outline: 3px solid #e0e0e0;
+        outline-offset: 2px;
+      }
+
+      /* 2. Outline remplacé par une ombre portée, en :focus-visible */
+      .focus-visible-shadow:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 3px #1a4d8f;
+      }
+
+      /* 3. Outline supprimé hors :focus, sans autre indicateur */
+      .no-outline {
+        outline: none;
+      }
+
+      /* 4. Outline rendu transparent (technique de Tailwind), sans autre
+         indicateur */
+      .transparent-outline:focus {
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+      }
+
+      /* 5. Focus supprimé à la souris, remplacé au clavier */
+      .mouse-only:focus:not(:focus-visible) {
+        outline: none;
+      }
+
+      .mouse-only:focus-visible {
+        outline: 2px dashed #b00020;
+      }
+
+      /* 6. Groupe de champs mis en évidence par :focus-within */
+      .field-group {
+        padding: 8px;
+      }
+
+      .field-group:focus-within {
+        background-color: #fff3cd;
+      }
+
+      /* 7 et 8. Carte focusable et titre stylé lors du focus de la carte */
+      .card {
+        padding: 8px;
+        border: 1px solid #999;
+      }
+
+      .card:focus {
+        outline: 2px solid #333;
+      }
+
+      .card:focus .card-title {
+        text-decoration: underline;
+      }
+
+      /* 9. Composant personnalisé focusable (tabindex="0") */
+      .custom-widget {
+        display: inline-block;
+        padding: 8px;
+        border: 2px solid #ccc;
+      }
+
+      .custom-widget:focus {
+        border-color: #005fcc;
+      }
+
+      /* 10. Indicateur de focus dessiné par un pseudo-élément */
+      .pseudo-link {
+        position: relative;
+      }
+
+      .pseudo-link:focus::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -4px;
+        border-bottom: 3px solid #999;
+      }
+
+      /* 11. Règle de focus dans une media query (inactive sur un écran de
+         plus de 600px) */
+      @media (max-width: 600px) {
+        .media-link:focus {
+          outline: 2px solid green;
+        }
+      }
+
+      /* 12. Règle de focus écrite en CSS nesting */
+      .nested {
+        &:focus {
+          outline: 2px solid purple;
+        }
+      }
+    </style>
+  </head>
+  <body class="page-test">
+    <header role="banner">
+      <div class="container">
+        <a href="javascript:history.back()" class="back-link" id="back-link">
+          <span aria-hidden="true">← </span>Retour à la page précédente
+        </a>
+        <h1>Test 3.3 - Éléments avec un focus non natif</h1>
+      </div>
+    </header>
+
+    <main role="main" class="container">
+      <section class="test-page-section">
+        <div class="test-info">
+          <h2>Informations sur le test</h2>
+          <p>
+            Cette page est utilisée pour tester les bookmarklets
+            d'accessibilité RGAA 4.1.2.
+          </p>
+          <p>Nom du fichier : 3.3-test-focus-non-natif.html</p>
+          <p>
+            Description du test : cette page contient des éléments dont le
+            focus est stylé par le site, de toutes les façons courantes
+            (:focus, :focus-visible, :focus-within, focus d'un ancêtre,
+            pseudo-élément, media query, CSS nesting, outline supprimé ou
+            transparent, attribut style), ainsi que des éléments au focus
+            natif qui ne doivent pas être listés.
+          </p>
+          <p>
+            Résultat attendu : 13 éléments avec un focus non natif (numérotés
+            de 1 à 13 ci-dessous), dont 3 signalés par ⚠️ car leur outline est
+            supprimé sans autre indicateur (n°3, n°4 et n°13). Sur une fenêtre
+            de plus de 600px de large, le n°11 est signalé comme concerné
+            uniquement par une règle @media inactive. Le lien "Retour à la page
+            précédente", stylé par la feuille du site, s'ajoute à la liste
+            lorsqu'il est affiché (page ouverte depuis une autre page).
+          </p>
+          <p>
+            Mise en évidence attendue : chaque élément listé est encadré et
+            numéroté sur la page comme dans la console, en bleu, en rouge pour
+            les n°3, n°4 et n°13, et en pointillés pour le n°11 sur une fenêtre
+            de plus de 600px de large.
+          </p>
+        </div>
+
+        <div class="test-content">
+          <h2>Contenu du test</h2>
+
+          <h3>Éléments au focus non natif</h3>
+
+          <p>
+            <a href="#" class="focus-outline">1. Lien avec un outline gris
+              clair au focus</a>
+          </p>
+          <p>
+            <button type="button" class="focus-visible-shadow">
+              2. Bouton avec une ombre portée en :focus-visible
+            </button>
+          </p>
+          <p>
+            <a href="#" class="no-outline">3. Lien dont l'outline est supprimé
+              (⚠️)</a>
+          </p>
+          <p>
+            <button type="button" class="transparent-outline">
+              4. Bouton avec un outline transparent (⚠️)
+            </button>
+          </p>
+          <p>
+            <button type="button" class="mouse-only">
+              5. Bouton sans focus à la souris, avec focus au clavier
+            </button>
+          </p>
+
+          <div class="field-group">
+            <p>6. Groupe mis en évidence par :focus-within</p>
+            <label for="field-in-group">Champ au focus natif</label>
+            <input type="text" id="field-in-group" />
+          </div>
+
+          <div class="card" tabindex="0">
+            <p>7. Carte focusable avec un outline personnalisé</p>
+            <span class="card-title">8. Titre souligné lors du focus de la
+              carte</span>
+          </div>
+
+          <p>
+            <span class="custom-widget" tabindex="0" role="button">
+              9. Composant personnalisé dont la bordure change au focus
+            </span>
+          </p>
+          <p>
+            <a href="#" class="pseudo-link">10. Lien souligné au focus par un
+              ::after</a>
+          </p>
+          <p>
+            <a href="#" class="media-link">11. Lien stylé au focus seulement
+              sous 600px de large</a>
+          </p>
+          <p>
+            <a href="#" class="nested">12. Lien stylé au focus en CSS
+              nesting</a>
+          </p>
+          <p>
+            <a href="#" style="outline: none">13. Lien dont l'outline est
+              supprimé dans l'attribut style (⚠️)</a>
+          </p>
+
+          <h3>Éléments au focus natif (à ne pas lister)</h3>
+
+          <p><a href="#">Lien au focus natif</a></p>
+          <p><button type="button">Bouton au focus natif</button></p>
+          <p>
+            <label for="native-field">Champ au focus natif</label>
+            <input type="text" id="native-field" />
+          </p>
+          <p>
+            <button type="button" class="focus-outline" disabled>
+              Bouton désactivé : il ne peut pas recevoir le focus
+            </button>
+          </p>
+          <div class="focus-outline">
+            Div sans tabindex : elle ne peut pas recevoir le focus
+          </div>
+          <p><a class="focus-outline">Lien sans href : il ne peut pas
+            recevoir le focus</a></p>
+        </div>
+      </section>
+    </main>
+    <footer role="contentinfo">
+      <div class="container">
+        <p>
+          © <span id="currentYear"></span> -
+          <a href="https://www.numerik-ea.fr">numerik-ea</a>
+          |
+          <a
+            href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2"
+          >
+            Contribuer à ce site
+          </a>
+        </p>
+      </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+  </body>
+</html>

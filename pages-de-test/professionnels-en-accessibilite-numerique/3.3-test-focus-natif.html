@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test 3.3 - Page dont tous les éléments ont un focus natif</title>
+    <link
+      rel="shortcut icon"
+      href="../../assets/images/favicon.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../../assets/css/styles.css" />
+    <style>
+      /* Styles sans rapport avec le focus : ils ne doivent pas être
+         signalés */
+      .styled-link {
+        color: #1a4d8f;
+        text-decoration: underline;
+      }
+
+      .styled-link:hover {
+        text-decoration: none;
+      }
+
+      .styled-button {
+        padding: 6px 12px;
+        border: 1px solid #333;
+      }
+    </style>
+  </head>
+  <body class="page-test">
+    <header role="banner">
+      <div class="container">
+        <a href="javascript:history.back()" class="back-link" id="back-link">
+          <span aria-hidden="true">← </span>Retour à la page précédente
+        </a>
+        <h1>Test 3.3 - Page dont tous les éléments ont un focus natif</h1>
+      </div>
+    </header>
+
+    <main role="main" class="container">
+      <section class="test-page-section">
+        <div class="test-info">
+          <h2>Informations sur le test</h2>
+          <p>
+            Cette page est utilisée pour tester les bookmarklets
+            d'accessibilité RGAA 4.1.2.
+          </p>
+          <p>Nom du fichier : 3.3-test-focus-natif.html</p>
+          <p>
+            Description du test : cette page ne contient que des éléments au
+            focus natif, dont certains sont stylés hors focus (couleur,
+            :hover, bordure), ce qui ne doit pas être confondu avec un style
+            de focus.
+          </p>
+          <p>
+            Résultat attendu : "Aucun élément avec un focus non natif
+            détecté." Seule exception : le lien "Retour à la page précédente",
+            stylé au focus par la feuille du site, est listé lorsqu'il est
+            affiché (page ouverte depuis une autre page).
+          </p>
+        </div>
+
+        <div class="test-content">
+          <h2>Contenu du test</h2>
+
+          <p><a href="#">Lien au focus natif</a></p>
+          <p>
+            <a href="#" class="styled-link">Lien stylé au survol, au focus
+              natif</a>
+          </p>
+          <p><button type="button">Bouton au focus natif</button></p>
+          <p>
+            <button type="button" class="styled-button">
+              Bouton avec une bordure, au focus natif
+            </button>
+          </p>
+          <p>
+            <label for="native-field">Champ au focus natif</label>
+            <input type="text" id="native-field" />
+          </p>
+          <p>
+            <label for="native-select">Liste au focus native</label>
+            <select id="native-select">
+              <option>Option 1</option>
+              <option>Option 2</option>
+            </select>
+          </p>
+          <div tabindex="0">Div focusable (tabindex="0") au focus natif</div>
+        </div>
+      </section>
+    </main>
+    <footer role="contentinfo">
+      <div class="container">
+        <p>
+          © <span id="currentYear"></span> -
+          <a href="https://www.numerik-ea.fr">numerik-ea</a>
+          |
+          <a
+            href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2"
+          >
+            Contribuer à ce site
+          </a>
+        </p>
+      </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+  </body>
+</html>

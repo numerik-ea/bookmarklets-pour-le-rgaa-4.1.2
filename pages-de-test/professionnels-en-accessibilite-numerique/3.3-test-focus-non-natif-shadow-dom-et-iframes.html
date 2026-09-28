@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test 3.3 - Focus non natif avec Shadow DOM et iframes</title>
+    <link
+      rel="shortcut icon"
+      href="../../assets/images/favicon.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../../assets/css/styles.css" />
+    <style>
+      iframe {
+        width: 100%;
+        height: 140px;
+        border: 1px solid #999;
+      }
+    </style>
+  </head>
+  <body class="page-test">
+    <header role="banner">
+      <div class="container">
+        <a href="javascript:history.back()" class="back-link" id="back-link">
+          <span aria-hidden="true">← </span>Retour à la page précédente
+        </a>
+        <h1>Test 3.3 - Focus non natif avec Shadow DOM et iframes</h1>
+      </div>
+    </header>
+
+    <main role="main" class="container">
+      <section class="test-page-section">
+        <div class="test-info">
+          <h2>Informations sur le test</h2>
+          <p>
+            Cette page est utilisée pour tester les bookmarklets
+            d'accessibilité RGAA 4.1.2.
+          </p>
+          <p>
+            Nom du fichier : 3.3-test-focus-non-natif-shadow-dom-et-iframes.html
+          </p>
+          <p>
+            Description du test : cette page contient des éléments au focus
+            non natif dans des Shadow DOM (feuille &lt;style&gt;, :host(:focus),
+            feuille adoptée, Shadow DOM imbriqué) et dans une iframe de même
+            origine, ainsi qu'une iframe d'une autre origine, qui ne peut pas
+            être analysée.
+          </p>
+          <p>
+            Résultat attendu : 5 shadow roots (dont 2 pour le Shadow DOM
+            imbriqué) et 1 iframe analysés, 1 iframe non analysable, et 7
+            éléments avec un focus non natif : 1 dans le document (l'hôte du
+            Shadow DOM 2, stylé par :host(:focus)), 5 dans les Shadow DOM (le
+            bouton du Shadow DOM 1, le libellé du Shadow DOM 2, stylé par
+            :host(:focus) .label, le lien du Shadow DOM 3, le bouton du Shadow
+            DOM imbriqué de niveau 1 et le champ du Shadow DOM de niveau 2) et
+            1 dans l'iframe
+            (le bouton, signalé par ⚠️ car son outline est supprimé sans autre
+            indicateur). Les liens au focus natif ne sont pas listés. Le lien
+            "Retour à la page précédente" s'ajoute à la liste lorsqu'il est
+            affiché.
+          </p>
+          <p>
+            Mise en évidence attendue : les 7 éléments sont encadrés sur la
+            page, y compris le bouton de l'iframe, encadré en rouge à sa place
+            dans l'iframe. Les badges de l'hôte du Shadow DOM 2 et de son
+            libellé, dont les cadres ont presque le même coin, sont côte à côte
+            et non superposés.
+          </p>
+        </div>
+
+        <div class="test-content">
+          <h2>Contenu du test</h2>
+
+          <h3>Lien au focus natif dans le DOM principal</h3>
+
+          <p><a href="#">Lien au focus natif</a></p>
+
+          <h3>Shadow DOM 1 - Feuille &lt;style&gt; dans le Shadow DOM</h3>
+
+          <div id="shadow-component-1"></div>
+
+          <h3>Shadow DOM 2 - Hôte focusable stylé par :host(:focus)</h3>
+
+          <div id="shadow-component-2" tabindex="0"></div>
+
+          <h3>Shadow DOM 3 - Feuille adoptée (adoptedStyleSheets)</h3>
+
+          <div id="shadow-component-3"></div>
+
+          <h3>Shadow DOM imbriqué</h3>
+
+          <div id="shadow-component-nested"></div>
+
+          <h3>Iframe de même origine</h3>
+
+          <iframe
+            title="Iframe de test de même origine"
+            srcdoc="<!DOCTYPE html><html lang='fr'><head><style>button:focus { outline: none; }</style></head><body><p><button type='button'>Bouton dont l'outline est supprimé au focus</button></p><p><a href='#'>Lien au focus natif dans l'iframe</a></p></body></html>"
+          ></iframe>
+
+          <h3>Iframe d'une autre origine (non analysable)</h3>
+
+          <iframe
+            title="Iframe de test d'une autre origine"
+            src="https://example.com/"
+          ></iframe>
+        </div>
+      </section>
+    </main>
+    <footer role="contentinfo">
+      <div class="container">
+        <p>
+          © <span id="currentYear"></span> -
+          <a href="https://www.numerik-ea.fr">numerik-ea</a>
+          |
+          <a
+            href="https://github.com/numerik-ea/bookmarklets-pour-le-rgaa-4.1.2"
+          >
+            Contribuer à ce site
+          </a>
+        </p>
+      </div>
+    </footer>
+    <script src="../../assets/js/test-page.js"></script>
+    <script>
+      // Shadow DOM 1 : bouton stylé au focus par une feuille <style> interne
+      (function () {
+        const host = document.getElementById('shadow-component-1');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+          <style>
+            button:focus { outline: 2px solid #ccc; }
+          </style>
+          <p><button type="button">Bouton avec un outline gris clair au focus</button></p>
+          <p><a href="#">Lien au focus natif dans le Shadow DOM 1</a></p>
+        `;
+      })();
+
+      // Shadow DOM 2 : hôte focusable stylé par :host(:focus), et libellé
+      // interne stylé lors du focus de l'hôte
+      (function () {
+        const host = document.getElementById('shadow-component-2');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        shadowRoot.innerHTML = `
+          <style>
+            :host { display: block; padding: 8px; border: 1px solid #999; }
+            :host(:focus) { outline: 3px solid orange; }
+            :host(:focus) .label { font-weight: bold; }
+          </style>
+          <span class="label">Composant focusable (tabindex="0" sur l'hôte)</span>
+        `;
+      })();
+
+      // Shadow DOM 3 : lien stylé au focus par une feuille adoptée
+      (function () {
+        const host = document.getElementById('shadow-component-3');
+        const shadowRoot = host.attachShadow({ mode: 'open' });
+        const sheet = new CSSStyleSheet();
+        sheet.replaceSync('a:focus-visible { background-color: yellow; }');
+        shadowRoot.adoptedStyleSheets = [sheet];
+        shadowRoot.innerHTML = `
+          <p><a href="#">Lien surligné en jaune au focus (feuille adoptée)</a></p>
+        `;
+      })();
+
+      // Shadow DOM imbriqué : bouton stylé au niveau 1, champ stylé au
+      // niveau 2
+      (function () {
+        const host = document.getElementById('shadow-component-nested');
+        const shadowRoot1 = host.attachShadow({ mode: 'open' });
+        shadowRoot1.innerHTML = `
+          <style>
+            button:focus-visible { box-shadow: 0 0 0 3px #1a4d8f; }
+          </style>
+          <p><button type="button">Bouton du Shadow DOM de niveau 1</button></p>
+          <div id="nested-shadow-host"></div>
+        `;
+
+        const nestedHost = shadowRoot1.querySelector('#nested-shadow-host');
+        const shadowRoot2 = nestedHost.attachShadow({ mode: 'open' });
+        shadowRoot2.innerHTML = `
+          <style>
+            input:focus { outline: none; border: 2px solid #aaa; }
+          </style>
+          <p>
+            <label for="nested-field">Champ du Shadow DOM de niveau 2</label>
+            <input type="text" id="nested-field" />
+          </p>
+        `;
+      })();
+    </script>
+  </body>
+</html>
