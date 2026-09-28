@@ -79,6 +79,16 @@ professionnels-en-accessibilite-numerique:
         label: "Test 2.X - 2 iframes avec un titre et 2 iframes sans titre"
       - file: 2.X-test-shadow-dom.html
         label: "Test 2.X - Test iframes et frames avec Shadow DOM"
+  - name: 3.3-lister-les-elements-avec-un-focus-non-natif
+    title: "3.3 - Lister les éléments avec un focus non natif"
+    last-updated: 2026-09-28
+    test-pages:
+      - file: 3.3-test-focus-non-natif.html
+        label: "Test 3.3 - Éléments avec un focus non natif"
+      - file: 3.3-test-focus-non-natif-shadow-dom-et-iframes.html
+        label: "Test 3.3 - Focus non natif avec Shadow DOM et iframes"
+      - file: 3.3-test-focus-natif.html
+        label: "Test 3.3 - Page dont tous les éléments ont un focus natif"
   - name: 5.X-test-presence-tableaux
     last-updated: 2026-01-13
     test-pages:

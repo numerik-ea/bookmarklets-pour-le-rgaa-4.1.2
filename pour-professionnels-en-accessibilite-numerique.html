@@ -16,6 +16,64 @@ layout: bookmarklets
         </button>
         <div class="changelog" id="changelog" hidden>
             <div class="changelog-entry">
+                <h3>Version 2026.9.28 - 28 septembre 2026</h3>
+                <ul>
+                    <li>Ajout du bookmarklet "3.3 - Lister les éléments avec
+                        un focus non natif", qui liste les éléments dont
+                        l'indicateur de focus est défini par le site et non
+                        par le navigateur : ce sont les seuls dont le
+                        contraste (3:1) est à vérifier pour le critère
+                        3.3</li>
+                    <li>3.3 - Les feuilles de style sont analysées sans
+                        déplacer le focus dans la page : règles :focus,
+                        :focus-visible et :focus-within, y compris dans les
+                        @media, @supports, @layer, les feuilles importées et
+                        le CSS nesting</li>
+                    <li>3.3 - Sont également listés les éléments stylés lors
+                        du focus d'un ancêtre (.carte:focus .titre), les
+                        indicateurs dessinés par un pseudo-élément
+                        (::before, ::after) et les éléments dont l'outline
+                        est supprimé (outline: none, outline: 0, outline
+                        transparent), y compris dans l'attribut style</li>
+                    <li>3.3 - Un élément dont l'outline est supprimé sans
+                        qu'aucune règle de focus n'apporte un autre
+                        indicateur est signalé par ⚠️ : son focus est
+                        probablement invisible (voir aussi le critère
+                        10.7)</li>
+                    <li>3.3 - Les règles placées dans une media query
+                        inactive à la taille actuelle de la fenêtre sont
+                        signalées comme telles</li>
+                    <li>3.3 - L'analyse couvre les Shadow DOM ouverts (y
+                        compris :host(:focus) et les feuilles adoptées) et
+                        les iframes de même origine ; les feuilles de style
+                        et les iframes d'une autre origine, illisibles, sont
+                        comptées et listées</li>
+                    <li>3.3 - Une alerte résume le résultat ; la console
+                        détaille, pour chaque élément, l'objet DOM cliquable
+                        et les règles concernées avec leur source</li>
+                    <li>3.3 - Les éléments trouvés sont mis en évidence sur
+                        la page par un cadre numéroté comme dans la console :
+                        bleu pour un focus non natif, rouge pour un focus
+                        probablement invisible, en pointillés lorsque seules
+                        des règles @media inactives le concernent</li>
+                    <li>3.3 - Les cadres sont posés par-dessus la page sans
+                        modifier le style des éléments, pour ne pas masquer
+                        l'indicateur de focus à vérifier, et laissent passer
+                        les clics : la page reste utilisable au clavier et à
+                        la souris. Ils suivent le redimensionnement de la
+                        fenêtre, sont retirés par le bouton "Retirer la mise
+                        en évidence" et remplacés à chaque nouveau
+                        lancement</li>
+                    <li>3.3 - Limite : les styles de focus appliqués par
+                        JavaScript (classe posée à l'événement focus, par
+                        exemple) ne sont pas détectés</li>
+                    <li>Ajout des pages de test
+                        "3.3-test-focus-non-natif.html",
+                        "3.3-test-focus-non-natif-shadow-dom-et-iframes.html"
+                        et "3.3-test-focus-natif.html"</li>
+                </ul>
+            </div>
+            <div class="changelog-entry">
                 <h3>Version 2026.9.24 - 24 septembre 2026</h3>
                 <ul>
                     <li>Ajout du bookmarklet "10.2 &amp; 10.3 - Désactiver
