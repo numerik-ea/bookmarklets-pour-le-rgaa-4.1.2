@@ -16,6 +16,26 @@ layout: bookmarklets
         </button>
         <div class="changelog" id="changelog" hidden>
             <div class="changelog-entry">
+                <h3>Version 2026.9.29 - 29 septembre 2026</h3>
+                <ul>
+                    <li>3.3 - Un élément n'est plus listé que si une
+                        propriété de la famille outline (outline,
+                        outline-style, outline-width, outline-color,
+                        outline-offset) est modifiée : un style de focus qui
+                        ne touche pas à l'outline (fond, bordure, ombre)
+                        laisse l'outline natif en place, le focus reste
+                        natif</li>
+                    <li>3.3 - Les règles de focus sans outline restent
+                        affichées dans la console pour les éléments listés,
+                        et évitent de signaler à tort un focus invisible
+                        lorsqu'elles remplacent un outline supprimé</li>
+                    <li>Mise à jour des pages de test
+                        "3.3-test-focus-non-natif.html",
+                        "3.3-test-focus-non-natif-shadow-dom-et-iframes.html"
+                        et "3.3-test-focus-natif.html"</li>
+                </ul>
+            </div>
+            <div class="changelog-entry">
                 <h3>Version 2026.9.28 - 28 septembre 2026</h3>
                 <ul>
                     <li>Ajout du bookmarklet "3.3 - Lister les éléments avec

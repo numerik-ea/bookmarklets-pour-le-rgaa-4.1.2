@@ -81,7 +81,7 @@ professionnels-en-accessibilite-numerique:
         label: "Test 2.X - Test iframes et frames avec Shadow DOM"
   - name: 3.3-lister-les-elements-avec-un-focus-non-natif
     title: "3.3 - Lister les éléments avec un focus non natif"
-    last-updated: 2026-09-28
+    last-updated: 2026-09-29
     test-pages:
       - file: 3.3-test-focus-non-natif.html
         label: "Test 3.3 - Éléments avec un focus non natif"

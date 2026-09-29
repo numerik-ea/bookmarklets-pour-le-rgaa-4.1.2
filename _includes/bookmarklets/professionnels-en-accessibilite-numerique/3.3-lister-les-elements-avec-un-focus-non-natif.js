@@ -4,10 +4,13 @@
   console.clear();
 
   // Le critère 3.3 ne s'applique pas à l'indicateur de focus natif du
-  // navigateur : seuls les éléments dont le focus est stylé par le site
-  // (règles :focus, :focus-visible, :focus-within ou outline supprimé)
-  // sont à vérifier. Ce bookmarklet les liste à partir des feuilles de
-  // style, sans jamais déplacer le focus dans la page.
+  // navigateur. Le focus est non natif dès que le site modifie une
+  // propriété de la famille outline (outline, outline-style, outline-width,
+  // outline-color, outline-offset) : seuls ces éléments sont à vérifier.
+  // Un style de focus qui ne touche pas à l'outline (fond, bordure, ombre)
+  // laisse l'outline natif en place : il ne suffit pas à lister l'élément.
+  // Ce bookmarklet les liste à partir des feuilles de style, sans jamais
+  // déplacer le focus dans la page.
 
   // Mise en évidence d'un lancement précédent : retirée avant l'analyse,
   // pour que son bouton ne soit pas lui-même analysé
@@ -68,8 +71,8 @@
     focus: 'Règle de focus',
     'focus-within': 'Règle :focus-within (focus d’un descendant)',
     ancestor: 'Stylé lors du focus d’un ancêtre',
-    outline: 'Outline supprimé hors :focus',
-    inline: 'Outline supprimé dans l’attribut style',
+    outline: 'Outline modifié hors :focus',
+    inline: 'Outline modifié dans l’attribut style',
   };
 
   function isFocusable(element) {
@@ -153,6 +156,18 @@
           : `:is(${parentSelector}) ${selector}`
       )
       .join(', ');
+  }
+
+  // La règle modifie-t-elle une propriété de la famille outline ? Le
+  // raccourci outline est décomposé en outline-style, outline-width et
+  // outline-color par le navigateur
+  function modifiesOutline(style) {
+    for (let i = 0; i < style.length; i++) {
+      if (style[i].startsWith('outline')) {
+        return true;
+      }
+    }
+    return false;
   }
 
   // Outline supprimé ou rendu invisible : "outline: none", "outline: 0",
@@ -312,12 +327,17 @@
   }
 
   function analyseStyleRule(root, rule, fullSelector, style, context) {
+    const outlineModified = modifiesOutline(style);
     const outlineRemoved = removesOutline(style);
 
     splitSelectorList(fullSelector).forEach((selector) => {
       const hasFocus = FOCUS_PSEUDO.test(selector);
 
-      if (!hasFocus && !outlineRemoved) {
+      // Hors :focus, seule une modification de l'outline change
+      // l'indicateur de focus natif. Une règle de focus sans outline est
+      // conservée : elle ne suffit pas à lister l'élément, mais peut
+      // apporter l'indicateur qui remplace un outline supprimé
+      if (!hasFocus && !outlineModified) {
         return;
       }
 
@@ -364,6 +384,7 @@
             selectors: [selector],
             declarations: style.cssText,
             pseudoElements,
+            modifiesOutline: outlineModified,
             removesOutline: outlineRemoved,
             providesIndicator: hasFocus && hasOtherDeclarations(style),
             source: context.source,
@@ -496,15 +517,16 @@
       );
     });
 
-    // Outline supprimé directement dans l'attribut style
+    // Outline modifié directement dans l'attribut style
     scope.querySelectorAll('[style]').forEach((element) => {
-      if (isFocusable(element) && removesOutline(element.style)) {
+      if (isFocusable(element) && modifiesOutline(element.style)) {
         addFinding(element, `inline`, {
           kind: 'inline',
           selectors: [`style="${element.getAttribute('style')}"`],
           declarations: element.style.cssText,
           pseudoElements: [],
-          removesOutline: true,
+          modifiesOutline: true,
+          removesOutline: removesOutline(element.style),
           providesIndicator: false,
           source: 'Attribut style',
           atRules: [],
@@ -527,16 +549,13 @@
       const records = [...findings.get(element).values()];
       findings.delete(element);
 
-      // Un élément n'est retenu que s'il est concerné par au moins une
-      // règle de focus, ou si son outline est supprimé
-      const hasFocusRule = records.some((record) =>
-        ['focus', 'focus-within', 'ancestor'].includes(record.kind)
-      );
-      const outlineRemoved = records.some((record) => record.removesOutline);
-
-      if (!hasFocusRule && !outlineRemoved) {
+      // Un élément n'est retenu que si au moins une règle modifie son
+      // outline : sinon, son indicateur de focus reste natif
+      if (!records.some((record) => record.modifiesOutline)) {
         return;
       }
+
+      const outlineRemoved = records.some((record) => record.removesOutline);
 
       locationCounts[root.location]++;
       orderedResults.push({
@@ -736,7 +755,7 @@
 
   if (total === 0) {
     message =
-      'Aucun élément avec un focus non natif détecté.\n' +
+      'Aucun élément avec un focus non natif détecté (aucune propriété outline modifiée).\n' +
       'Le focus natif du navigateur n’est pas concerné par le critère 3.3.';
   } else {
     const locationParts = [];
@@ -753,7 +772,7 @@
       locationParts.length > 1 ? ` (${locationParts.join(', ')})` : '';
 
     message =
-      `${total} élément(s) avec un focus non natif${locationSummary}.\n` +
+      `${total} élément(s) avec un focus non natif (propriété outline modifiée)${locationSummary}.\n` +
       'Vérifier que leur indicateur de focus a un contraste d’au moins 3:1 ' +
       'avec les couleurs adjacentes (critère 3.3).';
 
@@ -819,8 +838,14 @@
         );
       }
 
+      // Règle de focus sans outline : affichée en complément, elle ne
+      // suffit pas à lister l'élément
+      const label = record.modifiesOutline
+        ? KIND_LABELS[record.kind]
+        : `${KIND_LABELS[record.kind]} (sans modification de l’outline)`;
+
       console.log(
-        `${KIND_LABELS[record.kind]} : ${record.selectors.join(', ')} { ${record.declarations} }\n` +
+        `${label} : ${record.selectors.join(', ')} { ${record.declarations} }\n` +
           details.map((detail) => ` • ${detail}`).join('\n')
       );
     });
@@ -863,7 +888,7 @@
   }
 
   console.log(
-    'ℹ️ Rappel : les styles de focus ajoutés par JavaScript (classe posée à l’événement focus, par exemple) ne sont pas détectés, seules les feuilles de style et les attributs style sont analysés. Les feuilles d’une autre origine ne peuvent pas être lues.'
+    'ℹ️ Rappel : seuls les éléments dont une propriété outline est modifiée sont listés, un style de focus sans outline (fond, bordure, ombre) laissant l’outline natif en place. Les styles de focus ajoutés par JavaScript (classe posée à l’événement focus, par exemple) ne sont pas détectés, seules les feuilles de style et les attributs style sont analysés. Les feuilles d’une autre origine ne peuvent pas être lues.'
   );
 
   console.groupEnd();

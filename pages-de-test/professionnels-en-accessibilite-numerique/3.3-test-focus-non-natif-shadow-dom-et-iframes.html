@@ -56,7 +56,9 @@
             DOM imbriqué de niveau 1 et le champ du Shadow DOM de niveau 2) et
             1 dans l'iframe
             (le bouton, signalé par ⚠️ car son outline est supprimé sans autre
-            indicateur). Les liens au focus natif ne sont pas listés. Le lien
+            indicateur). Les liens au focus natif ne sont pas listés, y
+            compris le lien du Shadow DOM imbriqué de niveau 1, surligné au
+            focus sans que son outline soit modifié. Le lien
             "Retour à la page précédente" s'ajoute à la liste lorsqu'il est
             affiché.
           </p>
@@ -146,7 +148,7 @@
           <style>
             :host { display: block; padding: 8px; border: 1px solid #999; }
             :host(:focus) { outline: 3px solid orange; }
-            :host(:focus) .label { font-weight: bold; }
+            :host(:focus) .label { outline: 1px dashed orange; }
           </style>
           <span class="label">Composant focusable (tabindex="0" sur l'hôte)</span>
         `;
@@ -157,10 +159,10 @@
         const host = document.getElementById('shadow-component-3');
         const shadowRoot = host.attachShadow({ mode: 'open' });
         const sheet = new CSSStyleSheet();
-        sheet.replaceSync('a:focus-visible { background-color: yellow; }');
+        sheet.replaceSync('a:focus-visible { outline: 2px solid gold; }');
         shadowRoot.adoptedStyleSheets = [sheet];
         shadowRoot.innerHTML = `
-          <p><a href="#">Lien surligné en jaune au focus (feuille adoptée)</a></p>
+          <p><a href="#">Lien entouré d'un outline jaune au focus (feuille adoptée)</a></p>
         `;
       })();
 
@@ -171,9 +173,11 @@
         const shadowRoot1 = host.attachShadow({ mode: 'open' });
         shadowRoot1.innerHTML = `
           <style>
-            button:focus-visible { box-shadow: 0 0 0 3px #1a4d8f; }
+            button:focus-visible { outline: none; box-shadow: 0 0 0 3px #1a4d8f; }
+            a:focus-visible { background-color: yellow; }
           </style>
           <p><button type="button">Bouton du Shadow DOM de niveau 1</button></p>
+          <p><a href="#">Lien surligné au focus, outline natif conservé</a></p>
           <div id="nested-shadow-host"></div>
         `;
 
