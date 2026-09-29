@@ -57,7 +57,7 @@
       }
 
       .field-group:focus-within {
-        background-color: #fff3cd;
+        outline: 2px solid #ffc107;
       }
 
       /* 7 et 8. Carte focusable et titre stylé lors du focus de la carte */
@@ -71,10 +71,11 @@
       }
 
       .card:focus .card-title {
-        text-decoration: underline;
+        outline: 1px dotted #333;
       }
 
-      /* 9. Composant personnalisé focusable (tabindex="0") */
+      /* 9. Composant personnalisé focusable (tabindex="0") dont seule la
+         couleur de l'outline est modifiée */
       .custom-widget {
         display: inline-block;
         padding: 8px;
@@ -82,7 +83,7 @@
       }
 
       .custom-widget:focus {
-        border-color: #005fcc;
+        outline-color: #005fcc;
       }
 
       /* 10. Indicateur de focus dessiné par un pseudo-élément */
@@ -93,10 +94,8 @@
       .pseudo-link:focus::after {
         content: '';
         position: absolute;
-        left: 0;
-        right: 0;
-        bottom: -4px;
-        border-bottom: 3px solid #999;
+        inset: -4px;
+        outline: 3px solid #999;
       }
 
       /* 11. Règle de focus dans une media query (inactive sur un écran de
@@ -112,6 +111,25 @@
         &:focus {
           outline: 2px solid purple;
         }
+      }
+
+      /* Styles de focus qui ne modifient pas l'outline : l'outline natif
+         reste en place, le focus est natif */
+      .focus-background:focus {
+        background-color: #fff3cd;
+      }
+
+      .focus-border {
+        border: 2px solid #ccc;
+      }
+
+      .focus-border:focus-visible {
+        border-color: #005fcc;
+        box-shadow: 0 0 0 2px #ccc;
+      }
+
+      .native-group:focus-within {
+        background-color: #e8f0fe;
       }
     </style>
   </head>
@@ -140,7 +158,10 @@
             (:focus, :focus-visible, :focus-within, focus d'un ancêtre,
             pseudo-élément, media query, CSS nesting, outline supprimé ou
             transparent, attribut style), ainsi que des éléments au focus
-            natif qui ne doivent pas être listés.
+            natif qui ne doivent pas être listés. Le focus est non natif dès
+            qu'une propriété de la famille outline est modifiée ; un style de
+            focus qui ne touche pas à l'outline (fond, bordure, ombre) laisse
+            le focus natif.
           </p>
           <p>
             Résultat attendu : 13 éléments avec un focus non natif (numérotés
@@ -189,25 +210,26 @@
           </p>
 
           <div class="field-group">
-            <p>6. Groupe mis en évidence par :focus-within</p>
+            <p>6. Groupe entouré d'un outline par :focus-within</p>
             <label for="field-in-group">Champ au focus natif</label>
             <input type="text" id="field-in-group" />
           </div>
 
           <div class="card" tabindex="0">
             <p>7. Carte focusable avec un outline personnalisé</p>
-            <span class="card-title">8. Titre souligné lors du focus de la
-              carte</span>
+            <span class="card-title">8. Titre entouré d'un outline lors du
+              focus de la carte</span>
           </div>
 
           <p>
             <span class="custom-widget" tabindex="0" role="button">
-              9. Composant personnalisé dont la bordure change au focus
+              9. Composant personnalisé dont la couleur de l'outline change
+              au focus
             </span>
           </p>
           <p>
-            <a href="#" class="pseudo-link">10. Lien souligné au focus par un
-              ::after</a>
+            <a href="#" class="pseudo-link">10. Lien entouré au focus par
+              l'outline d'un ::after</a>
           </p>
           <p>
             <a href="#" class="media-link">11. Lien stylé au focus seulement
@@ -230,6 +252,21 @@
             <label for="native-field">Champ au focus natif</label>
             <input type="text" id="native-field" />
           </p>
+          <p>
+            <a href="#" class="focus-background">Lien dont seul le fond change
+              au focus (outline natif conservé)</a>
+          </p>
+          <p>
+            <button type="button" class="focus-border">
+              Bouton dont la bordure et l'ombre changent au focus (outline
+              natif conservé)
+            </button>
+          </p>
+          <div class="native-group">
+            <p>Groupe dont le fond change par :focus-within</p>
+            <label for="native-group-field">Champ au focus natif</label>
+            <input type="text" id="native-group-field" />
+          </div>
           <p>
             <button type="button" class="focus-outline" disabled>
               Bouton désactivé : il ne peut pas recevoir le focus
