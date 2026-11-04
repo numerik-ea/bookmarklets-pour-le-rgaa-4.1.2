@@ -59,8 +59,9 @@ layout: bookmarklets
                         </svg>
                     </a>
                     <span class="tooltip">Lien vers ce bookmarklet</span>
-                    <a href="{{ current_file_content | strip | xml_escape }}" class="bookmarklet-link">
-                        {{ bookmarklet_label }}
+                    <a href="{{ current_file_content | replace: '"', ' &quot;' |
+                        strip }}" class="bookmarklet-link">
+                        <span>{{ bookmarklet_label }}</span>
                     </a>
                     <span class="tooltip">Cliquez-déposez le bookmarklet dans la barre des favoris</span>
                     <button class="copy-button" onclick="copyBookmarklet(this)" aria-label="Copier le code du bookmarklet {{ bookmarklet_label }} dans le presse-papiers">
