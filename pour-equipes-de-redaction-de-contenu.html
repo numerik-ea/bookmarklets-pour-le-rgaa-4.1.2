@@ -59,7 +59,7 @@ layout: bookmarklets
                         </svg>
                     </a>
                     <span class="tooltip">Lien vers ce bookmarklet</span>
-                    <a href="{{ current_file_content | strip }}" class="bookmarklet-link">
+                    <a href="{{ current_file_content | strip | xml_escape }}" class="bookmarklet-link">
                         {{ bookmarklet_label }}
                     </a>
                     <span class="tooltip">Cliquez-déposez le bookmarklet dans la barre des favoris</span>
