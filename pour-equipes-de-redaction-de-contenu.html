@@ -6,7 +6,34 @@ layout: bookmarklets
 
 <section>
     <h2>Bookmarklets</h2>
-    
+
+    <!-- Changelog Section -->
+    <div class="changelog-summary">
+        <button type="button" class="changelog-toggle" id="changelog-toggle"
+            aria-expanded="false" aria-controls="changelog">
+            Voir l'historique des modifications
+            <span class="arrow" aria-hidden="true">▼</span>
+        </button>
+        <div class="changelog" id="changelog" hidden>
+            <div class="changelog-entry">
+                <h3>Version 2026.11.4 - 4 novembre 2026</h3>
+                <ul>
+                    <li>Ajout du bookmarklet "Tableaux paul adam port", portage
+                        sans jQuery du bookmarklet de Paul Adam : il affiche
+                        directement dans la page les balises et attributs de
+                        structure des tableaux (&lt;caption&gt;, &lt;th&gt;,
+                        &lt;td&gt;, <code>scope</code>, <code>headers</code>,
+                        <code>role</code>, etc.)</li>
+                    <li>Tableaux paul adam port - Prise en charge des Shadow
+                        DOM ouverts, y compris imbriqués : les références
+                        <code>headers</code> et
+                        <code>aria-labelledby</code> sont recherchées dans le
+                        même arbre que l'élément qui les porte</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
     <!-- Sort Dropdown -->
     <div class="sort-dropdown-container">
         <label class="sort-dropdown-label" for="sort-dropdown-equipes-de-redaction">Trier par :</label>

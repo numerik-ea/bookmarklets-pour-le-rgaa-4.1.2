@@ -32,6 +32,11 @@ equipes-de-redaction-de-contenu:
     test-pages:
       - file: tableaux.html
         label: "Test - Tableaux avec et sans Shadow DOM"
+  - name: tableaux-paul-adam-port
+    last-updated: 2026-11-04
+    test-pages:
+      - file: tableaux.html
+        label: "Test - Tableaux avec et sans Shadow DOM"
 
 professionnels-en-accessibilite-numerique:
   - name: 1.2-detecter-svg-sans-aria-hidden-true
