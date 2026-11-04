@@ -16,6 +16,26 @@ layout: bookmarklets
         </button>
         <div class="changelog" id="changelog" hidden>
             <div class="changelog-entry">
+                <h3>Version 2026.9.30 - 30 septembre 2026</h3>
+                <ul>
+                    <li>10.5 - Le test 10.5.2 tient compte d'une couleur de
+                        fond héritée d'un parent : un &lt;body&gt; qui
+                        déclare un <code>background-color</code> sans
+                        <code>color</code> met désormais en échec les textes
+                        qui ne déclarent pas de couleur de police</li>
+                    <li>10.5 - Une couleur de police déclarée avec la valeur
+                        par défaut du navigateur (par exemple
+                        <code>color: #000</code> sur &lt;body&gt;) est
+                        désormais reconnue comme une déclaration d'auteur</li>
+                    <li>10.5 - Pour le test 10.5.2, une couleur de police
+                        déclarée sur un parent suffit : un lien qui garde la
+                        couleur par défaut dans un &lt;body&gt; déclarant
+                        <code>color</code> n'est pas signalé</li>
+                    <li>Ajout de la page de test
+                        "10.5-test-body-avec-couleur-de-fond-seule.html"</li>
+                </ul>
+            </div>
+            <div class="changelog-entry">
                 <h3>Version 2026.9.29 - 29 septembre 2026</h3>
                 <ul>
                     <li>3.3 - Un élément n'est plus listé que si une

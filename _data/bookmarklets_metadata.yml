@@ -235,12 +235,14 @@ professionnels-en-accessibilite-numerique:
       - file: 10.2_10.3-test-desactiver-css-shadow-dom-et-iframes.html
         label: "Test 10.2 &amp; 10.3 - Désactiver CSS avec Shadow DOM et iframes"
   - name: 10.5-verifier-declarations-css-de-couleurs-de-fond-d-element-et-de-police
-    last-updated: 2026-09-10
+    last-updated: 2026-09-30
     test-pages:
       - file: 10.5-test.html
         label: "Test 10.5 - Vérifier déclarations CSS de couleurs de fond d'élément et de police"
       - file: 10.5-test-body-avec-couleurs.html
         label: "Test 10.5 - body déclarant la paire couleur de fond et couleur de police"
+      - file: 10.5-test-body-avec-couleur-de-fond-seule.html
+        label: "Test 10.5 - body déclarant une couleur de fond sans couleur de police"
       - file: 10.5-test-shadow-dom.html
         label: "Test 10.5 - shadow DOM"
   - name: 10.8-lister-les-elements-caches-et-mettre-en-avant-les-aria-hidden-true

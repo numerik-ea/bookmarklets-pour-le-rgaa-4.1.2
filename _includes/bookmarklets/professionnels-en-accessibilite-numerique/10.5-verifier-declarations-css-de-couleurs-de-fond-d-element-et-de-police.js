@@ -226,6 +226,58 @@
 
   const defaultColors = createDefaultColorResolver();
 
+  // Une déclaration de couleur de police égale à la valeur par défaut du
+  // navigateur (color: #000 sur body, très courant) est indétectable en
+  // comparant des valeurs calculées. On applique donc brièvement à tous les
+  // éléments une couleur témoin de spécificité nulle : toute déclaration
+  // d'auteur ciblant l'élément l'emporte sur elle, contrairement aux couleurs
+  // par défaut du navigateur (liens...) et aux valeurs héritées.
+  // Renvoie null si la couleur témoin n'a pas pu être appliquée.
+  const SENTINEL_TEXT_COLOR = `rgb(1, 2, 3)`;
+
+  function findElementsDeclaringTextColor() {
+    const sentinelRule = `:where(*) { color: ` + SENTINEL_TEXT_COLOR + `; }`;
+    const restoreFunctions = [];
+
+    [document, ...getAllShadowRoots()].forEach((root) => {
+      try {
+        const sheet = new CSSStyleSheet();
+        sheet.replaceSync(sentinelRule);
+        root.adoptedStyleSheets = [...root.adoptedStyleSheets, sheet];
+        restoreFunctions.push(() => {
+          root.adoptedStyleSheets = root.adoptedStyleSheets.filter(
+            (adoptedSheet) => adoptedSheet !== sheet
+          );
+        });
+      } catch (error) {
+        // Navigateur sans feuilles de styles construites : balise style
+        const styleElement = document.createElement(`style`);
+        styleElement.textContent = sentinelRule;
+        const container =
+          root === document ? document.head || document.documentElement : root;
+        container.insertBefore(styleElement, container.firstChild);
+        restoreFunctions.push(() => styleElement.remove());
+      }
+    });
+
+    const declaringElements = new WeakSet();
+    let sentinelApplied = false;
+    querySelectorAllInAllRoots(`*`).forEach((element) => {
+      if (
+        isSameColor(window.getComputedStyle(element).color, SENTINEL_TEXT_COLOR)
+      ) {
+        sentinelApplied = true;
+      } else {
+        declaringElements.add(element);
+      }
+    });
+
+    restoreFunctions.forEach((restore) => restore());
+    return sentinelApplied ? declaringElements : null;
+  }
+
+  const elementsDeclaringTextColor = findElementsDeclaringTextColor();
+
   // La couleur de police vient-elle d'une déclaration d'auteur, sur l'élément
   // lui-même ou héritée d'un parent ?
   // color étant une propriété héritée, comparer la valeur calculée à la valeur
@@ -255,7 +307,19 @@
       const parent = getParentElement(current);
       let result;
 
-      if (!parent) {
+      if (elementsDeclaringTextColor !== null) {
+        if (elementsDeclaringTextColor.has(current)) {
+          result = true;
+        } else if (
+          parent &&
+          isSameColor(computedColor, window.getComputedStyle(parent).color)
+        ) {
+          result = inheritedResult === null ? false : inheritedResult;
+        } else {
+          // Racine sans déclaration, ou couleur posée par le navigateur (lien)
+          result = false;
+        }
+      } else if (!parent) {
         result = !isSameColor(computedColor, defaultColors.get(current).color);
       } else if (
         isSameColor(computedColor, window.getComputedStyle(parent).color)
@@ -273,6 +337,23 @@
     }
 
     return inheritedResult === null ? false : inheritedResult;
+  }
+
+  // Test 10.5.2 : une déclaration de couleur de police est-elle présente « au
+  // moins, héritée d'un parent » ? Un lien qui garde la couleur par défaut du
+  // navigateur dans un body déclarant color est donc conforme.
+  function hasTextColorDeclarationInChain(element) {
+    if (elementsDeclaringTextColor === null) {
+      return hasDeclaredTextColor(element);
+    }
+    let node = element;
+    while (node) {
+      if (elementsDeclaringTextColor.has(node)) {
+        return true;
+      }
+      node = getParentElement(node);
+    }
+    return false;
   }
 
   // La couleur de fond est-elle déclarée, hors couleur de fond par défaut du navigateur ?
@@ -321,8 +402,13 @@
   analysedElements.forEach((element) => {
     const style = window.getComputedStyle(element);
     const declaredTextColor = hasDeclaredTextColor(element);
-    const declaredBackgroundColor = hasDeclaredBackgroundColor(element);
     const backgroundColorSource = findBackgroundColorSource(element);
+    // Le fond visible derrière le texte est celui de l'élément ou, à défaut,
+    // du plus proche ancêtre qui en a un (body par exemple) : il est déclaré
+    // s'il ne s'agit pas du fond par défaut du navigateur (mark, button...)
+    const declaredBackgroundColor =
+      backgroundColorSource !== null &&
+      hasDeclaredBackgroundColor(backgroundColorSource);
 
     // 10.5.1 : couleur de police déclarée sans couleur de fond, même héritée d'un parent
     if (declaredTextColor && backgroundColorSource === null) {
@@ -335,13 +421,18 @@
       });
     }
 
-    // 10.5.2 : couleur de fond déclarée sans couleur de police
-    if (declaredBackgroundColor && !declaredTextColor) {
+    // 10.5.2 : couleur de fond déclarée sans couleur de police, même héritée d'un parent
+    if (declaredBackgroundColor && !hasTextColorDeclarationInChain(element)) {
       failures1052.push({
         element: element,
         details:
           `background-color : ` +
-          style.backgroundColor +
+          window.getComputedStyle(backgroundColorSource).backgroundColor +
+          (backgroundColorSource === element
+            ? ``
+            : ` (déclaré sur l'ancêtre <` +
+              backgroundColorSource.tagName.toLowerCase() +
+              `>)`) +
           ` / color à la valeur par défaut du navigateur (` +
           style.color +
           `)`,

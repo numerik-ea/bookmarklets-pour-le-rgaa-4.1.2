@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test 10.5 - body déclarant une couleur de fond sans couleur de police</title>
+    <link rel="shortcut icon" href="../../assets/images/favicon.png" type="image/x-icon" />
+    <style>
+        /*
+         * body déclare background-color mais aucune color : tout texte qui
+         * ne déclare pas lui-même de couleur de police (ou n'en hérite pas
+         * d'un ancêtre) s'affiche sur un fond d'auteur avec la couleur de
+         * police par défaut du navigateur. Le test 10.5.2 accepte un fond
+         * « hérité d'un parent » : ces textes sont donc en échec, même si le
+         * background-color n'est pas déclaré sur l'élément lui-même.
+         */
+        body {
+            background-color: #fff8e1;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0 auto;
+            max-width: 60rem;
+            padding: 1rem 1.25rem 4rem;
+        }
+
+        /* Déclare la paire complète : n'apparaît dans aucun résultat */
+        code,
+        .ok-meme-element {
+            background-color: #f0f0f0;
+            color: #222222;
+        }
+
+        /* Conforme : color déclarée, fond hérité de body */
+        .ok-color-seule,
+        .ok-parent {
+            color: #333333;
+        }
+
+        .cas {
+            border: 1px solid;
+            padding: 0.75rem 1rem;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <header role="banner">
+        <a href="javascript:history.back()" id="back-link" class="ok-color-seule">Retour à la page précédente</a>
+        <h1 class="ok-color-seule">Test 10.5 - body déclarant une couleur de fond sans couleur de police</h1>
+    </header>
+
+    <main role="main" class="ok-parent">
+        <section>
+            <h2>Informations sur le test</h2>
+            <p>Cette page est utilisée pour tester le bookmarklet 10.5 du RGAA 4.1.2.</p>
+            <p>Nom du fichier : 10.5-test-body-avec-couleur-de-fond-seule.html</p>
+            <p><code>body</code> déclare <code>background-color: #fff8e1</code> sans <code>color</code>. Le contenu de <code>main</code> hérite d'une <code>color</code> déclarée sur <code>main</code> ; seule la section en dehors de <code>main</code> ne déclare aucune couleur de police.</p>
+
+            <h3>Résultat attendu</h3>
+            <ul>
+                <li>Aucun élément en échec sur le test 10.5.1</li>
+                <li>2 éléments en échec sur le test 10.5.2 : le titre et le paragraphe de la section « Échec attendu », en dehors de <code>main</code></li>
+                <li>Aucun élément en échec sur le test 10.5.3</li>
+            </ul>
+        </section>
+    </main>
+
+    <section class="cas">
+        <h2>Échec attendu</h2>
+        <p>Ce paragraphe s'affiche sur le fond déclaré sur body, sans couleur de police déclarée sur lui ni sur ses ancêtres.</p>
+        <p class="ok-meme-element">Conforme : ce paragraphe déclare la paire couleur de fond et couleur de police.</p>
+    </section>
+</body>
+</html>
