@@ -133,7 +133,7 @@
         }
       }
 
-      if (role === 'button') {
+      if (role === 'button' || role === 'combobox') {
         isInSemanticElement = true;
         break;
       }

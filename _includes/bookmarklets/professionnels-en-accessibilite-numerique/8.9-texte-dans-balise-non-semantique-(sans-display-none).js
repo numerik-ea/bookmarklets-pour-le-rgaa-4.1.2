@@ -113,7 +113,7 @@
 
       const role = parent.getAttribute && parent.getAttribute('role');
       if (role === 'heading' && semanticRoles.heading.includes(parent.getAttribute('aria-level'))) return false;
-      if (role === 'button') return false;
+      if (role === 'button' || role === 'combobox') return false;
       if (tagsToIgnore.includes(parent.tagName)) return false;
 
       const nextParent = parent.parentElement;

@@ -174,7 +174,7 @@
         return false;
       }
 
-      if (role === 'button') {
+      if (role === 'button' || role === 'combobox') {
         return false;
       }
 
