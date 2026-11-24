@@ -46,12 +46,17 @@ bundle exec jekyll serve --config _config.yml,_config_dev.yml --trace
 Pour voir le site en local, aller sur :  
 http://127.0.0.1:4000
 
-4. Pour tout ajout de script ou pour tout renommage de script, lancer la commande suivante pour afficher correctement les bookmarklets sur les pages web correspondantes :
+4. Pour tout ajout ou renommage de script, déclarer le bookmarklet dans `_data/bookmarklets_metadata.yml`, dans la section du dossier correspondant, pour qu'il s'affiche sur la page web correspondante :
 
-```bash
-# Générer le fichier de configuration (_data/bookmarklets_order.yml) des noms de bookmarklets dans l'ordre naturel
-php .\scripts\create_data_file_to_order_bookmarklets.php
+```yaml
+  - name: nom-du-script # nom du fichier sans l'extension .js
+    last-updated: AAAA-MM-JJ
+    test-pages: # optionnel
+      - file: page-de-test.html
+        label: "Libellé de la page de test"
 ```
+
+Pour un renommage, mettre aussi à jour la valeur `name` de l'entrée existante.
 
 ### macOS
 
