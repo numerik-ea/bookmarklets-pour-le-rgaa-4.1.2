@@ -73,6 +73,22 @@
         </button>
         <div class="changelog" id="changelog" hidden>
             <div class="changelog-entry">
+                <h3>Version 2026.11.24 - 24 novembre 2026</h3>
+                <ul>
+                    <li>Ajout du bookmarklet "Iframes paul adam port", portage
+                        sans jQuery du bookmarklet de Paul Adam : il affiche
+                        directement dans la page les iframes avec leur
+                        <code>title</code>, <code>name</code> et
+                        <code>src</code>, et signale celles qui n'ont pas de
+                        <code>title</code></li>
+                    <li>Iframes paul adam port - Prise en charge des Shadow DOM
+                        ouverts, y compris imbriqués</li>
+                    <li>Iframes paul adam port - Le badge est superposé en haut
+                        à gauche de l'iframe, sans modifier la mise en page ni
+                        la taille de l'iframe</li>
+                </ul>
+            </div>
+            <div class="changelog-entry">
                 <h3>Version 2026.11.4 - 4 novembre 2026</h3>
                 <ul>
                     <li>Ajout du bookmarklet "Tableaux paul adam port", portage
@@ -277,6 +293,49 @@
                         <span class="arrow" aria-hidden="true">▼</span>
                     </button>
                     <ul class="test-pages-list" id="pages-de-test-iframes" aria-labelledby="pages-de-test-toggle-iframes" hidden>
+                        
+                            <li>
+                                <a href="/bookmarklets-pour-le-rgaa-4.1.2/pages-de-test/equipes-de-redaction-de-contenu/iframes.html">Test - Iframes avec et sans Shadow DOM</a>
+                            </li>
+                        
+                    </ul>
+                
+            </li>
+        
+            
+            
+            <li id="iframes-paul-adam-port" data-last-updated="2026-11-24">
+                <div class="bookmarklet-container">
+                    <a href="#iframes-paul-adam-port" class="bookmarklet-anchor-link" aria-label="Lien vers ce bookmarklet">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                        </svg>
+                    </a>
+                    <span class="tooltip">Lien vers ce bookmarklet</span>
+                    <a href="javascript:(function checkIframes() { const BADGE_STYLE = 'position:absolute;box-sizing:border-box;padding:1px;color:black;font-weight:bold;font-family:sans-serif;font-size:small;background-color:yellow;z-index:2147483647;'; const MESSAGE_STYLE = 'color:black;font-weight:bold;font-family:sans-serif;font-size:small;background-color:yellow;margin:0 2px;padding:2px;'; const VISUALLY_HIDDEN_STYLE = 'position:absolute;width:0;height:0;clip:rect(0,0,0,0);'; document.querySelectorAll('.openSpan, .closeSpan, .inputSpan').forEach((span) => span.remove()); const getAllShadowRoots = (root) => { const shadowRoots = []; const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT); while (walker.nextNode()) { const { shadowRoot } = walker.currentNode; if (shadowRoot) { shadowRoots.push(shadowRoot, ...getAllShadowRoots(shadowRoot)); } } return shadowRoots; }; const iframes = [document, ...getAllShadowRoots(document)].flatMap((root) => [...root.querySelectorAll('iframe:not([aria-hidden=true])')] ); iframes.forEach((iframe) => { const title = iframe.getAttribute('title'); const name = iframe.getAttribute('name'); const src = iframe.getAttribute('src'); const nameAttribute = name ? ` name= &quot;${name} &quot;` : ''; const badge = document.createElement('span'); badge.className = 'inputSpan'; if (title) { badge.textContent = `<iframe👍title= &quot;${title} &quot;${nameAttribute} src= &quot;${src} &quot;>`; badge.style.cssText = `${BADGE_STYLE}outline:green 2px solid;`; iframe.style.outline = 'green 2px dashed'; } else { badge.textContent = `<iframe❌NO TITLE${nameAttribute} src= &quot;${src} &quot;>`; badge.style.cssText = `${BADGE_STYLE}outline:red 2px dotted;`; iframe.style.outline = 'red 2px dotted'; } iframe.style.outlineOffset = '2px'; const rect = iframe.getBoundingClientRect(); badge.style.maxWidth = `${Math.max(rect.width, 200)}px`; badge.style.left = `${rect.left + window.scrollX}px`; badge.style.top = `${rect.top + window.scrollY}px`; document.body.append(badge); }); if (iframes.length) { const success = document.createElement('div'); success.id = 'success'; success.setAttribute('role', 'alert'); success.style.cssText = VISUALLY_HIDDEN_STYLE; document.body.append(success); success.textContent = `Success! Iframes Found on Page: ${document.title}`; setTimeout(() => success.remove(), 3000); } else { const failure = document.createElement('strong'); failure.id = 'failure'; failure.setAttribute('role', 'status'); failure.style.cssText = MESSAGE_STYLE; failure.textContent = `No Iframes Found on Page: ${document.title}`; document.body.prepend(failure); setTimeout(() => failure.remove(), 6000); } })();" class="bookmarklet-link">
+                        <span>Iframes paul adam port</span>
+                    </a>
+                    <span class="tooltip">Cliquez-déposez le bookmarklet dans la barre des favoris</span>
+                    <button class="copy-button" onclick="copyBookmarklet(this)" aria-label="Copier le code du bookmarklet Iframes paul adam port dans le presse-papiers">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        <span class="tooltip">Copier le code du bookmarklet dans le presse-papiers</span>
+                    </button>
+                </div>
+                <div class="last-updated">dernière mise à jour : 24 novembre 2026</div>
+                
+                    <button type="button" class="test-pages-toggle"
+                        id="pages-de-test-toggle-iframes-paul-adam-port"
+                        aria-expanded="false"
+                        aria-controls="pages-de-test-iframes-paul-adam-port"
+                        aria-label="Pages de test pour le bookmarklet Iframes paul adam port">
+                        Pages de test
+                        <span class="arrow" aria-hidden="true">▼</span>
+                    </button>
+                    <ul class="test-pages-list" id="pages-de-test-iframes-paul-adam-port" aria-labelledby="pages-de-test-toggle-iframes-paul-adam-port" hidden>
                         
                             <li>
                                 <a href="/bookmarklets-pour-le-rgaa-4.1.2/pages-de-test/equipes-de-redaction-de-contenu/iframes.html">Test - Iframes avec et sans Shadow DOM</a>
