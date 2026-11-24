@@ -29,7 +29,11 @@ fi
 touch "$SITE_PATH/.nojekyll"
 
 # 1. Ensure gh-pages branch exists
-if ! git show-ref --verify --quiet refs/heads/gh-pages; then
+git fetch origin gh-pages 2>/dev/null || true
+if git show-ref --verify --quiet refs/remotes/origin/gh-pages; then
+    # Branche présente sur le remote : la (re)créer en local à partir d'origin/gh-pages
+    git branch -f gh-pages origin/gh-pages
+elif ! git show-ref --verify --quiet refs/heads/gh-pages; then
     echo "gh-pages branch does not exist. Creating orphan branch..."
     git checkout --orphan gh-pages
     git rm -rf . --ignore-unmatch
