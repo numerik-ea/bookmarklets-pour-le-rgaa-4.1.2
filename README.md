@@ -81,12 +81,18 @@ bundle exec jekyll serve --config _config.yml,_config_dev.yml --trace
 
 ## Déployer le site sur GitHub Pages
 
-### Windows
+### Windows et macOS
 
-Pour déployer le site statique sur la branche `gh-pages` de GitHub Pages, utilisez le script PowerShell `deploy.ps1` :
+Pour déployer le site statique sur la branche `gh-pages` de GitHub Pages, utilisez le script `deploy.ps1` (Windows, PowerShell) ou `deploy.sh` (macOS/Linux) :
 
 ```powershell
+# Sur Windows (dans PowerShell)
 .\deploy.ps1
+```
+
+```bash
+# Sur macOS
+./deploy.sh
 ```
 
 Le script effectue automatiquement les opérations suivantes :
