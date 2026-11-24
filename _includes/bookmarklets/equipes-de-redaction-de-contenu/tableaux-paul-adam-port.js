@@ -1,3 +1,8 @@
+/**
+ * Found here: https://pauljadam.com/bookmarklets/index.html
+ * source code: https://github.com/pauljadam/bookmarklets/blob/master/tables.js
+ */
+
 (function() {
     var BASE_STYLE = 'color:black;font-weight:bold;font-family:sans-serif;font-size:small;background-color:yellow;';
     var LITERAL = 'speak:literal-punctuation;';
