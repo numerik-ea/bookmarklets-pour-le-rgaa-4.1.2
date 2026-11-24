@@ -21,6 +21,11 @@ equipes-de-redaction-de-contenu:
     test-pages:
       - file: iframes.html
         label: "Test - Iframes avec et sans Shadow DOM"
+  - name: iframes-paul-adam-port
+    last-updated: 2026-11-24
+    test-pages:
+      - file: iframes.html
+        label: "Test - Iframes avec et sans Shadow DOM"
   - name: images
     last-updated: 2025-04-15
   - name: listes
